@@ -1,0 +1,79 @@
+.container {
+  direction: rtl;
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 0.2rem 2rem;
+}
+.title_login {
+  font-size: 1.7rem;
+}
+
+.loginBox {
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+
+  .phone_login {
+    position: relative;
+    span {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      padding: 1rem;
+    }
+    img {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      left: 0;
+      width: 1.7rem;
+      padding: 0.4rem;
+    }
+    input {
+      width: 15rem;
+      padding: 0.5rem;
+      font-size: 1.2rem;
+      background-color: transparent;
+      border: none;
+      border-bottom: 2px solid rgb(255, 255, 255);
+      border-radius: 0.5rem;
+      &:focus {
+        outline: none;
+      }
+    }
+  }
+  .password_login {
+    position: relative;
+    span {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      padding: 1rem;
+      &:focus {
+        opacity: 0;
+      }
+    }
+    img {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      left: 0;
+      width: 1.7rem;
+      padding: 0.4rem;
+    }
+    input {
+      width: 15rem;
+      padding: 0.5rem;
+      font-size: 1.2rem;
+      background-color: transparent;
+      border: none;
+      border-bottom: 2px solid rgb(255, 255, 255);
+      border-radius: 0.5rem;
+      &:focus {
+        outline: none;
+      }
+    }
+  }
+}
