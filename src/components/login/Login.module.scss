@@ -2,7 +2,8 @@
   direction: rtl;
   position: absolute;
   top: 0;
-  right: 0;
+  right: 50%;
+  transform: translateX(50%);
   padding: 0.2rem 2rem;
 }
 .title_login {
@@ -33,7 +34,8 @@
     }
     input {
       width: 15rem;
-      padding: 0.5rem;
+      padding: 0.5rem 0.5rem 0.5rem 2.2rem;
+      direction: ltr;
       font-size: 1.2rem;
       background-color: transparent;
       border: none;
@@ -71,9 +73,22 @@
       border: none;
       border-bottom: 2px solid rgb(255, 255, 255);
       border-radius: 0.5rem;
+      padding: 0.5rem 0.5rem 0.5rem 2.2rem;
+      direction: ltr;
       &:focus {
         outline: none;
       }
     }
+  }
+  .submitLogin {
+    font-family: sansx100;
+    background-color: transparent;
+    border-radius: 1.5rem;
+    width: fit-content;
+    padding: 0.2rem 2rem;
+    border: none;
+    font-size: 1.4rem;
+    border-bottom: 3px solid white;
+    cursor: pointer;
   }
 }

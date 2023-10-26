@@ -19,6 +19,7 @@ function Login() {
           <input type="text" />
           <img src={passicon} alt="" />
         </div>
+        <input className={styles.submitLogin} type="submit" value="ورود" />
       </div>
     </div>
   );
