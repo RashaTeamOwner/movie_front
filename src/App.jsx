@@ -1,8 +1,10 @@
+import HandleLogin from "./components/login/HandleLogin";
+
 function App() {
   return (
-    <>
-      <p>hello world</p>
-    </>
+    <div>
+      <HandleLogin />
+    </div>
   );
 }
 

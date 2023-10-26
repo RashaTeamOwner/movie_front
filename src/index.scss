@@ -1,0 +1,32 @@
+:root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+}
+
+@font-face {
+  font-family: iransans;
+  src: url("./assets/fonts/IRANSans_Light.ttf") format("woff2");
+  src: url("./assets/fonts/IRANSans_Light.ttf") format("woff");
+  src: url("./assets/fonts/IRANSans_Light.ttf") format("trueype");
+}
+
+@font-face {
+  font-family: sansx100;
+  src: url("./assets/fonts/SansXregular.woff") format("woff2");
+  src: url("./assets/fonts/SansXregular.woff") format("woff");
+  src: url("./assets/fonts/SansXregular.woff") format("trueype");
+}
+
+@font-face {
+  font-family: sansx200;
+  src: url("./assets/fonts/SansXblack.woff") format("woff2");
+  src: url("./assets/fonts/SansXblack.woff") format("woff");
+  src: url("./assets/fonts/SansXblack.woff") format("trueype");
+}
