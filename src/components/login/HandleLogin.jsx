@@ -9,7 +9,8 @@ function HandleLogin() {
 
   const [statusSign, setStatusSign] = useState(false);
   const changeSign = (element) => {
-    const target = element.target.dataset.set;
+    const target = element.target.parentElement.dataset.set;
+    console.log(target);
     if (target === "in") {
       refboxSignin.current.style.width = "60%";
       refboxSignup.current.style.width = "40%";
