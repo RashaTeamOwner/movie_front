@@ -23,6 +23,8 @@
       top: 50%;
       transform: translateY(-50%);
       padding: 1rem;
+      pointer-events: none;
+      color: rgba(255, 255, 255, 0.523);
     }
     img {
       position: absolute;
@@ -53,9 +55,8 @@
       top: 50%;
       transform: translateY(-50%);
       padding: 1rem;
-      &:focus {
-        opacity: 0;
-      }
+      pointer-events: none;
+      color: rgba(255, 255, 255, 0.523);
     }
     img {
       position: absolute;
@@ -87,7 +88,7 @@
     width: fit-content;
     padding: 0.2rem 2rem;
     border: none;
-    font-size: 1.4rem;
+    font-size: 1.2rem;
     border-bottom: 3px solid white;
     cursor: pointer;
   }
