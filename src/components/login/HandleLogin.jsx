@@ -2,6 +2,7 @@ import styles from "./HandleLogin.module.scss";
 import arrowicon from "../../assets/loginpage/arrow.svg";
 import Login from "./Login";
 import { useRef, useState } from "react";
+import SignUp from "./SignUp";
 
 function HandleLogin() {
   const refboxSignin = useRef(null);
@@ -25,7 +26,7 @@ function HandleLogin() {
       <div data-set="up" ref={refboxSignup} className={styles.boxSignup}>
         <div className={styles.filterEffect}></div>
         {statusSign ? (
-          <Login />
+          <SignUp />
         ) : (
           <div onClick={changeSign} className={styles.tableDetail}>
             <p>ثبت نام</p>

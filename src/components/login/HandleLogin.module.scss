@@ -10,10 +10,10 @@
 .boxSignup {
   width: 40%;
   position: relative;
-  cursor: pointer;
   transition: 0.3s all ease;
   .tableDetail {
     position: absolute;
+    cursor: pointer;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
@@ -37,8 +37,8 @@
   .filterEffect {
     width: 100%;
     height: 100%;
-    background: linear-gradient(270deg, rgba(255, 0, 0, 0.308), rgba(0, 0, 255, 0.327)), url("../../assets/loginpage/backpop.jpg");
-    filter: blur(3px);
+    background: linear-gradient(270deg, rgba(255, 0, 0, 0.389), rgba(0, 157, 255, 0.369)), url("../../assets/loginpage/backpop.jpg");
+    filter: blur(4px);
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -47,7 +47,6 @@
 
 .boxLogin {
   width: 60%;
-  background-color: gainsboro;
   position: relative;
   transition: 0.3s all ease;
   .tableDetail {
@@ -77,7 +76,7 @@
     width: 100%;
     height: 100%;
     background: linear-gradient(90deg, rgba(255, 0, 0, 0.389), rgba(0, 247, 255, 0.369)), url("../../assets/loginpage/backchair.jpg");
-    filter: blur(2px);
+    filter: blur(3px);
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
