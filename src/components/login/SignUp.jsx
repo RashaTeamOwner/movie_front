@@ -8,8 +8,11 @@ function SignUp() {
   const [inPhone, setInPhone] = useState("");
   const [inPass, setInPass] = useState("");
   const regexNumber = /^09\d{9}$/;
-  const regexPersian = /^[\u0600-\u06FF\s]+$/;
+  const regexPersian = /^[\u0600-\u06FF\s]+ [\u0600-\u06FF\s]+$/;
   const regexUid = /^(97[0-9]{8}|98[0-9]{8}|99[0-9]{8}|400[0-9]{8}|401[0-9]{8}|402[0-9]{8})$/;
+  const msgUid = "شماره دانشجویی اشتباه است";
+  const msgName = "نام خود را کامل وارد کنید";
+  const msgPhone = "شماره خودرا کامل کنید";
 
   //// start span up even click input
   const refNameSpan = useRef(null);
@@ -77,7 +80,7 @@ function SignUp() {
               setInName(element.target.value);
             }}
           />
-          {regexPersian.test(inName) && inName.length > 3 ? <></> : <p className={styles.errorInput}>نام خود را به فارسی بنویسید</p>}
+          {(regexPersian.test(inName) && inName.length > 6) || inName.length == 0 ? <></> : <p className={styles.errorInput}>{msgName}</p>}
           <img src={iconname} alt="" />
         </div>
         <div className={styles.phone_signup}>
@@ -95,7 +98,7 @@ function SignUp() {
             className={styles.input}
             autoComplete="off"
           />
-          {regexNumber.test(inPhone) ? <></> : <p className={styles.errorInput}>شماره خود را به درستی وارد کنید</p>}
+          {regexNumber.test(inPhone) || inPhone.length == 0 ? <></> : <p className={styles.errorInput}>{msgPhone}</p>}
           <img src={iconphone} alt="" />
         </div>
         <div className={styles.password_signup}>
@@ -110,7 +113,7 @@ function SignUp() {
               setInPass(element.target.value);
             }}
           />
-          {regexUid.test(inPass) ? <></> : <p className={styles.errorInput}>شماره دانشجویی اشتباه است</p>}
+          {regexUid.test(inPass) || inPass.length == 0 ? <></> : <p className={styles.errorInput}>{msgUid}</p>}
           <img src={iconuid} alt="" />
         </div>
         <div className={styles.submitbox}>

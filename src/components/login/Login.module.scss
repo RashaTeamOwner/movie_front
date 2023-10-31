@@ -17,40 +17,7 @@
   flex-direction: column;
   gap: 3rem;
   margin-top: 4rem;
-  .phone_login {
-    position: relative;
-    span {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      padding: 1rem;
-      pointer-events: none;
-      color: rgba(255, 255, 255, 0.523);
-      transition: 0.3s all ease;
-      font-size: 0.8rem;
-    }
-    img {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      left: 0;
-      width: 1.7rem;
-      padding: 0.4rem;
-    }
-    input {
-      width: 15rem;
-      padding: 0.5rem 0.5rem 0.5rem 2.2rem;
-      direction: ltr;
-      font-size: 1.2rem;
-      background-color: transparent;
-      border: none;
-      border-bottom: 2px solid rgb(255, 255, 255);
-      border-radius: 0.5rem;
-      &:focus {
-        outline: none;
-      }
-    }
-  }
+  .phone_login,
   .password_login {
     position: relative;
     span {
@@ -72,18 +39,23 @@
       padding: 0.4rem;
     }
     input {
-      width: 15rem;
-      padding: 0.5rem;
+      width: 12rem;
+      padding: 0.5rem 2.5rem 0.5rem 2.2rem;
+      direction: ltr;
       font-size: 1.2rem;
       background-color: transparent;
       border: none;
       border-bottom: 2px solid rgb(255, 255, 255);
       border-radius: 0.5rem;
-      padding: 0.5rem 0.5rem 0.5rem 2.2rem;
-      direction: ltr;
+      text-align: center;
       &:focus {
         outline: none;
       }
+    }
+  }
+  .password_login {
+    input {
+      padding: 0.5rem 2.5rem 0.5rem 2.2rem;
     }
   }
   .submitbox {

@@ -10,24 +10,27 @@ function Login() {
     const pass = refPassSpan.current;
     const target = element.target.dataset.set;
     if (target == "phone") {
-      phone.style.marginTop = "-25px";
+      phone.style.marginTop = "-27px";
       phone.style.color = "rgba(255, 255, 255)";
-      phone.style.fontSize = "1rem";
+      phone.style.fontSize = "0.9rem";
     } else if (target == "pass") {
-      pass.style.marginTop = "-25px";
+      pass.style.marginTop = "-27px";
       pass.style.color = "rgba(255, 255, 255)";
-      pass.style.fontSize = "1rem";
+      pass.style.fontSize = "0.9rem";
     }
   };
   const handleClose = (element) => {
     const phone = refPhoneSpan.current;
     const pass = refPassSpan.current;
     const target = element.target.dataset.set;
+    const lenValue = element.target.value.length;
     if (target == "phone") {
+      if (lenValue != 0) return;
       phone.style.marginTop = "0";
       phone.style.color = "rgba(255, 255, 255, 0.523)";
       phone.style.fontSize = "0.8rem";
     } else if (target == "pass") {
+      if (lenValue != 0) return;
       pass.style.marginTop = "0";
       pass.style.color = "rgba(255, 255, 255, 0.523)";
       pass.style.fontSize = "0.8rem";
