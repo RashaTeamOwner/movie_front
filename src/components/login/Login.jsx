@@ -1,8 +1,15 @@
 import styles from "./Login.module.scss";
 import usericon from "../../assets/loginpage/user-outlined.svg";
 import passicon from "../../assets/loginpage/lock-password.svg";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 function Login() {
+  const [inPhone, setInPhone] = useState("");
+  const [inPass, setInPass] = useState("");
+  const regexNumber = /^09\d{9}$/;
+  // const regexUid = /^(97[0-9]{8}|98[0-9]{8}|99[0-9]{8}|400[0-9]{8}|401[0-9]{8}|402[0-9]{8})$/;
+  // const msgUid = "رمز شما شماره دانشجویی شماست";
+  const msgPhone = "شماره خود را به درستی وارد کنید";
+  //// start : up and down span
   const refPhoneSpan = useRef(null);
   const refPassSpan = useRef(null);
   const handleFocus = (element) => {
@@ -36,6 +43,7 @@ function Login() {
       pass.style.fontSize = "0.8rem";
     }
   };
+  //// end : up and down span
   return (
     <div className={styles.container}>
       <p className={styles.title_login}>ورود به حساب</p>
@@ -51,12 +59,26 @@ function Login() {
             data-set="phone"
             className={styles.input}
             autoComplete="off"
+            onChange={(element) => {
+              setInPhone(element.target.value);
+            }}
           />
+          {regexNumber.test(inPhone) || inPhone.length == 0 ? <></> : <p className={styles.errorInput}>{msgPhone}</p>}
           <img src={usericon} alt="نام کاربری" />
         </div>
         <div className={styles.password_login}>
           <span ref={refPassSpan}>رمز عبور</span>
-          <input onBlur={handleClose} onFocus={handleFocus} type="password" autoComplete="off" data-set="pass" />
+          <input
+            onBlur={handleClose}
+            onFocus={handleFocus}
+            type="password"
+            autoComplete="off"
+            data-set="pass"
+            onChange={(element) => {
+              setInPass(element.target.value);
+            }}
+          />
+          {/* {regexUid.test(inPass) || inPass.length == 0 ? <></> : <p className={styles.errorInput}>{msgUid}</p>} */}
           <img src={passicon} alt="" />
         </div>
         <div className={styles.submitbox}>

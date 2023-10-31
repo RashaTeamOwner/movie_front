@@ -7,7 +7,6 @@ import SignUp from "./SignUp";
 function HandleLogin() {
   const refboxSignin = useRef(null);
   const refboxSignup = useRef(null);
-
   const [statusSign, setStatusSign] = useState(false);
   const changeSign = (element) => {
     const target = element.target.parentElement.dataset.set;

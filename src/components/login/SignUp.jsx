@@ -7,8 +7,8 @@ function SignUp() {
   const [inName, setInName] = useState("");
   const [inPhone, setInPhone] = useState("");
   const [inPass, setInPass] = useState("");
-  const regexNumber = /^09\d{9}$/;
   const regexPersian = /^[\u0600-\u06FF\s]+ [\u0600-\u06FF\s]+$/;
+  const regexNumber = /^09\d{9}$/;
   const regexUid = /^(97[0-9]{8}|98[0-9]{8}|99[0-9]{8}|400[0-9]{8}|401[0-9]{8}|402[0-9]{8})$/;
   const msgUid = "شماره دانشجویی اشتباه است";
   const msgName = "نام خود را کامل وارد کنید";

@@ -82,3 +82,35 @@
     cursor: pointer;
   }
 }
+
+.errorInput {
+  font-size: 0.6rem;
+  position: absolute;
+  top: -22px;
+  left: 0;
+  color: rgba(255, 31, 31, 0.965);
+  border-radius: 0.5rem;
+  padding: 0 0.2rem;
+  font-family: sansx200;
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -2;
+    background-color: white;
+    width: 0;
+    height: 100%;
+    border-radius: 0.2rem;
+    animation: errorAnime 0.5s ease 0.5s forwards;
+  }
+}
+
+@keyframes errorAnime {
+  0% {
+    width: 0;
+  }
+  100% {
+    width: 100%;
+  }
+}
