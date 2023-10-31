@@ -4,7 +4,7 @@ import passicon from "../../assets/loginpage/lock-password.svg";
 import { useRef, useState } from "react";
 function Login() {
   const [inPhone, setInPhone] = useState("");
-  const [inPass, setInPass] = useState("");
+  // const [inPass, setInPass] = useState("");
   const regexNumber = /^09\d{9}$/;
   // const regexUid = /^(97[0-9]{8}|98[0-9]{8}|99[0-9]{8}|400[0-9]{8}|401[0-9]{8}|402[0-9]{8})$/;
   // const msgUid = "رمز شما شماره دانشجویی شماست";
