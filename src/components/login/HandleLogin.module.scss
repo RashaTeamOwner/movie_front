@@ -5,7 +5,6 @@
   display: flex;
   height: 600px;
   font-family: sansx100;
-  margin-top: 5rem;
 }
 .boxSignup {
   width: 40%;
@@ -81,4 +80,16 @@
     background-position: center;
     background-repeat: no-repeat;
   }
+}
+
+@media (max-width: 660px) {
+  .container {
+    background-color: black;
+  }
+  // .boxSignup {
+  //   width: 0%;
+  // }
+  // .boxLogin {
+  //   width: 100%;
+  // }
 }
