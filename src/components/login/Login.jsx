@@ -1,8 +1,16 @@
 import styles from "./Login.module.scss";
 import usericon from "../../assets/loginpage/user-outlined.svg";
 import passicon from "../../assets/loginpage/lock-password.svg";
+import eyeicon from "../../assets/loginpage/eye.svg";
+import eyeslash from "../../assets/loginpage/eye-slash.svg";
 import { useRef, useState } from "react";
 function Login() {
+  const refEyeIcon = useRef(null);
+  const [eye, setEye] = useState(false);
+  const handleEye = () => {
+    setEye(!eye);
+  };
+  // .................
   const [inPhone, setInPhone] = useState("");
   // const [inPass, setInPass] = useState("");
   const regexNumber = /^09\d{9}$/;
@@ -24,6 +32,7 @@ function Login() {
       pass.style.marginTop = "-27px";
       pass.style.color = "rgba(255, 255, 255)";
       pass.style.fontSize = "0.9rem";
+      refEyeIcon.current.style.display = "block";
     }
   };
   const handleClose = (element) => {
@@ -41,8 +50,10 @@ function Login() {
       pass.style.marginTop = "0";
       pass.style.color = "rgba(255, 255, 255, 0.523)";
       pass.style.fontSize = "0.8rem";
+      refEyeIcon.current.style.display = "none";
     }
   };
+  // ..................
   //// end : up and down span
   return (
     <div className={styles.container}>
@@ -67,16 +78,17 @@ function Login() {
           <img src={usericon} alt="نام کاربری" />
         </div>
         <div className={styles.password_login}>
+          <img onClick={handleEye} ref={refEyeIcon} className={styles.eyepassword} src={eye ? eyeicon : eyeslash} alt="" />
           <span ref={refPassSpan}>رمز عبور</span>
           <input
             onBlur={handleClose}
             onFocus={handleFocus}
-            type="password"
+            type={eye ? "text" : "password"}
             autoComplete="off"
             data-set="pass"
-            onChange={(element) => {
-              setInPass(element.target.value);
-            }}
+            // onChange={(element) => {
+            //   setInPass(element.target.value);
+            // }}
           />
           {/* {regexUid.test(inPass) || inPass.length == 0 ? <></> : <p className={styles.errorInput}>{msgUid}</p>} */}
           <img src={passicon} alt="" />

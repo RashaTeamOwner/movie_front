@@ -53,6 +53,15 @@
       }
     }
   }
+
+  .eyepassword {
+    position: absolute;
+    right: 0;
+    width: 1.3rem !important;
+    cursor: pointer;
+    display: none;
+  }
+
   .password_login {
     input {
       padding: 0.5rem 2.5rem 0.5rem 2.2rem;
