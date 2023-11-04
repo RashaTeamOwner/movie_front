@@ -5,6 +5,7 @@
   display: flex;
   height: 600px;
   font-family: sansx100;
+  margin-top: 70px;
 }
 .boxSignup {
   width: 40%;
@@ -82,14 +83,68 @@
   }
 }
 
+.signinActive {
+  width: 60%;
+}
+.signinDeactive {
+  width: 40%;
+}
+.signupActive {
+  width: 60%;
+}
+.signupDeactive {
+  width: 40%;
+}
+
 @media (max-width: 660px) {
   .container {
     background-color: black;
+    position: relative;
+    margin-top: 0;
   }
-  // .boxSignup {
-  //   width: 0%;
-  // }
-  // .boxLogin {
-  //   width: 100%;
-  // }
+
+  .signinActive {
+    width: 100% !important;
+  }
+  .signinDeactive {
+    width: 0% !important;
+  }
+  .signupActive {
+    width: 100% !important;
+  }
+  .signupDeactive {
+    width: 0% !important;
+  }
+  .boxLogin {
+    position: static;
+    .tableDetail {
+      top: 20px;
+      left: 72px;
+      gap: 0.3rem;
+      z-index: 4;
+      direction: rtl;
+      p {
+        font-size: 1rem;
+      }
+      img {
+        width: 1.8rem;
+        transform: rotate(270deg);
+      }
+    }
+  }
+  .boxSignup {
+    position: static;
+    .tableDetail {
+      top: 20px;
+      left: 50px;
+      gap: 0.3rem;
+      z-index: 4;
+      p {
+        font-size: 1rem;
+      }
+      img {
+        width: 1.8rem;
+      }
+    }
+  }
 }
