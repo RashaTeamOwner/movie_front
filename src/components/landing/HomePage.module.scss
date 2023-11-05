@@ -1,0 +1,92 @@
+.container {
+  width: 90%;
+  margin: auto;
+  background: url("../../assets/landing/landimgwide.jpg");
+  background-position: left calc((50vw - 170px) - 340px) top;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.intoContainer {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  background: linear-gradient(
+    to right,
+    rgba(31.5, 31.5, 31.5, 1) calc((50vw - 170px) - 340px),
+    rgba(31.5, 31.5, 31.5, 0.84) 50%,
+    rgba(31.5, 31.5, 31.5, 0.84) 100%
+  );
+}
+
+.landImg {
+  width: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  img {
+    width: 20rem;
+    height: 95%;
+    border: 2px solid white;
+    border-radius: 0.5rem;
+  }
+}
+.landDetail {
+  width: 50%;
+  color: white;
+  font-family: iransans;
+  padding: 0.3rem 1rem;
+  > p {
+    direction: rtl;
+    > span {
+      color: rgb(255, 179, 0);
+      font-family: sansx100;
+      font-size: 1.2rem;
+    }
+  }
+  .routeUpper {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    align-items: flex-end;
+    // float: right;
+    > p:first-child {
+      font-size: 0.7rem;
+      direction: rtl;
+      margin-bottom: 0.1rem;
+    }
+    > p:last-child {
+      font-size: 0.7rem;
+      direction: ltr;
+      margin-top: 0.1rem;
+      position: relative;
+      right: 260px;
+    }
+    .animeRoute {
+      width: 22rem;
+      height: 1rem;
+      background-color: rgb(245, 245, 245);
+      border-radius: 1rem;
+      > div {
+        width: 90%;
+        height: 1rem;
+        background-color: rgb(255, 72, 72);
+        border-radius: 1rem;
+      }
+    }
+  }
+  .timeIncoming {
+    direction: rtl;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    h3 {
+      margin: 0;
+      font-size: 1.4rem;
+    }
+    p {
+      margin: 0;
+    }
+  }
+}
