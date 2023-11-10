@@ -1,18 +1,19 @@
 import styles from "./HandleLogin.module.scss";
 import arrowicon from "../../assets/loginpage/arrow.svg";
 import Login from "./Login";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import SignUp from "./SignUp";
 import ParticlesComponent from "./ParticlesComponent";
+import { Link } from "react-router-dom";
 
-function HandleLogin() {
+function HandleLogin(props) {
   const refboxSignin = useRef(null);
   const refboxSignup = useRef(null);
   const [statusSign, setStatusSign] = useState(false);
   const changeSign = (element) => {
-    const target = element.target.parentElement.dataset.set;
+    // const target = element.target.parentElement.dataset.set;
     // تارگت باید ریخته شه تو useState
-    if (target === "in") {
+    if (element === "in") {
       refboxSignin.current.classList.add(styles.signinActive);
       refboxSignin.current.classList.remove(styles.signinDeactive);
       refboxSignup.current.classList.add(styles.signupDeactive);
@@ -26,34 +27,17 @@ function HandleLogin() {
     setStatusSign(!statusSign);
   };
 
-  // useEffect(() => {
-  //   const handleResize = () => {
-  //     const rightside = refboxSignin.current.style.width;
-  //     console.log(rightside == "");
-  //     if (window.outerWidth < 660) {
-  //       if (rightside == "60%" || rightside == "") {
-  //         refboxSignin.current.style.width = "100%";
-  //         refboxSignup.current.style.width = "0%";
-  //       } else {
-  //         refboxSignin.current.style.width = "0%";
-  //         refboxSignup.current.style.width = "100%";
-  //       }
-  //     } else {
-  //       if (rightside == "100%") {
-  //         refboxSignin.current.style.width = "60%";
-  //         refboxSignup.current.style.width = "40%";
-  //       } else {
-  //         refboxSignin.current.style.width = "40%";
-  //         refboxSignup.current.style.width = "60%";
-  //       }
-  //     }
-  //   };
-  //   handleResize();
-  //   window.addEventListener("resize", handleResize);
-  //   return () => {
-  //     window.removeEventListener("resize", handleResize);
-  //   };
-  // }, []);
+  useEffect(() => {
+    const targetPath = window.location.pathname;
+    changeSign(props.targetEle);
+    if (targetPath == "/signin") {
+      setStatusSign(false);
+      console.log(statusSign);
+    } else if (targetPath == "/signup") {
+      setStatusSign(true);
+      console.log(statusSign);
+    }
+  }, []);
 
   return (
     <div className={styles.container}>
@@ -63,10 +47,10 @@ function HandleLogin() {
         {statusSign ? (
           <SignUp />
         ) : (
-          <div onClick={changeSign} className={styles.tableDetail}>
+          <Link to="/signup" onClick={() => changeSign("up")} className={styles.tableDetail}>
             <p>ثبت نام</p>
             <img src={arrowicon} alt="arrow icon" />
-          </div>
+          </Link>
         )}
       </div>
       <div data-set="in" ref={refboxSignin} className={styles.boxLogin}>
@@ -74,10 +58,10 @@ function HandleLogin() {
         {!statusSign ? (
           <Login />
         ) : (
-          <div onClick={changeSign} className={styles.tableDetail}>
+          <Link to="/signin" onClick={() => changeSign("in")} className={styles.tableDetail}>
             <p>ورود به حساب</p>
             <img src={arrowicon} alt="arrow icon" />
-          </div>
+          </Link>
         )}
       </div>
     </div>
