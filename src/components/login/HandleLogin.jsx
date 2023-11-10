@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import styles from "./HandleLogin.module.scss";
 import arrowicon from "../../assets/loginpage/arrow.svg";
 import Login from "./Login";
@@ -14,11 +15,13 @@ function HandleLogin(props) {
     // const target = element.target.parentElement.dataset.set;
     // تارگت باید ریخته شه تو useState
     if (element === "in") {
+      document.title = "ورود به حساب";
       refboxSignin.current.classList.add(styles.signinActive);
       refboxSignin.current.classList.remove(styles.signinDeactive);
       refboxSignup.current.classList.add(styles.signupDeactive);
       refboxSignup.current.classList.remove(styles.signupActive);
     } else {
+      document.title = "ساخت حساب جدید";
       refboxSignin.current.classList.remove(styles.signinActive);
       refboxSignin.current.classList.add(styles.signinDeactive);
       refboxSignup.current.classList.remove(styles.signupDeactive);
