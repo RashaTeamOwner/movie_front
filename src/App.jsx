@@ -1,16 +1,17 @@
 import HomePage from "./components/landing/HomePage";
 import HandleLogin from "./components/login/HandleLogin";
-import { Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+
 function App() {
   return (
-    <div>
-      <Routes>
-        <Route path="/signin" element={<HandleLogin targetEle={"in"} />} />
-        <Route path="/signup" element={<HandleLogin targetEle={"up"} />} />
-      </Routes>
-      {/* <HandleLogin /> */}
-      {/* <HomePage /> */}
-    </div>
+    <Router>
+      <div>
+        <Switch>
+          <Route path="/signin" component={() => <HandleLogin targetEle={"in"} />} />
+          <Route path="/signup" component={() => <HandleLogin targetEle={"up"} />} />
+        </Switch>
+      </div>
+    </Router>
   );
 }
 

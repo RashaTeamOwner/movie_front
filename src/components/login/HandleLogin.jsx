@@ -35,10 +35,8 @@ function HandleLogin(props) {
     changeSign(props.targetEle);
     if (targetPath == "/signin") {
       setStatusSign(false);
-      console.log(statusSign);
     } else if (targetPath == "/signup") {
       setStatusSign(true);
-      console.log(statusSign);
     }
   }, []);
 
