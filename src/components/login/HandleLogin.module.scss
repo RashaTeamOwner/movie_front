@@ -6,6 +6,7 @@
   height: 600px;
   font-family: sansx100;
   margin-top: 70px;
+  color: white;
 }
 .boxSignup {
   width: 40%;
@@ -34,12 +35,16 @@
     > img {
       width: 2.8rem;
       transform: rotate(-90deg);
+      filter: invert(63%) sepia(26%) saturate(7030%) hue-rotate(359deg) brightness(101%) contrast(107%);
+    }
+    > p {
+      color: white;
     }
   }
   .filterEffect {
     width: 100%;
     height: 100%;
-    background: linear-gradient(270deg, rgba(47, 0, 0, 0.45), rgba(0, 11, 17, 0.437)), url("../../assets/loginpage/backpop.jpg");
+    background: linear-gradient(270deg, rgba(0, 28, 21, 0.651), rgba(0, 11, 17, 0.67)), url("../../assets/loginpage/backpop.jpg");
     filter: blur(4px);
     background-size: cover;
     background-position: center;
@@ -74,12 +79,16 @@
     > img {
       width: 2.8rem;
       transform: rotate(90deg);
+      filter: invert(63%) sepia(26%) saturate(7030%) hue-rotate(359deg) brightness(101%) contrast(107%);
+    }
+    > p {
+      color: white;
     }
   }
   .filterEffect {
     width: 100%;
     height: 100%;
-    background: linear-gradient(90deg, rgba(56, 0, 0, 0.435), rgba(0, 46, 48, 0.442)), url("../../assets/loginpage/backchair.jpg");
+    background: linear-gradient(90deg, rgba(0, 0, 0, 0.629), rgba(0, 0, 0, 0.649)), url("../../assets/loginpage/backchair.jpg");
     filter: blur(3px);
     background-size: cover;
     background-position: center;

@@ -38,6 +38,7 @@
       left: 0;
       width: 1.7rem;
       padding: 0.4rem;
+      // filter: invert(46%) sepia(99%) saturate(1246%) hue-rotate(1deg) brightness(105%) contrast(107%);
     }
     input {
       width: 15rem;
@@ -101,6 +102,7 @@
       font-family: sansx200;
       cursor: pointer;
       font-size: 0.7rem;
+      color: rgb(191, 0, 0);
     }
   }
   .submitLogin {
@@ -113,6 +115,7 @@
     font-size: 1.1rem;
     border-bottom: 2px solid white;
     cursor: pointer;
+    color: white;
   }
 }
 
