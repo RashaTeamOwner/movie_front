@@ -19,23 +19,23 @@ class ParticlesComponent extends React.Component {
           },
           particles: {
             number: {
-              value: 160,
+              value: 200,
               density: {
                 enable: true,
                 value_area: 800,
               },
             },
             color: {
-              value: "#ffffff",
+              value: "#fff",
             },
             shape: {
-              type: "star",
+              type: "circle",
               stroke: {
                 width: 0,
                 color: "#000000",
               },
               polygon: {
-                nb_sides: 4,
+                nb_sides: 5,
               },
               image: {
                 src: "",
@@ -44,11 +44,11 @@ class ParticlesComponent extends React.Component {
               },
             },
             opacity: {
-              value: 0.5,
+              value: 0.8,
               random: true,
               anim: {
                 enable: true,
-                speed: 2,
+                speed: 6,
                 opacity_min: 0.1,
                 sync: false,
               },
@@ -72,8 +72,8 @@ class ParticlesComponent extends React.Component {
             },
             move: {
               enable: true,
-              speed: 1,
-              direction: "none",
+              speed: 3,
+              direction: "bottom",
               random: true,
               straight: true,
               out_mode: "out",
@@ -90,11 +90,11 @@ class ParticlesComponent extends React.Component {
             events: {
               onHover: {
                 enable: true,
-                mode: "grab",
+                mode: "bubble",
               },
               onClick: {
                 enable: true,
-                mode: "push",
+                mode: "repulse",
               },
               resize: true,
             },
@@ -102,12 +102,12 @@ class ParticlesComponent extends React.Component {
               grab: {
                 distance: 140,
                 line_linked: {
-                  opacity: 1,
+                  opacity: 0.8,
                 },
               },
               bubble: {
                 distance: 400,
-                size: 40,
+                size: 3,
                 duration: 2,
                 opacity: 8,
                 speed: 3,
@@ -117,10 +117,10 @@ class ParticlesComponent extends React.Component {
                 duration: 0.4,
               },
               push: {
-                particles_nb: 6,
+                particles_nb: 16,
               },
               remove: {
-                particles_nb: 2,
+                particles_nb: 6,
               },
             },
           },
