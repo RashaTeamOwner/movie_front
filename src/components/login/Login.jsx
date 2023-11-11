@@ -57,7 +57,7 @@ function Login() {
   //// end : up and down span
   return (
     <div className={styles.container}>
-      <p className={styles.title_login}>ورود</p>
+      <p className={styles.title_login}>ورود به حساب</p>
       <div className={styles.loginBox}>
         <div className={styles.phone_login}>
           <span ref={refPhoneSpan}>شماره تلفن</span>

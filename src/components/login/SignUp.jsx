@@ -63,7 +63,7 @@ function SignUp() {
   //// end span up even click input
   return (
     <div className={styles.container}>
-      <p className={styles.title_signup}>ثبت نام</p>
+      <p className={styles.title_signup}>ثبت نام جدید</p>
       <div className={styles.signupBox}>
         <div className={styles.name_signup}>
           <span ref={refNameSpan}>نام و نام خانوادگی</span>

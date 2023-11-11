@@ -98,19 +98,37 @@
 
 .signinActive {
   width: 60%;
-  transition: 0.4s all ease;
+  animation: animeClose 0.5s forwards;
 }
 .signinDeactive {
   width: 40%;
-  transition: 0.4s all ease;
+  animation: animeOpen 0.5s forwards;
 }
 .signupActive {
   width: 60%;
-  transition: 0.4s all ease;
+  animation: animeClose 0.5s forwards;
 }
 .signupDeactive {
   width: 40%;
-  transition: 0.4s all ease;
+  animation: animeOpen 0.5s forwards;
+}
+
+@keyframes animeOpen {
+  0% {
+    width: 60%;
+  }
+  100% {
+    width: 40%;
+  }
+}
+
+@keyframes animeClose {
+  0% {
+    width: 40%;
+  }
+  100% {
+    width: 60%;
+  }
 }
 
 @media (max-width: 660px) {
@@ -121,16 +139,20 @@
   }
 
   .signinActive {
-    width: 100% !important;
+    // width: 100% !important;
+    animation: animeCloseMob 0.5s forwards !important;
   }
   .signinDeactive {
-    width: 0% !important;
+    // width: 0% !important;
+    animation: animeOpenMob 0.5s forwards !important;
   }
   .signupActive {
-    width: 100% !important;
+    // width: 100% !important;
+    animation: animeCloseMob 0.5s forwards !important;
   }
   .signupDeactive {
-    width: 0% !important;
+    // width: 0% !important;
+    animation: animeOpenMob 0.5s forwards !important;
   }
   .boxLogin {
     position: static;
@@ -163,5 +185,23 @@
         width: 1.8rem;
       }
     }
+  }
+}
+
+@keyframes animeOpenMob {
+  0% {
+    width: 100%;
+  }
+  100% {
+    width: 0%;
+  }
+}
+
+@keyframes animeCloseMob {
+  0% {
+    width: 0%;
+  }
+  100% {
+    width: 100%;
   }
 }
