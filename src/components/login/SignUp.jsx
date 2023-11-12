@@ -1,4 +1,5 @@
 import { useRef, useState } from "react";
+import axios from "axios";
 import styles from "./SignUp.module.scss";
 import iconname from "../../assets/loginpage/user-outlined.svg";
 import iconphone from "../../assets/loginpage/phone.svg";
@@ -7,21 +8,53 @@ function SignUp() {
   const [inName, setInName] = useState("");
   const [inPhone, setInPhone] = useState("");
   const [inPass, setInPass] = useState("");
+  const [uid, setUid] = useState("");
   const regexPersian = /^[\u0600-\u06FF\s]+ [\u0600-\u06FF\s]+$/;
   const regexNumber = /^09\d{9}$/;
   const regexUid = /^(97[0-9]{8}|98[0-9]{8}|99[0-9]{8}|400[0-9]{8}|401[0-9]{8}|402[0-9]{8})$/;
   const msgUid = "شماره دانشجویی اشتباه است";
   const msgName = "نام خود را کامل وارد کنید";
   const msgPhone = "شماره خودرا کامل کنید";
+  const msgPassword = "حداقل 8 کاراکتر و شامل حرف انگلیسی";
+
+  // handle post signup
+  const handlePostSingup = () => {
+    if (regexPersian.test(inName) && regexNumber.test(inPhone) && inPass.length >= 8) {
+      let data = {
+        name: inName,
+        phone_number: inPhone,
+        password: inPass,
+        uid: uid,
+      };
+      console.log(data);
+      axios({
+        method: "post",
+        url: `http://localhost:3000/signup`,
+        headers: {
+          "Content-Type": "application/json",
+        },
+        data: JSON.stringify(data),
+      })
+        .then((res) => {
+          alert("ثبت نام با موفقیت انجام شد");
+          window.location = "/#";
+        })
+        .catch((err) => console.error(err));
+    } else {
+      alert("لطفا اطلاعات را صحیح وارد کنید");
+    }
+  };
 
   //// start span up even click input
   const refNameSpan = useRef(null);
   const refPhoneSpan = useRef(null);
   const refPassSpan = useRef(null);
+  const refUidSpan = useRef(null);
   const handleFocus = (element) => {
     const sname = refNameSpan.current;
     const phone = refPhoneSpan.current;
     const pass = refPassSpan.current;
+    const uidspan = refUidSpan.current;
     const target = element.target.dataset.set;
     if (target == "phone") {
       phone.style.marginTop = "-27px";
@@ -35,12 +68,17 @@ function SignUp() {
       sname.style.marginTop = "-27px";
       sname.style.color = "rgba(255,255,255)";
       sname.style.fontSize = "0.9rem";
+    } else if (target == "uid") {
+      uidspan.style.marginTop = "-27px";
+      uidspan.style.color = "rgba(255,255,255)";
+      uidspan.style.fontSize = "0.9rem";
     }
   };
   const handleClose = (element) => {
     const sname = refNameSpan.current;
     const phone = refPhoneSpan.current;
     const pass = refPassSpan.current;
+    const uidspan = refUidSpan.current;
     const target = element.target.dataset.set;
     const lenValue = element.target.value.length;
     if (target == "phone") {
@@ -58,6 +96,10 @@ function SignUp() {
       sname.style.marginTop = "0";
       sname.style.color = "rgba(255,255,255,0.523)";
       sname.fontSize = "0.8rem";
+    } else if (target == "uid") {
+      uidspan.style.marginTop = "0";
+      uidspan.style.color = "rgba(255,255,255,0.523)";
+      uidspan.fontSize = "0.8rem";
     }
   };
   //// end span up even click input
@@ -83,6 +125,21 @@ function SignUp() {
           {(regexPersian.test(inName) && inName.length > 6) || inName.length == 0 ? <></> : <p className={styles.errorInput}>{msgName}</p>}
           <img src={iconname} alt="" />
         </div>
+        <div className={styles.uid_signup}>
+          <span ref={refUidSpan}>شماره دانشجویی</span>
+          <input
+            onBlur={handleClose}
+            onFocus={handleFocus}
+            type="text"
+            autoComplete="off"
+            data-set="uid"
+            onChange={(element) => {
+              setUid(element.target.value);
+            }}
+          />
+          {regexUid.test(uid) || uid.length == 0 ? <></> : <p className={styles.errorInput}>{msgUid}</p>}
+          <img src={iconuid} alt="" />
+        </div>
         <div className={styles.phone_signup}>
           <span ref={refPhoneSpan}>شماره تلفن</span>
           <input
@@ -102,7 +159,7 @@ function SignUp() {
           <img src={iconphone} alt="" />
         </div>
         <div className={styles.password_signup}>
-          <span ref={refPassSpan}>شماره دانشجویی</span>
+          <span ref={refPassSpan}>رمز عبور</span>
           <input
             onBlur={handleClose}
             onFocus={handleFocus}
@@ -113,11 +170,11 @@ function SignUp() {
               setInPass(element.target.value);
             }}
           />
-          {regexUid.test(inPass) || inPass.length == 0 ? <></> : <p className={styles.errorInput}>{msgUid}</p>}
+          {regexUid.test(inPass) || inPass.length == 0 ? <></> : <p className={styles.errorInput}>{msgPassword}</p>}
           <img src={iconuid} alt="" />
         </div>
         <div className={styles.submitbox}>
-          <input className={styles.submitLogin} type="submit" value="ثبت نام" />
+          <input className={styles.submitLogin} onClick={handlePostSingup} type="submit" value="ثبت نام" />
         </div>
       </div>
     </div>
