@@ -1,5 +1,6 @@
 import { useRef, useState } from "react";
 import axios from "axios";
+import Swal from "sweetalert2";
 import styles from "./SignUp.module.scss";
 import iconname from "../../assets/loginpage/user-outlined.svg";
 import iconphone from "../../assets/loginpage/phone.svg";
@@ -27,36 +28,76 @@ function SignUp() {
   // handle post signup
   const handlePostSingup = () => {
     if (regexPersian.test(inName) && regexNumber.test(inPhone) && regexPass.test(inPass) && regexUid.test(uid)) {
-      let data = {
-        full_name: inName,
-        phone_number: inPhone,
-        password: inPass,
-        student_id: uid,
-      };
-      axios({
-        method: "post",
-        url: `http://192.168.175.168:8000/api/v1/auth/register/`,
-        headers: {
-          "Content-Type": "application/json",
-        },
-        data: JSON.stringify(data),
-      })
-        .then((res) => {
-          alert(res.data);
-          console.log(res);
-        })
-        .catch((err) => {
-          alert(err);
-          console.log(err);
-        });
+      ToastConfirm.fire({
+        icon: "success",
+        title: `پیامک به شماره ${inPhone} ارسال شد`,
+      });
+      // let data = {
+      //   full_name: inName,
+      //   phone_number: inPhone,
+      //   password: inPass,
+      //   student_id: uid,
+      // };
+      // axios({
+      //   method: "post",
+      //   url: `http://192.168.175.168:8000/api/v1/auth/register/`,
+      //   headers: {
+      //     "Content-Type": "application/json",
+      //   },
+      //   data: JSON.stringify(data),
+      // })
+      //   .then((res) => {
+      //     alert(res.data);
+      //     console.log(res);
+      //   })
+      //   .catch((err) => {
+      //     alert(err);
+      //     console.log(err);
+      //   });
     } else {
-      if (!regexPersian.test(inName) || inName == "") alert("نام خود را کامل وارد کنید");
-      else if (!regexUid.test(uid) || uid == "") alert("شماره دانشجویی به درستی وارد نشده");
-      else if (!regexPass.test(inPass) || inPass == "") alert("فرمت پسورد اشتباه است");
-      else if (!regexNumber.test(inPhone) || inPhone == "") alert("شماره تلفن وارد شده اشتباه است");
-      // alert("اطلاعات وارد شده اشتباه است");
+      if (!regexPersian.test(inName) || inName == "")
+        Toast.fire({
+          icon: "warning",
+          title: "نام خود را کامل وارد کنید",
+        });
+      else if (!regexUid.test(uid) || uid == "")
+        Toast.fire({
+          icon: "warning",
+          title: "شماره دانشجویی اشتباه است",
+        });
+      else if (!regexNumber.test(inPhone) || inPhone == "")
+        Toast.fire({
+          icon: "warning",
+          title: "شماره تلفن وارد شده اشتباه است",
+        });
+      else if (!regexPass.test(inPass) || inPass == "")
+        Toast.fire({
+          icon: "warning",
+          iconColor: "red",
+          title: "فرمت پسورد درست نیست",
+        });
     }
   };
+
+  // swal alert
+  const Toast = Swal.mixin({
+    toast: true,
+    position: "top-end",
+    showConfirmButton: false,
+    timer: 3000,
+    timerProgressBar: true,
+    didOpen: (toast) => {
+      toast.addEventListener("mouseenter", Swal.stopTimer);
+      toast.addEventListener("mouseleave", Swal.resumeTimer);
+    },
+  });
+  const ToastConfirm = Swal.mixin({
+    toast: true,
+    position: "top-end",
+    showConfirmButton: false,
+    timer: 30000,
+    timerProgressBar: true,
+  });
 
   //// start span up even click input
   const refNameSpan = useRef(null);
@@ -215,10 +256,10 @@ function SignUp() {
             }}
           />
           {regexConfirm.test(inConfirm) || inConfirm.length == 0 ? <></> : <p className={styles.errorInput}>{msgConfirm}</p>}
-          <button>دریافت کد</button>
+          <button onClick={handlePostSingup}>دریافت کد</button>
         </div>
         <div className={styles.submitbox}>
-          <input className={styles.submitLogin} onClick={handlePostSingup} type="submit" value="ثبت نام" />
+          <input className={styles.submitLogin} type="submit" value="ثبت نام" />
         </div>
       </div>
     </div>
