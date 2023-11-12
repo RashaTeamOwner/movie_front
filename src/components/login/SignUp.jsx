@@ -4,49 +4,57 @@ import styles from "./SignUp.module.scss";
 import iconname from "../../assets/loginpage/user-outlined.svg";
 import iconphone from "../../assets/loginpage/phone.svg";
 import iconuid from "../../assets/loginpage/user-id-broken.svg";
+import iconpass from "../../assets/loginpage/lock-password.svg";
 function SignUp() {
   const [inName, setInName] = useState("");
   const [inPhone, setInPhone] = useState("");
   const [inPass, setInPass] = useState("");
   const [uid, setUid] = useState("");
+  const [inConfirm, setInConfirm] = useState("");
+
   const regexPersian = /^[\u0600-\u06FF\s]+ [\u0600-\u06FF\s]+$/;
   const regexNumber = /^09\d{9}$/;
   const regexUid = /^(97[0-9]{8}|98[0-9]{8}|99[0-9]{8}|400[0-9]{8}|401[0-9]{8}|402[0-9]{8})$/;
   const regexPass = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
+  const regexConfirm = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
+
   const msgUid = "شماره دانشجویی اشتباه است";
   const msgName = "نام خود را کامل وارد کنید";
   const msgPhone = "شماره خودرا کامل کنید";
   const msgPassword = "حداقل 8 کاراکتر و شامل حرف انگلیسی و عدد";
+  const msgConfirm = "کد ارسالی به شماره خود را وارد کنید";
 
   // handle post signup
   const handlePostSingup = () => {
     if (regexPersian.test(inName) && regexNumber.test(inPhone) && regexPass.test(inPass) && regexUid.test(uid)) {
-      alert("ok");
-      // درخواست به بک برای بررسی عدم وجود تکرار
-      // اگر کاربر وجود نداشت , یه تایید از  بک گرفته میشه و میره برای ارسال پیامک به شمارش
-
-      // let data = {
-      //   name: inName,
-      //   phone_number: inPhone,
-      //   password: inPass,
-      //   uid: uid,
-      // };
-      // console.log(data);
-      // axios({
-      //   method: "post",
-      //   url: `http://localhost:3000/signup`,
-      //   headers: {
-      //     "Content-Type": "application/json",
-      //   },
-      //   data: JSON.stringify(data),
-      // })
-      //   .then((res) => {
-      //     alert("ثبت نام با موفقیت انجام شد");
-      //     window.location = "/#";
-      //   })
-      //   .catch((err) => console.error(err));
+      let data = {
+        full_name: inName,
+        phone_number: inPhone,
+        password: inPass,
+        student_id: uid,
+      };
+      axios({
+        method: "post",
+        url: `http://192.168.175.168:8000/api/v1/auth/register/`,
+        headers: {
+          "Content-Type": "application/json",
+        },
+        data: JSON.stringify(data),
+      })
+        .then((res) => {
+          alert(res.data);
+          console.log(res);
+        })
+        .catch((err) => {
+          alert(err);
+          console.log(err);
+        });
     } else {
-      console.log(regexPersian.test(inName), regexNumber.test(inPhone), regexPass.test(inPass), regexUid.test(uid));
+      if (!regexPersian.test(inName) || inName == "") alert("نام خود را کامل وارد کنید");
+      else if (!regexUid.test(uid) || uid == "") alert("شماره دانشجویی به درستی وارد نشده");
+      else if (!regexPass.test(inPass) || inPass == "") alert("فرمت پسورد اشتباه است");
+      else if (!regexNumber.test(inPhone) || inPhone == "") alert("شماره تلفن وارد شده اشتباه است");
+      // alert("اطلاعات وارد شده اشتباه است");
     }
   };
 
@@ -55,11 +63,15 @@ function SignUp() {
   const refPhoneSpan = useRef(null);
   const refPassSpan = useRef(null);
   const refUidSpan = useRef(null);
+  const refConfirmSpan = useRef(null);
+
   const handleFocus = (element) => {
     const sname = refNameSpan.current;
     const phone = refPhoneSpan.current;
     const pass = refPassSpan.current;
     const uidspan = refUidSpan.current;
+    const confspan = refConfirmSpan.current;
+
     const target = element.target.dataset.set;
     if (target == "phone") {
       phone.style.marginTop = "-27px";
@@ -77,6 +89,10 @@ function SignUp() {
       uidspan.style.marginTop = "-27px";
       uidspan.style.color = "rgba(255,255,255)";
       uidspan.style.fontSize = "0.9rem";
+    } else if (target == "confirm") {
+      confspan.style.marginTop = "-27px";
+      confspan.style.color = "rgba(255,255,255)";
+      confspan.style.fontSize = "0.9rem";
     }
   };
   const handleClose = (element) => {
@@ -84,6 +100,8 @@ function SignUp() {
     const phone = refPhoneSpan.current;
     const pass = refPassSpan.current;
     const uidspan = refUidSpan.current;
+    const confspan = refConfirmSpan.current;
+
     const target = element.target.dataset.set;
     const lenValue = element.target.value.length;
     if (target == "phone") {
@@ -106,6 +124,11 @@ function SignUp() {
       uidspan.style.marginTop = "0";
       uidspan.style.color = "rgba(255,255,255,0.523)";
       uidspan.fontSize = "0.8rem";
+    } else if (target == "confirm") {
+      if (lenValue != 0) return;
+      confspan.style.marginTop = "0";
+      confspan.style.color = "rgba(255,255,255,0.523)";
+      confspan.fontSize = "0.8rem";
     }
   };
   //// end span up even click input
@@ -177,7 +200,22 @@ function SignUp() {
             }}
           />
           {regexPass.test(inPass) || inPass.length == 0 ? <></> : <p className={styles.errorInput}>{msgPassword}</p>}
-          <img src={iconuid} alt="" />
+          <img src={iconpass} alt="" />
+        </div>
+        <div className={styles.confirm_signup}>
+          <span ref={refConfirmSpan}>کد دریافتی</span>
+          <input
+            onBlur={handleClose}
+            onFocus={handleFocus}
+            type="text"
+            autoComplete="off"
+            data-set="confirm"
+            onChange={(element) => {
+              setInConfirm(element.target.value);
+            }}
+          />
+          {regexConfirm.test(inConfirm) || inConfirm.length == 0 ? <></> : <p className={styles.errorInput}>{msgConfirm}</p>}
+          <button>دریافت کد</button>
         </div>
         <div className={styles.submitbox}>
           <input className={styles.submitLogin} onClick={handlePostSingup} type="submit" value="ثبت نام" />

@@ -1,7 +1,7 @@
 .container {
   direction: rtl;
   position: absolute;
-  top: 20px;
+  top: -10px;
   right: 50%;
   transform: translateX(50%);
   padding: 0.2rem 2rem;
@@ -15,12 +15,13 @@
   padding: 1rem;
   display: flex;
   flex-direction: column;
-  gap: 3rem;
+  gap: 2.5rem;
   // margin-top: 4rem;
   .name_signup,
   .phone_signup,
   .password_signup,
-  .uid_signup {
+  .uid_signup,
+  .confirm_signup {
     position: relative;
     span {
       position: absolute;
@@ -39,7 +40,7 @@
       left: 0;
       width: 1.7rem;
       padding: 0.4rem;
-      // filter: invert(46%) sepia(99%) saturate(1246%) hue-rotate(1deg) brightness(105%) contrast(107%);
+      filter: invert(62%) sepia(28%) saturate(5202%) hue-rotate(1deg) brightness(101%) contrast(105%);
     }
     input {
       width: 15rem;
@@ -56,6 +57,21 @@
       &:focus {
         outline: none;
       }
+    }
+  }
+  .confirm_signup {
+    button {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      left: 0.2rem;
+      padding: 0.4rem;
+      font-size: 0.7rem;
+      border-radius: 0.7rem;
+      cursor: pointer;
+      border: none;
+      background-color: greenyellow;
+      font-family: sansx200;
     }
   }
   //   .password_login {
