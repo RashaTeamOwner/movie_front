@@ -12,36 +12,41 @@ function SignUp() {
   const regexPersian = /^[\u0600-\u06FF\s]+ [\u0600-\u06FF\s]+$/;
   const regexNumber = /^09\d{9}$/;
   const regexUid = /^(97[0-9]{8}|98[0-9]{8}|99[0-9]{8}|400[0-9]{8}|401[0-9]{8}|402[0-9]{8})$/;
+  const regexPass = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
   const msgUid = "شماره دانشجویی اشتباه است";
   const msgName = "نام خود را کامل وارد کنید";
   const msgPhone = "شماره خودرا کامل کنید";
-  const msgPassword = "حداقل 8 کاراکتر و شامل حرف انگلیسی";
+  const msgPassword = "حداقل 8 کاراکتر و شامل حرف انگلیسی و عدد";
 
   // handle post signup
   const handlePostSingup = () => {
-    if (regexPersian.test(inName) && regexNumber.test(inPhone) && inPass.length >= 8) {
-      let data = {
-        name: inName,
-        phone_number: inPhone,
-        password: inPass,
-        uid: uid,
-      };
-      console.log(data);
-      axios({
-        method: "post",
-        url: `http://localhost:3000/signup`,
-        headers: {
-          "Content-Type": "application/json",
-        },
-        data: JSON.stringify(data),
-      })
-        .then((res) => {
-          alert("ثبت نام با موفقیت انجام شد");
-          window.location = "/#";
-        })
-        .catch((err) => console.error(err));
+    if (regexPersian.test(inName) && regexNumber.test(inPhone) && regexPass.test(inPass) && regexUid.test(uid)) {
+      alert("ok");
+      // درخواست به بک برای بررسی عدم وجود تکرار
+      // اگر کاربر وجود نداشت , یه تایید از  بک گرفته میشه و میره برای ارسال پیامک به شمارش
+
+      // let data = {
+      //   name: inName,
+      //   phone_number: inPhone,
+      //   password: inPass,
+      //   uid: uid,
+      // };
+      // console.log(data);
+      // axios({
+      //   method: "post",
+      //   url: `http://localhost:3000/signup`,
+      //   headers: {
+      //     "Content-Type": "application/json",
+      //   },
+      //   data: JSON.stringify(data),
+      // })
+      //   .then((res) => {
+      //     alert("ثبت نام با موفقیت انجام شد");
+      //     window.location = "/#";
+      //   })
+      //   .catch((err) => console.error(err));
     } else {
-      alert("لطفا اطلاعات را صحیح وارد کنید");
+      console.log(regexPersian.test(inName), regexNumber.test(inPhone), regexPass.test(inPass), regexUid.test(uid));
     }
   };
 
@@ -97,6 +102,7 @@ function SignUp() {
       sname.style.color = "rgba(255,255,255,0.523)";
       sname.fontSize = "0.8rem";
     } else if (target == "uid") {
+      if (lenValue != 0) return;
       uidspan.style.marginTop = "0";
       uidspan.style.color = "rgba(255,255,255,0.523)";
       uidspan.fontSize = "0.8rem";
@@ -170,7 +176,7 @@ function SignUp() {
               setInPass(element.target.value);
             }}
           />
-          {regexUid.test(inPass) || inPass.length == 0 ? <></> : <p className={styles.errorInput}>{msgPassword}</p>}
+          {regexPass.test(inPass) || inPass.length == 0 ? <></> : <p className={styles.errorInput}>{msgPassword}</p>}
           <img src={iconuid} alt="" />
         </div>
         <div className={styles.submitbox}>
