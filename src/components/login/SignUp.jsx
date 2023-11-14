@@ -142,7 +142,6 @@ function SignUp() {
       phone.style.color = "black";
       phone.style.fontSize = "0.9rem";
       phone.style.backgroundColor = "rgb(255, 174, 0)";
-      // phone.style.borderRaduis = "1rem";
       inputPhone.style.borderColor = "white";
     } else if (target == "pass") {
       pass.style.marginTop = "-24px";

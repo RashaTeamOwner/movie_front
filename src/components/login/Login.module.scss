@@ -24,11 +24,12 @@
       position: absolute;
       top: 50%;
       transform: translateY(-50%);
-      padding: 1rem;
+      padding: 0.1rem 0.5rem;
       pointer-events: none;
       color: rgba(255, 255, 255, 0.523);
       transition: 0.3s all ease;
       font-size: 0.8rem;
+      border-radius: 2rem 2rem 0 2rem;
     }
     img {
       position: absolute;
@@ -37,18 +38,21 @@
       left: 0;
       width: 1.7rem;
       padding: 0.4rem;
-      // filter: invert(46%) sepia(99%) saturate(1246%) hue-rotate(1deg) brightness(105%) contrast(107%);
+      filter: invert(62%) sepia(28%) saturate(5202%) hue-rotate(1deg) brightness(101%) contrast(105%);
     }
     input {
       width: 12rem;
-      padding: 0.5rem 2.5rem 0.5rem 2.2rem;
-      direction: ltr;
-      font-size: 1.2rem;
+      padding: 0.5rem 0.5rem 0.5rem 2.2rem;
+      text-align: center;
+      font-size: 1rem;
       background-color: transparent;
-      border: none;
+      border: 2px solid transparent;
       border-bottom: 2px solid rgb(255, 255, 255);
       border-radius: 0.5rem;
-      text-align: center;
+      font-family: iransans;
+      font-weight: bold;
+      direction: ltr;
+      color: white;
       &:focus {
         outline: none;
       }
@@ -63,7 +67,8 @@
     display: none;
   }
 
-  .password_login {
+  .password_login,
+  .phone_login {
     input {
       padding: 0.5rem 2.5rem 0.5rem 2.2rem;
     }
