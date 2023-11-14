@@ -13,13 +13,22 @@ function Login() {
   };
 
   const handleButtonLogin = () => {
-    Toast.fire({
-      icon: "warning",
-      iconColor: "red",
-      title: "<p style='direction:rtl'>اطلاعات خواسته شده را به درستی پرکنید</p>",
-      width: "310px",
-      padding: "0 1rem",
-    });
+    if (regexNumber.test(inPhone) && regexPass.test(inPass)) {
+      Toast.fire({
+        icon: "success",
+        title: "<p style='direction:rtl'>اطلاعات وارد شده درست است</p>",
+        width: "310px",
+        padding: "0 1rem",
+      });
+    } else {
+      Toast.fire({
+        icon: "warning",
+        iconColor: "red",
+        title: "<p style='direction:rtl'>اطلاعات خواسته شده را به درستی پرکنید</p>",
+        width: "310px",
+        padding: "0 1rem",
+      });
+    }
   };
   // swal alert
   const Toast = Swal.mixin({
@@ -33,9 +42,11 @@ function Login() {
       toast.addEventListener("mouseleave", Swal.resumeTimer);
     },
   });
-  // .................
+  // ................. input value
   const [inPhone, setInPhone] = useState("");
+  const [inPass, setInPass] = useState("");
   const regexNumber = /^09\d{9}$/;
+  const regexPass = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
   const msgPhone = "شماره خود را به درستی وارد کنید";
   //// start : up and down span
   const refPhoneSpan = useRef(null);
@@ -126,9 +137,9 @@ function Login() {
             type={eye ? "text" : "password"}
             autoComplete="off"
             data-set="pass"
-            // onChange={(element) => {
-            //   setInPass(element.target.value);
-            // }}
+            onChange={(element) => {
+              setInPass(element.target.value);
+            }}
           />
           {/* {regexUid.test(inPass) || inPass.length == 0 ? <></> : <p className={styles.errorInput}>{msgUid}</p>} */}
           <img src={passicon} alt="" />
