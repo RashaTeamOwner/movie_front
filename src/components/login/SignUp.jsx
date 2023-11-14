@@ -17,7 +17,7 @@ function SignUp() {
   const regexNumber = /^09\d{9}$/;
   const regexUid = /^(97[0-9]{8}|98[0-9]{8}|99[0-9]{8}|400[0-9]{8}|401[0-9]{8}|402[0-9]{8})$/;
   const regexPass = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
-  const regexConfirm = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
+  const regexConfirm = /^[0-9]{6}$/;
 
   const msgUid = "شماره دانشجویی اشتباه است";
   const msgName = "نام خود را کامل وارد کنید";
@@ -30,7 +30,9 @@ function SignUp() {
     if (regexPersian.test(inName) && regexNumber.test(inPhone) && regexPass.test(inPass) && regexUid.test(uid)) {
       ToastConfirm.fire({
         icon: "success",
-        title: `پیامک به شماره ${inPhone} ارسال شد`,
+        title: `<p style='direction:rtl'>پیامک به شماره ${inPhone} ارسال شد</p>`,
+        width: "310px",
+        padding: "0 1rem",
       });
       // let data = {
       //   full_name: inName,
@@ -58,23 +60,34 @@ function SignUp() {
       if (!regexPersian.test(inName) || inName == "")
         Toast.fire({
           icon: "warning",
-          title: "نام خود را کامل وارد کنید",
+          title: "<p style='direction:rtl'>نام خود را کامل وارد کنید</p>",
+          width: "300px",
+          padding: "0 1rem",
+          iconColor: "red",
         });
       else if (!regexUid.test(uid) || uid == "")
         Toast.fire({
           icon: "warning",
-          title: "شماره دانشجویی اشتباه است",
+          title: "<p style='direction:rtl'>شماره دانشجویی اشتباه است</p>",
+          width: "330px",
+          padding: "0 1rem",
+          iconColor: "red",
         });
       else if (!regexNumber.test(inPhone) || inPhone == "")
         Toast.fire({
           icon: "warning",
-          title: "شماره تلفن وارد شده اشتباه است",
+          title: "<p style='direction:rtl'>شماره تلفن درست نیست</p>",
+          width: "310px",
+          padding: "0 1rem",
+          iconColor: "red",
         });
       else if (!regexPass.test(inPass) || inPass == "")
         Toast.fire({
           icon: "warning",
           iconColor: "red",
-          title: "فرمت پسورد درست نیست",
+          title: "<p style='direction:rtl'>فرمت پسورد درست نیست</p>",
+          width: "310px",
+          padding: "0 1rem",
         });
     }
   };
@@ -95,7 +108,7 @@ function SignUp() {
     toast: true,
     position: "top-end",
     showConfirmButton: false,
-    timer: 30000,
+    timer: 3000,
     timerProgressBar: true,
   });
 
@@ -105,6 +118,11 @@ function SignUp() {
   const refPassSpan = useRef(null);
   const refUidSpan = useRef(null);
   const refConfirmSpan = useRef(null);
+  const refInputName = useRef(null);
+  const refInputPhone = useRef(null);
+  const refInputPass = useRef(null);
+  const refInputUid = useRef(null);
+  const refInputConfirm = useRef(null);
 
   const handleFocus = (element) => {
     const sname = refNameSpan.current;
@@ -112,28 +130,44 @@ function SignUp() {
     const pass = refPassSpan.current;
     const uidspan = refUidSpan.current;
     const confspan = refConfirmSpan.current;
+    const inputName = refInputName.current;
+    const inputPhone = refInputPhone.current;
+    const inputPass = refInputPass.current;
+    const inputConfirm = refInputConfirm.current;
+    const inputUid = refInputUid.current;
 
     const target = element.target.dataset.set;
     if (target == "phone") {
-      phone.style.marginTop = "-27px";
-      phone.style.color = "rgba(255, 255, 255)";
+      phone.style.marginTop = "-24px";
+      phone.style.color = "black";
       phone.style.fontSize = "0.9rem";
+      phone.style.backgroundColor = "rgb(255, 174, 0)";
+      // phone.style.borderRaduis = "1rem";
+      inputPhone.style.borderColor = "white";
     } else if (target == "pass") {
-      pass.style.marginTop = "-27px";
-      pass.style.color = "rgba(255, 255, 255)";
+      pass.style.marginTop = "-24px";
+      pass.style.color = "black";
       pass.style.fontSize = "0.9rem";
+      pass.style.backgroundColor = "rgb(255, 174, 0)";
+      inputPass.style.borderColor = "white";
     } else if (target == "name") {
-      sname.style.marginTop = "-27px";
-      sname.style.color = "rgba(255,255,255)";
+      sname.style.marginTop = "-24px";
+      sname.style.color = "black";
       sname.style.fontSize = "0.9rem";
+      sname.style.backgroundColor = "rgb(255, 174, 0)";
+      inputName.style.borderColor = "white";
     } else if (target == "uid") {
-      uidspan.style.marginTop = "-27px";
-      uidspan.style.color = "rgba(255,255,255)";
+      uidspan.style.marginTop = "-24px";
+      uidspan.style.color = "black";
       uidspan.style.fontSize = "0.9rem";
+      uidspan.style.backgroundColor = "rgb(255, 174, 0)";
+      inputUid.style.borderColor = "white";
     } else if (target == "confirm") {
-      confspan.style.marginTop = "-27px";
-      confspan.style.color = "rgba(255,255,255)";
+      confspan.style.marginTop = "-24px";
+      confspan.style.color = "black";
       confspan.style.fontSize = "0.9rem";
+      confspan.style.backgroundColor = "rgb(255, 174, 0)";
+      inputConfirm.style.borderColor = "white";
     }
   };
   const handleClose = (element) => {
@@ -142,6 +176,11 @@ function SignUp() {
     const pass = refPassSpan.current;
     const uidspan = refUidSpan.current;
     const confspan = refConfirmSpan.current;
+    const inputName = refInputName.current;
+    const inputPhone = refInputPhone.current;
+    const inputPass = refInputPass.current;
+    const inputConfirm = refInputConfirm.current;
+    const inputUid = refInputUid.current;
 
     const target = element.target.dataset.set;
     const lenValue = element.target.value.length;
@@ -150,26 +189,41 @@ function SignUp() {
       phone.style.marginTop = "0";
       phone.style.color = "rgba(255, 255, 255, 0.523)";
       phone.style.fontSize = "0.8rem";
+      phone.style.backgroundColor = "transparent";
+      inputPhone.style.borderColor = "transparent";
+      inputPhone.style.borderBottomColor = "white";
     } else if (target == "pass") {
       if (lenValue != 0) return;
       pass.style.marginTop = "0";
       pass.style.color = "rgba(255, 255, 255, 0.523)";
       pass.style.fontSize = "0.8rem";
+      pass.style.backgroundColor = "transparent";
+      inputPass.style.borderColor = "transparent";
+      inputPass.style.borderBottomColor = "white";
     } else if (target == "name") {
       if (lenValue != 0) return;
       sname.style.marginTop = "0";
       sname.style.color = "rgba(255,255,255,0.523)";
       sname.fontSize = "0.8rem";
+      sname.style.backgroundColor = "transparent";
+      inputName.style.borderColor = "transparent";
+      inputName.style.borderBottomColor = "white";
     } else if (target == "uid") {
       if (lenValue != 0) return;
       uidspan.style.marginTop = "0";
       uidspan.style.color = "rgba(255,255,255,0.523)";
       uidspan.fontSize = "0.8rem";
+      uidspan.style.backgroundColor = "transparent";
+      inputUid.style.borderColor = "transparent";
+      inputUid.style.borderBottomColor = "white";
     } else if (target == "confirm") {
       if (lenValue != 0) return;
       confspan.style.marginTop = "0";
       confspan.style.color = "rgba(255,255,255,0.523)";
       confspan.fontSize = "0.8rem";
+      confspan.style.backgroundColor = "transparent";
+      inputConfirm.style.borderColor = "transparent";
+      inputConfirm.style.borderBottomColor = "white";
     }
   };
   //// end span up even click input
@@ -182,6 +236,7 @@ function SignUp() {
           <input
             onBlur={handleClose}
             onFocus={handleFocus}
+            ref={refInputName}
             required=""
             type="text"
             name="text"
@@ -200,6 +255,7 @@ function SignUp() {
           <input
             onBlur={handleClose}
             onFocus={handleFocus}
+            ref={refInputUid}
             type="text"
             autoComplete="off"
             data-set="uid"
@@ -215,6 +271,7 @@ function SignUp() {
           <input
             onBlur={handleClose}
             onFocus={handleFocus}
+            ref={refInputPhone}
             onChange={(element) => {
               setInPhone(element.target.value);
             }}
@@ -233,6 +290,7 @@ function SignUp() {
           <input
             onBlur={handleClose}
             onFocus={handleFocus}
+            ref={refInputPass}
             type="text"
             autoComplete="off"
             data-set="pass"
@@ -248,6 +306,7 @@ function SignUp() {
           <input
             onBlur={handleClose}
             onFocus={handleFocus}
+            ref={refInputConfirm}
             type="text"
             autoComplete="off"
             data-set="confirm"

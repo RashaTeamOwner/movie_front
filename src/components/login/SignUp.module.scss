@@ -27,11 +27,12 @@
       position: absolute;
       top: 50%;
       transform: translateY(-50%);
-      padding: 1rem;
+      padding: 0.1rem 0.5rem;
       pointer-events: none;
       color: rgba(255, 255, 255, 0.523);
       transition: 0.3s all ease;
       font-size: 0.8rem;
+      border-radius: 2rem 2rem 0 2rem;
     }
     img {
       position: absolute;
@@ -45,15 +46,16 @@
     input {
       width: 15rem;
       padding: 0.5rem 0.5rem 0.5rem 2.2rem;
-      text-align: center;
+      text-align: right;
       font-size: 1rem;
       background-color: transparent;
-      border: none;
+      border: 2px solid transparent;
       border-bottom: 2px solid rgb(255, 255, 255);
       border-radius: 0.5rem;
       font-family: iransans;
       font-weight: bold;
       direction: ltr;
+      color: white;
       &:focus {
         outline: none;
       }
@@ -64,10 +66,10 @@
       position: absolute;
       top: 50%;
       transform: translateY(-50%);
-      left: 0.2rem;
+      left: 0.3rem;
       padding: 0.4rem;
       font-size: 0.7rem;
-      border-radius: 0.7rem;
+      border-radius: 0.3rem;
       cursor: pointer;
       border: none;
       background-color: greenyellow;
