@@ -63,13 +63,13 @@ function Login() {
     const target = element.target.dataset.set;
     if (target == "phone") {
       phone.style.marginTop = "-24px";
-      phone.style.color = "rgba(255, 255, 255)";
+      phone.style.color = "black";
       phone.style.fontSize = "0.9rem";
       phone.style.backgroundColor = "rgb(255, 174, 0)";
       inputPhone.style.borderColor = "white";
     } else if (target == "pass") {
       pass.style.marginTop = "-24px";
-      pass.style.color = "rgba(255, 255, 255)";
+      pass.style.color = "black";
       pass.style.fontSize = "0.9rem";
       refEyeIcon.current.style.display = "block";
       pass.style.backgroundColor = "rgb(255, 174, 0)";
