@@ -67,10 +67,10 @@ function HandleLogin(props) {
           )}
         </div>
       </div>
-      <p className={styles.madewithlove}>made with love 💛</p>
+      {/* <p className={styles.madewithlove}>made with love 💛</p>
       <a href="#" className={styles.madeowner}>
         RashaTeam
-      </a>
+      </a> */}
     </>
   );
 }

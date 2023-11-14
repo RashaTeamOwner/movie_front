@@ -191,8 +191,8 @@
 .madewithlove {
   position: absolute;
   left: 50%;
+  bottom: 0px;
   transform: translateX(-50%);
-  bottom: 65px;
   color: white;
   font-family: sansx100;
   font-weight: bold;
@@ -201,7 +201,7 @@
 .madeowner {
   position: absolute;
   font-size: 0.7rem;
-  bottom: 60px;
+  bottom: 10px;
   left: 50%;
   transform: translateX(-50%);
   color: rgb(255, 255, 255);

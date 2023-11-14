@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 function App() {
   return (
-    <div>
+    <div style={{ position: "relative" }}>
       <Switch>
         <Route path="/signin" component={() => <HandleLogin targetEle={"in"} />} />
         <Route path="/signup" component={() => <HandleLogin targetEle={"up"} />} />
