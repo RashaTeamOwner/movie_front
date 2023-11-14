@@ -186,12 +186,22 @@
       }
     }
   }
+  //   .madewithlove {
+  //     bottom: 5px !important;
+  //     left: 5px !important;
+  //     transform: translateX(0) !important;
+  //   }
+  //   .madeowner {
+  //     bottom: 5px !important;
+  //     left: 5px !important;
+  //     transform: translateX(50%) !important;
+  //   }
 }
 
 .madewithlove {
   position: absolute;
   left: 50%;
-  bottom: 0px;
+  bottom: -45px;
   transform: translateX(-50%);
   color: white;
   font-family: sansx100;
@@ -201,7 +211,7 @@
 .madeowner {
   position: absolute;
   font-size: 0.7rem;
-  bottom: 10px;
+  bottom: -45px;
   left: 50%;
   transform: translateX(-50%);
   color: rgb(255, 255, 255);

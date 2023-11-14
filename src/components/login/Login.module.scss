@@ -123,6 +123,15 @@
   }
 }
 
+@media (max-width: 360px) {
+  .container {
+    padding: 0;
+    .loginBox {
+      padding: 1rem 0 0 0;
+    }
+  }
+}
+
 @keyframes errorAnime {
   0% {
     width: 0;

@@ -9,6 +9,7 @@
 .title_signup {
   font-size: 1.7rem;
   font-family: iransans;
+  padding-top: 1.5rem;
 }
 
 .signupBox {
@@ -158,6 +159,15 @@
     height: 100%;
     border-radius: 0.2rem;
     animation: errorAnime 0.5s ease 0.5s forwards;
+  }
+}
+
+@media (max-width: 360px) {
+  .container {
+    padding: 0;
+    .signupBox {
+      padding: 0.5rem 0 0 0;
+    }
   }
 }
 
