@@ -188,6 +188,26 @@
   }
 }
 
+.madewithlove {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 65px;
+  color: white;
+  font-family: sansx100;
+  font-weight: bold;
+  text-transform: capitalize;
+}
+.madeowner {
+  position: absolute;
+  font-size: 0.7rem;
+  bottom: 60px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: rgb(255, 255, 255);
+  font-family: sansx100;
+}
+
 @keyframes animeOpenMob {
   0% {
     width: 100%;

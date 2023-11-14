@@ -41,31 +41,37 @@ function HandleLogin(props) {
   }, []);
 
   return (
-    <div className={styles.container}>
-      <ParticlesComponent />
-      <div data-set="up" ref={refboxSignup} className={styles.boxSignup}>
-        <div className={styles.filterEffect}></div>
-        {statusSign ? (
-          <SignUp />
-        ) : (
-          <Link to="/signup" onClick={() => changeSign("up")} className={styles.tableDetail}>
-            <p>ثبت نام</p>
-            <img src={arrowicon} alt="arrow icon" />
-          </Link>
-        )}
+    <>
+      <div className={styles.container}>
+        <ParticlesComponent />
+        <div data-set="up" ref={refboxSignup} className={styles.boxSignup}>
+          <div className={styles.filterEffect}></div>
+          {statusSign ? (
+            <SignUp />
+          ) : (
+            <Link to="/signup" onClick={() => changeSign("up")} className={styles.tableDetail}>
+              <p>ثبت نام</p>
+              <img src={arrowicon} alt="arrow icon" />
+            </Link>
+          )}
+        </div>
+        <div data-set="in" ref={refboxSignin} className={styles.boxLogin}>
+          <div className={styles.filterEffect}></div>
+          {!statusSign ? (
+            <Login />
+          ) : (
+            <Link to="/signin" onClick={() => changeSign("in")} className={styles.tableDetail}>
+              <p>ورود به حساب</p>
+              <img src={arrowicon} alt="arrow icon" />
+            </Link>
+          )}
+        </div>
       </div>
-      <div data-set="in" ref={refboxSignin} className={styles.boxLogin}>
-        <div className={styles.filterEffect}></div>
-        {!statusSign ? (
-          <Login />
-        ) : (
-          <Link to="/signin" onClick={() => changeSign("in")} className={styles.tableDetail}>
-            <p>ورود به حساب</p>
-            <img src={arrowicon} alt="arrow icon" />
-          </Link>
-        )}
-      </div>
-    </div>
+      <p className={styles.madewithlove}>made with love 💛</p>
+      <a href="#" className={styles.madeowner}>
+        RashaTeam
+      </a>
+    </>
   );
 }
 
