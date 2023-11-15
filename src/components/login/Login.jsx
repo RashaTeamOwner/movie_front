@@ -1,4 +1,5 @@
 import Swal from "sweetalert2";
+import axios from "axios";
 import styles from "./Login.module.scss";
 import usericon from "../../assets/loginpage/user-outlined.svg";
 import passicon from "../../assets/loginpage/lock-password.svg";
@@ -11,15 +12,36 @@ function Login() {
   const handleEye = () => {
     setEye(!eye);
   };
-  
+
   const handleButtonLogin = () => {
-    if (regexNumber.test(inPhone) && regexPass.test(inPass)) {
+    if (1) {
       Toast.fire({
         icon: "success",
         title: "<p style='direction:rtl'>اطلاعات وارد شده درست است</p>",
         width: "310px",
         padding: "0 1rem",
       });
+      // let data = {
+      //   username: inPhone,
+      //   password: inPass,
+      // };
+      axios({
+        method: "post",
+        url: `http://192.168.210.168:8000/api/v1/users/`,
+        headers: {
+          Authorization: "token 74b8367cd9d2cc86433185d1efca257a946cb3b5",
+          "Content-Type": "application/json",
+        },
+        // data: JSON.stringify(data),
+      })
+        .then((res) => {
+          alert(res.data);
+          console.log(res);
+        })
+        .catch((err) => {
+          alert(err);
+          console.log(err);
+        });
     } else {
       Toast.fire({
         icon: "warning",
@@ -45,9 +67,9 @@ function Login() {
   // ................. input value
   const [inPhone, setInPhone] = useState("");
   const [inPass, setInPass] = useState("");
-  const regexNumber = /^09\d{9}$/;
+  const regexNumber = /^(97[0-9]{8}|98[0-9]{8}|99[0-9]{8}|400[0-9]{8}|401[0-9]{8}|402[0-9]{8})$/;
   const regexPass = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
-  const msgPhone = "شماره خود را به درستی وارد کنید";
+  const msgPhone = "شماره دانشجویی خود را به درستی وارد کنید";
   //// start : up and down span
   const refPhoneSpan = useRef(null);
   const refPassSpan = useRef(null);
@@ -109,7 +131,7 @@ function Login() {
       <p className={styles.title_login}>ورود به حساب</p>
       <div className={styles.loginBox}>
         <div className={styles.phone_login}>
-          <span ref={refPhoneSpan}>شماره تلفن</span>
+          <span ref={refPhoneSpan}>شماره دانشجویی</span>
           <input
             onBlur={handleClose}
             onFocus={handleFocus}

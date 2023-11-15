@@ -1,5 +1,5 @@
 import { useRef, useState } from "react";
-import axios from "axios";
+// import axios from "axios";
 import Swal from "sweetalert2";
 import styles from "./SignUp.module.scss";
 import iconname from "../../assets/loginpage/user-outlined.svg";
@@ -42,7 +42,7 @@ function SignUp() {
       // };
       // axios({
       //   method: "post",
-      //   url: `http://192.168.175.168:8000/api/v1/auth/register/`,
+      //   url: `http://192.168.210.168:8000/api/v1/auth/register/`,
       //   headers: {
       //     "Content-Type": "application/json",
       //   },
