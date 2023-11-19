@@ -59,6 +59,8 @@
     gap: 0;
     align-items: flex-start;
     direction: rtl;
+    width: fit-content;
+    position: relative;
     // float: right;
     > p:first-child {
       font-size: 0.7rem;
@@ -67,6 +69,9 @@
     > p:last-child {
       font-size: 0.7rem;
       margin-top: 0.1rem;
+      position: absolute;
+      left: 0;
+      bottom: -30px;
     }
     .animeRoute {
       width: 22rem;
@@ -169,4 +174,49 @@
     cursor: pointer;
     background-color: rgb(0, 230, 230);
   }
+}
+
+@media (max-width: 1400px) {
+  .landboxDetail {
+    .landDetail {
+      width: 100%;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      > p {
+        width: 100%;
+        margin: 0;
+      }
+      .routeUpper {
+        padding-top: 1rem;
+      }
+    }
+  }
+  .landImg {
+    align-items: start;
+    padding-top: 0.6rem;
+
+    img {
+      width: 12rem;
+      height: 18rem;
+    }
+  }
+}
+
+@media (max-width: 1150px) {
+  .landboxDetail {
+    flex-direction: column;
+  }
+  .landImg {
+    align-items: start;
+    padding-top: 0.6rem;
+    img {
+      width: 10rem;
+      height: 16rem;
+    }
+  }
+  // .timeIncoming {
+  //   display: none;
+  // }
 }
