@@ -1,4 +1,4 @@
-// import HomePage from "./components/landing/HomePage";
+import HomePage from "./components/landing/HomePage";
 import HandleLogin from "./components/login/HandleLogin";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
@@ -8,6 +8,7 @@ function App() {
       <Switch>
         <Route path="/signin" component={() => <HandleLogin targetEle={"in"} />} />
         <Route path="/signup" component={() => <HandleLogin targetEle={"up"} />} />
+        <Route path="/" component={() => <HomePage />} />
       </Switch>
     </div>
   );

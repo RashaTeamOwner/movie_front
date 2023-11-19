@@ -69,7 +69,7 @@ function Login() {
   const [inPass, setInPass] = useState("");
   const regexNumber = /^(97[0-9]{8}|98[0-9]{8}|99[0-9]{8}|400[0-9]{8}|401[0-9]{8}|402[0-9]{8})$/;
   const regexPass = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
-  const msgPhone = "شماره دانشجویی خود را به درستی وارد کنید";
+  const msgPhone = "شماره دانشجویی درست نیست";
   //// start : up and down span
   const refPhoneSpan = useRef(null);
   const refPassSpan = useRef(null);
