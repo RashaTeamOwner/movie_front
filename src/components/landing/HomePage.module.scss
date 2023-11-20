@@ -1,5 +1,5 @@
 .container {
-  width: 90%;
+  // width: 90%;
   margin: auto;
   background: url("../../assets/landing/landimgwide.jpg");
   background-position: left calc((50vw - 170px) - 340px) top;
@@ -201,7 +201,7 @@
   }
 }
 
-@media (max-width: 1400px) {
+@media (max-width: 1200px) {
   .landImg {
     display: none;
   }
@@ -262,6 +262,35 @@
     .landDetailGenre {
       > div {
         width: 50%;
+      }
+    }
+  }
+}
+
+@media (max-width: 720px) {
+  .landImg {
+    display: none;
+  }
+}
+
+@media (max-width: 470px) {
+  .landImg {
+    display: none;
+  }
+  .boxChairs {
+    gap: 1.4rem;
+    &Left {
+      grid-auto-rows: 12px;
+      > div {
+        width: 0.7rem;
+        height: 0.7rem;
+      }
+    }
+    &Right {
+      grid-auto-rows: 12px;
+      > div {
+        width: 0.7rem;
+        height: 0.7rem;
       }
     }
   }
