@@ -41,56 +41,81 @@
 }
 
 .landDetail {
-  width: 50%;
-  color: white;
-  font-family: iransans;
-  padding: 0.3rem 1rem;
-  > p {
-    direction: rtl;
-    > span {
-      color: rgb(255, 179, 0);
-      font-family: sansx100;
-      font-size: 1.2rem;
+  .landDetailinto {
+    width: 100%;
+    color: white;
+    font-family: iransans;
+    padding: 0.3rem 1rem;
+    > p {
+      direction: rtl;
+      > span {
+        color: rgb(255, 179, 0);
+        font-family: sansx100;
+        font-size: 1.2rem;
+      }
+    }
+    .routeUpper {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      align-items: flex-start;
+      direction: rtl;
+      width: fit-content;
+      position: relative;
+      // float: right;
+      > p:first-child {
+        font-size: 0.7rem;
+        margin-bottom: 0.1rem;
+      }
+      > p:last-child {
+        font-size: 0.7rem;
+        margin-top: 0.1rem;
+        position: absolute;
+        left: 0;
+        bottom: -30px;
+      }
+      .animeRoute {
+        width: 22rem;
+        height: 1rem;
+        background-color: rgb(245, 245, 245);
+        border-radius: 1rem;
+        direction: ltr;
+        > div {
+          width: 90%;
+          height: 1rem;
+          background-color: rgb(255, 72, 72);
+          border-radius: 1rem;
+        }
+      }
     }
   }
-  .routeUpper {
+  .landDetailGenre {
+    margin-top: 4rem;
     display: flex;
-    flex-direction: column;
-    gap: 0;
-    align-items: flex-start;
-    direction: rtl;
-    width: fit-content;
-    position: relative;
-    // float: right;
-    > p:first-child {
-      font-size: 0.7rem;
-      margin-bottom: 0.1rem;
-    }
-    > p:last-child {
-      font-size: 0.7rem;
-      margin-top: 0.1rem;
-      position: absolute;
-      left: 0;
-      bottom: -30px;
-    }
-    .animeRoute {
-      width: 22rem;
-      height: 1rem;
-      background-color: rgb(245, 245, 245);
-      border-radius: 1rem;
-      direction: ltr;
-      > div {
-        width: 90%;
-        height: 1rem;
-        background-color: rgb(255, 72, 72);
-        border-radius: 1rem;
+    > div {
+      padding-right: 0.7rem;
+      width: 70%;
+      > h4 {
+        padding: 0;
+        margin: 0.4rem;
+        font-size: 0.9rem;
+        color: white;
+        font-family: iransans;
       }
+    }
+    img {
+      display: none;
+      width: 6rem;
+      height: 9rem;
+      border-radius: 0.7rem;
+      border: white 2px solid;
     }
   }
 }
 
 .timeIncoming {
-  padding-top: 2rem;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
   direction: rtl;
   display: flex;
   flex-direction: column;
@@ -177,46 +202,67 @@
 }
 
 @media (max-width: 1400px) {
-  .landboxDetail {
-    .landDetail {
-      width: 100%;
-      margin: 0;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      > p {
-        width: 100%;
-        margin: 0;
-      }
-      .routeUpper {
-        padding-top: 1rem;
-      }
-    }
-  }
   .landImg {
-    align-items: start;
-    padding-top: 0.6rem;
-
+    display: none;
+  }
+  .landDetailGenre {
     img {
-      width: 12rem;
-      height: 18rem;
+      display: block !important;
     }
   }
+  // .landboxDetail {
+  //   .landDetail {
+  //     width: 100%;
+  //     margin: 0;
+  //     display: flex;
+  //     flex-direction: column;
+  //     align-items: center;
+  //     > p {
+  //       width: 100%;
+  //       margin: 0;
+  //     }
+  //     .routeUpper {
+  //       padding-top: 1rem;
+  //     }
+  //   }
+  // }
+  // .landImg {
+  //   align-items: start;
+  //   padding-top: 0.6rem;
+
+  //   img {
+  //     width: 12rem;
+  //     height: 18rem;
+  //   }
+  // }
 }
 
-@media (max-width: 1150px) {
+@media (max-width: 970px) {
+  .landImg {
+    display: block;
+    padding-top: 0.6rem;
+    > img {
+      width: 15rem;
+      height: 22rem;
+    }
+  }
+  .landDetailGenre {
+    margin-top: 2rem !important;
+    > div {
+      width: 90% !important;
+    }
+    img {
+      display: none !important;
+    }
+  }
   .landboxDetail {
     flex-direction: column;
   }
-  .landImg {
-    align-items: start;
-    padding-top: 0.6rem;
-    img {
-      width: 10rem;
-      height: 16rem;
+  .landDetail {
+    .landDetailGenre {
+      > div {
+        width: 50%;
+      }
     }
   }
-  // .timeIncoming {
-  //   display: none;
-  // }
 }

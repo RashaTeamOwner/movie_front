@@ -10,16 +10,27 @@ function HomePage() {
         </div>
         <div className={styles.landboxDetail}>
           <div className={styles.landDetail}>
-            <p>
-              این هفته با فیلم <span>Blonde</span> همراه شماییم
-            </p>
-            <p>مدت : 135 دقیقه</p>
-            <div className={styles.routeUpper}>
-              <p>2 نفر تا تکمیل ظرفیت حداقلی</p>
-              <div className={styles.animeRoute}>
-                <div></div>
+            <div className={styles.landDetailinto}>
+              <p>
+                این هفته با فیلم <span>Blonde</span> همراه شماییم
+              </p>
+              <p>مدت : 135 دقیقه</p>
+              <div className={styles.routeUpper}>
+                <p>2 نفر تا تکمیل ظرفیت حداقلی</p>
+                <div className={styles.animeRoute}>
+                  <div></div>
+                </div>
+                <p>تعداد رزروها : 23 نفر</p>
               </div>
-              <p>تعداد رزروها : 23 نفر</p>
+            </div>
+            <div className={styles.landDetailGenre}>
+              <div>
+                <h4>محصول سال : 2022</h4>
+                <h4>ژانر : درام , تاریخی</h4>
+                <h4>محصول : آمریکا</h4>
+                <h4>خلاصه داستان : داستان مرلین مونرو بازیگر آمریکایی که زندگی عشقی و حرفه ای او را پوشش می دهد</h4>
+              </div>
+              <img src={landimg} alt="poster" />
             </div>
           </div>
           <div className={styles.timeIncoming}>
