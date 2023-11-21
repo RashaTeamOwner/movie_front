@@ -2,5 +2,10 @@
   width: 100%;
   padding: 0;
   margin: 0;
-  background-color: rgb(43, 43, 43);
+  background: linear-gradient(
+    to right,
+    rgb(32, 32, 32) calc(50vw - 170px - 340px),
+    rgba(32, 32, 32, 0.84) 50%,
+    rgba(32, 32, 32, 0.84) 100%
+  );
 }
