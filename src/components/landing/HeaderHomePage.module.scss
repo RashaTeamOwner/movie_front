@@ -1,0 +1,344 @@
+.container {
+  // width: 90%;
+  margin: auto;
+  background: url("../../assets/landing/landimgwide.jpg");
+  background-position: left calc((50vw - 170px) - 340px) top;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.intoContainer {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  background: linear-gradient(
+    to right,
+    rgba(31.5, 31.5, 31.5, 1) calc((50vw - 170px) - 340px),
+    rgba(31.5, 31.5, 31.5, 0.84) 50%,
+    rgba(31.5, 31.5, 31.5, 0.84) 100%
+  );
+}
+
+.landImg {
+  width: 40%;
+  display: flex;
+  justify-content: left;
+  padding-left: 0.5rem;
+  align-items: center;
+  img {
+    width: 20rem;
+    height: 95%;
+    border: 2px solid white;
+    border-radius: 0.5rem;
+  }
+}
+
+.landboxDetail {
+  display: flex;
+  direction: rtl;
+  width: 100%;
+  padding: 1rem;
+}
+
+.landDetail {
+  .landDetailinto {
+    width: 100%;
+    color: white;
+    font-family: iransans;
+    padding: 0.3rem 1rem;
+    > p {
+      direction: rtl;
+      > span {
+        color: rgb(255, 179, 0);
+        font-family: sansx100;
+        font-size: 1.2rem;
+      }
+    }
+    .routeUpper {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      align-items: flex-start;
+      direction: rtl;
+      width: fit-content;
+      position: relative;
+      padding-top: 1.5rem;
+      // float: right;
+      > p:first-child {
+        font-size: 0.7rem;
+        margin-bottom: 0.1rem;
+      }
+      > p:last-child {
+        font-size: 0.7rem;
+        margin-top: 0.1rem;
+        position: absolute;
+        left: 0;
+        bottom: -20px;
+      }
+      .animeRoute {
+        width: 22rem;
+        height: 1rem;
+        background-color: rgb(245, 245, 245);
+        border-radius: 1rem;
+        direction: ltr;
+        > div {
+          width: 90%;
+          height: 1rem;
+          background-color: rgb(255, 72, 72);
+          border-radius: 1rem;
+        }
+      }
+    }
+  }
+  .landDetailGenre {
+    margin-top: 4rem;
+    display: flex;
+    > div {
+      padding-right: 0.7rem;
+      width: 70%;
+      > h4 {
+        padding: 0;
+        margin: 0.4rem;
+        font-size: 0.9rem;
+        color: white;
+        font-family: iransans;
+        span {
+          color: rgb(255, 179, 0);
+        }
+      }
+    }
+    img {
+      display: none;
+      width: 6rem;
+      height: 9rem;
+      border-radius: 0.7rem;
+      border: white 2px solid;
+    }
+  }
+}
+
+.timeIncoming {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  direction: rtl;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  color: white;
+  width: 100%;
+  h3 {
+    margin: 0;
+    font-size: 1.4rem;
+  }
+  p {
+    margin: 0;
+  }
+}
+
+.boxChairs {
+  display: flex;
+  gap: 4rem;
+  padding-top: 3rem;
+  &Right {
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    grid-auto-rows: 20px;
+    gap: 0.5rem;
+    > div {
+      width: 0.9rem;
+      height: 0.9rem;
+      border-radius: 0.2rem;
+      background-color: gainsboro;
+      cursor: pointer;
+    }
+  }
+  &Left {
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    grid-auto-rows: 20px;
+    gap: 0.5rem;
+    > div {
+      width: 0.9rem;
+      height: 0.9rem;
+      border-radius: 0.2rem;
+      cursor: pointer;
+      background-color: gainsboro;
+    }
+  }
+}
+
+.someDetailChairs {
+  display: flex;
+  padding-top: 0.5rem;
+  width: 420px;
+  gap: 1rem;
+  justify-content: center;
+  width: fit-content;
+  > p {
+    padding: 0.3rem 0.7rem;
+    border-radius: 0.3rem;
+    font-size: 0.8rem;
+  }
+  > p:first-child {
+    background-color: rgb(255, 54, 54);
+  }
+  > p:nth-child(2) {
+    background-color: rgb(215, 215, 215);
+    color: black;
+  }
+  > p:nth-child(3) {
+    background-color: rgb(255, 183, 0);
+  }
+}
+
+.loginOrReserve {
+  padding-top: 2rem;
+  a {
+    padding: 0.5rem 1rem;
+    text-decoration: none;
+    color: black;
+    font-family: sansx100;
+    border-radius: 0.4rem;
+    border: none;
+    cursor: pointer;
+    background-color: rgb(0, 230, 230);
+  }
+}
+
+@media (max-width: 1200px) {
+  .landImg {
+    display: none;
+  }
+  .landDetailGenre {
+    img {
+      display: block !important;
+    }
+  }
+  // .landboxDetail {
+  //   .landDetail {
+  //     width: 100%;
+  //     margin: 0;
+  //     display: flex;
+  //     flex-direction: column;
+  //     align-items: center;
+  //     > p {
+  //       width: 100%;
+  //       margin: 0;
+  //     }
+  //     .routeUpper {
+  //       padding-top: 1rem;
+  //     }
+  //   }
+  // }
+  // .landImg {
+  //   align-items: start;
+  //   padding-top: 0.6rem;
+
+  //   img {
+  //     width: 12rem;
+  //     height: 18rem;
+  //   }
+  // }
+}
+
+@media (max-width: 970px) {
+  .landImg {
+    display: block;
+    padding-top: 0.6rem;
+    > img {
+      width: 15rem;
+      height: 22rem;
+    }
+  }
+  .landDetailGenre {
+    margin-top: 2rem !important;
+    > div {
+      width: 90% !important;
+    }
+    img {
+      display: none !important;
+    }
+  }
+  .landboxDetail {
+    flex-direction: column;
+  }
+  .landDetail {
+    .landDetailGenre {
+      > div {
+        width: 50%;
+      }
+    }
+  }
+}
+
+@media (max-width: 720px) {
+  .landImg {
+    display: none;
+  }
+}
+
+@media (max-width: 470px) {
+  .landImg {
+    display: none;
+  }
+  .boxChairs {
+    gap: 1.4rem;
+    padding-top: 2rem;
+    &Left {
+      grid-auto-rows: 12px;
+      > div {
+        width: 0.7rem;
+        height: 0.7rem;
+      }
+    }
+    &Right {
+      grid-auto-rows: 12px;
+      > div {
+        width: 0.7rem;
+        height: 0.7rem;
+      }
+    }
+  }
+}
+
+@media (max-width: 405px) {
+  .landDetail {
+    .landDetailinto {
+      .routeUpper {
+        .animeRoute {
+          width: 17rem;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 360px) {
+  .landDetail {
+    .landDetailinto {
+      padding: 0;
+      > p {
+        font-size: 14px;
+      }
+    }
+    .landDetailGenre {
+      > div {
+        padding: 0;
+      }
+    }
+  }
+  .boxChairs {
+    &Left,
+    &Right {
+      grid-auto-rows: 9px;
+      gap: 0.4rem;
+    }
+  }
+  .someDetailChairs {
+    padding-top: 0.7rem;
+    > p {
+      padding: 0.2rem 0.5rem;
+    }
+  }
+}
