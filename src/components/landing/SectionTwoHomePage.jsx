@@ -4,7 +4,9 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/effect-coverflow";
 import "swiper/css/pagination";
-import { EffectCoverflow, Pagination } from "swiper/modules";
+import "swiper/css/navigation";
+import "swiper/css/autoplay";
+import { Autoplay, EffectCoverflow, Pagination } from "swiper/modules";
 import im1 from "../../assets/landing/sec1.jpg";
 import im2 from "../../assets/landing/sec2.jpg";
 import im3 from "../../assets/landing/sec3.jpg";
@@ -30,8 +32,9 @@ function SectionTwoHomePage() {
             modifier: 1,
             slideShadows: true,
           }}
-          pagination={true}
-          modules={[EffectCoverflow, Pagination]}
+          pagination
+          autoplay={{ delay: 3000, pauseOnMouseEnter: true, stopOnLastSlide: true }}
+          modules={[EffectCoverflow, Pagination, Autoplay]}
           className="mySwiper"
         >
           <SwiperSlide style={{ width: "250px" }}>
@@ -43,9 +46,9 @@ function SectionTwoHomePage() {
           <SwiperSlide style={{ width: "250px" }}>
             <img src={im3} style={{ width: "250px" }} />
           </SwiperSlide>
-          <SwiperSlide style={{ width: "250px" }}>
+          {/* <SwiperSlide style={{ width: "250px" }}>
             <img src={im4} style={{ width: "250px" }} />
-          </SwiperSlide>
+          </SwiperSlide> */}
         </Swiper>
       </div>
     </div>
