@@ -2,9 +2,10 @@
   // width: 90%;
   margin: auto;
   background: url("../../assets/landing/landimgwide.jpg");
-  background-position: left calc((50vw - 170px) - 340px) top;
+  // background-position: left calc((50vw - 170px) - 340px) top;
   background-size: cover;
   background-repeat: no-repeat;
+  background-position: center;
 }
 
 .intoContainer {
