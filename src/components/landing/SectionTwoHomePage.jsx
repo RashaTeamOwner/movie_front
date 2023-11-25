@@ -28,7 +28,8 @@ function SectionTwoHomePage() {
       <div className={styles.headerContainer}>
         <h2>فیلم هفته بعدی را شما انتخاب کنید</h2>
         <div className={styles.headPoints}>
-          <h6></h6>
+          <button>امتیازات</button>
+          <button>نتیجه رای گیری</button>
         </div>
       </div>
       <div className={styles.imageContainer}>
@@ -72,6 +73,30 @@ function SectionTwoHomePage() {
             <button className={styles.submitSlide}>ثبت رای</button>
           </SwiperSlide>
         </Swiper>
+      </div>
+      <div className={styles.tableContainer}>
+        <div className={styles.titleTable}>
+          <h3>فیلم ها</h3>
+          <h3>تعداد رای</h3>
+        </div>
+        <div className={styles.dataTable}>
+          <div>
+            <p>عصر کسشر</p>
+            <p>14 رای</p>
+          </div>
+          <div>
+            <p>ارام مرادیان</p>
+            <p>10 رای</p>
+          </div>
+          <div>
+            <p>کسشر بعدی</p>
+            <p>7 رای</p>
+          </div>
+          <div>
+            <p>3 کسشر</p>
+            <p>3 رای</p>
+          </div>
+        </div>
       </div>
     </div>
   );

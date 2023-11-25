@@ -1,11 +1,18 @@
 @use "../../index.scss";
 
+.container {
+  position: relative;
+}
+
 .headerContainer {
   color: rgb(255, 179, 0);
   font-family: iransans;
   direction: rtl;
   padding: 0.6rem 2rem;
   margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .imageContainer {
@@ -52,6 +59,17 @@
 
 .headPoints {
   direction: rtl;
+  display: flex;
+  gap: 0.5rem;
+  display: none;
+  > button {
+    border: none;
+    font-family: sansx100;
+    border-radius: 0.5rem;
+    padding: 0.3rem 0.5rem;
+    cursor: pointer;
+    font-size: 1.2rem;
+  }
 }
 
 .submitSlide {
@@ -66,6 +84,57 @@
   color: white;
   background-color: rgb(255, 47, 47);
   border: none;
+}
+
+.tableContainer {
+  display: flex;
+  position: absolute;
+  font-family: sansx100;
+  top: 120px;
+  right: 20px;
+  direction: rtl;
+  flex-direction: column;
+  color: white;
+  padding: 0.5rem 1rem;
+  gap: 0.5rem;
+  .titleTable {
+    display: flex;
+    gap: 4rem;
+    padding: 0 0.5rem;
+    border-bottom: 2px solid rgb(255, 255, 255);
+    > h3 {
+      margin: 0;
+      color: rgb(255, 170, 0);
+    }
+  }
+  .dataTable {
+    display: flex;
+    gap: 0.3rem;
+    flex-direction: column;
+    > div {
+      display: flex;
+      padding: 0 0.5rem;
+      justify-content: space-between;
+      border-radius: 0.2rem;
+      > p:last-child {
+        text-align: center;
+      }
+      > p {
+        font-size: 0.9rem;
+        width: 50%;
+        margin: 0;
+        padding: 0.3rem 0;
+      }
+    }
+  }
+}
+
+// media queries
+
+@media (max-width: 1200px) {
+  .headPoints {
+    display: flex;
+  }
 }
 
 @media (max-width: 900px) {
@@ -84,6 +153,11 @@
   .imageContainer {
     width: 600px;
     height: 350px;
+  }
+  .headPoints {
+    > button {
+      font-size: 1rem;
+    }
   }
 }
 @media (max-width: 700px) {
@@ -108,6 +182,11 @@
     width: 470px;
     height: 300px;
   }
+  .headPoints {
+    > button {
+      font-size: 0.8rem;
+    }
+  }
 }
 
 @media (max-width: 500px) {
@@ -122,5 +201,11 @@
     > h2 {
       font-size: 1rem;
     }
+  }
+}
+
+@media (max-width: 425px) {
+  .headerContainer {
+    flex-direction: column;
   }
 }
