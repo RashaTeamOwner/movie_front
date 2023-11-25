@@ -16,14 +16,14 @@
 }
 
 .imageContainer {
-  width: 730px;
+  width: 670px;
   height: 400px;
   margin: auto;
 }
 
 .imageSlide {
   border-radius: 1rem;
-  width: 250px;
+  width: 240px;
   > div {
     border-radius: 1rem;
   }
@@ -126,6 +126,42 @@
         padding: 0.3rem 0;
       }
     }
+  }
+}
+
+.priceContainer {
+  direction: rtl;
+  position: absolute;
+  top: 100px;
+  left: 20px;
+  width: 260px;
+  box-sizing: border-box;
+  padding: 1rem;
+  color: white;
+  font-family: sansx100;
+  > h3 {
+    margin: 0;
+    color: rgb(255, 183, 0);
+  }
+  > p {
+    font-size: 0.9rem;
+  }
+  > div {
+    > p {
+      font-size: 0.7rem;
+      span {
+        font-size: 1rem;
+        color: rgb(255, 183, 0);
+      }
+    }
+  }
+  > button {
+    border: none;
+    padding: 0.3rem 0.5rem;
+    font-family: iransans;
+    border-radius: 0.2rem;
+    font-size: 0.8rem;
+    cursor: pointer;
   }
 }
 

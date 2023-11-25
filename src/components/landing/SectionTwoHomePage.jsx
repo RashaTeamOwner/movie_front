@@ -55,7 +55,7 @@ function SectionTwoHomePage() {
           <SwiperSlide className={styles.imageSlide}>
             <div className={styles.topSlide}>
               <h2>منتخب هفته بعد</h2>
-              <p>11 رای</p>
+              <p>14 رای</p>
             </div>
             <img src={im1} />
             <button className={styles.submitSlide}>ثبت رای</button>
@@ -97,6 +97,22 @@ function SectionTwoHomePage() {
             <p>3 رای</p>
           </div>
         </div>
+      </div>
+      <div className={styles.priceContainer}>
+        <h3>توضیحات : </h3>
+        <p>در هر رای گیری که شرکت کنید 10 امتیاز به حساب شما اضافه میشود . </p>
+        <div>
+          <p>
+            <span>10+ </span>امتیاز , شرکت در رای گیری
+          </p>
+          <p>
+            <span>15+ </span>امتیاز , شرکت در سالن اکران و تماشای فیلم
+          </p>
+          <p>
+            <span>10+ </span>امتیاز , شرکت در نقد فیلم
+          </p>
+        </div>
+        <button>جدول امتیازات دانشجویان</button>
       </div>
     </div>
   );
