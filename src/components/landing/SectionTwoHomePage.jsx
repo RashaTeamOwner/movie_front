@@ -1,5 +1,6 @@
 import { Swiper, SwiperSlide } from "swiper/react";
-
+import { useRef } from "react";
+import closebtn from "../../assets/landing/close-bold.svg";
 // Import Swiper styles
 import "swiper/css";
 import "swiper/css/effect-coverflow";
@@ -23,13 +24,39 @@ function SectionTwoHomePage() {
     // }
   };
 
+  // handle popup open in mobile sec
+  const refTableData = useRef(null);
+  const refPriceData = useRef(null);
+  const refFatherContainer = useRef(null);
+
+  const handleOpenResults = () => {
+    refTableData.current.style.display = "flex";
+    refPriceData.current.style.display = "none";
+    refFatherContainer.current.style.display = "block";
+  };
+  const handleOpenPoints = () => {
+    refPriceData.current.style.display = "block";
+    refTableData.current.style.display = "none";
+    refFatherContainer.current.style.display = "block";
+  };
+
+  const closePopupShodow = () => {
+    refFatherContainer.current.style.display = "none";
+    refTableData.current.style.display = "none";
+    refPriceData.current.style.display = "none";
+  };
+
   return (
     <div className={styles.container}>
       <div className={styles.headerContainer}>
         <h2>فیلم هفته بعدی را شما انتخاب کنید</h2>
         <div className={styles.headPoints}>
-          <button className={`${styles.btn} ${styles.btn_default} ${styles.btn_lg} ${styles.btn3d}`}>امتیازات</button>
-          <button className={`${styles.btn} ${styles.btn_default} ${styles.btn_lg} ${styles.btn3d}`}>نتیجه رای گیری</button>
+          <button onClick={handleOpenPoints} className={`${styles.btn} ${styles.btn_default} ${styles.btn_lg} ${styles.btn3d}`}>
+            امتیازات
+          </button>
+          <button onClick={handleOpenResults} className={`${styles.btn} ${styles.btn_default} ${styles.btn_lg} ${styles.btn3d}`}>
+            نتیجه رای گیری
+          </button>
         </div>
       </div>
       <div className={styles.imageContainer}>
@@ -74,7 +101,7 @@ function SectionTwoHomePage() {
           </SwiperSlide>
         </Swiper>
       </div>
-      <div className={styles.tableContainer}>
+      <div ref={refTableData} className={styles.tableContainer}>
         <div className={styles.titleTable}>
           <h3>فیلم ها</h3>
           <h3>تعداد رای</h3>
@@ -97,8 +124,11 @@ function SectionTwoHomePage() {
             <p>3 رای</p>
           </div>
         </div>
+        <div className={styles.closeIconBox}>
+          <img onClick={closePopupShodow} src={closebtn} alt="close icon" />
+        </div>
       </div>
-      <div className={styles.priceContainer}>
+      <div ref={refPriceData} className={styles.priceContainer}>
         <h3>توضیحات : </h3>
         <p>در هر رای گیری که شرکت کنید 10 امتیاز به حساب شما اضافه میشود . </p>
         <div>
@@ -113,7 +143,11 @@ function SectionTwoHomePage() {
           </p>
         </div>
         <button className={`${styles.btn} ${styles.btn_default} ${styles.btn_lg} ${styles.btn3d}`}>جدول امتیازات دانشجویان</button>
+        <div className={styles.closeIconBox}>
+          <img onClick={closePopupShodow} src={closebtn} alt="close icon" />
+        </div>
       </div>
+      <div ref={refFatherContainer} onClick={closePopupShodow} className={styles.shodowforHide}></div>
     </div>
   );
 }
