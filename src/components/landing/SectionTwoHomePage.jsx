@@ -1,6 +1,6 @@
 import { Swiper, SwiperSlide } from "swiper/react";
 import { useRef } from "react";
-import closebtn from "../../assets/landing/close-bold.svg";
+import useWindowSize from "../../hooks/useWindowSize";
 // Import Swiper styles
 import "swiper/css";
 import "swiper/css/effect-coverflow";
@@ -13,8 +13,10 @@ import im1 from "../../assets/landing/sec1.jpg";
 import im2 from "../../assets/landing/sec2.jpg";
 import im3 from "../../assets/landing/sec3.jpg";
 import im4 from "../../assets/landing/sec4.jpg";
-
 import styles from "./SectionTwoHomePage.module.scss";
+import closebtn from "../../assets/landing/close-bold.svg";
+import { useEffect } from "react";
+
 function SectionTwoHomePage() {
   const handleSlideChange = (swiper) => {
     const activeSlideIndex = swiper.activeIndex;
@@ -28,6 +30,25 @@ function SectionTwoHomePage() {
   const refTableData = useRef(null);
   const refPriceData = useRef(null);
   const refFatherContainer = useRef(null);
+  const refCloseIcon = useRef(null);
+  const refCloseIcon2 = useRef(null);
+
+  const sizeWidth = useWindowSize();
+  useEffect(() => {
+    if (sizeWidth.width > 1200) {
+      refFatherContainer.current.style.display = "none";
+      refTableData.current.style.display = "flex";
+      refPriceData.current.style.display = "block";
+      refCloseIcon.current.style.display = "none";
+      refCloseIcon2.current.style.display = "none";
+    } else if (sizeWidth.width < 1200) {
+      refFatherContainer.current.style.display = "none";
+      refTableData.current.style.display = "none";
+      refPriceData.current.style.display = "none";
+      refCloseIcon.current.style.display = "block";
+      refCloseIcon2.current.style.display = "block";
+    }
+  }, [sizeWidth]);
 
   const handleOpenResults = () => {
     refTableData.current.style.display = "flex";
@@ -75,7 +96,7 @@ function SectionTwoHomePage() {
           }}
           pagination
           navigation
-          // autoplay={{ delay: 3000, pauseOnMouseEnter: true, stopOnLastSlide: true }}
+          // autoplay={{ delay: 4000, pauseOnMouseEnter: true }}
           modules={[EffectCoverflow, Pagination, Autoplay, Navigation]}
           className="mySwiper"
         >
@@ -124,7 +145,7 @@ function SectionTwoHomePage() {
             <p>3 رای</p>
           </div>
         </div>
-        <div className={styles.closeIconBox}>
+        <div ref={refCloseIcon} className={styles.closeIconBox}>
           <img onClick={closePopupShodow} src={closebtn} alt="close icon" />
         </div>
       </div>
@@ -143,7 +164,7 @@ function SectionTwoHomePage() {
           </p>
         </div>
         <button className={`${styles.btn} ${styles.btn_default} ${styles.btn_lg} ${styles.btn3d}`}>جدول امتیازات دانشجویان</button>
-        <div className={styles.closeIconBox}>
+        <div ref={refCloseIcon2} className={styles.closeIconBox}>
           <img onClick={closePopupShodow} src={closebtn} alt="close icon" />
         </div>
       </div>
