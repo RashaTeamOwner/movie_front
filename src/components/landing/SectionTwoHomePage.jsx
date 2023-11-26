@@ -28,8 +28,8 @@ function SectionTwoHomePage() {
       <div className={styles.headerContainer}>
         <h2>فیلم هفته بعدی را شما انتخاب کنید</h2>
         <div className={styles.headPoints}>
-          <button>امتیازات</button>
-          <button>نتیجه رای گیری</button>
+          <button className={`${styles.btn} ${styles.btn_default} ${styles.btn_lg} ${styles.btn3d}`}>امتیازات</button>
+          <button className={`${styles.btn} ${styles.btn_default} ${styles.btn_lg} ${styles.btn3d}`}>نتیجه رای گیری</button>
         </div>
       </div>
       <div className={styles.imageContainer}>
@@ -112,7 +112,7 @@ function SectionTwoHomePage() {
             <span>10+ </span>امتیاز , شرکت در نقد فیلم
           </p>
         </div>
-        <button>جدول امتیازات دانشجویان</button>
+        <button className={`${styles.btn} ${styles.btn_default} ${styles.btn_lg} ${styles.btn3d}`}>جدول امتیازات دانشجویان</button>
       </div>
     </div>
   );

@@ -171,6 +171,12 @@
   .headPoints {
     display: flex;
   }
+  .tableContainer {
+    display: none;
+  }
+  .priceContainer {
+    display: none;
+  }
 }
 
 @media (max-width: 900px) {

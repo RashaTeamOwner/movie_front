@@ -154,7 +154,9 @@ function HeaderHomePage() {
               <p>انتخاب شده</p>
             </div>
             <div className={styles.loginOrReserve}>
-              <Link to="/signin">ورود و رزرو بلیت</Link>
+              <Link className={`${styles.btn} ${styles.btn_default} ${styles.btn_lg} ${styles.btn3d}`} to="/signin">
+                ورود و رزرو بلیت
+              </Link>
             </div>
           </div>
         </div>
