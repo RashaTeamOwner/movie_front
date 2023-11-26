@@ -2,6 +2,22 @@ import styles from "./HeaderHomePage.module.scss";
 import landimg from "../../assets/landing/landimg.jpg";
 import { Link } from "react-router-dom";
 function HeaderHomePage() {
+  const arrLeft = [
+    [1, 0, 0, 1, 1, 1, 1, 0],
+    [0, 0, 0, 1, 1, 1, 1, 1],
+    [0, 1, 0, 0, 1, 1, 0, 1],
+    [0, 0, 0, 1, 1, 1, 1, 1],
+    [1, 1, 0, 0, 1, 1, 0, 1],
+    [1, 0, 0, 1, 1, 1, 0, 0],
+  ];
+  const arrRight = [
+    [0, 0, 0, 1, 1, 0, 0, 1],
+    [0, 1, 0, 1, 0, 1, 1, 1],
+    [1, 0, 0, 1, 1, 0, 1, 0],
+    [0, 0, 0, 1, 0, 1, 1, 1],
+    [0, 0, 0, 0, 1, 1, 0, 1],
+    [1, 0, 0, 1, 1, 0, 1, 1],
+  ];
   return (
     <div className={styles.container}>
       <div className={styles.intoContainer}>
@@ -48,104 +64,26 @@ function HeaderHomePage() {
             </div>
             <div className={styles.boxChairs}>
               <div className={styles.boxChairsRight}>
-                <div style={{ backgroundColor: "rgb(255, 55, 55)" }}></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div style={{ backgroundColor: "rgb(255, 55, 55)" }}></div>
-                <div style={{ backgroundColor: "rgb(255, 55, 55)" }}></div>
-                <div style={{ backgroundColor: "rgb(255, 55, 55)" }}></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div style={{ backgroundColor: "rgb(255, 55, 55)" }}></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div style={{ backgroundColor: "rgb(255, 55, 55)" }}></div>
-                <div></div>
-                <div style={{ backgroundColor: "rgb(255, 55, 55)" }}></div>
-                <div style={{ backgroundColor: "rgb(255, 55, 55)" }}></div>
-                <div></div>
-                <div style={{ backgroundColor: "rgb(255, 55, 55)" }}></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div style={{ backgroundColor: "rgb(255, 55, 55)" }}></div>
-                <div style={{ backgroundColor: "rgb(255, 55, 55)" }}></div>
-                <div style={{ backgroundColor: "rgb(255, 55, 55)" }}></div>
-                <div style={{ backgroundColor: "rgb(255, 55, 55)" }}></div>
-                <div style={{ backgroundColor: "rgb(255, 55, 55)" }}></div>
-                <div style={{ backgroundColor: "rgb(255, 55, 55)" }}></div>
-                <div></div>
-                <div style={{ backgroundColor: "rgb(255, 55, 55)" }}></div>
-                <div style={{ backgroundColor: "rgb(255, 55, 55)" }}></div>
+                {arrRight.map((index) => {
+                  return index.map((item) => {
+                    if (item == 0) {
+                      return <div key={Math.random() * 987654321}></div>;
+                    } else {
+                      return <div key={Math.random() * 987654321} style={{ backgroundColor: "rgb(255, 55, 55)" }}></div>;
+                    }
+                  });
+                })}
               </div>
               <div className={styles.boxChairsLeft}>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div style={{ backgroundColor: "rgb(255, 55, 55)" }}></div>
-                <div style={{ backgroundColor: "rgb(255, 55, 55)" }}></div>
-                <div style={{ backgroundColor: "rgb(255, 55, 55)" }}></div>
-                <div style={{ backgroundColor: "rgb(255, 55, 55)" }}></div>
-                <div style={{ backgroundColor: "rgb(255, 55, 55)" }}></div>
-                <div style={{ backgroundColor: "rgb(255, 55, 55)" }}></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div style={{ backgroundColor: "rgb(255, 55, 55)" }}></div>
-                <div style={{ backgroundColor: "rgb(255, 55, 55)" }}></div>
-                <div style={{ backgroundColor: "rgb(255, 55, 55)" }}></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
+                {arrLeft.map((index) => {
+                  return index.map((item) => {
+                    if (item == 0) {
+                      return <div key={Math.random() * 987654321}></div>;
+                    } else {
+                      return <div key={Math.random() * 987654321} style={{ backgroundColor: "rgb(255, 55, 55)" }}></div>;
+                    }
+                  });
+                })}
               </div>
             </div>
             <div className={styles.someDetailChairs}>
