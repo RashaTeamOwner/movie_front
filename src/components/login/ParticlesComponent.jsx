@@ -14,7 +14,7 @@ class ParticlesComponent extends React.Component {
         options={{
           background: {
             color: {
-              value: "rgb(0, 48, 54)",
+              value: "#000000",
             },
           },
           particles: {

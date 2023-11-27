@@ -4,7 +4,7 @@ import arrowicon from "../../assets/loginpage/arrow.svg";
 import Login from "./Login";
 import { useEffect, useRef, useState } from "react";
 import SignUp from "./SignUp";
-import ParticlesComponent from "./ParticlesComponent";
+// import ParticlesComponent from "./ParticlesComponent";
 import { Link } from "react-router-dom";
 
 function HandleLogin(props) {
@@ -41,11 +41,11 @@ function HandleLogin(props) {
   }, []);
 
   return (
-    <>
+    <div className={styles.mainBody}>
       <div className={styles.container}>
-        <ParticlesComponent />
+        {/* <ParticlesComponent /> */}
         <div data-set="up" ref={refboxSignup} className={styles.boxSignup}>
-          <div className={styles.filterEffect}></div>
+          {/* <div className={styles.filterEffect}></div> */}
           {statusSign ? (
             <SignUp />
           ) : (
@@ -56,7 +56,7 @@ function HandleLogin(props) {
           )}
         </div>
         <div data-set="in" ref={refboxSignin} className={styles.boxLogin}>
-          <div className={styles.filterEffect}></div>
+          {/* <div className={styles.filterEffect}></div> */}
           {!statusSign ? (
             <Login />
           ) : (
@@ -67,11 +67,13 @@ function HandleLogin(props) {
           )}
         </div>
       </div>
-      <p className={styles.madewithlove}>made with love 💛</p>
-      <a href="#" className={styles.madeowner}>
-        RashaTeam
-      </a>
-    </>
+      <div className={styles.owner}>
+        <p className={styles.madewithlove}>made with love 💛</p>
+        <a href="#" className={styles.madeowner}>
+          RashaTeam
+        </a>
+      </div>
+    </div>
   );
 }
 
