@@ -1,0 +1,148 @@
+// @use "../../index.scss";
+/* انتخاب اسکرول بار */
+::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #888;
+  border-radius: 6px;
+}
+
+body {
+  scrollbar-width: thin;
+  scrollbar-color: #ffffff transparent;
+}
+.mainBox {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  position: absolute;
+  .posterBox {
+    width: 100%;
+    height: 100%;
+    opacity: 0.8;
+  }
+  .shodowMainBox {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.793), rgba(0, 0, 0, 0.958));
+    position: absolute;
+    bottom: 0;
+  }
+  .arrowIcon {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 5rem;
+    transform: rotate(-90deg);
+    filter: invert(100%) sepia(98%) saturate(9%) hue-rotate(167deg) brightness(104%) contrast(103%);
+    cursor: pointer;
+  }
+}
+
+.detailMovie {
+  position: absolute;
+  bottom: 5%;
+  width: 100%;
+  padding: 2rem 4rem;
+  line-height: 3rem;
+  > h1 {
+    font-size: 2.2rem;
+  }
+  .timeandsec {
+    display: flex;
+    > p:first-child {
+      flex-grow: 1;
+      font-size: 1.2rem;
+    }
+    > p:last-child {
+      font-size: 1.5rem;
+    }
+  }
+  .imdbRate {
+    font-size: 1.5rem;
+  }
+  .textDetailMovie {
+    line-height: 1.6rem;
+    font-size: 1.4rem;
+    font-family: sans-serif;
+    font-weight: normal;
+    margin-top: 0.5rem;
+    padding: 2rem 0;
+  }
+  .yourRate {
+    > p {
+      font-size: 1.3rem;
+    }
+    > div {
+      display: flex;
+      img {
+        width: 2.2rem;
+        padding: 0.3rem;
+      }
+    }
+    .numberStar {
+      display: flex;
+      align-items: center;
+      height: 4rem;
+      > p {
+        font-size: 2rem;
+        margin-left: 1rem;
+        width: 3rem;
+        color: rgb(255, 183, 0);
+      }
+      > div {
+        display: flex;
+      }
+    }
+  }
+}
+.subandpop {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.whatchlist {
+  border: none;
+  padding: 1.2rem 1.5rem;
+  border-radius: 1.8rem;
+  font-weight: bold;
+  background: linear-gradient(45deg, rgb(109, 255, 248), rgb(0, 158, 169));
+  cursor: pointer;
+  font-size: 1.2rem;
+}
+
+.rateRightPage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.imageActors {
+  display: flex;
+  gap: 1rem;
+  height: 100px;
+  padding: 1rem 0;
+  overflow: auto;
+  img {
+    border-radius: 1rem;
+    cursor: pointer;
+    width: 70px;
+  }
+}
+
+.loader {
+  text-align: center;
+  text-transform: uppercase;
+  font-size: 2rem;
+  font-weight: 600;
+  margin: 4.8rem;
+}
+
+.error {
+  text-align: center;
+  font-size: 2rem;
+  padding: 4.8rem;
+}
