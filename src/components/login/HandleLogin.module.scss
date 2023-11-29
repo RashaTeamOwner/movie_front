@@ -144,6 +144,12 @@
   }
 }
 
+@media (max-width: 850px) {
+  .mainBody {
+    background-size: cover;
+  }
+}
+
 @media (max-width: 660px) {
   .container {
     background-color: rgba(31, 31, 31, 0.933);
@@ -193,7 +199,7 @@
     border-radius: 2rem;
     .tableDetail {
       top: 20px;
-      left: 50px;
+      left: 57px;
       gap: 0.3rem;
       z-index: 4;
       p {
@@ -246,12 +252,14 @@
     width: 100%;
     border-radius: 2rem;
   }
-  95% {
+  97% {
     border-radius: 2rem;
+    opacity: 0;
   }
   100% {
     width: 0%;
     border-radius: 0;
+    // opacity: 1;
   }
 }
 
@@ -260,11 +268,13 @@
     width: 0%;
     border-radius: 0;
   }
-  5% {
-    border-radius: 0;
+  3% {
+    border-radius: 2rem;
   }
   100% {
     width: 100%;
     border-radius: 2rem;
+    // display: none;
+    // opacity: 1;
   }
 }
