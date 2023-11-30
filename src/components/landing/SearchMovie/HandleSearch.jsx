@@ -21,19 +21,10 @@ export default function App() {
     <>
       <nav className={styles.navbar}>
         <div className={styles.logo}>
-          <span role="img">🍿</span>
-          <h1>usePopcorn</h1>
+          <h1>جستجوی فیلم ها</h1>
         </div>
-        <input
-          className={styles.search}
-          type="text"
-          placeholder="Search movies..."
-          value={query}
-          onChange={(e) => setQuery(e.target.value)}
-        />
-        <p className={styles.numresults}>
-          Found <strong>{lengthMovie ? lengthMovie : 0}</strong> results
-        </p>
+        <input className={styles.search} type="text" placeholder="جستجو ..." value={query} onChange={(e) => setQuery(e.target.value)} />
+        <p className={styles.numresults}>جستجوی فیلم</p>
       </nav>
 
       <main className={styles.main}>

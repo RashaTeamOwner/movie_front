@@ -18,7 +18,7 @@ function RightBox(props) {
   return (
     <div className={styles.boxRight}>
       {clickDetail == 0 ? (
-        <MyMovies />
+        <div>ok</div>
       ) : actorId == "" ? (
         <ShowSearchMovie
           id={props.id}
@@ -30,11 +30,11 @@ function RightBox(props) {
       ) : (
         <ShowActorDetail actorId={actorId} />
       )}
-      <div className={styles.footerBox}>
+      {/* <div className={styles.footerBox}>
         <button>Users</button>
         <button>My Movies</button>
         <button>Genres</button>
-      </div>
+      </div> */}
     </div>
   );
 }
