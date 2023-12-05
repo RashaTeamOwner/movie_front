@@ -41,6 +41,10 @@ body {
   }
 }
 
+.swiperActors {
+  width: 100px !important;
+}
+
 .detailMovie {
   position: absolute;
   top: 25px;
@@ -118,6 +122,8 @@ body {
   border-radius: 1rem;
   font-weight: bold;
   font-family: sansx200;
+  text-decoration: none;
+  color: #0a0d10;
   background: linear-gradient(45deg, rgb(109, 255, 248), rgb(0, 158, 169));
   cursor: pointer;
   font-size: 0.6rem;
@@ -137,7 +143,7 @@ body {
 .imageActors {
   display: flex;
   gap: 1rem;
-  height: 120px;
+  height: 160px;
   padding: 1rem 0.5rem;
   overflow: auto;
   width: 340px;

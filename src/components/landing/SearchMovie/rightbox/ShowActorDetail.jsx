@@ -52,33 +52,58 @@ function ShowActorDetail({ actorId }) {
   }, [actorId]);
   return (
     <div className={styles.container}>
-      {deepActor.id == undefined ? (
+      {Object.keys(actor).length == 0 ? (
         <p className={styles.loader}>... صبر کنید</p>
       ) : (
         <>
           <div className={styles.containerBackimg}>
-            <img className={styles.backImg} src={`https://www.themoviedb.org/t/p/w375_and_h375_face${actor.profile_path}`} alt="" />
+            <img
+              className={styles.backImg}
+              src={
+                actor.profile_path == undefined
+                  ? ""
+                  : `https://suggestream.com/_next/image?url=https%3A%2F%2Fimage.tmdb.org%2Ft%2Fp%2Fw780%2F${
+                      actor.profile_path == undefined ? actor.profile_path.split("/").join("") : ""
+                    }&w=2048&q=75`
+              }
+              alt=""
+            />
           </div>
           <div className={styles.actorBox}>
             <div className={styles.actorDet}>
-              <img src={`https://image.tmdb.org/t/p/w500${actor.profile_path}`} alt="" />
+              {/* <img
+                className={styles.backImg}
+                src={
+                  actor.profile_path == undefined
+                    ? ""
+                    : `https://suggestream.com/_next/image?url=https%3A%2F%2Fimage.tmdb.org%2Ft%2Fp%2Fw780%2F${actor.profile_path
+                        .split("/")
+                        .join("")}&w=2048&q=75`
+                }
+                alt=""
+              /> */}
               <div className={styles.actorNameBorn}>
                 <p>{actor.name}</p>
-                <p>{`${new Date().getFullYear() - deepActor.birthday.split("-")[0]} Yo`}</p>
+                {/* <p>{`${new Date().getFullYear() - deepActor.birthday.split("-")[0]} Yo`}</p> */}
                 <p>{deepActor.place_of_birth}</p>
               </div>
             </div>
             <div className={styles.biography}>
-              <h2>Biography</h2>
+              <h2>: بیوگرافی</h2>
               <p>{deepActor.biography}</p>
             </div>
             <div className={styles.knownby}>
-              <h2>Known by</h2>
+              <h2>فیلم های معروف :</h2>
               <div className={styles.knownmovies}>
                 {actor.known_for.map((ele, key) => {
                   return (
                     <div key={key}>
-                      <img src={`https://www.themoviedb.org/t/p/w220_and_h330_face${ele.poster_path}`} alt={ele.id} />
+                      <img
+                        src={`https://suggestream.com/_next/image?url=https%3A%2F%2Fimage.tmdb.org%2Ft%2Fp%2Fw780%2F${ele.poster_path
+                          .split("/")
+                          .join("")}&w=2048&q=75`}
+                        alt={ele.id}
+                      />
                       <p>{ele.title == undefined ? ele.original_name : ele.title}</p>
                     </div>
                   );

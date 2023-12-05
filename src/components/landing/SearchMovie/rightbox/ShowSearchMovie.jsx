@@ -144,13 +144,20 @@ function ShowSearchMovie(props) {
 
   return (
     <div className={styles.mainBox}>
-      {movieshow.Poster == undefined ? (
+      {console.log(posterBack)}
+      {posterBack.poster_path == "undefined" ? (
         <p className={styles.loader}>... صبر کنید</p>
       ) : (
         <>
           <img
             className={styles.posterBox}
-            src={posterBack == undefined ? movieshow.Poster : `https://www.themoviedb.org/t/p/w1280${posterBack.poster_path}`}
+            src={
+              posterBack.poster_path == undefined
+                ? ""
+                : `https://suggestream.com/_next/image?url=https%3A%2F%2Fimage.tmdb.org%2Ft%2Fp%2Fw780%2F${posterBack.poster_path
+                    .split("/")
+                    .join("")}&w=2048&q=75`
+            }
             alt=""
           />
           <div className={styles.shodowMainBox}></div>
@@ -281,7 +288,7 @@ function ShowSearchMovie(props) {
                     <></>
                   ) : (
                     <Link className={styles.whatchlist} to="/signin">
-                      افزودن به لیست فیلم های موردعلاقه
+                      برای ثبت رای وارد حساب خود شوید
                     </Link>
                   )}
                 </div>
@@ -388,11 +395,13 @@ function ShowSearchMovie(props) {
                 {actors.map((ele, i) => {
                   if (ele.profile_path == null) return;
                   return (
-                    <SwiperSlide key={i}>
+                    <SwiperSlide className={styles.swiperActors} key={i}>
                       <img
                         onClick={handleClickActor}
                         data-idactor={ele.name}
-                        src={`https://www.themoviedb.org/t/p/w300_and_h450_bestv2${ele.profile_path}`}
+                        src={`https://suggestream.com/_next/image?url=https%3A%2F%2Fimage.tmdb.org%2Ft%2Fp%2Fw780%2F${ele.profile_path
+                          .split("/")
+                          .join("")}&w=2048&q=75`}
                         alt=""
                       />
                     </SwiperSlide>
