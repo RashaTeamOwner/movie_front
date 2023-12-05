@@ -7,7 +7,6 @@ import "swiper/css/effect-coverflow";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 import "swiper/css/autoplay";
-import "swiper/css/navigation";
 import { Autoplay, EffectCoverflow, Navigation, Pagination } from "swiper/modules";
 import im1 from "../../assets/landing/sec1.jpg";
 import im2 from "../../assets/landing/sec2.jpg";

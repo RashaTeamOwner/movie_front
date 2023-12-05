@@ -5,7 +5,9 @@ import arrow from "../../../../assets/landing/arrow-up.svg";
 import axios from "axios";
 import styles from "./Showsearchmovie.module.scss";
 import { Link } from "react-router-dom/cjs/react-router-dom.min";
-
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
+import { FreeMode } from "swiper/modules";
 function ShowSearchMovie(props) {
   const KEY = "6502fbb3";
   const refStars = useRef(null);
@@ -373,18 +375,30 @@ function ShowSearchMovie(props) {
             {/* image actors */}
             <p className={styles.boxBazigaran}>بازیگران :</p>
             <div className={styles.imageActors}>
-              {actors.map((ele, i) => {
-                if (ele.profile_path == null) return;
-                return (
-                  <img
-                    onClick={handleClickActor}
-                    data-idactor={ele.name}
-                    key={i}
-                    src={`https://www.themoviedb.org/t/p/w300_and_h450_bestv2${ele.profile_path}`}
-                    alt=""
-                  />
-                );
-              })}
+              <Swiper
+                effect={"freemode"}
+                grabCursor={true}
+                centeredSlides={true}
+                slidesPerView={"auto"}
+                freeMode
+                // autoplay={{ delay: 4000, pauseOnMouseEnter: true }}
+                modules={[FreeMode]}
+                className="mySwiper"
+              >
+                {actors.map((ele, i) => {
+                  if (ele.profile_path == null) return;
+                  return (
+                    <SwiperSlide key={i}>
+                      <img
+                        onClick={handleClickActor}
+                        data-idactor={ele.name}
+                        src={`https://www.themoviedb.org/t/p/w300_and_h450_bestv2${ele.profile_path}`}
+                        alt=""
+                      />
+                    </SwiperSlide>
+                  );
+                })}
+              </Swiper>
             </div>
           </div>
         </>
