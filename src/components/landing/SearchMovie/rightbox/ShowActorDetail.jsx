@@ -21,6 +21,7 @@ function ShowActorDetail({ actorId }) {
       .request(options)
       .then(function (response) {
         setDeepActor(response.data);
+        console.log(response.data);
       })
       .catch(function (error) {
         console.error(error);
@@ -52,11 +53,11 @@ function ShowActorDetail({ actorId }) {
   return (
     <div className={styles.container}>
       {deepActor.id == undefined ? (
-        <p className={styles.loader}>Loading...</p>
+        <p className={styles.loader}>... صبر کنید</p>
       ) : (
         <>
           <div className={styles.containerBackimg}>
-            <img className={styles.backImg} src={`https://image.tmdb.org/t/p/w500${actor.profile_path}`} alt="" />
+            <img className={styles.backImg} src={`https://www.themoviedb.org/t/p/w375_and_h375_face${actor.profile_path}`} alt="" />
           </div>
           <div className={styles.actorBox}>
             <div className={styles.actorDet}>
@@ -77,7 +78,7 @@ function ShowActorDetail({ actorId }) {
                 {actor.known_for.map((ele, key) => {
                   return (
                     <div key={key}>
-                      <img src={`https://image.tmdb.org/t/p/w500${ele.poster_path}`} alt={ele.id} />
+                      <img src={`https://www.themoviedb.org/t/p/w220_and_h330_face${ele.poster_path}`} alt={ele.id} />
                       <p>{ele.title == undefined ? ele.original_name : ele.title}</p>
                     </div>
                   );

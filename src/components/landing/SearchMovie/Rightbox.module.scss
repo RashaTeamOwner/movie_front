@@ -1,11 +1,17 @@
 @use "../../../index.scss";
 
 .boxRight {
-  width: 42rem;
-  max-width: 42rem;
-  background-color: var(--color-background-500);
+  // width: 44rem;
+  // max-width: 44rem;
+  // background-color: rgb(255, 170, 0);
   border-radius: 0.9rem;
   overflow: auto;
+  flex-grow: 1;
+  width: 40%;
+  background-color: rgba(255, 0, 111, 0.228);
+  flex-grow: 1;
+  border: 2px solid white;
+  width: 40%;
   position: relative;
 }
 

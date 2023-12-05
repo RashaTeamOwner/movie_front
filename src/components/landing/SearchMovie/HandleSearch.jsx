@@ -7,6 +7,19 @@ export default function App() {
   const [lengthMovie, setLengthMovie] = useState("");
   const [idmovie, setIdmovie] = useState("");
   const lengthMovies = (data) => {
+    // const options = {
+    //   method: "GET",
+    //   headers: {
+    //     accept: "application/json",
+    //     Authorization:
+    //       "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJkZDE3MTk4NDI4ZDkxZGZiYThlNWU1YTQ1OWU1Mjc1MiIsInN1YiI6IjY1MTkzMmYxYTE5OWE2MDBlMWZjN2JlYSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.qjZkw5ryAz3bt9Jf-TRCmW947WKGwgTAze3TrsfGDRU",
+    //   },
+    // };
+
+    // fetch("https://api.themoviedb.org/3/configuration/primary_translations", options)
+    //   .then((response) => response.json())
+    //   .then((response) => console.log(response))
+    //   .catch((err) => console.error(err));
     setLengthMovie(data);
   };
   const handleIdmovie = (id) => {
@@ -20,9 +33,6 @@ export default function App() {
   return (
     <>
       <nav className={styles.navbar}>
-        <div className={styles.logo}>
-          <h1>جستجوی فیلم ها</h1>
-        </div>
         <input className={styles.search} type="text" placeholder="جستجو ..." value={query} onChange={(e) => setQuery(e.target.value)} />
         <p className={styles.numresults}>جستجوی فیلم</p>
       </nav>

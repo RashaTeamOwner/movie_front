@@ -4,6 +4,7 @@ import starimg from "../../../../assets/landing/star-solid.svg";
 import arrow from "../../../../assets/landing/arrow-up.svg";
 import axios from "axios";
 import styles from "./Showsearchmovie.module.scss";
+import { Link } from "react-router-dom/cjs/react-router-dom.min";
 
 function ShowSearchMovie(props) {
   const KEY = "6502fbb3";
@@ -48,6 +49,7 @@ function ShowSearchMovie(props) {
       .then((response) => {
         if (response.data.movie_results[0] != undefined) {
           setPosterBack(response.data.movie_results[0]);
+          console.log(response.data);
           return ["movie", response.data.movie_results[0].id];
         } else if (response.data.tv_results[0] != undefined) {
           setPosterBack(response.data.tv_results[0]);
@@ -141,23 +143,33 @@ function ShowSearchMovie(props) {
   return (
     <div className={styles.mainBox}>
       {movieshow.Poster == undefined ? (
-        <p className={styles.loader}>Loading...</p>
+        <p className={styles.loader}>... صبر کنید</p>
       ) : (
         <>
           <img
             className={styles.posterBox}
-            src={posterBack == undefined ? movieshow.Poster : `https://image.tmdb.org/t/p/w500${posterBack.poster_path}`}
+            src={posterBack == undefined ? movieshow.Poster : `https://www.themoviedb.org/t/p/w1280${posterBack.poster_path}`}
             alt=""
           />
           <div className={styles.shodowMainBox}></div>
           <img onClick={handleCloseDetailMovie} className={styles.arrowIcon} src={arrow} alt="arrow-icon" />
           <div className={styles.detailMovie}>
-            <h1>{movieshow.Title}</h1>
-            <div className={styles.timeandsec}>
+            {/* <h1>{movieshow.Title}</h1> */}
+            <h1>مرد عنکبوتی</h1>
+            {/* <div className={styles.timeandsec}>
               <p>{movieshow.Genre}</p>
               <p>{movieshow.Runtime}</p>
+            </div> */}
+            <div className={styles.timeandsec}>
+              <p>اکشن ، علمی تخیلی</p>
+              <p className={styles.breackTopIntext}>|</p>
+              <p>121 دقیقه</p>
+              <p className={styles.breackTopIntext}>|</p>
+              <p className={styles.imdbRate}>⭐️ {movieshow.imdbRating}</p>
+              <p className={styles.breackTopIntext}>|</p>
+              <p>2012</p>
             </div>
-            <p className={styles.imdbRate}>⭐️ {movieshow.imdbRating} IMDb rating</p>
+            {/* <p className={styles.imdbRate}>⭐️ {movieshow.imdbRating} IMDb rating</p>
             <p className={styles.textDetailMovie}>{movieshow.Plot}</p>
             <div className={styles.rateRightPage}>
               <div className={styles.yourRate}>
@@ -251,8 +263,115 @@ function ShowSearchMovie(props) {
                   {renderStars == 0 ? <p></p> : <p>{renderStars}</p>}
                 </div>
               </div>
+            </div> */}
+            <div className={styles.boxDetMovie}>
+              <p>خلاصه فیلم :</p>
+              <p className={styles.textDetailMovie}>
+                یک نوجوان خجالتی پس از گزیده شدن توسط یک عنکبوت اصلاح شده ژنتیکی، در برابر توانایی های عنکبوت مانندی که از آنها برای مبارزه
+                با بی عدالتی به عنوان یک ابرقهرمان نقابدار استفاده می کند و با دشمن انتقام جو روبرو می شود.
+              </p>
+            </div>
+            <div className={styles.rateRightPage}>
+              <div className={styles.yourRate}>
+                <div className={styles.subandpop}>
+                  <p>امتیاز شما :</p>
+                  {stars == -1 ? (
+                    <></>
+                  ) : (
+                    <Link className={styles.whatchlist} to="/signin">
+                      افزودن به لیست فیلم های موردعلاقه
+                    </Link>
+                  )}
+                </div>
+                <div className={styles.numberStar}>
+                  <div ref={refStars}>
+                    <img
+                      onMouseEnter={handleStars}
+                      onMouseLeave={handleResetStars}
+                      onClick={selectStar}
+                      data-set={0}
+                      src={starimg}
+                      alt="star"
+                    />
+                    <img
+                      onMouseEnter={handleStars}
+                      onMouseLeave={handleResetStars}
+                      onClick={selectStar}
+                      data-set={1}
+                      src={starimg}
+                      alt="star"
+                    />
+                    <img
+                      onMouseEnter={handleStars}
+                      onMouseLeave={handleResetStars}
+                      onClick={selectStar}
+                      data-set={2}
+                      src={starimg}
+                      alt="star"
+                    />
+                    <img
+                      onMouseEnter={handleStars}
+                      onMouseLeave={handleResetStars}
+                      onClick={selectStar}
+                      data-set={3}
+                      src={starimg}
+                      alt="star"
+                    />
+                    <img
+                      onMouseEnter={handleStars}
+                      onMouseLeave={handleResetStars}
+                      onClick={selectStar}
+                      data-set={4}
+                      src={starimg}
+                      alt="star"
+                    />
+                    <img
+                      onMouseEnter={handleStars}
+                      onMouseLeave={handleResetStars}
+                      onClick={selectStar}
+                      data-set={5}
+                      src={starimg}
+                      alt="star"
+                    />
+                    <img
+                      onMouseEnter={handleStars}
+                      onMouseLeave={handleResetStars}
+                      onClick={selectStar}
+                      data-set={6}
+                      src={starimg}
+                      alt="star"
+                    />
+                    <img
+                      onMouseEnter={handleStars}
+                      onMouseLeave={handleResetStars}
+                      onClick={selectStar}
+                      data-set={7}
+                      src={starimg}
+                      alt="star"
+                    />
+                    <img
+                      onMouseEnter={handleStars}
+                      onMouseLeave={handleResetStars}
+                      onClick={selectStar}
+                      data-set={8}
+                      src={starimg}
+                      alt="star"
+                    />
+                    <img
+                      onMouseEnter={handleStars}
+                      onMouseLeave={handleResetStars}
+                      onClick={selectStar}
+                      data-set={9}
+                      src={starimg}
+                      alt="star"
+                    />
+                  </div>
+                  {renderStars == 0 ? <p></p> : <p>{renderStars}</p>}
+                </div>
+              </div>
             </div>
             {/* image actors */}
+            <p className={styles.boxBazigaran}>بازیگران :</p>
             <div className={styles.imageActors}>
               {actors.map((ele, i) => {
                 if (ele.profile_path == null) return;
@@ -261,7 +380,7 @@ function ShowSearchMovie(props) {
                     onClick={handleClickActor}
                     data-idactor={ele.name}
                     key={i}
-                    src={`https://image.tmdb.org/t/p/w500${ele.profile_path}`}
+                    src={`https://www.themoviedb.org/t/p/w300_and_h450_bestv2${ele.profile_path}`}
                     alt=""
                   />
                 );

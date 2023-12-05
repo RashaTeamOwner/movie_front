@@ -4,7 +4,6 @@ import axios from "axios";
 import styles from "./Leftbox.module.scss";
 function LeftBox(props) {
   const [movies, setMovies] = useState([]);
-  const [isOpen1, setIsOpen1] = useState(true);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [idmovie, setIdmovie] = useState("");
@@ -15,7 +14,7 @@ function LeftBox(props) {
     setLoading(false);
     if (query.length < 3) {
       setMovies([]);
-      setError("Too Many Result 🧨");
+      setError("تعداد نتایج بالاست 🧨");
       return;
     }
     axios
@@ -28,6 +27,7 @@ function LeftBox(props) {
         const data = res.data;
         if (data.Response) {
           setMovies(data.Search);
+          console.log(data);
           return data;
         } else {
           return;
@@ -39,7 +39,7 @@ function LeftBox(props) {
           if (response.Response == "False" && query != "tarifnashode") {
             throw new Error(`${response.Error} 😒`);
           } else {
-            throw new Error("Search Movie 🔎");
+            throw new Error("جستجوی فیلم 🔎");
           }
         } else props.backsize(response.Search.length);
       })
@@ -63,11 +63,8 @@ function LeftBox(props) {
 
   return (
     <div className={styles.box}>
-      <button className={styles.btntoggle} onClick={() => setIsOpen1((open) => !open)}>
-        {isOpen1 ? "–" : "+"}
-      </button>
-      {isOpen1 && !loading && !error && <p className={styles.loader}>Loading ...</p>}
-      {isOpen1 && loading && !error && (
+      {!loading && !error && <p className={styles.loader}>Loading ...</p>}
+      {loading && !error && (
         <ul className={styles.list}>
           {movies?.map((movie) => (
             <li data-movie={movie.imdbID} className={styles.SearchMoviesli} onClick={handleDetailMovie} key={movie.imdbID}>
@@ -83,7 +80,7 @@ function LeftBox(props) {
           ))}
         </ul>
       )}
-      {isOpen1 && error && <p className={styles.error}>{error}</p>}
+      {error && <p className={styles.error}>{error}</p>}
     </div>
   );
 }

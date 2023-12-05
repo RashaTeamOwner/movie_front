@@ -18,7 +18,7 @@ function RightBox(props) {
   return (
     <div className={styles.boxRight}>
       {clickDetail == 0 ? (
-        <div>ok</div>
+        <div>film hay mored alaqat</div>
       ) : actorId == "" ? (
         <ShowSearchMovie
           id={props.id}

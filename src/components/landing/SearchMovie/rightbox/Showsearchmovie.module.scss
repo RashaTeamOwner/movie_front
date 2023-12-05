@@ -20,14 +20,13 @@ body {
   overflow: hidden;
   position: absolute;
   .posterBox {
-    width: 100%;
     height: 100%;
-    opacity: 0.8;
   }
   .shodowMainBox {
     width: 100%;
     height: 100%;
-    background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.793), rgba(0, 0, 0, 0.958));
+    background: linear-gradient(90deg, rgba(255, 255, 255, 0), rgba(0, 0, 0, 0.779), rgba(0, 0, 0, 0.917), rgb(0, 0, 0));
+    background: linear-gradient(270deg, #0a0d10 30%, #0a0d10 50%, rgba(10, 13, 16, 0));
     position: absolute;
     bottom: 0;
   }
@@ -35,7 +34,7 @@ body {
     position: absolute;
     top: 0;
     left: 0;
-    width: 5rem;
+    width: 3rem;
     transform: rotate(-90deg);
     filter: invert(100%) sepia(98%) saturate(9%) hue-rotate(167deg) brightness(104%) contrast(103%);
     cursor: pointer;
@@ -44,52 +43,59 @@ body {
 
 .detailMovie {
   position: absolute;
-  bottom: 5%;
-  width: 100%;
-  padding: 2rem 4rem;
-  line-height: 3rem;
+  top: 25px;
+  right: 0;
+  width: 400px;
+  color: white;
+  padding: 0.2rem 1rem;
+  direction: rtl;
+  font-family: sansx100;
   > h1 {
-    font-size: 2.2rem;
+    font-size: 2rem;
+    color: rgb(255, 174, 0);
+    font-family: iransans;
+    padding: 0.5rem;
   }
   .timeandsec {
     display: flex;
+    gap: 1.2rem;
+    align-items: center;
+    font-size: 0.7rem;
+    padding: 0.5rem 0.5rem 1rem 0.5rem;
+  }
+  .boxDetMovie {
+    display: flex;
+    flex-direction: column;
+    padding: 2rem 0.5rem 1rem 1.5rem;
     > p:first-child {
-      flex-grow: 1;
-      font-size: 1.2rem;
+      color: rgb(255, 183, 0);
     }
-    > p:last-child {
-      font-size: 1.5rem;
+    .textDetailMovie {
+      font-size: 0.9rem;
+      font-family: sansx50;
+      font-weight: normal;
+      margin-top: 0.5rem;
     }
-  }
-  .imdbRate {
-    font-size: 1.5rem;
-  }
-  .textDetailMovie {
-    line-height: 1.6rem;
-    font-size: 1.4rem;
-    font-family: sans-serif;
-    font-weight: normal;
-    margin-top: 0.5rem;
-    padding: 2rem 0;
   }
   .yourRate {
     > p {
-      font-size: 1.3rem;
+      font-size: 1rem;
     }
     > div {
       display: flex;
+      height: 2rem;
+      align-items: center;
       img {
-        width: 2.2rem;
+        width: 1.5rem;
         padding: 0.3rem;
       }
     }
     .numberStar {
       display: flex;
       align-items: center;
-      height: 4rem;
+      height: 3rem;
       > p {
-        font-size: 2rem;
-        margin-left: 1rem;
+        margin-right: 0.5rem;
         width: 3rem;
         color: rgb(255, 183, 0);
       }
@@ -101,48 +107,65 @@ body {
 }
 .subandpop {
   display: flex;
-  align-items: center;
-  gap: 1rem;
+  gap: 0.5rem;
+  > p {
+    color: rgb(255, 183, 0);
+  }
 }
 .whatchlist {
   border: none;
-  padding: 1.2rem 1.5rem;
-  border-radius: 1.8rem;
+  padding: 0.5rem 0.7rem;
+  border-radius: 1rem;
   font-weight: bold;
+  font-family: sansx200;
   background: linear-gradient(45deg, rgb(109, 255, 248), rgb(0, 158, 169));
   cursor: pointer;
-  font-size: 1.2rem;
+  font-size: 0.6rem;
 }
 
 .rateRightPage {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  padding: 1rem 0.5rem;
+}
+
+.boxBazigaran {
+  padding: 0.5rem;
+  color: rgb(255, 183, 0);
 }
 
 .imageActors {
   display: flex;
   gap: 1rem;
-  height: 100px;
-  padding: 1rem 0;
+  height: 120px;
+  padding: 1rem 0.5rem;
   overflow: auto;
+  width: 340px;
   img {
     border-radius: 1rem;
     cursor: pointer;
-    width: 70px;
+    width: 80px;
   }
 }
 
 .loader {
   text-align: center;
   text-transform: uppercase;
-  font-size: 2rem;
+  font-size: 1.7rem;
   font-weight: 600;
   margin: 4.8rem;
+  color: white;
+  font-family: sansx200;
 }
 
 .error {
   text-align: center;
   font-size: 2rem;
   padding: 4.8rem;
+}
+
+.breackTopIntext {
+  color: rgb(255, 183, 0);
+  font-size: 1.2rem;
+  border-radius: 1rem;
 }
