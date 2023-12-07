@@ -7,10 +7,10 @@
   border-radius: 0.9rem;
   overflow: auto;
   position: relative;
-  background-color: rgba(0, 255, 187, 0.143);
   flex-grow: 1;
-  border: 2px solid white;
+  border: 2px solid #ffffff;
   width: 40%;
+  color: white;
 }
 
 .loader {
@@ -58,8 +58,11 @@
 
 .list {
   list-style: none;
-  padding: 0.8rem 0;
+  padding: 0.8rem;
   overflow: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
   > li {
     position: relative;
     display: grid;
@@ -68,9 +71,11 @@
     column-gap: 2.4rem;
     font-size: 1.6rem;
     align-items: center;
-
-    padding: 1.6rem 3.2rem;
-    border-bottom: 1px solid var(--color-background-100);
+    padding: 0.4rem;
+    border-bottom: 2px solid rgb(255, 183, 0);
+    border-left: 2px solid rgb(255, 183, 0);
+    border-radius: 1rem 0 0 1rem;
+    cursor: pointer;
   }
 }
 
@@ -84,12 +89,13 @@
 }
 
 .list img {
-  width: 100%;
+  width: 5.5rem;
   grid-row: 1 / -1;
+  border-radius: 0.7rem;
 }
 
 .list h3 {
-  font-size: 1.8rem;
+  font-size: 1.5rem;
 }
 
 .list div {
@@ -102,6 +108,7 @@
   display: flex;
   align-items: center;
   gap: 0.8rem;
+  font-size: 1rem;
 }
 
 .SearchMoviesli {

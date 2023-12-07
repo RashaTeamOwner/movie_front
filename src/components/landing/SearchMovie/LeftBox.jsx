@@ -38,7 +38,7 @@ function LeftBox(props) {
           if (response.Response == "False" && query != "tarifnashode") {
             throw new Error(`${response.Error} 😒`);
           } else {
-            throw new Error("جستجوی فیلم 🔎");
+            throw new Error("🔎 جستجوی فیلم");
           }
         } else props.backsize(response.Search.length);
       })
@@ -67,7 +67,7 @@ function LeftBox(props) {
         <ul className={styles.list}>
           {movies?.map((movie) => (
             <li data-movie={movie.imdbID} className={styles.SearchMoviesli} onClick={handleDetailMovie} key={movie.imdbID}>
-              <img src={movie.Poster} alt={`${movie.Title} poster`} />
+              <img src={movie.Poster} alt={`poster`} />
               <h3>{movie.Title}</h3>
               <div>
                 <p>
