@@ -144,7 +144,6 @@ function ShowSearchMovie(props) {
 
   return (
     <div className={styles.mainBox}>
-      {console.log(posterBack)}
       {posterBack.poster_path == "undefined" ? (
         <p className={styles.loader}>... صبر کنید</p>
       ) : (

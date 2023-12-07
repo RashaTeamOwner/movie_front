@@ -21,6 +21,10 @@
   padding: 4.8rem;
 }
 .containerBackimg {
+  position: absolute;
+  top: 0;
+  height: 1050px;
+  width: 100%;
   &::after {
     content: "";
     position: absolute;
@@ -42,6 +46,7 @@
 .actorBox {
   position: absolute;
   padding: 2rem;
+  direction: rtl;
 }
 
 .actorDet {
@@ -49,7 +54,7 @@
   padding: 0 0 3rem 0;
   gap: 1rem;
   > img {
-    width: 10rem;
+    height: 17rem;
     border-radius: 0.7rem;
     border: solid white 1px;
   }
@@ -58,24 +63,30 @@
   display: flex;
   flex-direction: column;
   gap: 1rem;
-  width: 250px;
-  padding: 1rem;
+  padding: 0 1rem 1rem 1rem;
   border-bottom: 2px solid white;
   font-size: 1.7rem;
+  color: white;
+  font-family: sansx100;
   > p:first-child {
-    font-size: 2.5rem;
+    font-size: 2rem;
+  }
+  > p:last-child {
+    font-size: 1.3rem;
   }
   > p:nth-child(2) {
     flex-grow: 1;
+    font-size: 1.5rem;
   }
 }
 
 .biography {
-  font-size: 1.5rem;
+  font-size: 1.2rem;
+  font-family: iransans;
   padding-bottom: 1rem;
   > p {
     padding: 1rem 2rem;
-    height: 150px;
+    height: 230px;
     overflow: auto;
     background-color: rgba(255, 166, 0, 0);
     border-radius: 5px;
@@ -84,8 +95,10 @@
 }
 
 .knownby {
-  font-size: 1.5rem;
-  padding-bottom: 1rem;
+  font-size: 1.2rem;
+  font-family: iransans;
+  padding-bottom: 0.5rem;
+  padding-top: 2rem;
   > h2 {
     padding-bottom: 1rem;
   }

@@ -27,7 +27,6 @@ function LeftBox(props) {
         const data = res.data;
         if (data.Response) {
           setMovies(data.Search);
-          console.log(data);
           return data;
         } else {
           return;
@@ -63,7 +62,7 @@ function LeftBox(props) {
 
   return (
     <div className={styles.box}>
-      {!loading && !error && <p className={styles.loader}>Loading ...</p>}
+      {!loading && !error && <p className={styles.loader}>... صبر کنید</p>}
       {loading && !error && (
         <ul className={styles.list}>
           {movies?.map((movie) => (
