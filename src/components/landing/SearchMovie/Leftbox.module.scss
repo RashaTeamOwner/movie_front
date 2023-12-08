@@ -4,6 +4,7 @@
   // width: 44rem;
   // max-width: 44rem;
   // background-color: rgb(0, 84, 94);
+  background-color: rgb(45, 45, 45);
   border-radius: 0.9rem;
   overflow: auto;
   position: relative;
@@ -62,8 +63,9 @@
   overflow: auto;
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: 1rem;
   > li {
+    background-color: rgb(22, 22, 22);
     position: relative;
     // display: grid;
     // grid-template-columns: 4rem 1fr;
@@ -72,10 +74,11 @@
     display: flex;
     font-size: 1.6rem;
     padding: 0.4rem;
-    border-bottom: 2px solid rgb(255, 183, 0);
+    border-bottom: 3px solid rgb(255, 183, 0);
     border-left: 2px solid rgb(255, 183, 0);
-    border-radius: 1rem 0 0 1rem;
+    border-radius: 1rem 1rem 0 1rem;
     cursor: pointer;
+    overflow: hidden;
   }
 }
 

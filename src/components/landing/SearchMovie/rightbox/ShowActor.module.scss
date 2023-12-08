@@ -23,7 +23,7 @@
 .containerBackimg {
   position: absolute;
   top: 0;
-  height: 1050px;
+  height: 1125px;
   width: 100%;
   &::after {
     content: "";
@@ -45,7 +45,7 @@
 
 .actorBox {
   position: absolute;
-  padding: 2rem;
+  padding: 2rem 1rem 0 1rem;
   direction: rtl;
 }
 
@@ -84,6 +84,9 @@
   font-size: 1.2rem;
   font-family: iransans;
   padding-bottom: 1rem;
+  > h2 {
+    color: rgb(255, 162, 0);
+  }
   > p {
     padding: 1rem 2rem;
     height: 230px;
@@ -91,6 +94,8 @@
     background-color: rgba(255, 166, 0, 0);
     border-radius: 5px;
     color: white;
+    font-family: sansx50;
+    font-size: 1rem;
   }
 }
 
@@ -101,6 +106,7 @@
   padding-top: 2rem;
   > h2 {
     padding-bottom: 1rem;
+    color: rgb(255, 162, 0);
   }
   .knownmovies {
     display: flex;
@@ -128,4 +134,63 @@
       }
     }
   }
+}
+
+@media (max-width: 580px) {
+  .actorBox {
+    width: 100%;
+  }
+  .actorNameBorn {
+    > p:first-child {
+      font-size: 1.5rem;
+    }
+    > p:nth-child(2) {
+      font-size: 1.1rem;
+    }
+    > p:last-child {
+      font-size: 1.2rem;
+    }
+  }
+  .actorDet {
+    img {
+      height: 14rem;
+    }
+  }
+  .biography {
+    > p {
+      height: 155px;
+    }
+  }
+  .knownby {
+    .knownmovies {
+      display: grid;
+      grid-template-rows: 1fr;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      div {
+        width: auto;
+        > p {
+          font-size: 1.2rem;
+          font-weight: bold;
+          font-family: sansx100;
+        }
+      }
+    }
+  }
+  .biography {
+    h2 {
+      font-size: 1.3rem;
+    }
+    > p {
+      padding: 1rem;
+    }
+  }
+  .knownby {
+    h2 {
+      font-size: 1.3rem;
+    }
+  }
+}
+
+@media (max-width: 425px) {
 }
