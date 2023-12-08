@@ -175,3 +175,26 @@ body {
   font-size: 1.2rem;
   border-radius: 1rem;
 }
+
+@media (max-width: 500px) {
+  .mainBox {
+    .shodowMainBox {
+      background: linear-gradient(270deg, #0a0d10e8 30%, #0a0d10de 50%, rgb(0 0 0 / 56%));
+    }
+  }
+  .detailMovie {
+    .boxDetMovie {
+      padding: 1rem 0.5rem 1rem 0.5rem;
+      > p:last-child {
+        height: 100px;
+        width: 95%;
+        overflow: auto;
+        padding: 0 0.5rem;
+      }
+    }
+  }
+  .detailMovie {
+    padding: 0.4rem;
+    width: 100%;
+  }
+}

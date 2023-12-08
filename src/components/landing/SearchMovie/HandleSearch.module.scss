@@ -3,16 +3,16 @@
 .navbar {
   margin-top: 5rem;
   box-sizing: border-box;
-  display: grid;
-  grid-template-columns: 1fr;
+  display: flex;
+  gap: 1rem;
   align-items: center;
-  padding: 1rem 2rem;
   background: linear-gradient(235deg, rgb(255, 52, 52), rgb(255, 153, 0));
   border-radius: 0.9rem;
   color: white;
   font-family: sansx100;
   margin: 5rem 2rem 0 2rem;
   position: relative;
+  padding: 0.5rem;
   > p {
     position: absolute;
     right: 0;
@@ -40,10 +40,9 @@
   padding: 0.7rem 1.6rem;
   font-size: 1.2rem;
   border-radius: 0.7rem;
-  width: 20rem;
-  transition: all 0.3s;
+  width: 50%;
   color: black;
-
+  transition: 0.3s all ease;
   /* background-color: var(--color-background-900); */
   background-color: white;
   &::placeholder {
@@ -57,8 +56,9 @@
 }
 
 .numresults {
-  justify-self: end;
-  font-size: 1.5rem;
+  font-size: 1.2rem;
+  width: 25%;
+  text-align: right;
 }
 
 .main {
@@ -70,4 +70,79 @@
   justify-content: center;
   padding: 0 2rem;
   padding-bottom: 2rem;
+}
+.favIconBox {
+  display: none;
+  flex-direction: column-reverse;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+.favIcon {
+  display: none;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.5rem;
+  cursor: pointer;
+  > p {
+    font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 855px) {
+  .favIconBox {
+    display: flex;
+    .favIcon {
+      display: flex;
+      img {
+        width: 1.5rem;
+      }
+    }
+  }
+}
+
+@media (min-width: 855px) {
+  .navbar {
+    display: grid;
+  }
+  .search {
+    width: 30rem;
+  }
+}
+
+@media (max-width: 780px) {
+  .numresults {
+    display: none;
+  }
+  .search {
+    flex-grow: 1;
+  }
+}
+@media (max-width: 500px) {
+  .main {
+    padding: 0.6rem;
+    margin-top: 0;
+  }
+  .favIconBox {
+    flex-direction: row;
+  }
+  .favIcon {
+    width: 50%;
+    text-wrap: nowrap;
+    background-color: rgb(255, 50, 50);
+    padding: 0.5rem;
+    border-radius: 0.6rem;
+  }
+  .navbar {
+    padding: 0;
+    background: transparent;
+    flex-direction: column-reverse;
+    margin: 0.8rem;
+    > input {
+      padding: 0.4rem;
+    }
+  }
+  .search {
+    width: 100%;
+  }
 }

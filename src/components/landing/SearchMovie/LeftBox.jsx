@@ -68,8 +68,8 @@ function LeftBox(props) {
           {movies?.map((movie) => (
             <li data-movie={movie.imdbID} className={styles.SearchMoviesli} onClick={handleDetailMovie} key={movie.imdbID}>
               <img src={movie.Poster} alt={`poster`} />
-              <h3>{movie.Title}</h3>
               <div>
+                <h3>{movie.Title}</h3>
                 <p>
                   <span>🗓</span>
                   <span>{movie.Year}</span>
