@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import styles from "./ShowActor.module.scss";
+import arrow from "../../../../assets/landing/arrow-up.svg";
+import infGif from "../../../../assets/landing/infinity.gif";
 // eslint-disable-next-line react/prop-types
-function ShowActorDetail({ actorId }) {
+function ShowActorDetail({ actorId, backArrow }) {
   const [actor, setActor] = useState({});
   const [deepActor, setDeepActor] = useState({});
   const sendReqIdAcotr = (person_id) => {
@@ -50,10 +52,18 @@ function ShowActorDetail({ actorId }) {
         console.error(error);
       });
   }, [actorId]);
+
+  const handleCloseDetailActor = () => {
+    backArrow("");
+  };
+
   return (
     <div className={styles.container}>
       {Object.keys(actor).length == 0 ? (
-        <p className={styles.loader}>... صبر کنید</p>
+        <div className={styles.loadingGif}>
+          <p className={styles.loader}>... صبر کنید</p>
+          <img src={infGif} alt="loading" />
+        </div>
       ) : (
         <>
           <div className={styles.containerBackimg}>
@@ -69,6 +79,7 @@ function ShowActorDetail({ actorId }) {
               alt=""
             />
           </div>
+          <img onClick={handleCloseDetailActor} className={styles.arrowIcon} src={arrow} alt="arrow-icon" />
           <div className={styles.actorBox}>
             <div className={styles.actorDet}>
               <img

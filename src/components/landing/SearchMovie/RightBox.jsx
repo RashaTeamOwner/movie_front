@@ -28,7 +28,12 @@ function RightBox(props) {
           }}
         />
       ) : (
-        <ShowActorDetail actorId={actorId} />
+        <ShowActorDetail
+          actorId={actorId}
+          backArrow={(databack) => {
+            setActorId(databack);
+          }}
+        />
       )}
       {/* <div className={styles.footerBox}>
         <button>Users</button>

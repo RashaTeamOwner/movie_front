@@ -2,6 +2,7 @@
 import { useState, useEffect, useRef } from "react";
 import starimg from "../../../../assets/landing/star-solid.svg";
 import arrow from "../../../../assets/landing/arrow-up.svg";
+import infGif from "../../../../assets/landing/infinity.gif";
 import axios from "axios";
 import styles from "./Showsearchmovie.module.scss";
 import { Link } from "react-router-dom/cjs/react-router-dom.min";
@@ -101,7 +102,6 @@ function ShowSearchMovie(props) {
   const handleCloseDetailMovie = () => {
     props.backArrow(0);
   };
-
   // -----start stars ----- //
   useEffect(() => {
     if (refStars.current == null) return;
@@ -144,8 +144,11 @@ function ShowSearchMovie(props) {
 
   return (
     <div className={styles.mainBox}>
-      {posterBack.poster_path == "undefined" ? (
-        <p className={styles.loader}>... صبر کنید</p>
+      {Object.keys(movieshow).length == 0 ? (
+        <div className={styles.loadingGif}>
+          <p className={styles.loader}>... صبر کنید</p>
+          <img src={infGif} alt="loading" />
+        </div>
       ) : (
         <>
           <img
