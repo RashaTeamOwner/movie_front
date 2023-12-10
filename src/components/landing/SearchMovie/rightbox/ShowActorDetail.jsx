@@ -61,7 +61,6 @@ function ShowActorDetail({ actorId, backArrow }) {
     <div className={styles.container}>
       {Object.keys(actor).length == 0 ? (
         <div className={styles.loadingGif}>
-          <p className={styles.loader}>... صبر کنید</p>
           <img src={infGif} alt="loading" />
         </div>
       ) : (

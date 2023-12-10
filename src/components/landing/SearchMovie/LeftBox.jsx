@@ -14,7 +14,7 @@ function LeftBox(props) {
     setLoading(false);
     if (query.length < 3) {
       setMovies([]);
-      setError("تعداد نتایج بالاست 🧨");
+      setError("! تعداد نتایج بالاست");
       return;
     }
     axios
@@ -22,7 +22,7 @@ function LeftBox(props) {
       .then((res) => {
         setError("");
         if (res.status != 200) {
-          throw new Error("something went wrong !");
+          throw new Error("! مشکلی رخ داده است");
         }
         const data = res.data;
         if (data.Response) {

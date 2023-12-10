@@ -146,7 +146,6 @@ function ShowSearchMovie(props) {
     <div className={styles.mainBox}>
       {Object.keys(movieshow).length == 0 ? (
         <div className={styles.loadingGif}>
-          <p className={styles.loader}>... صبر کنید</p>
           <img src={infGif} alt="loading" />
         </div>
       ) : (

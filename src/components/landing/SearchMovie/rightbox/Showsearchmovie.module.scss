@@ -156,11 +156,10 @@ body {
 
 .loadingGif {
   display: flex;
-  flex-direction: row-reverse;
   justify-content: center;
   align-items: center;
   > img {
-    width: 8rem;
+    width: 12rem;
   }
 }
 
