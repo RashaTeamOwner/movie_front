@@ -38,7 +38,12 @@ export default function App() {
 
       <main className={styles.main}>
         <LeftBox querydata={query ? query : "tarifnashode"} backsize={lengthMovies} backIdmovie={handleIdmovie} />
-        <RightBox id={idmovie} />
+        <RightBox
+          id={idmovie}
+          backActorKnownToHandleSearch={(data) => {
+            setIdmovie(data);
+          }}
+        />
       </main>
     </>
   );

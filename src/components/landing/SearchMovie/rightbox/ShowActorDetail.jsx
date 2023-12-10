@@ -46,7 +46,6 @@ function ShowActorDetail({ actorId, backArrow, backImdbId }) {
       .then(function (response) {
         setActor(response.data.results[0]);
         sendReqIdAcotr(response.data.results[0].id);
-        console.log(response.data);
       })
       .catch(function (error) {
         console.error(error);

@@ -1,6 +1,7 @@
 import styles from "./HeaderHomePage.module.scss";
 import landimg from "../../assets/landing/landimg.jpg";
 import { Link } from "react-router-dom";
+import chair from "../../assets/landing/chair.svg";
 function HeaderHomePage() {
   const arrLeft = [
     [1, 0, 0, 1, 1, 1, 1, 0],
@@ -67,9 +68,23 @@ function HeaderHomePage() {
                 {arrRight.map((index) => {
                   return index.map((item) => {
                     if (item == 0) {
-                      return <div key={Math.random() * 987654321}></div>;
+                      return (
+                        <div key={Math.random() * 987654321}>
+                          <img src={chair} alt="" />
+                        </div>
+                      );
                     } else {
-                      return <div key={Math.random() * 987654321} style={{ backgroundColor: "rgb(255, 55, 55)" }}></div>;
+                      return (
+                        <div key={Math.random() * 987654321}>
+                          <img
+                            src={chair}
+                            alt=""
+                            style={{
+                              filter: "invert(34%) sepia(54%) saturate(4204%) hue-rotate(343deg) brightness(97%) contrast(101%)",
+                            }}
+                          />
+                        </div>
+                      );
                     }
                   });
                 })}
@@ -78,9 +93,23 @@ function HeaderHomePage() {
                 {arrLeft.map((index) => {
                   return index.map((item) => {
                     if (item == 0) {
-                      return <div key={Math.random() * 987654321}></div>;
+                      return (
+                        <div key={Math.random() * 987654321}>
+                          <img src={chair} alt="" />
+                        </div>
+                      );
                     } else {
-                      return <div key={Math.random() * 987654321} style={{ backgroundColor: "rgb(255, 55, 55)" }}></div>;
+                      return (
+                        <div key={Math.random() * 987654321}>
+                          <img
+                            src={chair}
+                            alt=""
+                            style={{
+                              filter: "invert(34%) sepia(54%) saturate(4204%) hue-rotate(343deg) brightness(97%) contrast(101%)",
+                            }}
+                          />
+                        </div>
+                      );
                     }
                   });
                 })}

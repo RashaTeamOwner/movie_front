@@ -46,7 +46,7 @@
   .landDetailinto {
     width: 100%;
     color: white;
-    font-family: iransans;
+    font-family: sansx100;
     padding: 0.3rem 1rem;
     > p {
       direction: rtl;
@@ -75,7 +75,7 @@
         margin-top: 0.1rem;
         position: absolute;
         left: 0;
-        bottom: -30px;
+        bottom: -20px;
       }
       .animeRoute {
         width: 22rem;
@@ -103,7 +103,7 @@
         margin: 0.4rem;
         font-size: 0.9rem;
         color: white;
-        font-family: iransans;
+        font-family: sansx100;
         span {
           color: rgb(255, 179, 0);
         }
@@ -129,6 +129,7 @@
   text-align: center;
   color: white;
   width: 100%;
+  font-family: sansx200;
   h3 {
     margin: 0;
     font-size: 1.4rem;
@@ -151,8 +152,10 @@
       width: 0.9rem;
       height: 0.9rem;
       border-radius: 0.2rem;
-      background-color: gainsboro;
-      cursor: pointer;
+      > img {
+        cursor: pointer;
+        filter: invert(99%) sepia(59%) saturate(1251%) hue-rotate(182deg) brightness(124%) contrast(91%);
+      }
     }
   }
   &Left {
@@ -164,8 +167,10 @@
       width: 0.9rem;
       height: 0.9rem;
       border-radius: 0.2rem;
-      cursor: pointer;
-      background-color: gainsboro;
+      > img {
+        filter: invert(99%) sepia(59%) saturate(1251%) hue-rotate(182deg) brightness(124%) contrast(91%);
+        cursor: pointer;
+      }
     }
   }
 }
@@ -181,6 +186,7 @@
     padding: 0.3rem 0.7rem;
     border-radius: 0.3rem;
     font-size: 0.8rem;
+    font-family: sansx100;
   }
   > p:first-child {
     background-color: rgb(255, 54, 54);

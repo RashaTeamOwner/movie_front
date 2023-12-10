@@ -17,16 +17,11 @@ function ShowSearchMovie(props) {
   const [movieshow, setMovieshow] = useState([]);
   const [posterBack, setPosterBack] = useState([]);
   const [actors, setActors] = useState([]);
-
   const KEYtmdb =
     "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJkZDE3MTk4NDI4ZDkxZGZiYThlNWU1YTQ1OWU1Mjc1MiIsInN1YiI6IjY1MTkzMmYxYTE5OWE2MDBlMWZjN2JlYSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.qjZkw5ryAz3bt9Jf-TRCmW947WKGwgTAze3TrsfGDRU";
   // image actors
   useEffect(() => {
-    let imdbIdReal = "";
-    console.log(props.imbdIdFromActor, movieshow.imdbID);
     if (movieshow.Actors == undefined) return;
-    imdbIdReal = props.imbdIdFromActor;
-    console.log(imdbIdReal);
     const options = {
       headers: {
         accept: "application/json",
@@ -35,11 +30,10 @@ function ShowSearchMovie(props) {
     };
 
     axios
-      .get(`https://api.themoviedb.org/3/find/${imdbIdReal}?external_source=imdb_id&append_to_response=credits`, options)
+      .get(`https://api.themoviedb.org/3/find/${movieshow.imdbID}?external_source=imdb_id&append_to_response=credits`, options)
       .then((response) => {
         if (response.data.movie_results[0] != undefined) {
           setPosterBack(response.data.movie_results[0]);
-          console.log(response.data);
           return ["movie", response.data.movie_results[0].id];
         } else if (response.data.tv_results[0] != undefined) {
           setPosterBack(response.data.tv_results[0]);

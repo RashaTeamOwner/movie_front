@@ -13,6 +13,10 @@ function RightBox(props) {
     props.id == "" ? setClickDetail(0) : setClickDetail(1);
   }, [props.id]);
 
+  useEffect(() => {
+    props.backActorKnownToHandleSearch(imdbId);
+  }, [imdbId]);
+
   const backActorId = (id) => {
     setActorId(id);
   };
