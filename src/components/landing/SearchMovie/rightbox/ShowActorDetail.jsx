@@ -4,7 +4,7 @@ import styles from "./ShowActor.module.scss";
 import arrow from "../../../../assets/landing/arrow-up.svg";
 import infGif from "../../../../assets/landing/infinity.gif";
 // eslint-disable-next-line react/prop-types
-function ShowActorDetail({ actorId, backArrow }) {
+function ShowActorDetail({ actorId, backArrow, backImdbId }) {
   const [actor, setActor] = useState({});
   const [deepActor, setDeepActor] = useState({});
   const sendReqIdAcotr = (person_id) => {
@@ -23,7 +23,6 @@ function ShowActorDetail({ actorId, backArrow }) {
       .request(options)
       .then(function (response) {
         setDeepActor(response.data);
-        console.log(response.data);
       })
       .catch(function (error) {
         console.error(error);
@@ -47,6 +46,7 @@ function ShowActorDetail({ actorId, backArrow }) {
       .then(function (response) {
         setActor(response.data.results[0]);
         sendReqIdAcotr(response.data.results[0].id);
+        console.log(response.data);
       })
       .catch(function (error) {
         console.error(error);
@@ -55,6 +55,24 @@ function ShowActorDetail({ actorId, backArrow }) {
 
   const handleCloseDetailActor = () => {
     backArrow("");
+    backImdbId("");
+  };
+
+  const handleKnowsMovie = (ele) => {
+    const idMovie = ele.target.dataset.tab;
+    const options = {
+      method: "GET",
+      headers: {
+        accept: "application/json",
+        Authorization:
+          "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJkZDE3MTk4NDI4ZDkxZGZiYThlNWU1YTQ1OWU1Mjc1MiIsInN1YiI6IjY1MTkzMmYxYTE5OWE2MDBlMWZjN2JlYSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.qjZkw5ryAz3bt9Jf-TRCmW947WKGwgTAze3TrsfGDRU",
+      },
+    };
+
+    fetch(`https://api.themoviedb.org/3/movie/${idMovie}?language=en-US`, options)
+      .then((response) => response.json())
+      .then((response) => backImdbId(response.imdb_id))
+      .catch(() => backImdbId(""));
   };
 
   return (
@@ -127,10 +145,12 @@ function ShowActorDetail({ actorId, backArrow }) {
                   return (
                     <div key={key}>
                       <img
+                        onClick={handleKnowsMovie}
                         src={`https://suggestream.com/_next/image?url=https%3A%2F%2Fimage.tmdb.org%2Ft%2Fp%2Fw780%2F${ele.poster_path
                           .split("/")
                           .join("")}&w=2048&q=75`}
                         alt={ele.id}
+                        data-tab={ele.id}
                       />
                       <p>{ele.title == undefined ? ele.original_name : ele.title}</p>
                     </div>

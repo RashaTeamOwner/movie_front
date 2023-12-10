@@ -18,28 +18,15 @@ function ShowSearchMovie(props) {
   const [posterBack, setPosterBack] = useState([]);
   const [actors, setActors] = useState([]);
 
-  // // test
-  // const keyGoogle = "AIzaSyA-o4brgpVDcXeyOnTuB1kzAGikB228I98";
-  // const [trGoogle, setTrGoogle] = useState("");
-  // useEffect(() => {
-  //   // ترجمه متن به فارسی
-  //   const translateText = async () => {
-  //     const response = await axios.post(`https://translation.googleapis.com/language/translate/v2?key=${keyGoogle}`, {
-  //       q: trGoogle,
-  //       target: "fa",
-  //     });
-
-  //     setTrGoogle(response.data.data.translations[0].translatedText);
-  //   };
-
-  //   translateText().then(() => console.log(trGoogle));
-  // }, [actors]);
-
   const KEYtmdb =
     "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJkZDE3MTk4NDI4ZDkxZGZiYThlNWU1YTQ1OWU1Mjc1MiIsInN1YiI6IjY1MTkzMmYxYTE5OWE2MDBlMWZjN2JlYSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.qjZkw5ryAz3bt9Jf-TRCmW947WKGwgTAze3TrsfGDRU";
   // image actors
   useEffect(() => {
+    let imdbIdReal = "";
+    console.log(props.imbdIdFromActor, movieshow.imdbID);
     if (movieshow.Actors == undefined) return;
+    imdbIdReal = props.imbdIdFromActor;
+    console.log(imdbIdReal);
     const options = {
       headers: {
         accept: "application/json",
@@ -48,7 +35,7 @@ function ShowSearchMovie(props) {
     };
 
     axios
-      .get(`https://api.themoviedb.org/3/find/${movieshow.imdbID}?external_source=imdb_id&append_to_response=credits`, options)
+      .get(`https://api.themoviedb.org/3/find/${imdbIdReal}?external_source=imdb_id&append_to_response=credits`, options)
       .then((response) => {
         if (response.data.movie_results[0] != undefined) {
           setPosterBack(response.data.movie_results[0]);

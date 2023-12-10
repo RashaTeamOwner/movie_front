@@ -7,6 +7,7 @@ import ShowActorDetail from "./rightbox/ShowActorDetail";
 function RightBox(props) {
   const [clickDetail, setClickDetail] = useState(1);
   const [actorId, setActorId] = useState("");
+  const [imdbId, setImdbId] = useState("");
   useEffect(() => {
     setActorId("");
     props.id == "" ? setClickDetail(0) : setClickDetail(1);
@@ -22,6 +23,7 @@ function RightBox(props) {
       ) : actorId == "" ? (
         <ShowSearchMovie
           id={props.id}
+          imbdIdFromActor={imdbId}
           backActorId={backActorId}
           backArrow={(databack) => {
             setClickDetail(databack);
@@ -30,6 +32,7 @@ function RightBox(props) {
       ) : (
         <ShowActorDetail
           actorId={actorId}
+          backImdbId={(data) => setImdbId(data)}
           backArrow={(databack) => {
             setActorId(databack);
           }}
