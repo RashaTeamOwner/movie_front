@@ -1,5 +1,6 @@
 import { useRef, useState } from "react";
-// import axios from "axios";
+import { Redirect } from "react-router-dom/cjs/react-router-dom.min";
+import axios from "axios";
 import Swal from "sweetalert2";
 import styles from "./SignUp.module.scss";
 import iconname from "../../assets/loginpage/user-outlined.svg";
@@ -12,6 +13,7 @@ function SignUp() {
   const [inPass, setInPass] = useState("");
   const [uid, setUid] = useState("");
   const [inConfirm, setInConfirm] = useState("");
+  const [catchCode, setCatchCode] = useState(false);
 
   const regexPersian = /^[\u0600-\u06FF\s]+ [\u0600-\u06FF\s]+$/;
   const regexNumber = /^09\d{9}$/;
@@ -39,23 +41,27 @@ function SignUp() {
       //   phone_number: inPhone,
       //   password: inPass,
       //   student_id: uid,
+      //   code: 2222,
       // };
-      // axios({
-      //   method: "post",
-      //   url: `http://192.168.210.168:8000/api/v1/auth/register/`,
-      //   headers: {
-      //     "Content-Type": "application/json",
-      //   },
-      //   data: JSON.stringify(data),
-      // })
-      //   .then((res) => {
-      //     alert(res.data);
-      //     console.log(res);
-      //   })
-      //   .catch((err) => {
-      //     alert(err);
-      //     console.log(err);
-      //   });
+      let data = {
+        phone_number: inPhone,
+      };
+      axios({
+        method: "post",
+        url: `http://92.63.169.226:8001/api/v1/send-code/`,
+        headers: {
+          "Content-Type": "application/json",
+        },
+        data: JSON.stringify(data),
+      })
+        .then((res) => {
+          setCatchCode(true);
+          console.log(res);
+        })
+        .catch((err) => {
+          setCatchCode(false);
+          console.log(err);
+        });
     } else {
       if (!regexPersian.test(inName) || inName == "")
         Toast.fire({
@@ -226,6 +232,37 @@ function SignUp() {
     }
   };
   //// end span up even click input
+
+  const completeSignup = () => {
+    let data = {
+      phone_number: inPhone,
+      password: inPass,
+      student_id: uid,
+      code: inConfirm,
+    };
+    axios({
+      method: "post",
+      url: `http://92.63.169.226:8001/api/v1/auth/register/`,
+      headers: {
+        "Content-Type": "application/json",
+      },
+      data: JSON.stringify(data),
+    })
+      .then((res) => {
+        // send user to home page
+        if (res.status == 201) {
+          // redirect user and save token to local storage
+          const token = res.data.token;
+          localStorage.setItem("token", token);
+          return <Redirect to="/" />;
+        }
+      })
+      .catch((err) => {
+        alert(err.response.data.phone_number);
+        console.log(err.response);
+      });
+  };
+
   return (
     <div className={styles.container}>
       <p className={styles.title_signup}>ثبت نام جدید</p>
@@ -317,7 +354,7 @@ function SignUp() {
           <button onClick={handlePostSingup}>دریافت کد</button>
         </div>
         <div className={styles.submitbox}>
-          <input className={styles.submitLogin} type="submit" value="ثبت نام" />
+          <input onClick={completeSignup} className={styles.submitLogin} type="submit" value="ثبت نام" />
         </div>
       </div>
     </div>

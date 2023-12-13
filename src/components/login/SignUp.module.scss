@@ -1,10 +1,11 @@
 .container {
   direction: rtl;
   position: absolute;
-  top: -10px;
+  top: 15px;
   right: 50%;
   transform: translateX(50%);
   padding: 0.2rem 2rem;
+  box-sizing: content-box;
 }
 .title_signup {
   font-size: 1.7rem;
@@ -17,6 +18,7 @@
   display: flex;
   flex-direction: column;
   gap: 2.5rem;
+  box-sizing: content-box;
   // margin-top: 4rem;
   .name_signup,
   .phone_signup,
@@ -24,6 +26,7 @@
   .uid_signup,
   .confirm_signup {
     position: relative;
+    box-sizing: content-box;
     span {
       position: absolute;
       top: 50%;
@@ -34,6 +37,7 @@
       transition: 0.3s all ease;
       font-size: 0.8rem;
       border-radius: 2rem 2rem 0 2rem;
+      box-sizing: content-box;
     }
     img {
       position: absolute;
@@ -43,6 +47,7 @@
       width: 1.7rem;
       padding: 0.4rem;
       filter: invert(62%) sepia(28%) saturate(5202%) hue-rotate(1deg) brightness(101%) contrast(105%);
+      box-sizing: content-box;
     }
     input {
       width: 15rem;
@@ -56,6 +61,7 @@
       font-family: iransans;
       font-weight: bold;
       direction: ltr;
+      box-sizing: content-box;
       color: white;
       &:focus {
         outline: none;
@@ -75,6 +81,7 @@
       border: none;
       background-color: greenyellow;
       font-family: sansx200;
+      box-sizing: content-box;
     }
   }
   //   .password_login {
@@ -116,6 +123,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    box-sizing: content-box;
     > button {
       background-color: transparent;
       border: none;
@@ -123,6 +131,7 @@
       cursor: pointer;
       font-size: 0.7rem;
       color: rgb(191, 0, 0);
+      box-sizing: content-box;
     }
   }
   .submitLogin {
@@ -136,6 +145,7 @@
     border-bottom: 2px solid white;
     cursor: pointer;
     color: white;
+    box-sizing: content-box;
   }
 }
 

@@ -5,10 +5,12 @@
   right: 50%;
   transform: translate(50%, -60%);
   padding: 0.2rem 2rem;
+  box-sizing: content-box;
 }
 .title_login {
   font-size: 1.7rem;
   font-family: iransans;
+  box-sizing: content-box;
 }
 
 .loginBox {
@@ -17,9 +19,11 @@
   flex-direction: column;
   gap: 3rem;
   // margin-top: 4rem;
+  box-sizing: content-box;
   .phone_login,
   .password_login {
     position: relative;
+    box-sizing: content-box;
     span {
       position: absolute;
       top: 50%;
@@ -30,6 +34,7 @@
       transition: 0.3s all ease;
       font-size: 0.8rem;
       border-radius: 2rem 2rem 0 2rem;
+      box-sizing: content-box;
     }
     img {
       position: absolute;
@@ -39,6 +44,7 @@
       width: 1.7rem;
       padding: 0.4rem;
       filter: invert(62%) sepia(28%) saturate(5202%) hue-rotate(1deg) brightness(101%) contrast(105%);
+      box-sizing: content-box;
     }
     input {
       width: 12rem;
@@ -53,6 +59,7 @@
       font-weight: bold;
       direction: ltr;
       color: white;
+      box-sizing: content-box;
       &:focus {
         outline: none;
       }
