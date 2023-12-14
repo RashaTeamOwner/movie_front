@@ -35,7 +35,6 @@ function SignUp() {
         icon: "success",
         title: `<p style='direction:rtl'>پیامک به شماره ${inPhone} ارسال شد</p>`,
         width: "310px",
-        padding: "0 1rem",
       });
       // let data = {
       //   full_name: inName,
@@ -69,7 +68,6 @@ function SignUp() {
           icon: "warning",
           title: "<p style='direction:rtl'>نام خود را کامل وارد کنید</p>",
           width: "300px",
-          padding: "0 1rem",
           iconColor: "red",
         });
       else if (!regexUid.test(uid) || uid == "")
@@ -77,7 +75,6 @@ function SignUp() {
           icon: "warning",
           title: "<p style='direction:rtl'>شماره دانشجویی اشتباه است</p>",
           width: "330px",
-          padding: "0 1rem",
           iconColor: "red",
         });
       else if (!regexNumber.test(inPhone) || inPhone == "")
@@ -85,7 +82,6 @@ function SignUp() {
           icon: "warning",
           title: "<p style='direction:rtl'>شماره تلفن درست نیست</p>",
           width: "310px",
-          padding: "0 1rem",
           iconColor: "red",
         });
       else if (!regexPass.test(inPass) || inPass == "")
@@ -94,7 +90,6 @@ function SignUp() {
           iconColor: "red",
           title: "<p style='direction:rtl'>فرمت پسورد درست نیست</p>",
           width: "310px",
-          padding: "0 1rem",
         });
     }
   };
@@ -104,8 +99,9 @@ function SignUp() {
     toast: true,
     position: "top-end",
     showConfirmButton: false,
-    timer: 3000,
+    timer: 5000,
     timerProgressBar: true,
+    padding: "10px",
     didOpen: (toast) => {
       toast.addEventListener("mouseenter", Swal.stopTimer);
       toast.addEventListener("mouseleave", Swal.resumeTimer);
@@ -115,8 +111,9 @@ function SignUp() {
     toast: true,
     position: "top-end",
     showConfirmButton: false,
-    timer: 3000,
+    timer: 10000,
     timerProgressBar: true,
+    padding: "10px",
   });
 
   //// start span up even click input
