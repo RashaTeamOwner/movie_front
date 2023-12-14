@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 /* eslint-disable react/prop-types */
 import { useState, useEffect, useRef } from "react";
 import starimg from "../../../../assets/landing/star-solid.svg";
@@ -17,8 +18,7 @@ function ShowSearchMovie(props) {
   const [movieshow, setMovieshow] = useState([]);
   const [posterBack, setPosterBack] = useState([]);
   const [actors, setActors] = useState([]);
-  const KEYtmdb =
-    "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJkZDE3MTk4NDI4ZDkxZGZiYThlNWU1YTQ1OWU1Mjc1MiIsInN1YiI6IjY1MTkzMmYxYTE5OWE2MDBlMWZjN2JlYSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.qjZkw5ryAz3bt9Jf-TRCmW947WKGwgTAze3TrsfGDRU";
+  const KEYtmdb = process.env.VITE_KEY_TMDB;
   // image actors
   useEffect(() => {
     if (movieshow.Actors == undefined) return;
@@ -30,7 +30,7 @@ function ShowSearchMovie(props) {
     };
 
     axios
-      .get(`https://api.themoviedb.org/3/find/${movieshow.imdbID}?external_source=imdb_id&append_to_response=credits`, options)
+      .get(`${process.env.VITE_URL_TMDB}/3/find/${movieshow.imdbID}?external_source=imdb_id&append_to_response=credits`, options)
       .then((response) => {
         if (response.data.movie_results[0] != undefined) {
           setPosterBack(response.data.movie_results[0]);
@@ -42,7 +42,7 @@ function ShowSearchMovie(props) {
       })
       .then((data) => {
         axios
-          .get(`https://api.themoviedb.org/3/${data[0]}/${data[1]}?&append_to_response=credits`, options)
+          .get(`${process.env.VITE_URL_TMDB}/3/${data[0]}/${data[1]}?&append_to_response=credits`, options)
           .then((response) => {
             setActors(response.data.credits.cast);
           })
@@ -65,7 +65,7 @@ function ShowSearchMovie(props) {
     const sendId = props.id;
     if (sendId == "") return;
     axios
-      .get(`http://www.omdbapi.com/?i=${sendId}&apikey=${KEY}`)
+      .get(`${process.env.VITE_URL_OMDB}/?i=${sendId}&apikey=${KEY}`)
       .then((res) => {
         setMovieshow(res.data);
       })
@@ -381,7 +381,9 @@ function ShowSearchMovie(props) {
                       <img
                         onClick={handleClickActor}
                         data-idactor={ele.name}
-                        src={`https://suggestream.com/_next/image?url=https%3A%2F%2Fimage.tmdb.org%2Ft%2Fp%2Fw780%2F${ele.profile_path
+                        src={`${
+                          process.env.VITE_URL_IMAGES
+                        }/_next/image?url=https%3A%2F%2Fimage.tmdb.org%2Ft%2Fp%2Fw780%2F${ele.profile_path
                           .split("/")
                           .join("")}&w=2048&q=75`}
                         alt=""

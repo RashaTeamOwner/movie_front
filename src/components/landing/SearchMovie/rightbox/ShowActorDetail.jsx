@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import { useEffect, useState } from "react";
 import axios from "axios";
 import styles from "./ShowActor.module.scss";
@@ -10,12 +11,11 @@ function ShowActorDetail({ actorId, backArrow, backImdbId }) {
   const sendReqIdAcotr = (person_id) => {
     const options = {
       method: "GET",
-      url: `https://api.themoviedb.org/3/person/${person_id}`,
+      url: `${process.env.VITE_URL_TMDB}/3/person/${person_id}`,
       params: { include_adult: "false", language: "en-US", page: "1" },
       headers: {
         accept: "application/json",
-        Authorization:
-          "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJkZDE3MTk4NDI4ZDkxZGZiYThlNWU1YTQ1OWU1Mjc1MiIsInN1YiI6IjY1MTkzMmYxYTE5OWE2MDBlMWZjN2JlYSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.qjZkw5ryAz3bt9Jf-TRCmW947WKGwgTAze3TrsfGDRU",
+        Authorization: process.env.VITE_KEY_TMDB,
       },
     };
 
@@ -32,12 +32,11 @@ function ShowActorDetail({ actorId, backArrow, backImdbId }) {
     setDeepActor({});
     const options = {
       method: "GET",
-      url: "https://api.themoviedb.org/3/search/person",
+      url: `${process.env.VITE_URL_TMDB}/3/search/person`,
       params: { query: actorId, include_adult: "true", language: "en-US", page: "1" },
       headers: {
         accept: "application/json",
-        Authorization:
-          "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJkZDE3MTk4NDI4ZDkxZGZiYThlNWU1YTQ1OWU1Mjc1MiIsInN1YiI6IjY1MTkzMmYxYTE5OWE2MDBlMWZjN2JlYSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.qjZkw5ryAz3bt9Jf-TRCmW947WKGwgTAze3TrsfGDRU",
+        Authorization: process.env.VITE_KEY_TMDB,
       },
     };
 
@@ -63,12 +62,11 @@ function ShowActorDetail({ actorId, backArrow, backImdbId }) {
       method: "GET",
       headers: {
         accept: "application/json",
-        Authorization:
-          "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJkZDE3MTk4NDI4ZDkxZGZiYThlNWU1YTQ1OWU1Mjc1MiIsInN1YiI6IjY1MTkzMmYxYTE5OWE2MDBlMWZjN2JlYSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.qjZkw5ryAz3bt9Jf-TRCmW947WKGwgTAze3TrsfGDRU",
+        Authorization: process.env.VITE_KEY_TMDB,
       },
     };
 
-    fetch(`https://api.themoviedb.org/3/movie/${idMovie}?language=en-US`, options)
+    fetch(`${process.env.VITE_URL_TMDB}/3/movie/${idMovie}?language=en-US`, options)
       .then((response) => response.json())
       .then((response) => backImdbId(response.imdb_id))
       .catch(() => backImdbId(""));
@@ -88,7 +86,7 @@ function ShowActorDetail({ actorId, backArrow, backImdbId }) {
               src={
                 actor.profile_path == undefined
                   ? ""
-                  : `https://suggestream.com/_next/image?url=https%3A%2F%2Fimage.tmdb.org%2Ft%2Fp%2Fw780%2F${actor.profile_path
+                  : `${process.env.VITE_URL_IMAGES}/_next/image?url=https%3A%2F%2Fimage.tmdb.org%2Ft%2Fp%2Fw780%2F${actor.profile_path
                       .split("/")
                       .join("")}&w=2048&q=75`
               }
@@ -103,7 +101,7 @@ function ShowActorDetail({ actorId, backArrow, backImdbId }) {
                 src={
                   actor.profile_path == undefined
                     ? ""
-                    : `https://suggestream.com/_next/image?url=https%3A%2F%2Fimage.tmdb.org%2Ft%2Fp%2Fw780%2F${actor.profile_path
+                    : `${process.env.VITE_URL_IMAGES}/_next/image?url=https%3A%2F%2Fimage.tmdb.org%2Ft%2Fp%2Fw780%2F${actor.profile_path
                         .split("/")
                         .join("")}&w=2048&q=75`
                 }
@@ -145,7 +143,7 @@ function ShowActorDetail({ actorId, backArrow, backImdbId }) {
                     <div key={key}>
                       <img
                         onClick={handleKnowsMovie}
-                        src={`https://suggestream.com/_next/image?url=https%3A%2F%2Fimage.tmdb.org%2Ft%2Fp%2Fw780%2F${ele.poster_path
+                        src={`${process.env.VITE_URL_IMAGES}/_next/image?url=https%3A%2F%2Fimage.tmdb.org%2Ft%2Fp%2Fw780%2F${ele.poster_path
                           .split("/")
                           .join("")}&w=2048&q=75`}
                         alt={ele.id}

@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 /* eslint-disable react/prop-types */
 import { useEffect, useState } from "react";
 import axios from "axios";
@@ -9,7 +10,6 @@ function LeftBox(props) {
   const [idmovie, setIdmovie] = useState("");
 
   const query = props.querydata;
-  const KEY = "6502fbb3";
   useEffect(() => {
     setLoading(false);
     if (query.length < 3) {
@@ -18,7 +18,7 @@ function LeftBox(props) {
       return;
     }
     axios
-      .get(`http://www.omdbapi.com/?s=${query}&apikey=${KEY}`)
+      .get(`${process.env.VITE_URL_OMDB}/?s=${query}&apikey=${process.env.VITE_KEY_OMDB}`)
       .then((res) => {
         setError("");
         if (res.status != 200) {

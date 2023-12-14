@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import { useRef, useState } from "react";
 import { Redirect } from "react-router-dom/cjs/react-router-dom.min";
 import axios from "axios";
@@ -48,7 +49,7 @@ function SignUp() {
       };
       axios({
         method: "post",
-        url: `http://92.63.169.226:8001/api/v1/send-code/`,
+        url: `${process.env.VITE_API_URl}/api/v1/send-code/`,
         headers: {
           "Content-Type": "application/json",
         },
@@ -232,7 +233,6 @@ function SignUp() {
     }
   };
   //// end span up even click input
-
   const completeSignup = () => {
     let data = {
       phone_number: inPhone,
@@ -242,7 +242,7 @@ function SignUp() {
     };
     axios({
       method: "post",
-      url: `http://92.63.169.226:8001/api/v1/auth/register/`,
+      url: `${process.env.VITE_API_URl}/api/v1/auth/register/`,
       headers: {
         "Content-Type": "application/json",
       },
@@ -250,15 +250,15 @@ function SignUp() {
     })
       .then((res) => {
         // send user to home page
-        if (res.status == 201) {
-          // redirect user and save token to local storage
-          const token = res.data.token;
-          localStorage.setItem("token", token);
-          return <Redirect to="/" />;
-        }
+        // redirect user and save token to local storage
+        const token = res.data.token;
+        localStorage.setItem("token", token);
+        <Redirect to="/" />;
       })
       .catch((err) => {
         alert(err.response.data.phone_number);
+        alert(err.response.data.detail);
+        alert(err.response.data.student_id);
         console.log(err.response);
       });
   };
