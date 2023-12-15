@@ -17,16 +17,26 @@ function LeftBox(props) {
       setError("! تعداد نتایج بالاست");
       return;
     }
+    const options = {
+      method: "GET",
+      headers: {
+        accept: "application/json",
+        Authorization: process.env.VITE_KEY_TMDB,
+      },
+    };
     axios
-      .get(`${process.env.VITE_URL_OMDB}/?s=${query}&apikey=${process.env.VITE_KEY_OMDB}`)
+      .get(`${process.env.VITE_URL_TMDB}/3/search/movie?query=${query}&include_adult=true`, options)
       .then((res) => {
         setError("");
         if (res.status != 200) {
           throw new Error("! مشکلی رخ داده است");
         }
         const data = res.data;
-        if (data.Response) {
-          setMovies(data.Search);
+        if (data.total_results) {
+          let sorted = data.results.sort((a, b) => {
+            return b.vote_count - a.vote_count;
+          });
+          setMovies(sorted);
           return data;
         } else {
           return;
@@ -34,13 +44,13 @@ function LeftBox(props) {
       })
       .then((response) => {
         setLoading(true);
-        if (query == "tarifnashode" || response.Response == "False") {
-          if (response.Response == "False" && query != "tarifnashode") {
-            throw new Error(`${response.Error} 😒`);
+        if (query == "tarifnashode" || response == undefined) {
+          if (response == undefined && query != "tarifnashode") {
+            throw new Error(`😒 درست جستجو کن`);
           } else {
             throw new Error("🔎 جستجوی فیلم");
           }
-        } else props.backsize(response.Search.length);
+        } else props.backsize(response.total_results);
       })
       .catch((error) => {
         setError(error.message);
@@ -66,13 +76,18 @@ function LeftBox(props) {
       {loading && !error && (
         <ul className={styles.list}>
           {movies?.map((movie) => (
-            <li data-movie={movie.imdbID} className={styles.SearchMoviesli} onClick={handleDetailMovie} key={movie.imdbID}>
-              <img src={movie.Poster} alt={`poster`} />
+            <li data-movie={movie.id} className={styles.SearchMoviesli} onClick={handleDetailMovie} key={movie.id}>
+              <img
+                src={`${process.env.VITE_URL_IMAGES}/_next/image?url=https%3A%2F%2Fimage.tmdb.org%2Ft%2Fp%2Fw780%2F${
+                  movie.poster_path ? movie.poster_path : "/".split("/").join("")
+                }&w=2048&q=75`}
+                alt={`poster`}
+              />
               <div>
-                <h3>{movie.Title}</h3>
+                <h3>{movie.original_title}</h3>
                 <p>
                   <span>🗓</span>
-                  <span>{movie.Year}</span>
+                  <span>{movie.release_date}</span>
                 </p>
               </div>
             </li>
@@ -85,3 +100,19 @@ function LeftBox(props) {
 }
 
 export default LeftBox;
+
+//     axios
+// .get(`${process.env.VITE_URL_OMDB}/?s=${query}&apikey=${process.env.VITE_KEY_OMDB}`)
+// .then((res) => {
+//   setError("");
+//   if (res.status != 200) {
+//     throw new Error("! مشکلی رخ داده است");
+//   }
+//   const data = res.data;
+//   if (data.Response) {
+//     setMovies(data.Search);
+//     return data;
+//   } else {
+//     return;
+//   }
+// })
