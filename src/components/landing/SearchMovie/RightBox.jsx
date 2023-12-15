@@ -23,7 +23,7 @@ function RightBox(props) {
   return (
     <div className={styles.boxRight}>
       {clickDetail == 0 ? (
-        <div>film hay mored alaqat</div>
+        <MyMovies />
       ) : actorId == "" ? (
         <ShowSearchMovie
           id={props.id}
@@ -39,6 +39,7 @@ function RightBox(props) {
           backImdbId={(data) => setImdbId(data)}
           backArrow={(databack) => {
             setActorId(databack);
+            setClickDetail(1);
           }}
         />
       )}
