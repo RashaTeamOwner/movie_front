@@ -66,7 +66,19 @@ function LeftBox(props) {
       setIdmovie("");
     };
     asy().then(() => {
-      setIdmovie(event.target.dataset.movie);
+      const idMovie = event.target.dataset.movie;
+      const options = {
+        method: "GET",
+        headers: {
+          accept: "application/json",
+          Authorization: process.env.VITE_KEY_TMDB,
+        },
+      };
+
+      fetch(`${process.env.VITE_URL_TMDB}/3/movie/${idMovie}?language=en-US`, options)
+        .then((response) => response.json())
+        .then((response) => setIdmovie(response.imdb_id))
+        .catch(() => setIdmovie(""));
     });
   };
 
