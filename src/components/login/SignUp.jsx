@@ -24,7 +24,7 @@ function SignUp() {
 
   const msgUid = "شماره دانشجویی اشتباه است";
   const msgName = "نام خود را کامل وارد کنید";
-  const msgPhone = "شماره خودرا کامل کنید";
+  const msgPhone = "شماره خود را کامل کنید";
   const msgPassword = "حداقل 8 کاراکتر و شامل حرف انگلیسی و عدد";
   const msgConfirm = "کد ارسالی به شماره خود را وارد کنید";
 
@@ -48,7 +48,7 @@ function SignUp() {
       };
       axios({
         method: "post",
-        url: `${process.env.VITE_API_URl}/api/v1/send-code/`,
+        url: `${process.env.VITE_API_URL}/api/v1/send-code/`,
         headers: {
           "Content-Type": "application/json",
         },
@@ -239,7 +239,7 @@ function SignUp() {
     };
     axios({
       method: "post",
-      url: `${process.env.VITE_API_URl}/api/v1/auth/register/`,
+      url: `${process.env.VITE_API_URL}/api/v1/auth/register/`,
       headers: {
         "Content-Type": "application/json",
       },

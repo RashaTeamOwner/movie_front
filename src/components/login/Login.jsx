@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import Swal from "sweetalert2";
 import axios from "axios";
 import styles from "./Login.module.scss";
@@ -6,7 +7,9 @@ import passicon from "../../assets/loginpage/lock-password.svg";
 import eyeicon from "../../assets/loginpage/eye.svg";
 import eyeslash from "../../assets/loginpage/eye-slash.svg";
 import { useRef, useState } from "react";
+import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 function Login() {
+  const history = useHistory();
   const refEyeIcon = useRef(null);
   const [eye, setEye] = useState(false);
   const handleEye = () => {
@@ -14,33 +17,28 @@ function Login() {
   };
 
   const handleButtonLogin = () => {
-    if (1) {
-      Toast.fire({
-        icon: "success",
-        title: "<p style='direction:rtl'>اطلاعات وارد شده درست است</p>",
-        width: "310px",
-        padding: "0 1rem",
-      });
-      // let data = {
-      //   username: inPhone,
-      //   password: inPass,
-      // };
+    if (regexNumber.test(inPhone) && regexPass.test(inPass)) {
+      let data = {
+        username: inPhone,
+        password: inPass,
+      };
       axios({
         method: "post",
-        url: `http://192.168.210.168:8000/api/v1/users/`,
-        headers: {
-          Authorization: "token 74b8367cd9d2cc86433185d1efca257a946cb3b5",
-          "Content-Type": "application/json",
-        },
-        // data: JSON.stringify(data),
+        url: `${process.env.VITE_API_URL}/api/v1/token/`,
+        data: data,
       })
         .then((res) => {
-          alert(res.data);
-          console.log(res);
+          localStorage.setItem("token", res.data.token);
+          history.push("/");
         })
         .catch((err) => {
-          alert(err);
           console.log(err);
+          Toast.fire({
+            icon: "warning",
+            title: "<p style='direction:rtl'>اطلاعات وارد شده وجود ندارد</p>",
+            width: "330px",
+            padding: "1rem",
+          });
         });
     } else {
       Toast.fire({

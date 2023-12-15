@@ -175,6 +175,37 @@
   }
 }
 
+.selectChair {
+  animation: shakeer 1s backwards;
+}
+
+@keyframes shakeer {
+  0% {
+    transform: rotate(25deg) scale(1.2);
+  }
+  15% {
+    transform: rotate(-25deg);
+  }
+  30% {
+    transform: rotate(20deg);
+  }
+  45% {
+    transform: rotate(-20deg);
+  }
+  60% {
+    transform: rotate(15deg);
+  }
+  75% {
+    transform: rotate(-15deg);
+  }
+  90% {
+    transform: rotate(5deg);
+  }
+  100% {
+    transform: rotate(-5deg);
+  }
+}
+
 .someDetailChairs {
   display: flex;
   padding-top: 0.5rem;
