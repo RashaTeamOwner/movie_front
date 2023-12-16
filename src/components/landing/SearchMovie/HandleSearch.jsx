@@ -9,9 +9,7 @@ import useWindowSize from "../../../hooks/useWindowSize";
 import { useEffect } from "react";
 export default function App() {
   const sizeWidth = useWindowSize();
-  const refLeftBox = useRef(null);
-  const refRightBox = useRef(null);
-
+  const refMainBox = useRef(null);
   const [query, setQuery] = useState("");
   const [lengthMovie, setLengthMovie] = useState("");
   const [idmovie, setIdmovie] = useState("");
@@ -27,16 +25,24 @@ export default function App() {
     });
   };
   useEffect(() => {
-    if (sizeWidth.width < 920) {
+    const leftBox = refMainBox.current.children[0];
+    const rightBox = refMainBox.current.children[1];
+    if (sizeWidth.width < 855) {
       if (query != "") {
         if (idmovie == "") {
-          console.log("left z index 1", idmovie);
+          leftBox.style.display = "block";
+          rightBox.style.display = "none";
         } else {
-          console.log("right z index 1", idmovie);
+          leftBox.style.display = "none";
+          rightBox.style.display = "block";
         }
       } else {
-        console.log("right z index 1", idmovie);
+        leftBox.style.display = "none";
+        rightBox.style.display = "block";
       }
+    } else {
+      leftBox.style = "";
+      RightBox.style = "";
     }
   }, [sizeWidth, query, idmovie]);
   return (
@@ -56,13 +62,12 @@ export default function App() {
         <p className={styles.numresults}>جستجوی فیلم</p>
       </nav>
 
-      <main className={styles.main}>
+      <main ref={refMainBox} className={styles.main}>
         <LeftBox querydata={query ? query : "tarifnashode"} backsize={lengthMovies} backIdmovie={handleIdmovie} />
         <RightBox
           id={idmovie}
           backActorKnownToHandleSearch={(data) => {
             setIdmovie(data);
-            console.log(data);
           }}
           backIdForReset={(data) => {
             setIdmovie(data);
