@@ -1,6 +1,6 @@
 /* eslint-disable no-undef */
 import { useRef, useState } from "react";
-import { Redirect } from "react-router-dom/cjs/react-router-dom.min";
+import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import axios from "axios";
 import Swal from "sweetalert2";
 import styles from "./SignUp.module.scss";
@@ -15,7 +15,7 @@ function SignUp() {
   const [uid, setUid] = useState("");
   const [inConfirm, setInConfirm] = useState("");
   const [catchCode, setCatchCode] = useState(false);
-
+  const history = useHistory();
   const regexPersian = /^[\u0600-\u06FF\s]+ [\u0600-\u06FF\s]+$/;
   const regexNumber = /^09\d{9}$/;
   const regexUid = /^(97[0-9]{8}|98[0-9]{8}|99[0-9]{8}|400[0-9]{8}|401[0-9]{8}|402[0-9]{8})$/;
@@ -250,7 +250,7 @@ function SignUp() {
         // redirect user and save token to local storage
         const token = res.data.token;
         localStorage.setItem("token", token);
-        <Redirect to="/" />;
+        history.push("/");
       })
       .catch((err) => {
         alert(err.response.data.phone_number);
