@@ -31,6 +31,7 @@ function RightBox(props) {
           backActorId={backActorId}
           backArrow={(databack) => {
             setClickDetail(databack);
+            props.backIdForReset("");
           }}
         />
       ) : (

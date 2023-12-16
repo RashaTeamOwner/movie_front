@@ -25,7 +25,7 @@ function LeftBox(props) {
       },
     };
     axios
-      .get(`${process.env.VITE_URL_TMDB}/3/search/movie?query=${query}&include_adult=true`, options)
+      .get(`${process.env.VITE_URL_TMDB}/3/search/movie?query=${query}&include_adult=false`, options)
       .then((res) => {
         setError("");
         if (res.status != 200) {

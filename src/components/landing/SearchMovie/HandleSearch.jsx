@@ -1,10 +1,17 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import LeftBox from "./LeftBox";
 import RightBox from "./RightBox";
+import UseWidnowSize from "../../../hooks/useWindowSize";
 import styles from "./HandleSearch.module.scss";
 import favicon from "../../../assets/landing/favourite.svg";
 import searchicon from "../../../assets/landing/search-line.svg";
+import useWindowSize from "../../../hooks/useWindowSize";
+import { useEffect } from "react";
 export default function App() {
+  const sizeWidth = useWindowSize();
+  const refLeftBox = useRef(null);
+  const refRightBox = useRef(null);
+
   const [query, setQuery] = useState("");
   const [lengthMovie, setLengthMovie] = useState("");
   const [idmovie, setIdmovie] = useState("");
@@ -19,6 +26,19 @@ export default function App() {
       setIdmovie(id);
     });
   };
+  useEffect(() => {
+    if (sizeWidth.width < 920) {
+      if (query != "") {
+        if (idmovie == "") {
+          console.log("left z index 1", idmovie);
+        } else {
+          console.log("right z index 1", idmovie);
+        }
+      } else {
+        console.log("right z index 1", idmovie);
+      }
+    }
+  }, [sizeWidth, query, idmovie]);
   return (
     <>
       <nav className={styles.navbar}>
@@ -41,6 +61,10 @@ export default function App() {
         <RightBox
           id={idmovie}
           backActorKnownToHandleSearch={(data) => {
+            setIdmovie(data);
+            console.log(data);
+          }}
+          backIdForReset={(data) => {
             setIdmovie(data);
           }}
         />

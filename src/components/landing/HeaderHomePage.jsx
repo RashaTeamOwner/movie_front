@@ -55,7 +55,6 @@ function HeaderHomePage() {
       });
     }
   };
-
   const checkChairStatus = (element) => {
     let getStatus = element.target.dataset.status;
     let getTabIndex = element.target.dataset.tab;
