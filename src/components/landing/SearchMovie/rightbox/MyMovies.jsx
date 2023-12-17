@@ -3,7 +3,8 @@ import styles from "./Mymovies.module.scss";
 function MyMovies() {
   return (
     <div className={styles.mainContainer}>
-      <p>your movies</p>
+      <p>فیلمی در لیست فیلم های مورد علاقه ندارید</p>
+      <p>فیلم های مورد علاقه خود را جستجو کنید و اضافه کنید</p>
     </div>
   );
 }

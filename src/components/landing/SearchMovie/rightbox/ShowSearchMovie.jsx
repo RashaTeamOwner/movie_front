@@ -1,6 +1,7 @@
 /* eslint-disable no-undef */
 /* eslint-disable react/prop-types */
 import { useState, useEffect, useRef } from "react";
+import UseLogedIn from "../../../../hooks/UseLogedin";
 import starimg from "../../../../assets/landing/star-solid.svg";
 import arrow from "../../../../assets/landing/arrow-up.svg";
 import infGif from "../../../../assets/landing/infinity.gif";
@@ -10,7 +11,9 @@ import { Link } from "react-router-dom/cjs/react-router-dom.min";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import { FreeMode } from "swiper/modules";
+
 function ShowSearchMovie(props) {
+  const logedinStatus = UseLogedIn();
   const KEY = "6502fbb3";
   const refStars = useRef(null);
   const [stars, setStars] = useState(null);
@@ -18,6 +21,9 @@ function ShowSearchMovie(props) {
   const [movieshow, setMovieshow] = useState([]);
   const [posterBack, setPosterBack] = useState([]);
   const [actors, setActors] = useState([]);
+  const [statusStars, setStatusStars] = useState({});
+  const [statusRate, setStatusRate] = useState(false);
+
   const KEYtmdb = process.env.VITE_KEY_TMDB;
   // image actors
   useEffect(() => {
@@ -123,6 +129,34 @@ function ShowSearchMovie(props) {
   };
   // -----end stars ----- //
 
+  // handle set stars and get start in localStorage
+  useEffect(() => {
+    if (movieshow.imdbID != undefined) {
+      // get from server in local and set
+      const array = JSON.parse(localStorage.getItem("starsMovie"));
+      let [item] = array.filter((item) => item.id.toLowerCase().includes(movieshow.imdbID));
+      if (item == undefined) return;
+      if (item.length == 0) {
+        setStatusStars({});
+        setStatusRate(false);
+      } else {
+        setStatusStars(item);
+        setStatusRate(true);
+      }
+    }
+  }, [movieshow.imdbID]);
+  const handleSetStars = () => {
+    let data = JSON.parse(localStorage.getItem("starsMovie")) || [];
+    let isExist = data.some((el) => el.id === movieshow.imdbID);
+    if (!isExist) {
+      data.push({ id: movieshow.imdbID, rate: stars + 1 });
+      localStorage.setItem("starsMovie", JSON.stringify(data));
+      setStatusStars(data);
+      setStatusRate(true);
+    } else {
+      setStatusRate(false);
+    }
+  };
   return (
     <div className={styles.mainBox}>
       {Object.keys(movieshow).length == 0 ? (
@@ -145,12 +179,7 @@ function ShowSearchMovie(props) {
           <div className={styles.shodowMainBox}></div>
           <img onClick={handleCloseDetailMovie} className={styles.arrowIcon} src={arrow} alt="arrow-icon" />
           <div className={styles.detailMovie}>
-            {/* <h1>{movieshow.Title}</h1> */}
             <h1>مرد عنکبوتی</h1>
-            {/* <div className={styles.timeandsec}>
-              <p>{movieshow.Genre}</p>
-              <p>{movieshow.Runtime}</p>
-            </div> */}
             <div className={styles.timeandsec}>
               <p>اکشن ، علمی تخیلی</p>
               <p className={styles.breackTopIntext}>|</p>
@@ -160,101 +189,6 @@ function ShowSearchMovie(props) {
               <p className={styles.breackTopIntext}>|</p>
               <p>2012</p>
             </div>
-            {/* <p className={styles.imdbRate}>⭐️ {movieshow.imdbRating} IMDb rating</p>
-            <p className={styles.textDetailMovie}>{movieshow.Plot}</p>
-            <div className={styles.rateRightPage}>
-              <div className={styles.yourRate}>
-                <div className={styles.subandpop}>
-                  <p>your rating :</p>
-                  {stars == -1 ? <></> : <button className={styles.whatchlist}>+ Add To Watched Movies</button>}
-                </div>
-                <div className={styles.numberStar}>
-                  <div ref={refStars}>
-                    <img
-                      onMouseEnter={handleStars}
-                      onMouseLeave={handleResetStars}
-                      onClick={selectStar}
-                      data-set={0}
-                      src={starimg}
-                      alt="star"
-                    />
-                    <img
-                      onMouseEnter={handleStars}
-                      onMouseLeave={handleResetStars}
-                      onClick={selectStar}
-                      data-set={1}
-                      src={starimg}
-                      alt="star"
-                    />
-                    <img
-                      onMouseEnter={handleStars}
-                      onMouseLeave={handleResetStars}
-                      onClick={selectStar}
-                      data-set={2}
-                      src={starimg}
-                      alt="star"
-                    />
-                    <img
-                      onMouseEnter={handleStars}
-                      onMouseLeave={handleResetStars}
-                      onClick={selectStar}
-                      data-set={3}
-                      src={starimg}
-                      alt="star"
-                    />
-                    <img
-                      onMouseEnter={handleStars}
-                      onMouseLeave={handleResetStars}
-                      onClick={selectStar}
-                      data-set={4}
-                      src={starimg}
-                      alt="star"
-                    />
-                    <img
-                      onMouseEnter={handleStars}
-                      onMouseLeave={handleResetStars}
-                      onClick={selectStar}
-                      data-set={5}
-                      src={starimg}
-                      alt="star"
-                    />
-                    <img
-                      onMouseEnter={handleStars}
-                      onMouseLeave={handleResetStars}
-                      onClick={selectStar}
-                      data-set={6}
-                      src={starimg}
-                      alt="star"
-                    />
-                    <img
-                      onMouseEnter={handleStars}
-                      onMouseLeave={handleResetStars}
-                      onClick={selectStar}
-                      data-set={7}
-                      src={starimg}
-                      alt="star"
-                    />
-                    <img
-                      onMouseEnter={handleStars}
-                      onMouseLeave={handleResetStars}
-                      onClick={selectStar}
-                      data-set={8}
-                      src={starimg}
-                      alt="star"
-                    />
-                    <img
-                      onMouseEnter={handleStars}
-                      onMouseLeave={handleResetStars}
-                      onClick={selectStar}
-                      data-set={9}
-                      src={starimg}
-                      alt="star"
-                    />
-                  </div>
-                  {renderStars == 0 ? <p></p> : <p>{renderStars}</p>}
-                </div>
-              </div>
-            </div> */}
             <div className={styles.boxDetMovie}>
               <p>خلاصه فیلم :</p>
               <p className={styles.textDetailMovie}>
@@ -268,97 +202,107 @@ function ShowSearchMovie(props) {
                   <p>امتیاز شما :</p>
                   {stars == -1 ? (
                     <></>
+                  ) : statusRate && logedinStatus ? (
+                    <></>
+                  ) : logedinStatus ? (
+                    <a onClick={handleSetStars} className={styles.whatchlist}>
+                      افزودن به لیست مورد علاقه
+                    </a>
                   ) : (
                     <Link className={styles.whatchlist} to="/signin">
                       برای ثبت رای وارد حساب خود شوید
                     </Link>
                   )}
                 </div>
-                <div className={styles.numberStar}>
-                  <div ref={refStars}>
-                    <img
-                      onMouseEnter={handleStars}
-                      onMouseLeave={handleResetStars}
-                      onClick={selectStar}
-                      data-set={0}
-                      src={starimg}
-                      alt="star"
-                    />
-                    <img
-                      onMouseEnter={handleStars}
-                      onMouseLeave={handleResetStars}
-                      onClick={selectStar}
-                      data-set={1}
-                      src={starimg}
-                      alt="star"
-                    />
-                    <img
-                      onMouseEnter={handleStars}
-                      onMouseLeave={handleResetStars}
-                      onClick={selectStar}
-                      data-set={2}
-                      src={starimg}
-                      alt="star"
-                    />
-                    <img
-                      onMouseEnter={handleStars}
-                      onMouseLeave={handleResetStars}
-                      onClick={selectStar}
-                      data-set={3}
-                      src={starimg}
-                      alt="star"
-                    />
-                    <img
-                      onMouseEnter={handleStars}
-                      onMouseLeave={handleResetStars}
-                      onClick={selectStar}
-                      data-set={4}
-                      src={starimg}
-                      alt="star"
-                    />
-                    <img
-                      onMouseEnter={handleStars}
-                      onMouseLeave={handleResetStars}
-                      onClick={selectStar}
-                      data-set={5}
-                      src={starimg}
-                      alt="star"
-                    />
-                    <img
-                      onMouseEnter={handleStars}
-                      onMouseLeave={handleResetStars}
-                      onClick={selectStar}
-                      data-set={6}
-                      src={starimg}
-                      alt="star"
-                    />
-                    <img
-                      onMouseEnter={handleStars}
-                      onMouseLeave={handleResetStars}
-                      onClick={selectStar}
-                      data-set={7}
-                      src={starimg}
-                      alt="star"
-                    />
-                    <img
-                      onMouseEnter={handleStars}
-                      onMouseLeave={handleResetStars}
-                      onClick={selectStar}
-                      data-set={8}
-                      src={starimg}
-                      alt="star"
-                    />
-                    <img
-                      onMouseEnter={handleStars}
-                      onMouseLeave={handleResetStars}
-                      onClick={selectStar}
-                      data-set={9}
-                      src={starimg}
-                      alt="star"
-                    />
+                {Object.keys(statusStars).length == 0 || !logedinStatus ? (
+                  <div className={styles.numberStar}>
+                    <div ref={refStars}>
+                      <img
+                        onMouseEnter={handleStars}
+                        onMouseLeave={handleResetStars}
+                        onClick={selectStar}
+                        data-set={0}
+                        src={starimg}
+                        alt="star"
+                      />
+                      <img
+                        onMouseEnter={handleStars}
+                        onMouseLeave={handleResetStars}
+                        onClick={selectStar}
+                        data-set={1}
+                        src={starimg}
+                        alt="star"
+                      />
+                      <img
+                        onMouseEnter={handleStars}
+                        onMouseLeave={handleResetStars}
+                        onClick={selectStar}
+                        data-set={2}
+                        src={starimg}
+                        alt="star"
+                      />
+                      <img
+                        onMouseEnter={handleStars}
+                        onMouseLeave={handleResetStars}
+                        onClick={selectStar}
+                        data-set={3}
+                        src={starimg}
+                        alt="star"
+                      />
+                      <img
+                        onMouseEnter={handleStars}
+                        onMouseLeave={handleResetStars}
+                        onClick={selectStar}
+                        data-set={4}
+                        src={starimg}
+                        alt="star"
+                      />
+                      <img
+                        onMouseEnter={handleStars}
+                        onMouseLeave={handleResetStars}
+                        onClick={selectStar}
+                        data-set={5}
+                        src={starimg}
+                        alt="star"
+                      />
+                      <img
+                        onMouseEnter={handleStars}
+                        onMouseLeave={handleResetStars}
+                        onClick={selectStar}
+                        data-set={6}
+                        src={starimg}
+                        alt="star"
+                      />
+                      <img
+                        onMouseEnter={handleStars}
+                        onMouseLeave={handleResetStars}
+                        onClick={selectStar}
+                        data-set={7}
+                        src={starimg}
+                        alt="star"
+                      />
+                      <img
+                        onMouseEnter={handleStars}
+                        onMouseLeave={handleResetStars}
+                        onClick={selectStar}
+                        data-set={8}
+                        src={starimg}
+                        alt="star"
+                      />
+                      <img
+                        onMouseEnter={handleStars}
+                        onMouseLeave={handleResetStars}
+                        onClick={selectStar}
+                        data-set={9}
+                        src={starimg}
+                        alt="star"
+                      />
+                    </div>
+                    {renderStars == 0 ? <p></p> : <p>{renderStars}</p>}
                   </div>
-                  {renderStars == 0 ? <p></p> : <p>{renderStars}</p>}
-                </div>
+                ) : (
+                  <div>این فیلم در لیست مورد علاقه شماست</div>
+                )}
               </div>
             </div>
             {/* image actors */}

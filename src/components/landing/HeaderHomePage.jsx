@@ -2,12 +2,12 @@ import styles from "./HeaderHomePage.module.scss";
 import landimg from "../../assets/landing/landimg.jpg";
 import { Link } from "react-router-dom";
 import chair from "../../assets/landing/chair.svg";
-import useLogedin from "../../hooks/useLogedin";
+import UseLogedin from "../../hooks/UseLogedin";
 import Swal from "sweetalert2";
 import { useState } from "react";
 
 function HeaderHomePage() {
-  const isUserLoggedIn = useLogedin();
+  const isUserLoggedIn = UseLogedin();
   const [selectedChair, setSelectedChair] = useState([]);
   const [arrLeft, setArrLeft] = useState([
     [1, 0, 0, 1, 1, 1, 1, 0],

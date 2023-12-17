@@ -323,17 +323,19 @@
     display: none;
   }
   .boxChairs {
-    gap: 1.4rem;
+    gap: 2rem;
     padding-top: 2rem;
     &Left {
-      grid-auto-rows: 12px;
+      grid-auto-rows: 16px;
+      gap: 0.6rem;
       > div {
         width: 0.7rem;
         height: 0.7rem;
       }
     }
     &Right {
-      grid-auto-rows: 12px;
+      grid-auto-rows: 16px;
+      gap: 0.6rem;
       > div {
         width: 0.7rem;
         height: 0.7rem;
@@ -371,7 +373,7 @@
   .boxChairs {
     &Left,
     &Right {
-      grid-auto-rows: 9px;
+      grid-auto-rows: 14px;
       gap: 0.4rem;
     }
   }

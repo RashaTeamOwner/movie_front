@@ -1,8 +1,9 @@
 /* eslint-disable no-undef */
 import { useState } from "react";
 // import axios from "axios";
-function useLogedin() {
+function UseLogedin() {
   const [logedIn, setLogedIn] = useState(true);
+  // localStorage.setItem("starsMovie", JSON.stringify([]));
   //   let dataToken = localStorage.getItem("token");
   //   console.log(dataToken);
   //   axios({
@@ -19,4 +20,4 @@ function useLogedin() {
   return logedIn;
 }
 
-export default useLogedin;
+export default UseLogedin;

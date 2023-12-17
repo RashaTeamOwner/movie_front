@@ -6,5 +6,9 @@
   background-color: #2e2e2e;
   > p {
     text-align: center;
+    color: white;
+  }
+  > p:first-child {
+    padding-top: 2rem;
   }
 }

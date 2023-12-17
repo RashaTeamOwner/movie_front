@@ -1,14 +1,13 @@
 import { useRef, useState } from "react";
 import LeftBox from "./LeftBox";
 import RightBox from "./RightBox";
-import UseWidnowSize from "../../../hooks/useWindowSize";
 import styles from "./HandleSearch.module.scss";
 import favicon from "../../../assets/landing/favourite.svg";
 import searchicon from "../../../assets/landing/search-line.svg";
-import useWindowSize from "../../../hooks/useWindowSize";
+import UseWindowSize from "../../../hooks/UseWindowSize";
 import { useEffect } from "react";
 export default function App() {
-  const sizeWidth = useWindowSize();
+  const sizeWidth = UseWindowSize();
   const refMainBox = useRef(null);
   const [query, setQuery] = useState("");
   const [lengthMovie, setLengthMovie] = useState("");
