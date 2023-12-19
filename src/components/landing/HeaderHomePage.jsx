@@ -1,30 +1,40 @@
+/* eslint-disable no-undef */
 import styles from "./HeaderHomePage.module.scss";
 import landimg from "../../assets/landing/landimg.jpg";
 import { Link } from "react-router-dom";
 import chair from "../../assets/landing/chair.svg";
 import UseLogedin from "../../hooks/UseLogedin";
 import Swal from "sweetalert2";
-import { useState } from "react";
+import axios from "axios";
+import { useEffect, useState } from "react";
 
 function HeaderHomePage() {
   const isUserLoggedIn = UseLogedin();
   const [selectedChair, setSelectedChair] = useState([]);
-  const [arrLeft, setArrLeft] = useState([
-    [1, 0, 0, 1, 1, 1, 1, 0],
-    [0, 0, 0, 1, 1, 1, 1, 1],
-    [0, 1, 0, 0, 1, 1, 0, 1],
-    [0, 0, 0, 1, 1, 1, 1, 1],
-    [1, 1, 0, 0, 1, 1, 0, 1],
-    [1, 0, 0, 1, 1, 1, 0, 0],
-  ]);
-  const [arrRight, setArrRight] = useState([
-    [0, 0, 0, 1, 1, 0, 0, 1],
-    [0, 1, 0, 1, 0, 1, 1, 1],
-    [1, 0, 0, 1, 1, 0, 1, 0],
-    [0, 0, 0, 1, 0, 1, 1, 1],
-    [0, 0, 0, 0, 1, 1, 0, 1],
-    [1, 0, 0, 1, 1, 0, 1, 1],
-  ]);
+  const [resHead, setResHead] = useState([]);
+  const [bookedSeat, setBookedSeat] = useState(false);
+  // const [arrLeft, setArrLeft] = useState([]);
+  const [arrLeft, setArrLeft] = useState([[0]]);
+  const [arrRight, setArrRight] = useState([[0]]);
+  useEffect(() => {
+    axios({
+      method: "get",
+      url: `${process.env.VITE_API_URL}/api/v1/`,
+      headers: {
+        Authorization: `Token ${localStorage.getItem("token")}`,
+      },
+    })
+      .then((res) => {
+        const chairs = res.data.seats;
+        setArrLeft(chairs.left_seats);
+        setArrRight(chairs.right_seats);
+        setResHead(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+        setResHead([]);
+      });
+  }, []);
 
   // swal alert
   const Toast = Swal.mixin({
@@ -42,11 +52,35 @@ function HeaderHomePage() {
 
   const handleCheckChair = () => {
     if (!selectedChair.length == 0) {
-      Toast.fire({
-        icon: "success",
-        title: "<p style='direction:rtl'>با موفقیت ثبت شد</p>",
-        width: "300px",
-      });
+      let data = {
+        side: selectedChair[0] == "L" ? "left" : "right",
+        x: selectedChair[1],
+        y: selectedChair[2],
+      };
+      axios({
+        method: "post",
+        url: `${process.env.VITE_API_URL}/api/v1/reserve/`,
+        headers: {
+          Authorization: `Token ${localStorage.getItem("token")}`,
+        },
+        data: data,
+      })
+        .then((res) => {
+          const chairs = res.data.seats;
+          console.log(chairs);
+          Toast.fire({
+            icon: "success",
+            title: "<p style='direction:rtl'>با موفقیت ثبت شد</p>",
+            width: "300px",
+          });
+        })
+        .catch((err) => {
+          Toast.fire({
+            icon: "warning",
+            title: `<p style='direction:rtl'>${err.response.data.status}</p>`,
+            width: "300px",
+          });
+        });
     } else {
       Toast.fire({
         icon: "warning",
@@ -58,6 +92,7 @@ function HeaderHomePage() {
   const checkChairStatus = (element) => {
     let getStatus = element.target.dataset.status;
     let getTabIndex = element.target.dataset.tab;
+    console.log(getStatus, bookedSeat);
     if (getStatus == "0") {
       Toast.fire({
         icon: "warning",
@@ -67,12 +102,19 @@ function HeaderHomePage() {
       });
       setSelectedChair([]);
     } else if (getStatus == "2") {
+      console.log("are you sure change?");
       return;
+    } else if (bookedSeat) {
+      Toast.fire({
+        icon: "warning",
+        title: "<p style='direction:rtl'>شما یک صندلی رزرو کرده اید</p>",
+        width: "300px",
+        iconColor: "red",
+      });
     } else {
-      let splitArr = getTabIndex.split("");
+      let splitArr = [getTabIndex[0], parseInt(getTabIndex.substring(1, 2)), parseInt(getTabIndex.substring(2))];
       setSelectedChair(splitArr);
     }
-    console.log(selectedChair);
     // if (!selectedChair == "") {
     //   setArrLeft([
     //     [1, 0, 0, 1, 1, 1, 1, 0],
@@ -137,94 +179,142 @@ function HeaderHomePage() {
               <p>ساعت 16</p>
             </div>
             <div className={styles.boxChairs}>
-              <div className={styles.boxChairsRight}>
-                {arrRight.map((index, i) => {
-                  return index.map((item, j) => {
-                    if (selectedChair[0] == "R" && selectedChair[1] == i + 1 && selectedChair[2] == index.length - j) {
-                      return (
-                        <div key={Math.random() * 987654321}>
-                          <img
-                            src={chair}
-                            alt=""
-                            data-status="2"
-                            onClick={checkChairStatus}
-                            data-tab={`R${i + 1}${index.length - j}`}
-                            className={styles.selectChair}
-                            style={{
-                              filter: "invert(59%) sepia(42%) saturate(1115%) hue-rotate(0deg) brightness(102%) contrast(103%)",
-                            }}
-                          />
-                        </div>
-                      );
-                    } else if (item == 0) {
-                      return (
-                        <div key={Math.random() * 987654321}>
-                          <img src={chair} alt="" data-tab={`R${i + 1}${index.length - j}`} data-status="1" onClick={checkChairStatus} />
-                        </div>
-                      );
-                    } else {
-                      return (
-                        <div key={Math.random() * 987654321}>
-                          <img
-                            src={chair}
-                            alt=""
-                            data-status="0"
-                            onClick={checkChairStatus}
-                            data-tab={`R${i + 1}${index.length - j}`}
-                            style={{
-                              filter: "invert(34%) sepia(54%) saturate(4204%) hue-rotate(343deg) brightness(97%) contrast(101%)",
-                            }}
-                          />
-                        </div>
-                      );
-                    }
-                  });
-                })}
-              </div>
-              <div className={styles.boxChairsLeft}>
-                {arrLeft.map((index, i) => {
-                  return index.map((item, j) => {
-                    if (selectedChair[0] == "L" && selectedChair[1] == i + 1 && selectedChair[2] == index.length - j) {
-                      return (
-                        <div key={Math.random() * 987654321}>
-                          <img
-                            src={chair}
-                            alt=""
-                            data-status="2"
-                            onClick={checkChairStatus}
-                            className={styles.selectChair}
-                            data-tab={`R${i + 1}${index.length - j}`}
-                            style={{
-                              filter: "invert(59%) sepia(42%) saturate(1115%) hue-rotate(0deg) brightness(102%) contrast(103%)",
-                            }}
-                          />
-                        </div>
-                      );
-                    } else if (item == 0) {
-                      return (
-                        <div key={Math.random() * 987654321}>
-                          <img src={chair} alt="" data-status="1" data-tab={`L${i + 1}${index.length - j}`} onClick={checkChairStatus} />
-                        </div>
-                      );
-                    } else {
-                      return (
-                        <div key={Math.random() * 987654321}>
-                          <img
-                            src={chair}
-                            alt=""
-                            data-status="0"
-                            data-tab={`L${i + 1}${index.length - j}`}
-                            onClick={checkChairStatus}
-                            style={{
-                              filter: "invert(34%) sepia(54%) saturate(4204%) hue-rotate(343deg) brightness(97%) contrast(101%)",
-                            }}
-                          />
-                        </div>
-                      );
-                    }
-                  });
-                })}
-              </div>
+              {1 ? (
+                <>
+                  <div className={styles.boxChairsRight} style={{ gridTemplateColumns: `repeat(${arrRight[0].length},1fr)` }}>
+                    {arrRight.map((index, i) => {
+                      return index.map((item, j) => {
+                        if (selectedChair[0] == "R" && selectedChair[1] == i + 1 && selectedChair[2] == index.length - j) {
+                          return (
+                            <div key={Math.random() * 987654321}>
+                              <img
+                                src={chair}
+                                alt=""
+                                data-status="2"
+                                onClick={checkChairStatus}
+                                data-tab={`R${i + 1}${index.length - j}`}
+                                className={styles.selectChair}
+                                style={{
+                                  filter: "invert(59%) sepia(42%) saturate(1115%) hue-rotate(0deg) brightness(102%) contrast(103%)",
+                                }}
+                              />
+                            </div>
+                          );
+                        } else if (item == 0) {
+                          return (
+                            <div key={Math.random() * 987654321}>
+                              <img
+                                src={chair}
+                                alt=""
+                                data-tab={`R${i + 1}${index.length - j}`}
+                                data-status="1"
+                                onClick={checkChairStatus}
+                              />
+                            </div>
+                          );
+                        } else if (item == 2) {
+                          return (
+                            <div key={Math.random() * 987654321}>
+                              <img
+                                src={chair}
+                                alt=""
+                                data-status="2"
+                                onClick={checkChairStatus}
+                                data-tab={`R${i + 1}${index.length - j}`}
+                                style={{
+                                  filter: "invert(59%) sepia(42%) saturate(1115%) hue-rotate(0deg) brightness(102%) contrast(103%)",
+                                }}
+                              />
+                            </div>
+                          );
+                        } else {
+                          return (
+                            <div key={Math.random() * 987654321}>
+                              <img
+                                src={chair}
+                                alt=""
+                                data-status="0"
+                                onClick={checkChairStatus}
+                                data-tab={`R${i + 1}${index.length - j}`}
+                                style={{
+                                  filter: "invert(34%) sepia(54%) saturate(4204%) hue-rotate(343deg) brightness(97%) contrast(101%)",
+                                }}
+                              />
+                            </div>
+                          );
+                        }
+                      });
+                    })}
+                  </div>
+                  <div className={styles.boxChairsLeft} style={{ gridTemplateColumns: `repeat(${arrLeft[0].length},1fr)` }}>
+                    {arrLeft.map((index, i) => {
+                      return index.map((item, j) => {
+                        if (selectedChair[0] == "L" && selectedChair[1] == i + 1 && selectedChair[2] == index.length - j) {
+                          return (
+                            <div key={Math.random() * 987654321}>
+                              <img
+                                src={chair}
+                                alt=""
+                                data-status="2"
+                                onClick={checkChairStatus}
+                                className={styles.selectChair}
+                                data-tab={`R${i + 1}${index.length - j}`}
+                                style={{
+                                  filter: "invert(59%) sepia(42%) saturate(1115%) hue-rotate(0deg) brightness(102%) contrast(103%)",
+                                }}
+                              />
+                            </div>
+                          );
+                        } else if (item == 0) {
+                          return (
+                            <div key={Math.random() * 987654321}>
+                              <img
+                                src={chair}
+                                alt=""
+                                data-status="1"
+                                data-tab={`L${i + 1}${index.length - j}`}
+                                onClick={checkChairStatus}
+                              />
+                            </div>
+                          );
+                        } else if (item == 2) {
+                          return (
+                            <div key={Math.random() * 987654321}>
+                              <img
+                                src={chair}
+                                alt=""
+                                data-status="2"
+                                onClick={checkChairStatus}
+                                data-tab={`L${i + 1}${index.length - j}`}
+                                style={{
+                                  filter: "invert(59%) sepia(42%) saturate(1115%) hue-rotate(0deg) brightness(102%) contrast(103%)",
+                                }}
+                              />
+                            </div>
+                          );
+                        } else {
+                          return (
+                            <div key={Math.random() * 987654321}>
+                              <img
+                                src={chair}
+                                alt=""
+                                data-status="0"
+                                data-tab={`L${i + 1}${index.length - j}`}
+                                onClick={checkChairStatus}
+                                style={{
+                                  filter: "invert(34%) sepia(54%) saturate(4204%) hue-rotate(343deg) brightness(97%) contrast(101%)",
+                                }}
+                              />
+                            </div>
+                          );
+                        }
+                      });
+                    })}
+                  </div>
+                </>
+              ) : (
+                <></>
+              )}
             </div>
             <div className={styles.someDetailChairs}>
               <p>رزرو شده ها</p>
