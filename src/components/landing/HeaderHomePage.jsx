@@ -36,11 +36,13 @@ function HeaderHomePage() {
       })
       .catch((err) => {
         console.log(err);
+        setLoading(true);
         setResHead([]);
       });
   }, []);
 
   useEffect(() => {
+    setSelectedChair([]);
     axios({
       method: "get",
       url: `${process.env.VITE_API_URL}/api/v1/`,
@@ -50,7 +52,6 @@ function HeaderHomePage() {
     })
       .then((res) => {
         const chairs = res.data.seats;
-        console.log(chairs);
         setArrLeft(chairs.left_seats);
         setArrRight(chairs.right_seats);
       })
@@ -95,7 +96,7 @@ function HeaderHomePage() {
           Toast.fire({
             icon: "success",
             title: "<p style='direction:rtl'>با موفقیت صندلی شما ثبت شد</p>",
-            width: "320px",
+            width: "340px",
           });
         })
         .catch((err) => {
@@ -116,7 +117,15 @@ function HeaderHomePage() {
   const checkChairStatus = (element) => {
     let getStatus = element.target.dataset.status;
     let getTabIndex = element.target.dataset.tab;
-    console.log(getTabIndex);
+    if (!isUserLoggedIn) {
+      Toast.fire({
+        icon: "warning",
+        title: "<p style='direction:rtl'>وارد حساب خود نشده اید</p>",
+        width: "300px",
+        iconColor: "red",
+      });
+      return;
+    }
     if (getStatus == "0") {
       Toast.fire({
         icon: "warning",
@@ -142,7 +151,7 @@ function HeaderHomePage() {
             side: getTabIndex[0] == "L" ? "left" : "right",
             x: parseInt(getTabIndex.substring(1, 2)),
             y: parseInt(getTabIndex.substring(2)),
-            // x: 9,
+            // x: 5,
             // y: 1,
           };
           console.log(data);
