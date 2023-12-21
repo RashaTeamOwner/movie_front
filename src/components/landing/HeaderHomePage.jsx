@@ -24,7 +24,8 @@ function HeaderHomePage() {
       method: "get",
       url: `${process.env.VITE_API_URL}/api/v1/`,
       headers: {
-        Authorization: `Token ${localStorage.getItem("token")}`,
+        Authorization:
+          localStorage.getItem("token") != null ? `Token ${localStorage.getItem("token")}` : `Tokene ${localStorage.getItem("token")}`,
       },
     })
       .then((res) => {
@@ -36,8 +37,8 @@ function HeaderHomePage() {
       })
       .catch((err) => {
         console.log(err);
+        setResHead(res.data);
         setLoading(true);
-        setResHead([]);
       });
   }, []);
 
@@ -47,7 +48,8 @@ function HeaderHomePage() {
       method: "get",
       url: `${process.env.VITE_API_URL}/api/v1/`,
       headers: {
-        Authorization: `Token ${localStorage.getItem("token")}`,
+        Authorization:
+          localStorage.getItem("token") != null ? `Token ${localStorage.getItem("token")}` : `Tokene ${localStorage.getItem("token")}`,
       },
     })
       .then((res) => {
@@ -57,7 +59,6 @@ function HeaderHomePage() {
       })
       .catch((err) => {
         console.log(err);
-        setResHead([]);
       });
   }, [bookedSeat]);
 
@@ -136,15 +137,16 @@ function HeaderHomePage() {
       setSelectedChair([]);
     } else if (getStatus == "2") {
       Swal.fire({
-        title: `<p style="font-size:1.1rem">آیا میخواهید صندلی رزرو خود را حذف کنید؟</p>`,
+        title: `<p style="font-size:1.1rem ; font-family:sansx100">آیا میخواهید صندلی رزرو خود را حذف کنید؟</p>`,
         icon: "warning",
         iconHtml: "?",
-        confirmButtonText: "بله",
-        cancelButtonText: "خیر",
-        cancelButtonColor: "red",
-        confirmButtonColor: "greenyellow",
+        confirmButtonText: "<p style='font-size:1.1rem ; font-family:sansx100'>بله</p>",
+        cancelButtonText: "<p style='font-size:1.1rem ; font-family:sansx100'>خیر</p>",
+        cancelButtonColor: "rgb(255, 71, 71)",
+        confirmButtonColor: "rgb(47, 112, 0)",
         showCancelButton: true,
         showCloseButton: true,
+        width: "300px",
       }).then((result) => {
         if (result.isConfirmed) {
           let data = {

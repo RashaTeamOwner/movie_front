@@ -4,19 +4,18 @@ import { useState } from "react";
 function UseLogedin() {
   const [logedIn, setLogedIn] = useState(true);
   // localStorage.setItem("starsMovie", JSON.stringify([]));
-  //   let dataToken = localStorage.getItem("token");
-  //   console.log(dataToken);
-  //   axios({
-  //     method: "post",
-  //     url: `${process.env.VITE_API_URL}/api/v1/users/`,
-  //     headers: { Authorization: `Bearer ${dataToken}`, "Content-Type": "application/json" },
+  // let dataToken = localStorage.getItem("token");
+  // axios({
+  //   method: "get",
+  //   url: `${process.env.VITE_API_URL}/users/`,
+  //   headers: { Authorization: `Token ${dataToken}` },
+  // })
+  //   .then((res) => {
+  //     console.log(res);
   //   })
-  //     .then((res) => {
-  //       console.log(res);
-  //     })
-  //     .catch((err) => {
-  //       console.log(err);
-  //     });
+  //   .catch((err) => {
+  //     console.log(err);
+  //   });
   return logedIn;
 }
 
