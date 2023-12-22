@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
 import styles from "./HandleLogin.module.scss";
 import arrowicon from "../../assets/loginpage/arrow.svg";
+import homeicon from "../../assets/landing/home.svg";
 import Login from "./Login";
 import { useEffect, useRef, useState } from "react";
 import SignUp from "./SignUp";
@@ -44,6 +45,10 @@ function HandleLogin(props) {
     <div className={styles.mainBody}>
       <div className={styles.container}>
         {/* <ParticlesComponent /> */}
+        <div className={styles.homeIcon}>
+          <Link to={"/"}>صفحه اصلی</Link>
+          <img src={homeicon} alt="خانه" />
+        </div>
         <div data-set="up" ref={refboxSignup} className={styles.boxSignup}>
           {/* <div className={styles.filterEffect}></div> */}
           {statusSign ? (

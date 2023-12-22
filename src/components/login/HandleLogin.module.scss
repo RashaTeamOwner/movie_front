@@ -9,6 +9,33 @@
   background-repeat: no-repeat;
 }
 
+.homeIcon {
+  position: absolute;
+  top: -32px;
+  right: 5px;
+  height: auto;
+  z-index: 999;
+  display: flex;
+  gap: 0.3rem;
+  cursor: pointer;
+  // > img:first-child {
+  //   transform: rotate(90deg);
+  //   filter: invert(69%) sepia(38%) saturate(1250%) hue-rotate(359deg) brightness(104%) contrast(105%);
+  // }
+  a,
+  a:link,
+  a:visited {
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-family: iransans;
+    color: #fefcfc !important;
+  }
+  img {
+    width: 25px;
+    filter: invert(29%) sepia(66%) saturate(2162%) hue-rotate(341deg) brightness(77%) contrast(114%);
+  }
+}
+
 .container {
   max-width: 700px;
   margin: auto;
