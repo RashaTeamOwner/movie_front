@@ -34,6 +34,7 @@ function HeaderHomePage() {
         setArrRight(chairs.right_seats);
         setResHead(res.data);
         setLoading(true);
+        setBookedSeat(res.data.has_booked);
       })
       .catch((err) => {
         console.log(err);
@@ -56,11 +57,17 @@ function HeaderHomePage() {
         const chairs = res.data.seats;
         setArrLeft(chairs.left_seats);
         setArrRight(chairs.right_seats);
+        setResHead(res.data);
+        // setBookedSeat(res.data.has_booked);
       })
       .catch((err) => {
         console.log(err);
       });
   }, [bookedSeat]);
+
+  useEffect(() => {
+    // animation progressbar
+  }, [resHead]);
 
   // swal alert
   const Toast = Swal.mixin({
@@ -231,11 +238,11 @@ function HeaderHomePage() {
                 </p>
                 <p>مدت : {resHead.movie.duration} دقیقه</p>
                 <div className={styles.routeUpper}>
-                  <p>2 نفر تا تکمیل ظرفیت حداقلی</p>
+                  <p>{resHead.empty - 88} نفر تا تکمیل ظرفیت حداقلی</p>
                   <div className={styles.animeRoute}>
                     <div></div>
                   </div>
-                  <p>تعداد رزروها : 23 نفر</p>
+                  <p>تعداد رزروها : {resHead.filled} نفر</p>
                 </div>
               </div>
               <div className={styles.landDetailGenre}>
@@ -264,130 +271,126 @@ function HeaderHomePage() {
                 <p>ساعت 16</p>
               </div>
               <div className={styles.boxChairs}>
-                {1 ? (
-                  <>
-                    <div className={styles.boxChairsRight} style={{ gridTemplateColumns: `repeat(${arrRight[0].length},1fr)` }}>
-                      {arrRight.map((index, i) => {
-                        return index.map((item, j) => {
-                          if (selectedChair[0] == "R" && selectedChair[1] == i + 1 && selectedChair[2] == j + 1) {
-                            return (
-                              <div key={Math.random() * 987654321}>
-                                <img
-                                  src={chair}
-                                  alt=""
-                                  data-status="2"
-                                  onClick={checkChairStatus}
-                                  data-tab={`R${i + 1}${j + 1}`}
-                                  className={styles.selectChair}
-                                  style={{
-                                    filter: "invert(59%) sepia(42%) saturate(1115%) hue-rotate(0deg) brightness(102%) contrast(103%)",
-                                  }}
-                                />
-                              </div>
-                            );
-                          } else if (item == 0) {
-                            return (
-                              <div key={Math.random() * 987654321}>
-                                <img src={chair} alt="" data-tab={`R${i + 1}${j + 1}`} data-status="1" onClick={checkChairStatus} />
-                              </div>
-                            );
-                          } else if (item == 2) {
-                            return (
-                              <div key={Math.random() * 987654321}>
-                                <img
-                                  src={chair}
-                                  alt=""
-                                  data-status="2"
-                                  onClick={checkChairStatus}
-                                  data-tab={`R${i + 1}${j + 1}`}
-                                  style={{
-                                    filter: "invert(59%) sepia(42%) saturate(1115%) hue-rotate(0deg) brightness(102%) contrast(103%)",
-                                  }}
-                                />
-                              </div>
-                            );
-                          } else {
-                            return (
-                              <div key={Math.random() * 987654321}>
-                                <img
-                                  src={chair}
-                                  alt=""
-                                  data-status="0"
-                                  onClick={checkChairStatus}
-                                  data-tab={`R${i + 1}${j + 1}`}
-                                  style={{
-                                    filter: "invert(34%) sepia(54%) saturate(4204%) hue-rotate(343deg) brightness(97%) contrast(101%)",
-                                  }}
-                                />
-                              </div>
-                            );
-                          }
-                        });
-                      })}
-                    </div>
-                    <div className={styles.boxChairsLeft} style={{ gridTemplateColumns: `repeat(${arrLeft[0].length},1fr)` }}>
-                      {arrLeft.map((index, i) => {
-                        return index.map((item, j) => {
-                          if (selectedChair[0] == "L" && selectedChair[1] == i + 1 && selectedChair[2] == j + 1) {
-                            return (
-                              <div key={Math.random() * 987654321}>
-                                <img
-                                  src={chair}
-                                  alt=""
-                                  data-status="2"
-                                  onClick={checkChairStatus}
-                                  className={styles.selectChair}
-                                  data-tab={`L${i + 1}${j + 1}`}
-                                  style={{
-                                    filter: "invert(59%) sepia(42%) saturate(1115%) hue-rotate(0deg) brightness(102%) contrast(103%)",
-                                  }}
-                                />
-                              </div>
-                            );
-                          } else if (item == 0) {
-                            return (
-                              <div key={Math.random() * 987654321}>
-                                <img src={chair} alt="" data-status="1" data-tab={`L${i + 1}${j + 1}`} onClick={checkChairStatus} />
-                              </div>
-                            );
-                          } else if (item == 2) {
-                            return (
-                              <div key={Math.random() * 987654321}>
-                                <img
-                                  src={chair}
-                                  alt=""
-                                  data-status="2"
-                                  onClick={checkChairStatus}
-                                  data-tab={`L${i + 1}${j + 1}`}
-                                  style={{
-                                    filter: "invert(59%) sepia(42%) saturate(1115%) hue-rotate(0deg) brightness(102%) contrast(103%)",
-                                  }}
-                                />
-                              </div>
-                            );
-                          } else {
-                            return (
-                              <div key={Math.random() * 987654321}>
-                                <img
-                                  src={chair}
-                                  alt=""
-                                  data-status="0"
-                                  data-tab={`L${i + 1}${j + 1}`}
-                                  onClick={checkChairStatus}
-                                  style={{
-                                    filter: "invert(34%) sepia(54%) saturate(4204%) hue-rotate(343deg) brightness(97%) contrast(101%)",
-                                  }}
-                                />
-                              </div>
-                            );
-                          }
-                        });
-                      })}
-                    </div>
-                  </>
-                ) : (
-                  <></>
-                )}
+                <>
+                  <div className={styles.boxChairsRight} style={{ gridTemplateColumns: `repeat(${arrRight[0].length},1fr)` }}>
+                    {arrRight.map((index, i) => {
+                      return index.map((item, j) => {
+                        if (selectedChair[0] == "R" && selectedChair[1] == i + 1 && selectedChair[2] == j + 1) {
+                          return (
+                            <div key={Math.random() * 987654321}>
+                              <img
+                                src={chair}
+                                alt=""
+                                data-status="2"
+                                onClick={checkChairStatus}
+                                data-tab={`R${i + 1}${j + 1}`}
+                                className={styles.selectChair}
+                                style={{
+                                  filter: "invert(59%) sepia(42%) saturate(1115%) hue-rotate(0deg) brightness(102%) contrast(103%)",
+                                }}
+                              />
+                            </div>
+                          );
+                        } else if (item == 0) {
+                          return (
+                            <div key={Math.random() * 987654321}>
+                              <img src={chair} alt="" data-tab={`R${i + 1}${j + 1}`} data-status="1" onClick={checkChairStatus} />
+                            </div>
+                          );
+                        } else if (item == 2) {
+                          return (
+                            <div key={Math.random() * 987654321}>
+                              <img
+                                src={chair}
+                                alt=""
+                                data-status="2"
+                                onClick={checkChairStatus}
+                                data-tab={`R${i + 1}${j + 1}`}
+                                style={{
+                                  filter: "invert(59%) sepia(42%) saturate(1115%) hue-rotate(0deg) brightness(102%) contrast(103%)",
+                                }}
+                              />
+                            </div>
+                          );
+                        } else {
+                          return (
+                            <div key={Math.random() * 987654321}>
+                              <img
+                                src={chair}
+                                alt=""
+                                data-status="0"
+                                onClick={checkChairStatus}
+                                data-tab={`R${i + 1}${j + 1}`}
+                                style={{
+                                  filter: "invert(34%) sepia(54%) saturate(4204%) hue-rotate(343deg) brightness(97%) contrast(101%)",
+                                }}
+                              />
+                            </div>
+                          );
+                        }
+                      });
+                    })}
+                  </div>
+                  <div className={styles.boxChairsLeft} style={{ gridTemplateColumns: `repeat(${arrLeft[0].length},1fr)` }}>
+                    {arrLeft.map((index, i) => {
+                      return index.map((item, j) => {
+                        if (selectedChair[0] == "L" && selectedChair[1] == i + 1 && selectedChair[2] == j + 1) {
+                          return (
+                            <div key={Math.random() * 987654321}>
+                              <img
+                                src={chair}
+                                alt=""
+                                data-status="2"
+                                onClick={checkChairStatus}
+                                className={styles.selectChair}
+                                data-tab={`L${i + 1}${j + 1}`}
+                                style={{
+                                  filter: "invert(59%) sepia(42%) saturate(1115%) hue-rotate(0deg) brightness(102%) contrast(103%)",
+                                }}
+                              />
+                            </div>
+                          );
+                        } else if (item == 0) {
+                          return (
+                            <div key={Math.random() * 987654321}>
+                              <img src={chair} alt="" data-status="1" data-tab={`L${i + 1}${j + 1}`} onClick={checkChairStatus} />
+                            </div>
+                          );
+                        } else if (item == 2) {
+                          return (
+                            <div key={Math.random() * 987654321}>
+                              <img
+                                src={chair}
+                                alt=""
+                                data-status="2"
+                                onClick={checkChairStatus}
+                                data-tab={`L${i + 1}${j + 1}`}
+                                style={{
+                                  filter: "invert(59%) sepia(42%) saturate(1115%) hue-rotate(0deg) brightness(102%) contrast(103%)",
+                                }}
+                              />
+                            </div>
+                          );
+                        } else {
+                          return (
+                            <div key={Math.random() * 987654321}>
+                              <img
+                                src={chair}
+                                alt=""
+                                data-status="0"
+                                data-tab={`L${i + 1}${j + 1}`}
+                                onClick={checkChairStatus}
+                                style={{
+                                  filter: "invert(34%) sepia(54%) saturate(4204%) hue-rotate(343deg) brightness(97%) contrast(101%)",
+                                }}
+                              />
+                            </div>
+                          );
+                        }
+                      });
+                    })}
+                  </div>
+                </>
               </div>
               <div className={styles.someDetailChairs}>
                 <p>رزرو شده ها</p>
