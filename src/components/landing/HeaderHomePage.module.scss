@@ -97,14 +97,27 @@
         border-radius: 1rem;
         direction: ltr;
         > div {
-          width: 90%;
           height: 1rem;
           background-color: rgb(255, 72, 72);
           border-radius: 1rem;
+          animation: animeProgress 3s forwards ease;
         }
       }
     }
   }
+
+  @keyframes animeProgress {
+    0% {
+      width: 2.5%;
+      background-color: rgb(255, 72, 72);
+    }
+    50% {
+      background-color: #ffa500;
+    }
+    100% {
+    }
+  }
+
   .landDetailGenre {
     margin-top: 4rem;
     display: flex;

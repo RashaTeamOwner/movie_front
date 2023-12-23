@@ -5,7 +5,7 @@ import chair from "../../assets/landing/chair.svg";
 import UseLogedin from "../../hooks/UseLogedin";
 import Swal from "sweetalert2";
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 function HeaderHomePage() {
   const isUserLoggedIn = UseLogedin();
@@ -57,6 +57,7 @@ function HeaderHomePage() {
         setArrLeft(chairs.left_seats);
         setArrRight(chairs.right_seats);
         setResHead(res.data);
+        // console.log(res);
         // setBookedSeat(res.data.has_booked);
       })
       .catch(() => {
@@ -64,8 +65,24 @@ function HeaderHomePage() {
       });
   }, [bookedSeat]);
 
+  const refDivProgress = useRef(null);
+
   useEffect(() => {
     // animation progressbar
+    const boxProgress = refDivProgress.current;
+    const emptyChair = resHead.empty - 88;
+    const filledChair = resHead.filled;
+    let widthProgress = (filledChair / emptyChair) * 100;
+    if (!boxProgress) return;
+    boxProgress.style.width = `${widthProgress}%`;
+    boxProgress.style.transition = "1s";
+    if (widthProgress == 100) {
+      boxProgress.style.backgroundColor = "rgb(0, 174, 122)";
+    } else if (widthProgress <= 50 && widthProgress >= 5) {
+      boxProgress.style.backgroundColor = "rgb(255, 72, 72)";
+    } else {
+      boxProgress.style.backgroundColor = "#ffa500";
+    }
   }, [resHead]);
 
   // swal alert
@@ -232,11 +249,15 @@ function HeaderHomePage() {
                 </p>
                 <p>مدت : {resHead.movie.duration} دقیقه</p>
                 <div className={styles.routeUpper}>
-                  <p>{resHead.empty - 88} نفر تا تکمیل ظرفیت حداقلی</p>
+                  {resHead.empty - 88 - resHead.filled == 0 ? (
+                    <p>ظرفیت حداقلی تکمیل شده و فیلم برگزار میشود</p>
+                  ) : (
+                    <p>{resHead.empty - 88} نفر تا تکمیل ظرفیت حداقلی</p>
+                  )}
                   <div className={styles.animeRoute}>
-                    <div></div>
+                    <div ref={refDivProgress}></div>
                   </div>
-                  <p>تعداد رزروها : {resHead.filled} نفر</p>
+                  <p data-prog={resHead.empty - 88}>تعداد رزروها : {resHead.filled} نفر</p>
                 </div>
               </div>
               <div className={styles.landDetailGenre}>
