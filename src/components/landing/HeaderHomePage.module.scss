@@ -261,7 +261,7 @@
 }
 
 .loginOrReserve {
-  padding-top: 2rem;
+  padding-top: 3rem;
   a {
     padding: 0.5rem 1rem;
     text-decoration: none;
@@ -276,6 +276,11 @@
   .bookedSeats {
     color: greenyellow;
     font-family: sansx100;
+  }
+  .bookedSeatsDetail {
+    font-size: 0.8rem;
+    font-family: sansx100;
+    margin-top: 0.5rem;
   }
 }
 

@@ -11,7 +11,7 @@ function HeaderHomePage() {
   const isUserLoggedIn = UseLogedin();
   const [selectedChair, setSelectedChair] = useState([]);
   const [resHead, setResHead] = useState([]);
-
+  const [messageSeat, setMessageSeat] = useState(0);
   // true of false ke az samt server moshakhas mishe
   const [bookedSeat, setBookedSeat] = useState(false);
   // const [arrLeft, setArrLeft] = useState([]);
@@ -42,6 +42,25 @@ function HeaderHomePage() {
       });
   }, []);
 
+  const howRowCol = (leftArr, rightArr) => {
+    let arrMix = leftArr.concat(rightArr);
+    let flat = [].concat.apply([], arrMix);
+    let col = flat.indexOf(2);
+    let row = -1;
+    if (col != -1)
+      // found, now need to extract the row
+      while (arrMix[++row].length <= col)
+        // not this row
+        col -= arrMix[row].length; // so adjust and try again
+    if (row + 1 > 7) {
+      setMessageSeat(`سمت راست سالن , ردیف ${row + 1 - 7} , صندلی ${(col + 1) * (row + 1 - 7) + 7 * 9}`);
+    } else if (row + 1 == 0) {
+      setMessageSeat(0);
+    } else {
+      setMessageSeat(`سمت چپ سالن , ردیف ${row + 1} , صندلی ${(col + 1) * (row + 1)}`);
+    }
+  };
+
   useEffect(() => {
     setSelectedChair([]);
     axios({
@@ -57,6 +76,7 @@ function HeaderHomePage() {
         setArrLeft(chairs.left_seats);
         setArrRight(chairs.right_seats);
         setResHead(res.data);
+        howRowCol(chairs.left_seats, chairs.right_seats);
         // console.log(res);
         // setBookedSeat(res.data.has_booked);
       })
@@ -415,7 +435,10 @@ function HeaderHomePage() {
               <div className={styles.loginOrReserve}>
                 {isUserLoggedIn ? (
                   bookedSeat ? (
-                    <p className={styles.bookedSeats}>بلیت شما برای این فیلم رزرو شد</p>
+                    <>
+                      <p className={styles.bookedSeats}>بلیت شما برای این فیلم رزرو شد</p>
+                      {messageSeat == 0 ? <></> : <p className={styles.bookedSeatsDetail}>{messageSeat}</p>}
+                    </>
                   ) : (
                     <a onClick={handleCheckChair} className={`${styles.btn} ${styles.btn_default} ${styles.btn_lg} ${styles.btn3d}`}>
                       ثبت بلیت
