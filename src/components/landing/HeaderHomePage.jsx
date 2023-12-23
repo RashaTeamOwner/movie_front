@@ -1,6 +1,5 @@
 /* eslint-disable no-undef */
 import styles from "./HeaderHomePage.module.scss";
-import landimg from "../../assets/landing/landimg.jpg";
 import { Link } from "react-router-dom";
 import chair from "../../assets/landing/chair.svg";
 import UseLogedin from "../../hooks/UseLogedin";
