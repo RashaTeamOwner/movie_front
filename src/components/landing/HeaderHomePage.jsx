@@ -36,8 +36,8 @@ function HeaderHomePage() {
         setLoading(true);
         setBookedSeat(res.data.has_booked);
       })
-      .catch((err) => {
-        console.log(err);
+      .catch(() => {
+        // console.log(err);
         setResHead(res.data);
         setLoading(true);
       });
@@ -60,8 +60,8 @@ function HeaderHomePage() {
         setResHead(res.data);
         // setBookedSeat(res.data.has_booked);
       })
-      .catch((err) => {
-        console.log(err);
+      .catch(() => {
+        // console.log(err);
       });
   }, [bookedSeat]);
 
@@ -98,8 +98,8 @@ function HeaderHomePage() {
         },
         data: data,
       })
-        .then((res) => {
-          console.log(res.data);
+        .then(() => {
+          // console.log(res.data);
           setBookedSeat(true);
           Toast.fire({
             icon: "success",
@@ -160,10 +160,7 @@ function HeaderHomePage() {
             side: getTabIndex[0] == "L" ? "left" : "right",
             x: parseInt(getTabIndex.substring(1, 2)),
             y: parseInt(getTabIndex.substring(2)),
-            // x: 5,
-            // y: 1,
           };
-          console.log(data);
           axios({
             method: "post",
             url: `${process.env.VITE_API_URL}/api/v1/reserve/`,
@@ -172,8 +169,7 @@ function HeaderHomePage() {
             },
             data: data,
           })
-            .then((res) => {
-              console.log(res.data);
+            .then(() => {
               setBookedSeat(false);
               Toast.fire({
                 icon: "success",
@@ -182,7 +178,6 @@ function HeaderHomePage() {
               });
             })
             .catch((err) => {
-              console.log(err);
               Toast.fire({
                 icon: "warning",
                 title: `<p style='direction:rtl'>${err.response.data.status}</p>`,
