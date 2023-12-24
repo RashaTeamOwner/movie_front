@@ -28,30 +28,42 @@ body {
 
 @font-face {
   font-family: iransans;
-  src: url("./assets/fonts/IRANSans_Light.ttf") format("woff2");
-  src: url("./assets/fonts/IRANSans_Light.ttf") format("woff");
-  src: url("./assets/fonts/IRANSans_Light.ttf") format("trueype");
+  src: url("./assets/fonts/IRANSans_Light.ttf"); /* IE9 Compat Modes */
+  src: url("./assets/fonts/IRANSans_Light.ttf?#iefix") format("embedded-opentype"),
+    /* IE6-IE8 */ url("./assets/fonts/IRANSans_Light.ttf") format("woff2"),
+    /* Super Modern Browsers */ url("./assets/fonts/IRANSans_Light.ttf") format("woff"),
+    /* Pretty Modern Browsers */ url("./assets/fonts/IRANSans_Light.ttf") format("truetype"),
+    /* Safari, Android, iOS */ url("./assets/fonts/IRANSans_Light.ttf#svgFontName") format("svg"); /* Legacy iOS */
 }
 
 @font-face {
   font-family: sansx100;
-  src: url("./assets/fonts/SansXregular.woff") format("woff2");
-  src: url("./assets/fonts/SansXregular.woff") format("woff");
-  src: url("./assets/fonts/SansXregular.woff") format("trueype");
+  src: url("./assets/fonts/SansXregular.woff"); /* IE9 Compat Modes */
+  src: url("./assets/fonts/SansXregular.woff?#iefix") format("embedded-opentype"),
+    /* IE6-IE8 */ url("./assets/fonts/SansXregular.woff") format("woff2"),
+    /* Super Modern Browsers */ url("./assets/fonts/SansXregular.woff") format("woff"),
+    /* Pretty Modern Browsers */ url("./assets/fonts/SansXregular.woff") format("truetype"),
+    /* Safari, Android, iOS */ url("./assets/fonts/SansXregular.woff#svgFontName") format("svg"); /* Legacy iOS */
 }
 
 @font-face {
   font-family: sansx50;
-  src: url("./assets/fonts/SansXthin.woff") format("woff2");
-  src: url("./assets/fonts/SansXthin.woff") format("woff");
-  src: url("./assets/fonts/SansXthin.woff") format("trueype");
+  src: url("./assets/fonts/SansXthin.woff"); /* IE9 Compat Modes */
+  src: url("./assets/fonts/SansXthin.woff?#iefix") format("embedded-opentype"),
+    /* IE6-IE8 */ url("./assets/fonts/SansXthin.woff") format("woff2"),
+    /* Super Modern Browsers */ url("./assets/fonts/SansXthin.woff") format("woff"),
+    /* Pretty Modern Browsers */ url("./assets/fonts/SansXthin.woff") format("truetype"),
+    /* Safari, Android, iOS */ url("./assets/fonts/SansXthin.woff#svgFontName") format("svg"); /* Legacy iOS */
 }
 
 @font-face {
   font-family: sansx200;
-  src: url("./assets/fonts/SansXBlack.woff") format("woff2");
-  src: url("./assets/fonts/SansXBlack.woff") format("woff");
-  src: url("./assets/fonts/SansXBlack.woff") format("trueype");
+  src: url("./assets/fonts/SansXBlack.woff"); /* IE9 Compat Modes */
+  src: url("./assets/fonts/SansXBlack.woff?#iefix") format("embedded-opentype"),
+    /* IE6-IE8 */ url("./assets/fonts/SansXBlack.woff") format("woff2"),
+    /* Super Modern Browsers */ url("./assets/fonts/SansXBlack.woff") format("woff"),
+    /* Pretty Modern Browsers */ url("./assets/fonts/SansXBlack.woff") format("truetype"),
+    /* Safari, Android, iOS */ url("./assets/fonts/SansXBlack.woff#svgFontName") format("svg"); /* Legacy iOS */
 }
 
 .btn3d {

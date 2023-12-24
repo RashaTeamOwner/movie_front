@@ -1,6 +1,6 @@
 /* eslint-disable no-undef */
 import { Swiper, SwiperSlide } from "swiper/react";
-import { useRef, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import useWindowSize from "../../hooks/useWindowSize";
 import axios from "axios";
 import UseLogedin from "../../hooks/UseLogedin";
@@ -12,11 +12,6 @@ import "swiper/css/pagination";
 import "swiper/css/navigation";
 import "swiper/css/autoplay";
 import { Autoplay, EffectCoverflow, Navigation, Pagination } from "swiper/modules";
-import im1 from "../../assets/landing/sec1.jpg";
-import backupimg from "../../assets/landing/backupimg.webp";
-import im2 from "../../assets/landing/sec2.jpg";
-import im3 from "../../assets/landing/sec3.jpg";
-import im4 from "../../assets/landing/sec4.jpg";
 import closeicon from "../../assets/landing/close-bold.svg";
 import styles from "./SectionTwoHomePage.module.scss";
 import closebtn from "../../assets/landing/close-bold.svg";
@@ -39,13 +34,14 @@ function SectionTwoHomePage() {
       },
     })
       .then((res) => {
-        setMovies(res.data.movies);
+        let sorted = res.data.movies.sort((a, b) => {
+          return b.votes_count - a.votes_count;
+        });
+        setMovies(sorted);
         setIsLoading(true);
         setAllVoteMovie(res.data.movies[isSelectedMovie].votes_count);
       })
-      .catch((err) => {
-        console.log(err);
-      });
+      .catch(() => {});
   }, [isVoted]);
 
   const handleSlideChange = (swiper) => {
@@ -81,6 +77,10 @@ function SectionTwoHomePage() {
       refCloseIcon2.current.style.display = "block";
     }
   }, [sizeWidth]);
+
+  // useEffect(() => {
+  //   if (refFatherContainer2.current == null) return;
+  // }, [isSelectedMovie]);
 
   const handleOpenResults = () => {
     refTableData.current.style.display = "flex";
@@ -126,6 +126,8 @@ function SectionTwoHomePage() {
       .then((res) => {
         if (res.data.status == "vote counted") setIsVoted(true);
         else setIsVoted(false);
+        setIsSelectedMovie(-1);
+        refFatherContainer2.current.style.display = "none";
       })
       .catch(() => {});
   };
@@ -170,10 +172,14 @@ function SectionTwoHomePage() {
               // console.log(movie);
               return (
                 <SwiperSlide key={movie.id} className={styles.imageSlide}>
-                  {/* <div className={styles.topSlide}>
-                    <h2>منتخب هفته بعد</h2>
-                    <p>14 رای</p>
-                  </div> */}
+                  {index == 0 ? (
+                    <div className={styles.topSlide}>
+                      <h2>منتخب هفته بعد</h2>
+                      <p>{movie.votes_count} رای</p>
+                    </div>
+                  ) : (
+                    <></>
+                  )}
                   <img src={`${process.env.VITE_API_URL}${movie.image}`} />
                   <button onClick={() => handelpopupShowMovie(index)} className={styles.submitSlide}>
                     ثبت رای
@@ -187,7 +193,7 @@ function SectionTwoHomePage() {
           ) : (
             <div
               style={{
-                background: `linear-gradient(to right, rgb(32, 32, 32) calc(50vw - 170px - 340px), rgba(32, 32, 32, 0.84) 50%, rgba(32, 32, 32, 0.84) 100%),url(${process.env.VITE_API_URL}${movies[isSelectedMovie].image})`,
+                background: `linear-gradient(to right, rgb(32, 32, 32), rgba(32, 32, 32, 0.84) 50%, rgba(32, 32, 32, 0.84) 100%),url(${process.env.VITE_API_URL}${movies[isSelectedMovie].image})`,
               }}
               className={styles.openDetailMovies}
             >
@@ -244,22 +250,14 @@ function SectionTwoHomePage() {
             <h3>تعداد رای</h3>
           </div>
           <div className={styles.dataTable}>
-            <div>
-              <p>عصر کسشر</p>
-              <p>14 رای</p>
-            </div>
-            <div>
-              <p>ارام مرادیان</p>
-              <p>10 رای</p>
-            </div>
-            <div>
-              <p>کسشر بعدی</p>
-              <p>7 رای</p>
-            </div>
-            <div>
-              <p>3 کسشر</p>
-              <p>3 رای</p>
-            </div>
+            {movies.map((movie, index) => {
+              return (
+                <div key={movie.id}>
+                  <p>{movie.name}</p>
+                  <p>{movie.votes_count} رای</p>
+                </div>
+              );
+            })}
           </div>
           <div ref={refCloseIcon} className={styles.closeIconBox}>
             <img onClick={closePopupShodow} src={closebtn} alt="close icon" />
