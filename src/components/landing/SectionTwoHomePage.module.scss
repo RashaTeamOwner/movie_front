@@ -198,6 +198,7 @@
       padding: 0.5rem 1rem;
       > p {
         font-size: 0.9rem;
+        font-family: sansx100;
         span {
           font-size: 1.1rem;
           color: rgb(255, 187, 0);
@@ -225,14 +226,19 @@
   button {
     font-family: iransans;
     position: absolute;
-    bottom: 20px;
+    transform: translateY(200px);
     right: 30px;
+    height: fit-content;
     padding: 0.2rem 0.5rem;
     border-radius: 0.4rem;
     border: none;
     background-color: rgb(47, 255, 168);
     font-size: 1rem;
     cursor: pointer;
+  }
+  .cancelVote {
+    display: flex;
+    flex-direction: column;
   }
 }
 .closeDetailMovie {

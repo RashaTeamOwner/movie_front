@@ -12,6 +12,7 @@ import "swiper/css/navigation";
 import "swiper/css/autoplay";
 import { Autoplay, EffectCoverflow, Navigation, Pagination } from "swiper/modules";
 import im1 from "../../assets/landing/sec1.jpg";
+import backupimg from "../../assets/landing/backupimg.webp";
 import im2 from "../../assets/landing/sec2.jpg";
 import im3 from "../../assets/landing/sec3.jpg";
 import im4 from "../../assets/landing/sec4.jpg";
@@ -25,6 +26,7 @@ function SectionTwoHomePage() {
   const [isLoading, setIsLoading] = useState(false);
   const isLoggedin = UseLogedin();
   const [isSelectedMovie, setIsSelectedMovie] = useState(-1);
+  const [isVoted, setIsVoted] = useState(false);
   useEffect(() => {
     axios({
       method: "get",
@@ -41,24 +43,7 @@ function SectionTwoHomePage() {
       .catch((err) => {
         console.log(err);
       });
-    // let data = {
-    //   id: 2,
-    // };
-    // axios({
-    //   method: "post",
-    //   url: `${process.env.VITE_API_URL}/api/v1/vote/`,
-    //   headers: {
-    //     Authorization: `Token ${localStorage.getItem("token")}`,
-    //   },
-    //   data: data,
-    // })
-    //   .then((res) => {
-    //     console.log(res);
-    //   })
-    //   .catch((err) => {
-    //     console.log(err);
-    //   });
-  }, []);
+  }, [isVoted]);
 
   const handleSlideChange = (swiper) => {
     const activeSlideIndex = swiper.activeIndex;
@@ -114,6 +99,26 @@ function SectionTwoHomePage() {
   const handelpopupShowMovie = (index) => {
     setIsSelectedMovie(index);
     refFatherContainer.current.style.display = "block";
+    setIsVoted(movies[index].user_voted);
+  };
+
+  const handlePostVote = () => {
+    let data = {
+      id: movies[isSelectedMovie].id,
+    };
+    axios({
+      method: "post",
+      url: `${process.env.VITE_API_URL}/api/v1/vote/`,
+      headers: {
+        Authorization: `Token ${localStorage.getItem("token")}`,
+      },
+      data: data,
+    })
+      .then((res) => {
+        if (res.data.status == "vote counted") setIsVoted(true);
+        else setIsVoted(false);
+      })
+      .catch(() => {});
   };
 
   if (!isLoading) {
@@ -156,11 +161,11 @@ function SectionTwoHomePage() {
               // console.log(movie);
               return (
                 <SwiperSlide key={movie.id} className={styles.imageSlide}>
-                  <div className={styles.topSlide}>
+                  {/* <div className={styles.topSlide}>
                     <h2>منتخب هفته بعد</h2>
                     <p>14 رای</p>
-                  </div>
-                  <img src={im1} />
+                  </div> */}
+                  <img src={backupimg} />
                   <button onClick={() => handelpopupShowMovie(index)} className={styles.submitSlide}>
                     ثبت رای
                   </button>
@@ -198,26 +203,36 @@ function SectionTwoHomePage() {
             <div className={styles.openDetailMovies}>
               <img onClick={closePopupShodow} className={styles.closeicon} src={closeicon} alt="close" />
               <div className={styles.popimgMovie}>
-                <img className={styles.imageMovie} src={im2} alt="image" />
+                <img className={styles.imageMovie} src={backupimg} alt="image" />
                 <div>
                   <p>
                     <span>نام فیلم :</span> {movies[isSelectedMovie].name}
                   </p>
                   <div>
-                    <p>آمریکا</p>
+                    <p>{movies[isSelectedMovie].country}</p>
                     <span>|</span>
-                    <p>محصول 2022</p>
+                    <p>محصول {movies[isSelectedMovie].year}</p>
                     <span>|</span>
-                    <p>اکشن - ماجراجویی</p>
+                    <p>{movies[isSelectedMovie].genre}</p>
                   </div>
                   <p>
-                    <span>خلاصه فیلم :</span> Lorem, ipsum dolor sit amet consectetur adipisicing elit. Voluptate, libero optio. Asperiores
-                    similique odio libero enim, nesciunt nisi cumque? Suscipit laborum aspernatur, ratione nam pariatur aliquid possimus ut
-                    provident! Quaerat!
+                    <span>خلاصه فیلم : </span>
+                    {movies[isSelectedMovie].description}
                   </p>
                 </div>
               </div>
-              <button>ثبت رای</button>
+              {isVoted ? (
+                <div className={styles.cancelVote}>
+                  {/* <p>رای شما ثبت شده</p> */}
+                  <button onClick={handlePostVote} className={`${styles.btn} ${styles.btn_default} ${styles.btn_lg} ${styles.btn3d}`}>
+                    پس گرفتن رای
+                  </button>
+                </div>
+              ) : (
+                <button onClick={handlePostVote} className={`${styles.btn} ${styles.btn_default} ${styles.btn_lg} ${styles.btn3d}`}>
+                  ثبت رای
+                </button>
+              )}
             </div>
           )}
         </div>
