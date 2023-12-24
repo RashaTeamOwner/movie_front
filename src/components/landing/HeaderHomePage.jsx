@@ -34,6 +34,7 @@ function HeaderHomePage() {
         setResHead(res.data);
         setLoading(true);
         setBookedSeat(res.data.has_booked);
+        console.log(res.data);
       })
       .catch(() => {
         // console.log(err);
