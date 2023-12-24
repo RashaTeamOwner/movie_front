@@ -54,11 +54,11 @@ function HeaderHomePage() {
         // not this row
         col -= arrMix[row].length; // so adjust and try again
     if (row + 1 > 7) {
-      setMessageSeat(`سمت راست سالن , ردیف ${row + 1 - 7} , صندلی ${(col + 1) * (row + 1 - 7) + 7 * 9}`);
+      setMessageSeat(`سمت راست سالن , ردیف ${row + 1 - 7} , صندلی ${col + 1}`);
     } else if (row + 1 == 0) {
       setMessageSeat(0);
     } else {
-      setMessageSeat(`سمت چپ سالن , ردیف ${row + 1} , صندلی ${(col + 1) * (row + 1)}`);
+      setMessageSeat(`سمت چپ سالن , ردیف ${row + 1} , صندلی ${col + 1}`);
     }
   };
 
@@ -78,8 +78,6 @@ function HeaderHomePage() {
         setArrRight(chairs.right_seats);
         setResHead(res.data);
         howRowCol(chairs.left_seats, chairs.right_seats);
-        // console.log(res);
-        // setBookedSeat(res.data.has_booked);
       })
       .catch(() => {
         // console.log(err);
@@ -91,7 +89,7 @@ function HeaderHomePage() {
   useEffect(() => {
     // animation progressbar
     const boxProgress = refDivProgress.current;
-    const emptyChair = resHead.empty - 88;
+    const emptyChair = resHead.filled + resHead.empty - 88;
     const filledChair = resHead.filled;
     let widthProgress = (filledChair / emptyChair) * 100;
     if (!boxProgress) return;
@@ -235,31 +233,12 @@ function HeaderHomePage() {
       let splitArr = [getTabIndex[0], parseInt(getTabIndex.substring(1, 2)), parseInt(getTabIndex.substring(2))];
       setSelectedChair(splitArr);
     }
-    // if (!selectedChair == "") {
-    //   setArrLeft([
-    //     [1, 0, 0, 1, 1, 1, 1, 0],
-    //     [0, 0, 0, 1, 1, 1, 1, 1],
-    //     [0, 1, 0, 0, 1, 1, 0, 1],
-    //     [0, 0, 0, 1, 1, 1, 1, 1],
-    //     [1, 1, 0, 0, 1, 1, 0, 1],
-    //     [1, 0, 0, 1, 1, 0, 0, 0],
-    //   ]);
-    //   setArrRight([
-    //     [0, 0, 0, 1, 0, 0, 0, 1],
-    //     [0, 1, 0, 1, 0, 1, 1, 1],
-    //     [1, 0, 0, 1, 1, 0, 1, 0],
-    //     [0, 0, 0, 1, 0, 1, 1, 1],
-    //     [0, 0, 0, 0, 1, 1, 0, 1],
-    //     [1, 0, 0, 1, 1, 0, 1, 1],
-    //   ]);
-    // }
   };
   if (loading) {
     return (
       <div className={styles.container} style={{ background: `url(${process.env.VITE_API_URL}${resHead.movie.banner})` }}>
         <div className={styles.intoContainer}>
           <div className={styles.landImg}>
-            {/* <img src={landimg} alt="landingImg" /> */}
             <img src={`${process.env.VITE_API_URL}${resHead.movie.image}`} alt="" />
           </div>
           <div className={styles.landboxDetail}>
@@ -270,7 +249,8 @@ function HeaderHomePage() {
                 </p>
                 <p>مدت : {resHead.movie.duration} دقیقه</p>
                 <div className={styles.routeUpper}>
-                  {resHead.empty - 88 - resHead.filled == 0 ? (
+                  {console.log(resHead.empty, resHead.filled)}
+                  {resHead.filled + resHead.empty - 88 - resHead.filled == 0 ? (
                     <p>ظرفیت حداقلی تکمیل شده و فیلم برگزار میشود</p>
                   ) : (
                     <p>{resHead.empty - 88} نفر تا تکمیل ظرفیت حداقلی</p>

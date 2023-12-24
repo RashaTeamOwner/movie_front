@@ -58,12 +58,12 @@ body {
 
 @font-face {
   font-family: sansx200;
-  src: url("./assets/fonts/SansXBlack.woff"); /* IE9 Compat Modes */
-  src: url("./assets/fonts/SansXBlack.woff?#iefix") format("embedded-opentype"),
-    /* IE6-IE8 */ url("./assets/fonts/SansXBlack.woff") format("woff2"),
-    /* Super Modern Browsers */ url("./assets/fonts/SansXBlack.woff") format("woff"),
-    /* Pretty Modern Browsers */ url("./assets/fonts/SansXBlack.woff") format("truetype"),
-    /* Safari, Android, iOS */ url("./assets/fonts/SansXBlack.woff#svgFontName") format("svg"); /* Legacy iOS */
+  src: url("./assets/fonts/SansXblack.woff"); /* IE9 Compat Modes */
+  src: url("./assets/fonts/SansXblack.woff?#iefix") format("embedded-opentype"),
+    /* IE6-IE8 */ url("./assets/fonts/SansXblack.woff") format("woff2"),
+    /* Super Modern Browsers */ url("./assets/fonts/SansXblack.woff") format("woff"),
+    /* Pretty Modern Browsers */ url("./assets/fonts/SansXblack.woff") format("truetype"),
+    /* Safari, Android, iOS */ url("./assets/fonts/SansXblack.woff#svgFontName") format("svg"); /* Legacy iOS */
 }
 
 .btn3d {

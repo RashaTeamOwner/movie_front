@@ -18,7 +18,7 @@ function SignUp() {
   const history = useHistory();
   const regexPersian = /^[\u0600-\u06FF\s]+ [\u0600-\u06FF\s]+$/;
   const regexNumber = /^09\d{9}$/;
-  const regexUid = /^(97[0-9]{8}|98[0-9]{8}|99[0-9]{8}|400[0-9]{8}|401[0-9]{8}|402[0-9]{8})$/;
+  const regexUid = /^(97[0-9]{8}|98[0-9]{8}|99[0-9]{8}|400[0-9]{8}|401[0-9]{8}|402[0-9]{8}403[0-9]{8}404[0-9]{8})$/;
   const regexPass = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
   const regexConfirm = /^[0-9]{6}$/;
 
@@ -232,6 +232,7 @@ function SignUp() {
   //// end span up even click input
   const completeSignup = () => {
     let data = {
+      full_name: inName,
       phone_number: inPhone,
       password: inPass,
       student_id: uid,
