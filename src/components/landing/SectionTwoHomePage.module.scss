@@ -167,7 +167,11 @@
 
 .openDetailMovies {
   color: white;
-  background: linear-gradient(45deg, rgb(0, 16, 18), rgb(0, 140, 136));
+  background: linear-gradient(45deg, rgba(164, 164, 164, 0.364), rgba(0, 63, 61, 0.633));
+  background-position: left !important;
+  background-repeat: no-repeat !important;
+  background-size: cover !important;
+  background-clip: border-box !important;
   position: absolute;
   top: 100px;
   left: 50%;
@@ -175,7 +179,7 @@
   z-index: 100;
   direction: rtl;
   font-family: sansx100;
-  width: 400px;
+  width: 490px;
   height: 260px;
   border-radius: 1rem;
   .closeicon {
@@ -184,6 +188,7 @@
     top: 3px;
     left: 3px;
     cursor: pointer;
+    filter: invert(95%) sepia(100%) saturate(0%) hue-rotate(116deg) brightness(105%) contrast(105%);
   }
   .imageMovie {
     height: 12rem;
@@ -232,9 +237,30 @@
     padding: 0.2rem 0.5rem;
     border-radius: 0.4rem;
     border: none;
-    background-color: rgb(47, 255, 168);
+    background-color: rgb(47, 255, 168) !important;
     font-size: 1rem;
     cursor: pointer;
+    color: black !important;
+  }
+  > a,
+  a:link,
+  a:visited {
+    text-decoration: none;
+    font-family: iransans;
+    position: absolute;
+    transform: translateY(200px);
+    right: 10px;
+    height: fit-content;
+    padding: 0.2rem 0.5rem;
+    border-radius: 0.4rem;
+    border: none;
+    font-size: 1rem;
+    cursor: pointer;
+  }
+  .btnPassVote {
+    right: 10px;
+    background-color: rgb(255, 72, 72) !important;
+    color: white !important;
   }
   .cancelVote {
     display: flex;
@@ -243,6 +269,17 @@
 }
 .closeDetailMovie {
   display: none;
+}
+.howManyVote {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  font-size: 0.7rem;
+  padding: 0.4rem 0.8rem;
+  > span {
+    font-size: 0.9rem;
+    color: rgb(47, 255, 168);
+  }
 }
 // media queries
 
@@ -339,6 +376,32 @@
     > button {
       font-size: 0.8rem;
     }
+  }
+}
+
+@media (max-width: 540px) {
+  .openDetailMovies {
+    width: 310px;
+    height: 330px;
+    top: 5%;
+    .imageMovie {
+      display: none;
+    }
+    .popimgMovie {
+      > div {
+        gap: 1.5rem;
+      }
+    }
+    button,
+    a {
+      transform: translateY(257px);
+    }
+    .btnPassVote {
+      right: 20px;
+    }
+  }
+  .howManyVote {
+    bottom: 32px;
   }
 }
 

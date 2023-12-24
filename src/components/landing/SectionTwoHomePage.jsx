@@ -4,6 +4,7 @@ import { useRef, useState } from "react";
 import useWindowSize from "../../hooks/useWindowSize";
 import axios from "axios";
 import UseLogedin from "../../hooks/UseLogedin";
+import { Link } from "react-router-dom";
 // Import Swiper styles
 import "swiper/css";
 import "swiper/css/effect-coverflow";
@@ -27,6 +28,7 @@ function SectionTwoHomePage() {
   const isLoggedin = UseLogedin();
   const [isSelectedMovie, setIsSelectedMovie] = useState(-1);
   const [isVoted, setIsVoted] = useState(false);
+  const [allVoteMovie, setAllVoteMovie] = useState(0);
   useEffect(() => {
     axios({
       method: "get",
@@ -39,6 +41,7 @@ function SectionTwoHomePage() {
       .then((res) => {
         setMovies(res.data.movies);
         setIsLoading(true);
+        setAllVoteMovie(res.data.movies[isSelectedMovie].votes_count);
       })
       .catch((err) => {
         console.log(err);
@@ -57,6 +60,7 @@ function SectionTwoHomePage() {
   const refTableData = useRef(null);
   const refPriceData = useRef(null);
   const refFatherContainer = useRef(null);
+  const refFatherContainer2 = useRef(null);
   const refCloseIcon = useRef(null);
   const refCloseIcon2 = useRef(null);
 
@@ -93,13 +97,18 @@ function SectionTwoHomePage() {
     refFatherContainer.current.style.display = "none";
     refTableData.current.style.display = "none";
     refPriceData.current.style.display = "none";
+  };
+  const closePopupShodow2 = () => {
+    refFatherContainer2.current.style.display = "none";
     setIsSelectedMovie(-1);
+    setAllVoteMovie(0);
   };
 
   const handelpopupShowMovie = (index) => {
     setIsSelectedMovie(index);
-    refFatherContainer.current.style.display = "block";
+    refFatherContainer2.current.style.display = "block";
     setIsVoted(movies[index].user_voted);
+    setAllVoteMovie(movies[index].votes_count);
   };
 
   const handlePostVote = () => {
@@ -165,45 +174,26 @@ function SectionTwoHomePage() {
                     <h2>منتخب هفته بعد</h2>
                     <p>14 رای</p>
                   </div> */}
-                  <img src={backupimg} />
+                  <img src={`${process.env.VITE_API_URL}${movie.image}`} />
                   <button onClick={() => handelpopupShowMovie(index)} className={styles.submitSlide}>
                     ثبت رای
                   </button>
                 </SwiperSlide>
               );
             })}
-            {/* <SwiperSlide className={styles.imageSlide}>
-            <div className={styles.topSlide}>
-              <h2>منتخب هفته بعد</h2>
-              <p>14 رای</p>
-            </div>
-            <img src={im1} />
-            <button className={styles.submitSlide}>ثبت رای</button>
-          </SwiperSlide>
-          <SwiperSlide className={styles.imageSlide}>
-            <img src={im2} />
-            <button className={styles.submitSlide}>ثبت رای</button>
-          </SwiperSlide>
-          <SwiperSlide className={styles.imageSlide}>
-            <img src={im3} />
-            <button className={styles.submitSlide}>ثبت رای</button>
-          </SwiperSlide>
-          <SwiperSlide className={styles.imageSlide}>
-            <img src={im4} />
-            <button className={styles.submitSlide}>ثبت رای</button>
-          </SwiperSlide> */}
           </Swiper>
           {isSelectedMovie == -1 ? (
-            <div className={styles.closeDetailMovie}>
-              <p>{movies[0].name}</p>
-              <p>{movies[0].description}</p>
-              <button>submit vote</button>
-            </div>
+            <></>
           ) : (
-            <div className={styles.openDetailMovies}>
-              <img onClick={closePopupShodow} className={styles.closeicon} src={closeicon} alt="close" />
+            <div
+              style={{
+                background: `linear-gradient(to right, rgb(32, 32, 32) calc(50vw - 170px - 340px), rgba(32, 32, 32, 0.84) 50%, rgba(32, 32, 32, 0.84) 100%),url(${process.env.VITE_API_URL}${movies[isSelectedMovie].image})`,
+              }}
+              className={styles.openDetailMovies}
+            >
+              <img onClick={closePopupShodow2} className={styles.closeicon} src={closeicon} alt="close" />
               <div className={styles.popimgMovie}>
-                <img className={styles.imageMovie} src={backupimg} alt="image" />
+                <img className={styles.imageMovie} src={`${process.env.VITE_API_URL}${movies[isSelectedMovie].image}`} alt="image" />
                 <div>
                   <p>
                     <span>نام فیلم :</span> {movies[isSelectedMovie].name}
@@ -220,18 +210,30 @@ function SectionTwoHomePage() {
                     {movies[isSelectedMovie].description}
                   </p>
                 </div>
+                <p className={styles.howManyVote}>
+                  تعداد رای تا الان : <span>{allVoteMovie} رای</span>
+                </p>
               </div>
-              {isVoted ? (
-                <div className={styles.cancelVote}>
-                  {/* <p>رای شما ثبت شده</p> */}
+              {isLoggedin ? (
+                isVoted ? (
+                  <div className={styles.cancelVote}>
+                    {/* <p>رای شما ثبت شده</p> */}
+                    <button
+                      onClick={handlePostVote}
+                      className={`${styles.btn} ${styles.btn_default} ${styles.btn_lg} ${styles.btn3d} ${styles.btnPassVote}`}
+                    >
+                      پس گرفتن رای
+                    </button>
+                  </div>
+                ) : (
                   <button onClick={handlePostVote} className={`${styles.btn} ${styles.btn_default} ${styles.btn_lg} ${styles.btn3d}`}>
-                    پس گرفتن رای
+                    ثبت رای
                   </button>
-                </div>
+                )
               ) : (
-                <button onClick={handlePostVote} className={`${styles.btn} ${styles.btn_default} ${styles.btn_lg} ${styles.btn3d}`}>
-                  ثبت رای
-                </button>
+                <Link to="/signin" className={`${styles.btn} ${styles.btn_default} ${styles.btn_lg} ${styles.btn3d}`}>
+                  ورود به حساب
+                </Link>
               )}
             </div>
           )}
@@ -283,6 +285,7 @@ function SectionTwoHomePage() {
           </div>
         </div>
         <div ref={refFatherContainer} onClick={closePopupShodow} className={styles.shodowforHide}></div>
+        <div ref={refFatherContainer2} onClick={closePopupShodow2} className={styles.shodowforHide}></div>
       </div>
     );
   }
