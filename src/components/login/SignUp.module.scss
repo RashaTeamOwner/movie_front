@@ -172,6 +172,30 @@
   }
 }
 
+.loadingSign {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(rgba(0, 0, 0, 0.817), rgba(0, 32, 30, 0.816));
+  text-align: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 50;
+  border-radius: 1.8rem 0 0 1.8rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  > p {
+    font-size: 1.7rem;
+  }
+}
+
+@media (max-width: 660px) {
+  .loadingSign {
+    border-radius: 1.8rem;
+  }
+}
+
 @media (max-width: 382px) {
   .container {
     padding: 0;

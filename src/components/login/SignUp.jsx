@@ -1,5 +1,5 @@
 /* eslint-disable no-undef */
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import axios from "axios";
 import Swal from "sweetalert2";
@@ -14,7 +14,9 @@ function SignUp() {
   const [inPass, setInPass] = useState("");
   const [uid, setUid] = useState("");
   const [inConfirm, setInConfirm] = useState("");
-  const [catchCode, setCatchCode] = useState(false);
+  const [catchCode, setCatchCode] = useState("");
+  const [msgErr, setMsgErr] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   const history = useHistory();
   const regexPersian = /^[\u0600-\u06FF\s]+ [\u0600-\u06FF\s]+$/;
   const regexNumber = /^09\d{9}$/;
@@ -28,24 +30,33 @@ function SignUp() {
   const msgPassword = "حداقل 8 کاراکتر و شامل حرف انگلیسی و عدد";
   const msgConfirm = "کد ارسالی به شماره خود را وارد کنید";
 
-  // handle post signup
-  const handlePostSingup = () => {
-    if (regexPersian.test(inName) && regexNumber.test(inPhone) && regexPass.test(inPass) && regexUid.test(uid)) {
+  useEffect(() => {
+    if (catchCode == true) {
       ToastConfirm.fire({
         icon: "success",
         title: `<p style='direction:rtl'>پیامک به شماره ${inPhone} ارسال شد</p>`,
         width: "310px",
+      }).then(() => {
+        setCatchCode("");
       });
-      // let data = {
-      //   full_name: inName,
-      //   phone_number: inPhone,
-      //   password: inPass,
-      //   student_id: uid,
-      //   code: 2222,
-      // };
+    } else if (catchCode == false && catchCode !== "") {
+      ToastConfirm.fire({
+        icon: "warning",
+        title: `<p style='direction:rtl'>${msgErr}</p>`,
+        width: "350px",
+      }).then(() => {
+        setMsgErr("");
+        setCatchCode("");
+      });
+    }
+  }, [catchCode]);
+  // handle post signup
+  const handlePostSingup = () => {
+    if (regexPersian.test(inName) && regexNumber.test(inPhone) && regexPass.test(inPass) && regexUid.test(uid)) {
       let data = {
         phone_number: inPhone,
       };
+      setIsLoading(true);
       axios({
         method: "post",
         url: `${process.env.VITE_API_URL}/api/v1/send-code/`,
@@ -54,13 +65,15 @@ function SignUp() {
         },
         data: JSON.stringify(data),
       })
-        .then((res) => {
+        .then(() => {
           setCatchCode(true);
-          console.log(res);
+          setIsLoading(false);
         })
         .catch((err) => {
+          let howmsg = err.response.data.status || err.response.data.detail;
+          setMsgErr(howmsg);
           setCatchCode(false);
-          console.log(err);
+          setIsLoading(false);
         });
     } else {
       if (!regexPersian.test(inName) || inName == "")
@@ -231,6 +244,7 @@ function SignUp() {
   };
   //// end span up even click input
   const completeSignup = () => {
+    setIsLoading(true);
     let data = {
       full_name: inName,
       phone_number: inPhone,
@@ -250,112 +264,127 @@ function SignUp() {
         // send user to home page
         // redirect user and save token to local storage
         const token = res.data.token;
+        setIsLoading(false);
         localStorage.setItem("token", token);
         history.push("/");
       })
       .catch((err) => {
-        alert(err.response.data.phone_number);
-        alert(err.response.data.detail);
-        alert(err.response.data.student_id);
-        console.log(err.response);
+        setIsLoading(false);
+        let myerror = err.response.data;
+        let howmsg = myerror.phone_number || myerror.detail || myerror.student_id;
+        setMsgErr(howmsg);
+        setCatchCode(false);
       });
   };
 
   return (
-    <div className={styles.container}>
-      <p className={styles.title_signup}>ثبت نام جدید</p>
-      <div className={styles.signupBox}>
-        <div className={styles.name_signup}>
-          <span ref={refNameSpan}>نام و نام خانوادگی</span>
-          <input
-            onBlur={handleClose}
-            onFocus={handleFocus}
-            ref={refInputName}
-            required=""
-            type="text"
-            name="text"
-            data-set="name"
-            className={styles.input}
-            autoComplete="off"
-            onChange={(element) => {
-              setInName(element.target.value);
-            }}
-          />
-          {(regexPersian.test(inName) && inName.length > 6) || inName.length == 0 ? <></> : <p className={styles.errorInput}>{msgName}</p>}
-          <img src={iconname} alt="" />
+    <>
+      {isLoading ? (
+        <div className={styles.loadingSign}>
+          <p>... صبر کنید</p>
         </div>
-        <div className={styles.uid_signup}>
-          <span ref={refUidSpan}>شماره دانشجویی</span>
-          <input
-            onBlur={handleClose}
-            onFocus={handleFocus}
-            ref={refInputUid}
-            type="text"
-            autoComplete="off"
-            data-set="uid"
-            onChange={(element) => {
-              setUid(element.target.value);
-            }}
-          />
-          {regexUid.test(uid) || uid.length == 0 ? <></> : <p className={styles.errorInput}>{msgUid}</p>}
-          <img src={iconuid} alt="" />
-        </div>
-        <div className={styles.phone_signup}>
-          <span ref={refPhoneSpan}>شماره تلفن</span>
-          <input
-            onBlur={handleClose}
-            onFocus={handleFocus}
-            ref={refInputPhone}
-            onChange={(element) => {
-              setInPhone(element.target.value);
-            }}
-            required=""
-            type="text"
-            name="text"
-            data-set="phone"
-            className={styles.input}
-            autoComplete="off"
-          />
-          {regexNumber.test(inPhone) || inPhone.length == 0 ? <></> : <p className={styles.errorInput}>{msgPhone}</p>}
-          <img src={iconphone} alt="" />
-        </div>
-        <div className={styles.password_signup}>
-          <span ref={refPassSpan}>رمز عبور</span>
-          <input
-            onBlur={handleClose}
-            onFocus={handleFocus}
-            ref={refInputPass}
-            type="text"
-            autoComplete="off"
-            data-set="pass"
-            onChange={(element) => {
-              setInPass(element.target.value);
-            }}
-          />
-          {regexPass.test(inPass) || inPass.length == 0 ? <></> : <p className={styles.errorInput}>{msgPassword}</p>}
-          <img src={iconpass} alt="" />
-        </div>
-        <div className={styles.confirm_signup}>
-          <span ref={refConfirmSpan}>کد دریافتی</span>
-          <input
-            onBlur={handleClose}
-            onFocus={handleFocus}
-            ref={refInputConfirm}
-            type="text"
-            autoComplete="off"
-            data-set="confirm"
-            onChange={(element) => {
-              setInConfirm(element.target.value);
-            }}
-          />
-          {regexConfirm.test(inConfirm) || inConfirm.length == 0 ? <></> : <p className={styles.errorInput}>{msgConfirm}</p>}
-          <button onClick={handlePostSingup}>دریافت کد</button>
-        </div>
-        <div className={styles.submitbox}>
-          <input onClick={completeSignup} className={styles.submitLogin} type="submit" value="ثبت نام" />
+      ) : (
+        <></>
+      )}
+      <div className={styles.container}>
+        <p className={styles.title_signup}>ثبت نام جدید</p>
+        <div className={styles.signupBox}>
+          <div className={styles.name_signup}>
+            <span ref={refNameSpan}>نام و نام خانوادگی</span>
+            <input
+              onBlur={handleClose}
+              onFocus={handleFocus}
+              ref={refInputName}
+              required=""
+              type="text"
+              name="text"
+              data-set="name"
+              className={styles.input}
+              autoComplete="off"
+              onChange={(element) => {
+                setInName(element.target.value);
+              }}
+            />
+            {(regexPersian.test(inName) && inName.length > 6) || inName.length == 0 ? (
+              <></>
+            ) : (
+              <p className={styles.errorInput}>{msgName}</p>
+            )}
+            <img src={iconname} alt="" />
+          </div>
+          <div className={styles.uid_signup}>
+            <span ref={refUidSpan}>شماره دانشجویی</span>
+            <input
+              onBlur={handleClose}
+              onFocus={handleFocus}
+              ref={refInputUid}
+              type="text"
+              autoComplete="off"
+              data-set="uid"
+              onChange={(element) => {
+                setUid(element.target.value);
+              }}
+            />
+            {regexUid.test(uid) || uid.length == 0 ? <></> : <p className={styles.errorInput}>{msgUid}</p>}
+            <img src={iconuid} alt="" />
+          </div>
+          <div className={styles.phone_signup}>
+            <span ref={refPhoneSpan}>شماره تلفن</span>
+            <input
+              onBlur={handleClose}
+              onFocus={handleFocus}
+              ref={refInputPhone}
+              onChange={(element) => {
+                setInPhone(element.target.value);
+              }}
+              required=""
+              type="text"
+              name="text"
+              data-set="phone"
+              className={styles.input}
+              autoComplete="off"
+            />
+            {regexNumber.test(inPhone) || inPhone.length == 0 ? <></> : <p className={styles.errorInput}>{msgPhone}</p>}
+            <img src={iconphone} alt="" />
+          </div>
+          <div className={styles.password_signup}>
+            <span ref={refPassSpan}>رمز عبور</span>
+            <input
+              onBlur={handleClose}
+              onFocus={handleFocus}
+              ref={refInputPass}
+              type="text"
+              autoComplete="off"
+              data-set="pass"
+              onChange={(element) => {
+                setInPass(element.target.value);
+              }}
+            />
+            {regexPass.test(inPass) || inPass.length == 0 ? <></> : <p className={styles.errorInput}>{msgPassword}</p>}
+            <img src={iconpass} alt="" />
+          </div>
+          <div className={styles.confirm_signup}>
+            <span ref={refConfirmSpan}>کد دریافتی</span>
+            <input
+              onBlur={handleClose}
+              onFocus={handleFocus}
+              ref={refInputConfirm}
+              type="text"
+              autoComplete="off"
+              data-set="confirm"
+              onChange={(element) => {
+                setInConfirm(element.target.value);
+              }}
+            />
+            {regexConfirm.test(inConfirm) || inConfirm.length == 0 ? <></> : <p className={styles.errorInput}>{msgConfirm}</p>}
+            <button onClick={handlePostSingup}>دریافت کد</button>
+          </div>
+          <div className={styles.submitbox}>
+            <input onClick={completeSignup} className={styles.submitLogin} type="submit" value="ثبت نام" />
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }
 
