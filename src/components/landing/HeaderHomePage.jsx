@@ -8,7 +8,6 @@ import axios from "axios";
 import { useEffect, useRef, useState } from "react";
 
 function HeaderHomePage() {
-  const isUserLoggedIn = UseLogedin();
   const [selectedChair, setSelectedChair] = useState([]);
   const [resHead, setResHead] = useState([]);
   const [messageSeat, setMessageSeat] = useState(0);
@@ -18,6 +17,7 @@ function HeaderHomePage() {
   const [arrLeft, setArrLeft] = useState([[0]]);
   const [arrRight, setArrRight] = useState([[0]]);
   const [loading, setLoading] = useState(false);
+  const isUserLoggedIn = UseLogedin();
   useEffect(() => {
     axios({
       method: "get",

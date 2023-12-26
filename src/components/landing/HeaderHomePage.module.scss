@@ -15,11 +15,10 @@
 .container {
   // width: 90%;
   margin: auto;
-  background: url("../../assets/landing/landimgwide.jpg");
   // background-position: left calc((50vw - 170px) - 340px) top;
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center;
+  background-size: cover !important;
+  background-repeat: no-repeat !important;
+  background-position: center !important;
 }
 
 .intoContainer {

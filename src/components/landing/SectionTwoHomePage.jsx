@@ -193,7 +193,7 @@ function SectionTwoHomePage() {
           ) : (
             <div
               style={{
-                background: `linear-gradient(to right, rgb(32, 32, 32), rgba(32, 32, 32, 0.84) 50%, rgba(32, 32, 32, 0.84) 100%),url(${process.env.VITE_API_URL}${movies[isSelectedMovie].image})`,
+                background: `linear-gradient(to right, rgb(32, 32, 32), rgba(32, 32, 32, 0.84) 50%, rgba(32, 32, 32, 0.84) 100%),url(${process.env.VITE_API_URL}${movies[isSelectedMovie].banner})`,
               }}
               className={styles.openDetailMovies}
             >
@@ -207,7 +207,9 @@ function SectionTwoHomePage() {
                   <div>
                     <p>{movies[isSelectedMovie].country}</p>
                     <span>|</span>
-                    <p>محصول {movies[isSelectedMovie].year}</p>
+                    <p>
+                      <span>محصول</span> {movies[isSelectedMovie].year}
+                    </p>
                     <span>|</span>
                     <p>{movies[isSelectedMovie].genre}</p>
                   </div>

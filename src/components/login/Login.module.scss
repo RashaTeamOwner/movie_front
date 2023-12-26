@@ -12,6 +12,18 @@
   font-family: iransans;
   box-sizing: content-box;
   margin-bottom: 1.5rem;
+  animation: animeUpcome 0.7s 0.5s ease forwards;
+  opacity: 0;
+}
+@keyframes animeUpcome {
+  0% {
+    transform: translateY(-20px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
 }
 
 .loginBox {
@@ -23,6 +35,7 @@
   box-sizing: content-box;
   .phone_login,
   .password_login {
+    opacity: 0;
     position: relative;
     box-sizing: content-box;
     span {
@@ -67,6 +80,13 @@
     }
   }
 
+  .phone_login {
+    animation: animeUpcome 0.7s 0.7s forwards ease;
+  }
+  .password_login {
+    animation: animeUpcome 0.7s 0.9s forwards ease;
+  }
+
   .eyepassword {
     position: absolute;
     right: 0;
@@ -92,6 +112,22 @@
       cursor: pointer;
       font-size: 0.7rem;
       color: #ff9000;
+      animation: animeScale 0.7s 1.1s forwards ease;
+      opacity: 0;
+    }
+    .submitLogin {
+      animation: animeScale 0.7s 1.2s forwards ease;
+      opacity: 0;
+    }
+  }
+  @keyframes animeScale {
+    0% {
+      transform: scale(0, 0);
+      opacity: 0;
+    }
+    100% {
+      transform: scale(1, 1);
+      opacity: 1;
     }
   }
   .submitLogin {

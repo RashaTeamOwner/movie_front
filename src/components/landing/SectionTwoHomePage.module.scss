@@ -199,13 +199,13 @@
     opacity: 1;
   }
   100% {
-    transform: rotate(1080deg);
+    transform: rotate(720deg);
     opacity: 1;
   }
 }
 .openDetailMovies {
   color: white;
-  animation: animeopenpop 3s forwards;
+  animation: animeopenpop 1.8s forwards;
   background: linear-gradient(45deg, rgba(164, 164, 164, 0.364), rgba(0, 63, 61, 0.633));
   overflow: hidden;
   background-position: left !important;
@@ -223,7 +223,7 @@
   height: 260px;
   border-radius: 1rem;
   .closeicon {
-    animation: animeopenpop4 1s forwards 3.5s;
+    animation: animeopenpop4 0.7s forwards 2.3s;
     opacity: 0;
     width: 2rem;
     position: absolute;
@@ -244,7 +244,7 @@
       gap: 0.5rem;
       padding: 0.5rem 1rem;
       > p {
-        animation: animeopenpop3 1s forwards 0.5s;
+        animation: animeopenpop3 0.7s forwards 0.2s;
         opacity: 0;
         width: fit-content;
         font-size: 0.9rem;
@@ -255,23 +255,39 @@
         }
       }
       > p:last-child {
-        animation: animeopenpop3 1s forwards 1.5s;
+        animation: animeopenpop3 1s forwards 1.3s;
         height: 150px;
         overflow: auto;
         padding: 0.3rem;
       }
       > div {
-        opacity: 0;
-        animation: animeopenpop3 1s forwards 1s;
+        opacity: 1;
         display: flex;
         align-items: center;
         gap: 0.5rem;
         > span {
           color: rgb(255, 187, 0);
           font-size: 1.2rem;
+          opacity: 0;
         }
         > p {
           font-size: 0.8rem;
+          opacity: 0;
+        }
+        > p:first-child {
+          animation: roro 0.7s 0.6s forwards ease;
+        }
+        > span:first-of-type {
+          animation: roro 0.7s 0.75s forwards ease;
+        }
+        > p:nth-of-type(2) {
+          animation: roro 0.7s 0.9s forwards ease;
+        }
+        > span:nth-of-type(2) {
+          animation: roro 0.7s 1.05s forwards ease;
+        }
+        > p:last-child {
+          animation: roro 0.7s 1.2s forwards ease;
         }
       }
     }
@@ -315,6 +331,18 @@
     flex-direction: column;
   }
 }
+
+@keyframes roro {
+  0% {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
 .closeDetailMovie {
   display: none;
 }
@@ -325,7 +353,7 @@
   font-size: 0.7rem;
   padding: 0.4rem 0.8rem;
   opacity: 0;
-  animation: animeopenpop2 0.5s 3s forwards;
+  animation: animeopenpop2 0.5s 2s forwards;
   > span {
     font-size: 0.9rem;
     color: rgb(47, 255, 168);
@@ -432,9 +460,10 @@
 
 @media (max-width: 540px) {
   .openDetailMovies {
-    width: 310px;
+    width: 309px;
     height: 330px;
     top: 5%;
+    background-position: top !important;
     .imageMovie {
       display: none;
     }

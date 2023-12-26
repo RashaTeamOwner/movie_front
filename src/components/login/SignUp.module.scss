@@ -11,8 +11,19 @@
   font-size: 1.7rem;
   font-family: iransans;
   padding-top: 1.5rem;
+  animation: animeUpcome 0.7s ease forwards 0.4s;
+  opacity: 0;
 }
-
+@keyframes animeUpcome {
+  0% {
+    transform: translateY(-20px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
 .signupBox {
   padding: 1rem;
   display: flex;
@@ -20,6 +31,26 @@
   gap: 2.5rem;
   box-sizing: content-box;
   // margin-top: 4rem;
+  .name_signup {
+    animation: animeUpcome 0.7s ease forwards 0.7s;
+    opacity: 0;
+  }
+  .uid_signup {
+    animation: animeUpcome 0.7s ease forwards 0.9s;
+    opacity: 0;
+  }
+  .phone_signup {
+    animation: animeUpcome 0.7s ease forwards 1.1s;
+    opacity: 0;
+  }
+  .password_signup {
+    animation: animeUpcome 0.7s ease forwards 1.3s;
+    opacity: 0;
+  }
+  .confirm_signup {
+    animation: animeUpcome 0.7s ease forwards 1.5s;
+    opacity: 0;
+  }
   .name_signup,
   .phone_signup,
   .password_signup,
@@ -72,7 +103,6 @@
     button {
       position: absolute;
       top: 50%;
-      transform: translateY(-50%);
       left: 0.3rem;
       padding: 0.4rem;
       font-size: 0.7rem;
@@ -82,56 +112,39 @@
       background-color: greenyellow;
       font-family: sansx200;
       box-sizing: content-box;
+      animation: animeScale2 0.5s 1.6s forwards ease;
+      opacity: 0;
+      transform: translateY(-50%);
     }
   }
-  //   .password_login {
-  //     position: relative;
-  //     span {
-  //       position: absolute;
-  //       top: 50%;
-  //       transform: translateY(-50%);
-  //       padding: 1rem;
-  //       pointer-events: none;
-  //       color: rgba(255, 255, 255, 0.523);
-  //       transition: 0.3s all ease;
-  //       font-size: 0.8rem;
-  //     }
-  //     img {
-  //       position: absolute;
-  //       top: 50%;
-  //       transform: translateY(-50%);
-  //       left: 0;
-  //       width: 1.7rem;
-  //       padding: 0.4rem;
-  //     }
-  //     input {
-  //       width: 15rem;
-  //       padding: 0.5rem;
-  //       font-size: 1.2rem;
-  //       background-color: transparent;
-  //       border: none;
-  //       border-bottom: 2px solid rgb(255, 255, 255);
-  //       border-radius: 0.5rem;
-  //       padding: 0.5rem 0.5rem 0.5rem 2.2rem;
-  //       direction: ltr;
-  //       &:focus {
-  //         outline: none;
-  //       }
-  //     }
-  //   }
   .submitbox {
     display: flex;
     justify-content: space-between;
     align-items: center;
     box-sizing: content-box;
-    > button {
-      background-color: transparent;
-      border: none;
-      font-family: sansx200;
-      cursor: pointer;
-      font-size: 0.7rem;
-      color: rgb(191, 0, 0);
-      box-sizing: content-box;
+    > input {
+      animation: animeScale 0.5s 1.7s forwards ease;
+      opacity: 0;
+    }
+  }
+  @keyframes animeScale {
+    0% {
+      transform: scale(0, 0);
+      opacity: 0;
+    }
+    100% {
+      transform: scale(1, 1);
+      opacity: 1;
+    }
+  }
+  @keyframes animeScale2 {
+    0% {
+      transform: scale(0, 0);
+      opacity: 0;
+    }
+    100% {
+      transform: scale(1, 1) translateY(-50%);
+      opacity: 1;
     }
   }
   .submitLogin {
