@@ -34,7 +34,6 @@ function HeaderHomePage() {
         setResHead(res.data);
         setLoading(true);
         setBookedSeat(res.data.has_booked);
-        console.log(res.data);
       })
       .catch(() => {
         // console.log(err);
@@ -249,7 +248,6 @@ function HeaderHomePage() {
                 </p>
                 <p>مدت : {resHead.movie.duration} دقیقه</p>
                 <div className={styles.routeUpper}>
-                  {console.log(resHead.empty, resHead.filled)}
                   {resHead.filled + resHead.empty - 88 - resHead.filled == 0 ? (
                     <p>ظرفیت حداقلی تکمیل شده و فیلم برگزار میشود</p>
                   ) : (

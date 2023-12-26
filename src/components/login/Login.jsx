@@ -12,6 +12,8 @@ function Login() {
   const history = useHistory();
   const refEyeIcon = useRef(null);
   const [eye, setEye] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+
   const handleEye = () => {
     setEye(!eye);
   };
@@ -22,17 +24,19 @@ function Login() {
         username: inPhone,
         password: inPass,
       };
+      setIsLoading(true);
       axios({
         method: "post",
         url: `${process.env.VITE_API_URL}/api/v1/token/`,
         data: data,
       })
         .then((res) => {
+          setIsLoading(false);
           localStorage.setItem("token", res.data.token);
           history.push("/");
         })
-        .catch((err) => {
-          console.log(err);
+        .catch(() => {
+          setIsLoading(false);
           Toast.fire({
             icon: "warning",
             title: "<p style='direction:rtl'>اطلاعات وارد شده وجود ندارد</p>",
@@ -125,51 +129,60 @@ function Login() {
   // ..................
   //// end : up and down span
   return (
-    <div className={styles.container}>
-      <p className={styles.title_login}>ورود به حساب</p>
-      <div className={styles.loginBox}>
-        <div className={styles.phone_login}>
-          <span ref={refPhoneSpan}>شماره دانشجویی</span>
-          <input
-            onBlur={handleClose}
-            onFocus={handleFocus}
-            ref={refInputPhone}
-            required=""
-            type="text"
-            name="text"
-            data-set="phone"
-            className={styles.input}
-            autoComplete="off"
-            onChange={(element) => {
-              setInPhone(element.target.value);
-            }}
-          />
-          {regexNumber.test(inPhone) || inPhone.length == 0 ? <></> : <p className={styles.errorInput}>{msgPhone}</p>}
-          <img src={usericon} alt="نام کاربری" />
+    <>
+      {isLoading ? (
+        <div className={styles.loadingSign}>
+          <p>... صبر کنید</p>
         </div>
-        <div className={styles.password_login}>
-          <img onClick={handleEye} ref={refEyeIcon} className={styles.eyepassword} src={eye ? eyeicon : eyeslash} alt="" />
-          <span ref={refPassSpan}>رمز عبور</span>
-          <input
-            onBlur={handleClose}
-            onFocus={handleFocus}
-            ref={refInputPass}
-            type={eye ? "text" : "password"}
-            autoComplete="off"
-            data-set="pass"
-            onChange={(element) => {
-              setInPass(element.target.value);
-            }}
-          />
-          {/* {regexUid.test(inPass) || inPass.length == 0 ? <></> : <p className={styles.errorInput}>{msgUid}</p>} */}
-          <img src={passicon} alt="" />
-        </div>
-        <div className={styles.submitbox}>
-          <input onClick={handleButtonLogin} className={styles.submitLogin} type="submit" value="ورود" />
-          <button>فراموشی رمز عبور</button>
+      ) : (
+        <></>
+      )}
+      <div className={styles.container}>
+        <p className={styles.title_login}>ورود به حساب</p>
+        <div className={styles.loginBox}>
+          <div className={styles.phone_login}>
+            <span ref={refPhoneSpan}>شماره دانشجویی</span>
+            <input
+              onBlur={handleClose}
+              onFocus={handleFocus}
+              ref={refInputPhone}
+              required=""
+              type="text"
+              name="text"
+              data-set="phone"
+              className={styles.input}
+              autoComplete="off"
+              onChange={(element) => {
+                setInPhone(element.target.value);
+              }}
+            />
+            {regexNumber.test(inPhone) || inPhone.length == 0 ? <></> : <p className={styles.errorInput}>{msgPhone}</p>}
+            <img src={usericon} alt="نام کاربری" />
+          </div>
+          <div className={styles.password_login}>
+            <img onClick={handleEye} ref={refEyeIcon} className={styles.eyepassword} src={eye ? eyeicon : eyeslash} alt="" />
+            <span ref={refPassSpan}>رمز عبور</span>
+            <input
+              onBlur={handleClose}
+              onFocus={handleFocus}
+              ref={refInputPass}
+              type={eye ? "text" : "password"}
+              autoComplete="off"
+              data-set="pass"
+              onChange={(element) => {
+                setInPass(element.target.value);
+              }}
+            />
+            {/* {regexUid.test(inPass) || inPass.length == 0 ? <></> : <p className={styles.errorInput}>{msgUid}</p>} */}
+            <img src={passicon} alt="" />
+          </div>
+          <div className={styles.submitbox}>
+            <input onClick={handleButtonLogin} className={styles.submitLogin} type="submit" value="ورود" />
+            <button>فراموشی رمز عبور</button>
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }
 
