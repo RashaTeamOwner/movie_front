@@ -56,8 +56,12 @@
   transition: 0.4s all ease;
   width: 100%;
   height: 100%;
-  background: linear-gradient(270deg, rgb(24, 24, 24), rgb(40, 40, 40), rgb(24, 24, 24)); // filter: blur(4px);
-  // background-color: rgb(27, 27, 27);
+  background: #5f5f5f;
+  background: -webkit-linear-gradient(233deg, #5f5f5f 0%, rgba(33, 33, 33, 0.9) 50%, #000000 100%);
+  background: linear-gradient(233deg, #5f5f5f 0%, rgba(33, 33, 33, 0.9) 50%, #000000 100%);
+  background: #00757c;
+  background: -webkit-linear-gradient(127deg, #00757c 0%, #00474d 50%, #001a1a 100%);
+  background: linear-gradient(127deg, #00757c 0%, #00474d 50%, #001a1a 100%);
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -102,6 +106,9 @@
   height: 100%;
   background: linear-gradient(90deg, rgb(0 75 69 / 35%), rgb(0 71 68/ 76%), rgb(0 75 69 / 35%));
   // linear-gradient(90deg, rgb(60, 60, 60), rgb(40, 40, 40), rgb(24, 24, 24));
+  background: #e50041;
+  background: -webkit-linear-gradient(212deg, #e50041 0%, #840025 50%, #3c0014 100%);
+  background: linear-gradient(212deg, #e50041 0%, #840025 50%, #3c0014 100%);
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;

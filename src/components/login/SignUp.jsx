@@ -244,6 +244,14 @@ function SignUp() {
   };
   //// end span up even click input
   const completeSignup = () => {
+    if (!regexPersian.test(inName) && !regexNumber.test(inPhone) && !regexPass.test(inPass) && !regexUid.test(uid)) {
+      ToastConfirm.fire({
+        icon: "warning",
+        title: `<p style='direction:rtl'>اطلاعات مورد نیاز پر نشده</p>`,
+        width: "310px",
+      });
+      return;
+    }
     setIsLoading(true);
     let data = {
       full_name: inName,
@@ -281,7 +289,8 @@ function SignUp() {
     <>
       {isLoading ? (
         <div className={styles.loadingSign}>
-          <p>... صبر کنید</p>
+          <p>صبر کنید</p>
+          <div className={styles.dots}></div>
         </div>
       ) : (
         <></>

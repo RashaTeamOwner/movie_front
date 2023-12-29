@@ -132,7 +132,8 @@ function Login() {
     <>
       {isLoading ? (
         <div className={styles.loadingSign}>
-          <p>... صبر کنید</p>
+          <p>صبر کنید</p>
+          <div className={styles.dots}></div>
         </div>
       ) : (
         <></>
