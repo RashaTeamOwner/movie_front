@@ -406,6 +406,49 @@
   }
 }
 
+.loadingSign {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(rgba(0, 0, 0, 0.817), rgba(0, 32, 30, 0.816));
+  text-align: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 150;
+  border-radius: inherit;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.7rem;
+  direction: rtl;
+  > p {
+    font-size: 1.1rem;
+  }
+}
+.dots {
+  width: 45px;
+  height: 11.4px;
+  background: radial-gradient(circle closest-side, white 90%, #0000) 0% 50%, radial-gradient(circle closest-side, white 90%, #0000) 50% 50%,
+    radial-gradient(circle closest-side, white 90%, #0000) 100% 50%;
+  background-size: calc(100% / 3) 100%;
+  background-repeat: no-repeat;
+  animation: dots-zcf63l 1s infinite linear;
+}
+
+@keyframes dots-zcf63l {
+  33% {
+    background-size: calc(100% / 3) 100%, calc(100% / 3) 100%, calc(100% / 3) 0%;
+  }
+
+  50% {
+    background-size: calc(100% / 3) 100%, calc(100% / 3) 0%, calc(100% / 3) 100%;
+  }
+
+  66% {
+    background-size: calc(100% / 3) 0%, calc(100% / 3) 100%, calc(100% / 3) 100%;
+  }
+}
+
 @media (max-width: 900px) {
   .imageSlide {
     width: 200px;

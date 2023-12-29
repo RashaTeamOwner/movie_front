@@ -20,6 +20,7 @@ import { useEffect } from "react";
 function SectionTwoHomePage() {
   const [movies, setMovies] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [isLoadingPop, setIsLoadingPop] = useState(false);
   const isLoggedin = UseLogedin();
   const [isSelectedMovie, setIsSelectedMovie] = useState(-1);
   const [isVoted, setIsVoted] = useState(false);
@@ -112,6 +113,7 @@ function SectionTwoHomePage() {
   };
 
   const handlePostVote = () => {
+    setIsLoadingPop(true);
     let data = {
       id: movies[isSelectedMovie].id,
     };
@@ -124,12 +126,15 @@ function SectionTwoHomePage() {
       data: data,
     })
       .then((res) => {
+        setIsLoadingPop(false);
         if (res.data.status == "vote counted") setIsVoted(true);
         else setIsVoted(false);
         setIsSelectedMovie(-1);
         refFatherContainer2.current.style.display = "none";
       })
-      .catch(() => {});
+      .catch(() => {
+        setIsLoadingPop(false);
+      });
   };
 
   if (!isLoading) {
@@ -191,59 +196,69 @@ function SectionTwoHomePage() {
           {isSelectedMovie == -1 ? (
             <></>
           ) : (
-            <div
-              style={{
-                background: `linear-gradient(to right, rgb(32, 32, 32), rgba(32, 32, 32, 0.84) 50%, rgba(32, 32, 32, 0.84) 100%),url(${process.env.VITE_API_URL}${movies[isSelectedMovie].banner})`,
-              }}
-              className={styles.openDetailMovies}
-            >
-              <img onClick={closePopupShodow2} className={styles.closeicon} src={closeicon} alt="close" />
-              <div className={styles.popimgMovie}>
-                <img className={styles.imageMovie} src={`${process.env.VITE_API_URL}${movies[isSelectedMovie].image}`} alt="image" />
-                <div>
-                  <p>
-                    <span>نام فیلم :</span> {movies[isSelectedMovie].name}
-                  </p>
-                  <div>
-                    <p>{movies[isSelectedMovie].country}</p>
-                    <span>|</span>
-                    <p>
-                      <span>محصول</span> {movies[isSelectedMovie].year}
-                    </p>
-                    <span>|</span>
-                    <p>{movies[isSelectedMovie].genre}</p>
-                  </div>
-                  <p>
-                    <span>خلاصه فیلم : </span>
-                    {movies[isSelectedMovie].description}
-                  </p>
-                </div>
-                <p className={styles.howManyVote}>
-                  تعداد رای تا الان : <span>{allVoteMovie} رای</span>
-                </p>
-              </div>
-              {isLoggedin ? (
-                isVoted ? (
-                  <div className={styles.cancelVote}>
-                    {/* <p>رای شما ثبت شده</p> */}
-                    <button
-                      onClick={handlePostVote}
-                      className={`${styles.btn} ${styles.btn_default} ${styles.btn_lg} ${styles.btn3d} ${styles.btnPassVote}`}
-                    >
-                      پس گرفتن رای
-                    </button>
+            <>
+              <div
+                style={{
+                  background: `linear-gradient(to right, rgb(32, 32, 32), rgba(32, 32, 32, 0.84) 50%, rgba(32, 32, 32, 0.84) 100%),url(${process.env.VITE_API_URL}${movies[isSelectedMovie].banner})`,
+                }}
+                className={styles.openDetailMovies}
+              >
+                {isLoadingPop ? (
+                  <div className={styles.loadingSign}>
+                    <p>صبر کنید</p>
+                    <div className={styles.dots}></div>
                   </div>
                 ) : (
-                  <button onClick={handlePostVote} className={`${styles.btn} ${styles.btn_default} ${styles.btn_lg} ${styles.btn3d}`}>
-                    ثبت رای
-                  </button>
-                )
-              ) : (
-                <Link to="/signin" className={`${styles.btn} ${styles.btn_default} ${styles.btn_lg} ${styles.btn3d}`}>
-                  ورود به حساب
-                </Link>
-              )}
-            </div>
+                  <></>
+                )}
+                <img onClick={closePopupShodow2} className={styles.closeicon} src={closeicon} alt="close" />
+                <div className={styles.popimgMovie}>
+                  <img className={styles.imageMovie} src={`${process.env.VITE_API_URL}${movies[isSelectedMovie].image}`} alt="image" />
+                  <div>
+                    <p>
+                      <span>نام فیلم :</span> {movies[isSelectedMovie].name}
+                    </p>
+                    <div>
+                      <p>{movies[isSelectedMovie].country}</p>
+                      <span>|</span>
+                      <p>
+                        <span>محصول</span> {movies[isSelectedMovie].year}
+                      </p>
+                      <span>|</span>
+                      <p>{movies[isSelectedMovie].genre}</p>
+                    </div>
+                    <p>
+                      <span>خلاصه فیلم : </span>
+                      {movies[isSelectedMovie].description}
+                    </p>
+                  </div>
+                  <p className={styles.howManyVote}>
+                    تعداد رای تا الان : <span>{allVoteMovie} رای</span>
+                  </p>
+                </div>
+                {isLoggedin ? (
+                  isVoted ? (
+                    <div className={styles.cancelVote}>
+                      {/* <p>رای شما ثبت شده</p> */}
+                      <button
+                        onClick={handlePostVote}
+                        className={`${styles.btn} ${styles.btn_default} ${styles.btn_lg} ${styles.btn3d} ${styles.btnPassVote}`}
+                      >
+                        پس گرفتن رای
+                      </button>
+                    </div>
+                  ) : (
+                    <button onClick={handlePostVote} className={`${styles.btn} ${styles.btn_default} ${styles.btn_lg} ${styles.btn3d}`}>
+                      ثبت رای
+                    </button>
+                  )
+                ) : (
+                  <Link to="/signin" className={`${styles.btn} ${styles.btn_default} ${styles.btn_lg} ${styles.btn3d}`}>
+                    ورود به حساب
+                  </Link>
+                )}
+              </div>
+            </>
           )}
         </div>
         <div ref={refTableData} className={styles.tableContainer}>
@@ -252,7 +267,7 @@ function SectionTwoHomePage() {
             <h3>تعداد رای</h3>
           </div>
           <div className={styles.dataTable}>
-            {movies.map((movie, index) => {
+            {movies.map((movie) => {
               return (
                 <div key={movie.id}>
                   <p>{movie.name}</p>
@@ -274,9 +289,6 @@ function SectionTwoHomePage() {
             </p>
             <p>
               <span>15+ </span>امتیاز , شرکت در سالن اکران و تماشای فیلم
-            </p>
-            <p>
-              <span>10+ </span>امتیاز , شرکت در نقد فیلم
             </p>
           </div>
           <button className={`${styles.btn} ${styles.btn_default} ${styles.btn_lg} ${styles.btn3d}`}>جدول امتیازات دانشجویان</button>

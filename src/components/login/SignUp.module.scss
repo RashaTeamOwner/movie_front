@@ -10,7 +10,8 @@
 .title_signup {
   font-size: 1.7rem;
   font-family: iransans;
-  padding-top: 1.5rem;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
   animation: animeUpcome 0.7s ease forwards 0.4s;
   opacity: 0;
 }
@@ -165,7 +166,7 @@
 .errorInput {
   font-size: 0.6rem;
   position: absolute;
-  top: -26px;
+  top: -17px;
   left: 0;
   color: rgba(255, 31, 31, 0.965);
   border-radius: 0.5rem;
@@ -241,6 +242,15 @@
     padding: 0;
     .signupBox {
       padding: 1.5rem 0 0 0;
+      .name_signup,
+      .phone_signup,
+      .password_signup,
+      .uid_signup,
+      .confirm_signup {
+        input {
+          width: 12rem;
+        }
+      }
     }
   }
 }
