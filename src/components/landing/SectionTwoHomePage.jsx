@@ -1,6 +1,6 @@
 /* eslint-disable no-undef */
 import { Swiper, SwiperSlide } from "swiper/react";
-import { useMemo, useRef, useState } from "react";
+import { useLayoutEffect, useRef, useState } from "react";
 import useWindowSize from "../../hooks/useWindowSize";
 import axios from "axios";
 import UseLogedin from "../../hooks/UseLogedin";
@@ -14,7 +14,6 @@ import "swiper/css/autoplay";
 import { Autoplay, EffectCoverflow, Navigation, Pagination } from "swiper/modules";
 import closeicon from "../../assets/landing/close-bold.svg";
 import styles from "./SectionTwoHomePage.module.scss";
-import closebtn from "../../assets/landing/close-bold.svg";
 import { useEffect } from "react";
 
 function SectionTwoHomePage() {
@@ -42,7 +41,9 @@ function SectionTwoHomePage() {
         setIsLoading(true);
         setAllVoteMovie(res.data.movies[isSelectedMovie].votes_count);
       })
-      .catch(() => {});
+      .catch((err) => {
+        console.log(err);
+      });
   }, [isVoted]);
 
   const handleSlideChange = (swiper) => {
@@ -277,7 +278,7 @@ function SectionTwoHomePage() {
             })}
           </div>
           <div ref={refCloseIcon} className={styles.closeIconBox}>
-            <img onClick={closePopupShodow} src={closebtn} alt="close icon" />
+            <img onClick={closePopupShodow} src={closeicon} alt="close icon" />
           </div>
         </div>
         <div ref={refPriceData} className={styles.priceContainer}>
@@ -293,7 +294,7 @@ function SectionTwoHomePage() {
           </div>
           <button className={`${styles.btn} ${styles.btn_default} ${styles.btn_lg} ${styles.btn3d}`}>جدول امتیازات دانشجویان</button>
           <div ref={refCloseIcon2} className={styles.closeIconBox}>
-            <img onClick={closePopupShodow} src={closebtn} alt="close icon" />
+            <img onClick={closePopupShodow} src={closeicon} alt="close icon" />
           </div>
         </div>
         <div ref={refFatherContainer} onClick={closePopupShodow} className={styles.shodowforHide}></div>

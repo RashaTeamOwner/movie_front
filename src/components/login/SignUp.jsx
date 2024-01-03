@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import axios from "axios";
 import Swal from "sweetalert2";
+import ReCAPTCHA from "react-google-recaptcha";
 import styles from "./SignUp.module.scss";
 import iconname from "../../assets/loginpage/user-outlined.svg";
 import iconphone from "../../assets/loginpage/phone.svg";
@@ -17,6 +18,7 @@ function SignUp() {
   const [catchCode, setCatchCode] = useState("");
   const [msgErr, setMsgErr] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [captchaValue, setCaptchaValue] = useState(null);
   const history = useHistory();
   const regexPersian = /^[\u0600-\u06FF\s]+ [\u0600-\u06FF\s]+$/;
   const regexNumber = /^09\d{9}$/;
@@ -285,6 +287,11 @@ function SignUp() {
       });
   };
 
+  // captcha
+  const handleRecaptchaChange = (value) => {
+    setCaptchaValue(value);
+  };
+
   return (
     <>
       {isLoading ? (
@@ -388,6 +395,7 @@ function SignUp() {
             {regexConfirm.test(inConfirm) || inConfirm.length == 0 ? <></> : <p className={styles.errorInput}>{msgConfirm}</p>}
             <button onClick={handlePostSingup}>دریافت کد</button>
           </div>
+          <ReCAPTCHA sitekey="AIzaSyBYxQcXFthUKq9wmCHIVg6i-0ubQW1vmJs" onChange={handleRecaptchaChange} />
           <div className={styles.submitbox}>
             <input onClick={completeSignup} className={styles.submitLogin} type="submit" value="ثبت نام" />
           </div>
