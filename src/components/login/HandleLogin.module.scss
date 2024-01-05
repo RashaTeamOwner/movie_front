@@ -1,13 +1,13 @@
 @use "../../index.scss";
 
 .mainBody {
-  height: 100vh;
+  max-height: 120vw;
   width: 100%;
 }
 .backgroundLogin {
   height: 100vh;
   width: 100vw;
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   background-color: rgb(58, 58, 58);
@@ -16,6 +16,7 @@
   background-size: cover;
   background-position: left;
   background-repeat: no-repeat;
+  background-attachment: fixed;
 }
 
 .homeIcon {
@@ -274,6 +275,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding: 0.5rem;
 }
 .madewithlove {
   color: white;

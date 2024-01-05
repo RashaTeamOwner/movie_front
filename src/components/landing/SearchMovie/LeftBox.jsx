@@ -10,6 +10,55 @@ function LeftBox(props) {
   const [idmovie, setIdmovie] = useState("");
 
   const query = props.querydata;
+
+  const getSeries = (query, dataMovies) => {
+    if (!query || query === "") return;
+    // setLoading(true);
+    const options = {
+      method: "GET",
+      headers: {
+        accept: "application/json",
+        Authorization: process.env.VITE_KEY_TMDB,
+      },
+    };
+    // get req => tv
+    axios
+      .get(`${process.env.VITE_URL_TMDB}/3/search/tv?query=${query}&include_adult=false`, options)
+      .then((res) => {
+        if (res.data.total_results) {
+          setError("");
+          setLoading(true);
+          dataMovies.results.push.apply(dataMovies.results, res.data.results);
+          if (dataMovies.total_results) {
+            let sorted = dataMovies.results.sort((a, b) => {
+              if (!b.poster_path) {
+                return;
+              }
+              return b.vote_count - a.vote_count;
+            });
+            setMovies(sorted);
+            return sorted;
+          } else {
+            return;
+          }
+        }
+      })
+      .then((response) => {
+        if (query == "tarifnashode" || response == undefined) {
+          if (response == undefined && query != "tarifnashode") {
+            throw new Error(` درست جستجو کنید`);
+          } else {
+            throw new Error("🔎 جستجوی فیلم");
+          }
+        } else {
+          props.backsize(response.total_results);
+        }
+      })
+      .catch((error) => {
+        setError(error.message);
+      });
+  };
+
   useEffect(() => {
     setLoading(false);
     if (query.length < 3) {
@@ -24,37 +73,14 @@ function LeftBox(props) {
         Authorization: process.env.VITE_KEY_TMDB,
       },
     };
-    axios
-      .get(`${process.env.VITE_URL_TMDB}/3/search/movie?query=${query}&include_adult=false`, options)
-      .then((res) => {
-        setError("");
-        if (res.status != 200) {
-          throw new Error("! مشکلی رخ داده است");
-        }
-        const data = res.data;
-        if (data.total_results) {
-          let sorted = data.results.sort((a, b) => {
-            return b.vote_count - a.vote_count;
-          });
-          setMovies(sorted);
-          return data;
-        } else {
-          return;
-        }
-      })
-      .then((response) => {
-        setLoading(true);
-        if (query == "tarifnashode" || response == undefined) {
-          if (response == undefined && query != "tarifnashode") {
-            throw new Error(`😒 درست جستجو کن`);
-          } else {
-            throw new Error("🔎 جستجوی فیلم");
-          }
-        } else props.backsize(response.total_results);
-      })
-      .catch((error) => {
-        setError(error.message);
-      });
+    axios.get(`${process.env.VITE_URL_TMDB}/3/search/movie?query=${query}&include_adult=false`, options).then((res) => {
+      setError("");
+      if (res.status != 200) {
+        throw new Error("! مشکلی رخ داده است");
+      }
+      const data = res.data;
+      getSeries(query, data);
+    });
   }, [props.querydata]);
 
   useEffect(() => {
@@ -75,9 +101,11 @@ function LeftBox(props) {
         },
       };
 
-      fetch(`${process.env.VITE_URL_TMDB}/3/movie/${idMovie}?language=en-US`, options)
+      fetch(`${process.env.VITE_URL_TMDB}/3/${event.target.dataset.how}/${idMovie}?language=en-US&append_to_response=external_ids`, options)
         .then((response) => response.json())
-        .then((response) => setIdmovie(response.imdb_id))
+        .then((response) => {
+          setIdmovie(response.external_ids.imdb_id);
+        })
         .catch(() => setIdmovie(""));
     });
   };
@@ -88,7 +116,13 @@ function LeftBox(props) {
       {loading && !error && (
         <ul className={styles.list}>
           {movies?.map((movie) => (
-            <li data-movie={movie.id} className={styles.SearchMoviesli} onClick={handleDetailMovie} key={movie.id}>
+            <li
+              data-movie={movie.id}
+              data-how={movie.name ? "tv" : "movie"}
+              className={styles.SearchMoviesli}
+              onClick={handleDetailMovie}
+              key={movie.id}
+            >
               <img
                 src={`${process.env.VITE_URL_IMAGES}/_next/image?url=https%3A%2F%2Fimage.tmdb.org%2Ft%2Fp%2Fw780%2F${
                   movie.poster_path ? movie.poster_path : "/".split("/").join("")
@@ -96,10 +130,10 @@ function LeftBox(props) {
                 alt={`poster`}
               />
               <div>
-                <h3>{movie.original_title}</h3>
+                <h3>{movie.original_title || movie.original_name}</h3>
                 <p>
                   <span>🗓</span>
-                  <span>{movie.release_date}</span>
+                  <span>{movie.release_date || movie.first_air_date}</span>
                 </p>
               </div>
             </li>
