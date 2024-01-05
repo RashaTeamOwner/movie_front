@@ -1,12 +1,20 @@
 @use "../../index.scss";
 
 .mainBody {
+  height: 100vh;
+  width: 100%;
+}
+.backgroundLogin {
+  height: 100vh;
+  width: 100vw;
+  position: absolute;
+  top: 0;
+  left: 0;
   background-color: rgb(58, 58, 58);
-  height: 800px;
   background: linear-gradient(90deg, rgba(69, 69, 69, 0.448), rgba(28, 28, 28, 0.706), rgba(0, 0, 0, 0.608)),
     url("../../assets/loginpage/backdrop.jpg");
+  background-size: cover;
   background-position: left;
-  background-size: contain;
   background-repeat: no-repeat;
 }
 
@@ -41,7 +49,7 @@
   max-width: 700px;
   margin: auto;
   display: flex;
-  height: 600px;
+  height: 580px;
   font-family: sansx100;
   transform: translateY(50px);
   padding: 0;
@@ -58,11 +66,11 @@
   width: 100%;
   height: 100%;
   background: #5f5f5f;
-  background: -webkit-linear-gradient(233deg, #5f5f5f 0%, rgba(33, 33, 33, 0.9) 50%, #000000 100%);
-  background: linear-gradient(233deg, #5f5f5f 0%, rgba(33, 33, 33, 0.9) 50%, #000000 100%);
-  background: #00757c;
-  background: -webkit-linear-gradient(127deg, #00757c 0%, #00474d 50%, #001a1a 100%);
-  background: linear-gradient(127deg, #00757c 0%, #00474d 50%, #001a1a 100%);
+  background: -webkit-linear-gradient(135deg, #4a4a4a 0%, rgba(33, 33, 33, 0.9) 50%, #000000ba 100%);
+  background: linear-gradient(135deg, #4a4a4a 0%, rgba(33, 33, 33, 0.9) 50%, #000000ba 100%);
+  // background: #00757c;
+  // background: -webkit-linear-gradient(127deg, #00757c 0%, #00474d 50%, #001a1a 100%);
+  // background: linear-gradient(127deg, #00757c 0%, #00474d 50%, #001a1a 100%);
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -105,11 +113,11 @@
   border-left: 2px solid;
   width: 100%;
   height: 100%;
-  background: linear-gradient(90deg, rgb(0 75 69 / 35%), rgb(0 71 68/ 76%), rgb(0 75 69 / 35%));
-  // linear-gradient(90deg, rgb(60, 60, 60), rgb(40, 40, 40), rgb(24, 24, 24));
-  background: #e50041;
-  background: -webkit-linear-gradient(212deg, #e50041 0%, #840025 50%, #3c0014 100%);
-  background: linear-gradient(212deg, #e50041 0%, #840025 50%, #3c0014 100%);
+  background: -webkit-linear-gradient(-135deg, #4a4a4a 0%, rgba(33, 33, 33, 0.9) 50%, #000000ba 100%);
+  background: linear-gradient(-135deg, #4a4a4a 0%, rgba(33, 33, 33, 0.9) 50%, #000000ba 100%);
+  // background: #e50041;
+  // background: -webkit-linear-gradient(212deg, #e50041 0%, #840025 50%, #3c0014 100%);
+  // background: linear-gradient(212deg, #e50041 0%, #840025 50%, #3c0014 100%);
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -259,9 +267,9 @@
 }
 
 .owner {
-  position: absolute;
+  position: relative;
+  bottom: -60px;
   left: 50%;
-  bottom: 100px;
   transform: translateX(-50%);
   display: flex;
   flex-direction: column;

@@ -42,43 +42,46 @@ function HandleLogin(props) {
   }, []);
 
   return (
-    <div className={styles.mainBody}>
-      <div className={styles.container}>
-        {/* <ParticlesComponent /> */}
-        <div className={styles.homeIcon}>
-          <Link to={"/"}>صفحه اصلی</Link>
-          <img src={homeicon} alt="خانه" />
+    <>
+      <div className={styles.mainBody}>
+        <div className={styles.backgroundLogin}></div>
+        <div className={styles.container}>
+          {/* <ParticlesComponent /> */}
+          <div className={styles.homeIcon}>
+            <Link to={"/"}>صفحه اصلی</Link>
+            <img src={homeicon} alt="خانه" />
+          </div>
+          <div data-set="up" ref={refboxSignup} className={styles.boxSignup}>
+            {/* <div className={styles.filterEffect}></div> */}
+            {statusSign ? (
+              <SignUp />
+            ) : (
+              <Link to="/signup" onClick={() => changeSign("up")} className={styles.tableDetail}>
+                <p>ثبت نام</p>
+                <img src={arrowicon} alt="arrow icon" />
+              </Link>
+            )}
+          </div>
+          <div data-set="in" ref={refboxSignin} className={styles.boxLogin}>
+            {/* <div className={styles.filterEffect}></div> */}
+            {!statusSign ? (
+              <Login />
+            ) : (
+              <Link to="/signin" onClick={() => changeSign("in")} className={styles.tableDetail}>
+                <p>ورود به حساب</p>
+                <img src={arrowicon} alt="arrow icon" />
+              </Link>
+            )}
+          </div>
         </div>
-        <div data-set="up" ref={refboxSignup} className={styles.boxSignup}>
-          {/* <div className={styles.filterEffect}></div> */}
-          {statusSign ? (
-            <SignUp />
-          ) : (
-            <Link to="/signup" onClick={() => changeSign("up")} className={styles.tableDetail}>
-              <p>ثبت نام</p>
-              <img src={arrowicon} alt="arrow icon" />
-            </Link>
-          )}
-        </div>
-        <div data-set="in" ref={refboxSignin} className={styles.boxLogin}>
-          {/* <div className={styles.filterEffect}></div> */}
-          {!statusSign ? (
-            <Login />
-          ) : (
-            <Link to="/signin" onClick={() => changeSign("in")} className={styles.tableDetail}>
-              <p>ورود به حساب</p>
-              <img src={arrowicon} alt="arrow icon" />
-            </Link>
-          )}
+        <div className={styles.owner}>
+          <p className={styles.madewithlove}>made with love 💛</p>
+          <a href="http://92.63.169.226:8080/" className={styles.madeowner}>
+            RashaTeam
+          </a>
         </div>
       </div>
-      <div className={styles.owner}>
-        <p className={styles.madewithlove}>made with love 💛</p>
-        <a href="http://92.63.169.226:8080/" className={styles.madeowner}>
-          RashaTeam
-        </a>
-      </div>
-    </div>
+    </>
   );
 }
 

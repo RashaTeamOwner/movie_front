@@ -395,7 +395,7 @@ function SignUp() {
             {regexConfirm.test(inConfirm) || inConfirm.length == 0 ? <></> : <p className={styles.errorInput}>{msgConfirm}</p>}
             <button onClick={handlePostSingup}>دریافت کد</button>
           </div>
-          <ReCAPTCHA sitekey="AIzaSyBYxQcXFthUKq9wmCHIVg6i-0ubQW1vmJs" onChange={handleRecaptchaChange} />
+          {/* <ReCAPTCHA sitekey="AIzaSyBYxQcXFthUKq9wmCHIVg6i-0ubQW1vmJs" onChange={handleRecaptchaChange} /> */}
           <div className={styles.submitbox}>
             <input onClick={completeSignup} className={styles.submitLogin} type="submit" value="ثبت نام" />
           </div>
