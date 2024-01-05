@@ -1,0 +1,27 @@
+.mainContainer {
+  background: linear-gradient(90deg, rgba(69, 69, 69, 0.448), rgba(28, 28, 28, 0.646), rgba(0, 0, 0, 0.608)),
+    url("../assets/loginpage/backdrop.jpg");
+  background-position: left;
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 100%;
+  height: 100vh;
+  .error404 {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -120%);
+    color: white;
+    width: fit-content;
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+    align-items: center;
+    > h1 {
+      font-size: 4rem;
+    }
+    > p {
+      font-family: sansx100;
+    }
+  }
+}
