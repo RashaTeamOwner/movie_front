@@ -41,9 +41,25 @@ export default function App() {
       }
     } else {
       leftBox.style = "";
-      RightBox.style = "";
+      rightBox.style = "";
     }
   }, [sizeWidth, query, idmovie]);
+  useEffect(() => {
+    const leftBox = refMainBox.current.children[0];
+    const rightBox = refMainBox.current.children[1];
+    if (sizeWidth.width < 855) {
+      if (query.length == 0) {
+        leftBox.style.display = "none";
+        rightBox.style.display = "block";
+      } else {
+        leftBox.style.display = "block";
+        rightBox.style.display = "none";
+      }
+    } else {
+      leftBox.style = "";
+      rightBox.style = "";
+    }
+  }, [sizeWidth, query]);
   return (
     <>
       <nav className={styles.navbar}>

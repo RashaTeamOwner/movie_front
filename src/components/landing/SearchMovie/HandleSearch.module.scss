@@ -44,6 +44,7 @@
   transition: 0.3s all ease;
   /* background-color: var(--color-background-900); */
   background-color: white;
+  text-align: center;
   &::placeholder {
     color: var(--color-text-dark);
   }
@@ -63,13 +64,20 @@
 .main {
   margin-top: 2.5rem;
   // height: calc(100vh - 7.2rem - 3 * 2.4rem);
-  height: 650px;
+  height: 665px;
   display: flex;
   gap: 2rem;
   justify-content: center;
   padding: 0 2rem;
   padding-bottom: 2rem;
+  background: url("../../../assets/loginpage/backdrop.jpg");
+  background-position: left;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+  padding-top: 1.5rem;
 }
+
 .favIconBox {
   display: none;
   flex-direction: column-reverse;

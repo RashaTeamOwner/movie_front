@@ -53,7 +53,7 @@ function ShowActorDetail({ actorId, backArrow, backImdbId }) {
 
   const handleCloseDetailActor = () => {
     backArrow("");
-    backImdbId("");
+    // backImdbId("");
   };
 
   const handleKnowsMovie = (ele) => {
@@ -66,9 +66,9 @@ function ShowActorDetail({ actorId, backArrow, backImdbId }) {
       },
     };
 
-    fetch(`${process.env.VITE_URL_TMDB}/3/movie/${idMovie}?language=en-US`, options)
+    fetch(`${process.env.VITE_URL_TMDB}/3/${ele.target.dataset.how}/${idMovie}?language=en-US&append_to_response=external_ids`, options)
       .then((response) => response.json())
-      .then((response) => backImdbId(response.imdb_id))
+      .then((response) => backImdbId(response.external_ids.imdb_id))
       .catch(() => backImdbId(""));
   };
 
@@ -148,6 +148,7 @@ function ShowActorDetail({ actorId, backArrow, backImdbId }) {
                           .join("")}&w=2048&q=75`}
                         alt={ele.id}
                         data-tab={ele.id}
+                        data-how={ele.name ? "tv" : "movie"}
                       />
                       <p>{ele.title == undefined ? ele.original_name : ele.title}</p>
                     </div>

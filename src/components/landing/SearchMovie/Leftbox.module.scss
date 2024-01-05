@@ -4,7 +4,6 @@
   // width: 44rem;
   // max-width: 44rem;
   // background-color: rgb(0, 84, 94);
-  background-color: rgb(45, 45, 45);
   border-radius: 0.9rem;
   overflow: auto;
   position: relative;
@@ -12,6 +11,7 @@
   border: 2px solid #ffffff;
   width: 40%;
   color: white;
+  background: linear-gradient(135deg, rgb(36 36 36 / 78%), rgba(24, 24, 24, 0.835));
 }
 
 .loader {
