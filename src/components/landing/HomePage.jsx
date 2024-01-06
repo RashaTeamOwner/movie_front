@@ -3,6 +3,7 @@ import HandleSearch from "./SearchMovie/HandleSearch";
 import styles from "./HomePage.module.scss";
 import SectionTwoHomePage from "./SectionTwoHomePage";
 import { useEffect } from "react";
+import DetailAndUpComing from "./DetailAndUpComing";
 
 function HomePage() {
   useEffect(() => {
@@ -13,6 +14,7 @@ function HomePage() {
       <HeaderHomePage />
       <SectionTwoHomePage />
       <HandleSearch />
+      <DetailAndUpComing />
     </div>
   );
 }
