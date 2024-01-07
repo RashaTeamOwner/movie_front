@@ -5,5 +5,16 @@
   background-color: aquamarine;
   img {
     width: 20rem;
+    // animation: animetest auto;
+    // animation-timeline: scroll();
   }
 }
+
+// @keyframes animetest {
+//   from {
+//     transform: rotate(90deg);
+//   }
+//   to {
+//     transform: rotate(0deg);
+//   }
+// }
