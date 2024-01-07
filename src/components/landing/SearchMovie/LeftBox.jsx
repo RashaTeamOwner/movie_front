@@ -112,7 +112,12 @@ function LeftBox(props) {
 
   return (
     <div className={styles.box}>
-      {!loading && !error && <p className={styles.loader}>... صبر کنید</p>}
+      {!loading && !error && (
+        <div className={styles.loadingBox}>
+          <p className={styles.loader}>صبر کنید</p>
+          <div className={styles.dots}></div>
+        </div>
+      )}
       {loading && !error && (
         <ul className={styles.list}>
           {movies?.map((movie) => (

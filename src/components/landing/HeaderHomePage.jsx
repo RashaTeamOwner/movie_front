@@ -437,7 +437,8 @@ function HeaderHomePage() {
   } else {
     return (
       <div className={styles.containerLoading}>
-        <p>... صبر کنید</p>
+        <p>صبر کنید</p>
+        <div className={styles.dots}></div>
       </div>
     );
   }
