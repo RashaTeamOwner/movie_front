@@ -19,6 +19,7 @@ function SignUp() {
   const [msgErr, setMsgErr] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [captchaValue, setCaptchaValue] = useState(null);
+  const [inputCaptcha, setInputCaptcha] = useState(false);
   const history = useHistory();
   const regexPersian = /^[\u0600-\u06FF\s]+ [\u0600-\u06FF\s]+$/;
   const regexNumber = /^09\d{9}$/;
@@ -55,28 +56,9 @@ function SignUp() {
   // handle post signup
   const handlePostSingup = () => {
     if (regexPersian.test(inName) && regexNumber.test(inPhone) && regexPass.test(inPass) && regexUid.test(uid)) {
-      let data = {
-        phone_number: inPhone,
-      };
       setIsLoading(true);
-      axios({
-        method: "post",
-        url: `${process.env.VITE_API_URL}/api/v1/send-code/`,
-        headers: {
-          "Content-Type": "application/json",
-        },
-        data: JSON.stringify(data),
-      })
-        .then(() => {
-          setCatchCode(true);
-          setIsLoading(false);
-        })
-        .catch((err) => {
-          let howmsg = err.response.data.status || err.response.data.detail;
-          setMsgErr(howmsg);
-          setCatchCode(false);
-          setIsLoading(false);
-        });
+      setInputCaptcha(true);
+      if (captchaValue) return;
     } else {
       if (!regexPersian.test(inName) || inName == "")
         Toast.fire({
@@ -291,13 +273,50 @@ function SignUp() {
   const handleRecaptchaChange = (value) => {
     setCaptchaValue(value);
   };
+  useEffect(() => {
+    setInputCaptcha(false);
+    if (captchaValue) {
+      // let data = {
+      //   phone_number: inPhone,
+      //   recaptchaToken: captchaValue,
+      // };
+      // send to backend for auth
+      // axios({
+      //   method: "post",
+      //   url: `${process.env.VITE_API_URL}/api/v1/send-code/`,
+      //   headers: {
+      //     "Content-Type": "application/json",
+      //   },
+      //   data: JSON.stringify(data),
+      // })
+      //   .then(() => {
+      //     setCatchCode(true);
+      //     setIsLoading(false);
+      //     setInputCaptcha(false);
+      //   })
+      //   .catch((err) => {
+      //     let howmsg = err.response.data.status || err.response.data.detail;
+      //     setMsgErr(howmsg);
+      //     setCatchCode(false);
+      //     setIsLoading(false);
+      //     setInputCaptcha(false);
+      //   });
+    }
+  }, [captchaValue]);
 
   return (
     <>
-      {isLoading ? (
+      {inputCaptcha || isLoading ? (
         <div className={styles.loadingSign}>
-          <p>صبر کنید</p>
-          <div className={styles.dots}></div>
+          {isLoading ? (
+            <div>
+              <p>{inputCaptcha ? "در انتظار شما" : "صبر کنید"}</p>
+              <div className={styles.dots}></div>
+            </div>
+          ) : (
+            <></>
+          )}
+          {inputCaptcha ? <ReCAPTCHA sitekey={process.env.KEY_CAPTCHA} onChange={handleRecaptchaChange} /> : <></>}
         </div>
       ) : (
         <></>
@@ -395,7 +414,6 @@ function SignUp() {
             {regexConfirm.test(inConfirm) || inConfirm.length == 0 ? <></> : <p className={styles.errorInput}>{msgConfirm}</p>}
             <button onClick={handlePostSingup}>دریافت کد</button>
           </div>
-          {/* <ReCAPTCHA sitekey="AIzaSyBYxQcXFthUKq9wmCHIVg6i-0ubQW1vmJs" onChange={handleRecaptchaChange} /> */}
           <div className={styles.submitbox}>
             <input onClick={completeSignup} className={styles.submitLogin} type="submit" value="ثبت نام" />
           </div>

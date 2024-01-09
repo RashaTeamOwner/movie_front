@@ -216,6 +216,9 @@
   height: 100%;
   background: linear-gradient(rgba(0, 0, 0, 0.817), rgba(0, 32, 30, 0.816));
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
   position: absolute;
   top: 0;
   left: 0;
@@ -226,8 +229,15 @@
   align-items: center;
   gap: 0.7rem;
   direction: rtl;
-  > p {
-    font-size: 1.7rem;
+  div {
+    display: flex;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    > p {
+      font-size: 1.5rem;
+    }
   }
 }
 
