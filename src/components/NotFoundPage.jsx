@@ -1,6 +1,10 @@
 import styles from "./NotFoundPage.module.scss";
 import { Link } from "react-router-dom/cjs/react-router-dom.min";
+import { useEffect } from "react";
 function NotFoundPage() {
+  useEffect(() => {
+    document.title = "صفحه یافت نشد";
+  }, []);
   return (
     <div className={styles.mainContainer}>
       <div className={styles.error404}>

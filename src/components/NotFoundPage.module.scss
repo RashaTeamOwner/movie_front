@@ -24,7 +24,7 @@
     }
     > p {
       font-family: sansx100;
-      text-wrap: nowrap;
+      inline-size: max-content;
     }
   }
   .routeToOtherPages {
