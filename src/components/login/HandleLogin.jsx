@@ -7,11 +7,13 @@ import { useEffect, useRef, useState } from "react";
 import SignUp from "./SignUp";
 // import ParticlesComponent from "./ParticlesComponent";
 import { Link } from "react-router-dom";
+import ResetPassword from "./ResetPassword";
 
 function HandleLogin(props) {
   const refboxSignin = useRef(null);
   const refboxSignup = useRef(null);
   const [statusSign, setStatusSign] = useState(false);
+  const [forgetPass, setForgetPass] = useState(false);
   const changeSign = (element) => {
     // const target = element.target.parentElement.dataset.set;
     // تارگت باید ریخته شه تو useState
@@ -65,7 +67,15 @@ function HandleLogin(props) {
           <div data-set="in" ref={refboxSignin} className={styles.boxLogin}>
             {/* <div className={styles.filterEffect}></div> */}
             {!statusSign ? (
-              <Login />
+              !forgetPass ? (
+                <Login
+                  forgetpass={(data) => {
+                    setForgetPass(data);
+                  }}
+                />
+              ) : (
+                <ResetPassword />
+              )
             ) : (
               <Link to="/signin" onClick={() => changeSign("in")} className={styles.tableDetail}>
                 <p>ورود به حساب</p>
