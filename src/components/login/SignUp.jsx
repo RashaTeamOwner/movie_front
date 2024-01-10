@@ -20,6 +20,8 @@ function SignUp() {
   const [isLoading, setIsLoading] = useState(false);
   const [captchaValue, setCaptchaValue] = useState(null);
   const [inputCaptcha, setInputCaptcha] = useState(false);
+  const [timeoutCode, setTimeoutCode] = useState(false);
+  const [timeLeft, setTimeLeft] = useState("دریافت کد");
   const history = useHistory();
   const regexPersian = /^[\u0600-\u06FF\s]+ [\u0600-\u06FF\s]+$/;
   const regexNumber = /^09\d{9}$/;
@@ -276,6 +278,9 @@ function SignUp() {
   useEffect(() => {
     setInputCaptcha(false);
     if (captchaValue) {
+      setTimeoutCode(true);
+      // will comment
+      setIsLoading(false);
       // let data = {
       //   phone_number: inPhone,
       //   recaptchaToken: captchaValue,
@@ -303,6 +308,25 @@ function SignUp() {
       //   });
     }
   }, [captchaValue]);
+
+  // useEffect(()=>{
+
+  // },[timeoutCode])
+
+  useEffect(() => {
+    if (!timeoutCode) return;
+    // eslint-disable-next-line no-unused-vars
+    let timeleft = 6;
+    setInterval(() => {
+      timeleft--;
+      if (timeleft < 0) {
+        setTimeLeft("دریافت کد");
+        setTimeoutCode(false);
+      } else {
+        setTimeLeft(`${timeleft} ثانیه`);
+      }
+    }, 1000);
+  }, [timeoutCode]);
 
   return (
     <>
@@ -412,7 +436,12 @@ function SignUp() {
               }}
             />
             {regexConfirm.test(inConfirm) || inConfirm.length == 0 ? <></> : <p className={styles.errorInput}>{msgConfirm}</p>}
-            <button onClick={handlePostSingup}>دریافت کد</button>
+            <button
+              style={{ backgroundColor: timeoutCode ? "rgb(255, 187, 174)" : "greenyellow" }}
+              onClick={timeoutCode ? handlePostSingup : handlePostSingup}
+            >
+              {timeoutCode ? timeLeft : timeLeft}
+            </button>
           </div>
           <div className={styles.submitbox}>
             <input onClick={completeSignup} className={styles.submitLogin} type="submit" value="ثبت نام" />
