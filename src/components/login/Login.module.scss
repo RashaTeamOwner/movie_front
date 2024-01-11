@@ -105,7 +105,8 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    > button {
+    > a:link,
+    a:visited {
       background-color: transparent;
       border: none;
       font-family: sansx200;
