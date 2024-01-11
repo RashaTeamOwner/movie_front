@@ -6,6 +6,7 @@ import UseLogedin from "../../hooks/UseLogedin";
 import Swal from "sweetalert2";
 import axios from "axios";
 import { useEffect, useRef, useState } from "react";
+import iheicon from "../../assets/landing/ihe.png";
 
 function HeaderHomePage() {
   const [selectedChair, setSelectedChair] = useState([]);
@@ -236,6 +237,7 @@ function HeaderHomePage() {
   if (loading) {
     return (
       <div className={styles.container} style={{ background: `url(${process.env.VITE_API_URL}${resHead.movie.banner})` }}>
+        <img className={styles.iheicon} src={iheicon} alt="" />
         <div className={styles.intoContainer}>
           <div className={styles.landImg}>
             <img src={`${process.env.VITE_API_URL}${resHead.movie.image}`} alt="" />
