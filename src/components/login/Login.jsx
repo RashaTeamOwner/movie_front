@@ -8,7 +8,8 @@ import eyeicon from "../../assets/loginpage/eye.svg";
 import eyeslash from "../../assets/loginpage/eye-slash.svg";
 import { useRef, useState } from "react";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
-function Login({ forgetpass }) {
+import { Link } from "react-router-dom";
+function Login() {
   const history = useHistory();
   const refEyeIcon = useRef(null);
   const [eye, setEye] = useState(false);
@@ -179,7 +180,7 @@ function Login({ forgetpass }) {
           </div>
           <div className={styles.submitbox}>
             <input onClick={handleButtonLogin} className={styles.submitLogin} type="submit" value="ورود" />
-            <button onClick={() => forgetpass(true)}>فراموشی رمز عبور</button>
+            <Link to="/forgot">فراموشی رمز عبور</Link>
           </div>
         </div>
       </div>

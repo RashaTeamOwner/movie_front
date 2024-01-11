@@ -54,8 +54,9 @@ function App() {
     <div style={{ position: "relative" }}>
       <Switch>
         <Route exact path="/" component={HomePage} />
-        <Route exact path="/signin" component={() => <HandleLogin targetEle={"in"} />} />
-        <Route exact path="/signup" component={() => <HandleLogin targetEle={"up"} />} />
+        <Route exact path="/signin" component={() => <HandleLogin targetEle={"in"} forgotpass={false} />} />
+        <Route exact path="/forgot" component={() => <HandleLogin targetEle={"in"} forgotpass={true} />} />
+        <Route exact path="/signup" component={() => <HandleLogin targetEle={"up"} forgotpass={true} />} />
         <Route path="/not-found" component={NotFoundPage} />
         <Redirect from="*" to="/not-found" />
       </Switch>

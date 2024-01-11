@@ -13,12 +13,17 @@ function HandleLogin(props) {
   const refboxSignin = useRef(null);
   const refboxSignup = useRef(null);
   const [statusSign, setStatusSign] = useState(false);
-  const [forgetPass, setForgetPass] = useState(false);
-  const changeSign = (element) => {
+  const changeSign = (element, forget) => {
     // const target = element.target.parentElement.dataset.set;
     // تارگت باید ریخته شه تو useState
-    if (element === "in") {
+    if (element === "in" && forget == false) {
       document.title = "ورود به حساب";
+      refboxSignin.current.classList.add(styles.signinActive);
+      refboxSignin.current.classList.remove(styles.signinDeactive);
+      refboxSignup.current.classList.add(styles.signupDeactive);
+      refboxSignup.current.classList.remove(styles.signupActive);
+    } else if (element === "in" && forget == true) {
+      document.title = "بازیابی رمزعبور";
       refboxSignin.current.classList.add(styles.signinActive);
       refboxSignin.current.classList.remove(styles.signinDeactive);
       refboxSignup.current.classList.add(styles.signupDeactive);
@@ -35,8 +40,8 @@ function HandleLogin(props) {
 
   useEffect(() => {
     const targetPath = window.location.pathname;
-    changeSign(props.targetEle);
-    if (targetPath == "/signin") {
+    changeSign(props.targetEle, props.forgotpass);
+    if (targetPath == "/signin" || targetPath == "/forgot") {
       setStatusSign(false);
     } else if (targetPath == "/signup") {
       setStatusSign(true);
@@ -66,13 +71,9 @@ function HandleLogin(props) {
           </div>
           <div data-set="in" ref={refboxSignin} className={styles.boxLogin}>
             {/* <div className={styles.filterEffect}></div> */}
-            {!statusSign ? (
-              !forgetPass ? (
-                <Login
-                  forgetpass={(data) => {
-                    setForgetPass(data);
-                  }}
-                />
+            {!statusSign || !props.forgotpass ? (
+              !props.forgotpass ? (
+                <Login />
               ) : (
                 <ResetPassword />
               )
