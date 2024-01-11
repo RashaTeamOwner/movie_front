@@ -5,7 +5,7 @@ import styles from "./ResetPassword.module.scss";
 import usericon from "../../assets/loginpage/user-outlined.svg";
 import phoneicon from "../../assets/loginpage/phone.svg";
 import { useRef, useState } from "react";
-import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
+import { useHistory, Link } from "react-router-dom/cjs/react-router-dom.min";
 function ResetPassword() {
   const history = useHistory();
   const refEyeIcon = useRef(null);
@@ -176,6 +176,7 @@ function ResetPassword() {
           </div>
           <div className={styles.submitbox}>
             <input onClick={handleButtonLogin} className={styles.submitLogin} type="submit" value="بازیابی" />
+            <Link to="/signin">ورود به حساب</Link>
           </div>
         </div>
       </div>
