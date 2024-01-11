@@ -11,6 +11,7 @@ function HomePage() {
   }, []);
   return (
     <div className={styles.homeContainer}>
+      {/* <NavBar /> */}
       <HeaderHomePage />
       <SectionTwoHomePage />
       <HandleSearch />

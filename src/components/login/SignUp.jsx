@@ -333,10 +333,23 @@ function SignUp() {
       {inputCaptcha || isLoading ? (
         <div className={styles.loadingSign}>
           {isLoading ? (
-            <div>
-              <p>{inputCaptcha ? "در انتظار شما" : "صبر کنید"}</p>
-              <div className={styles.dots}></div>
-            </div>
+            <h1>
+              {!inputCaptcha ? (
+                <>
+                  <span> صبر </span>
+                  <span> کنید </span>
+                </>
+              ) : (
+                <>
+                  <span> در </span>
+                  <span> انتظار </span>
+                  <span> شما </span>
+                </>
+              )}
+              <span> . </span>
+              <span> . </span>
+              <span> . </span>
+            </h1>
           ) : (
             <></>
           )}
