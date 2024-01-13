@@ -11,16 +11,20 @@ function ResetPassword() {
   const refEyeIcon = useRef(null);
   const [eye, setEye] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [timeoutCode, setTimeoutCode] = useState(false);
+  const [inputCaptcha, setInputCaptcha] = useState(false);
+  const [captchaValue, setCaptchaValue] = useState(null);
+  const [timeLeft, setTimeLeft] = useState("دریافت کد");
 
   const handleEye = () => {
     setEye(!eye);
   };
 
   const handleButtonLogin = () => {
-    if (regexNumber.test(inPhone) && regexPhone.test(inPass)) {
+    if (regexUuid.test(inPhone) && regexPhone.test(inUuid)) {
       let data = {
         username: inPhone,
-        password: inPass,
+        password: inUuid,
       };
       setIsLoading(true);
       axios({
@@ -66,22 +70,29 @@ function ResetPassword() {
   });
   // ................. input value
   const [inPhone, setInPhone] = useState("");
-  const [inPass, setInPass] = useState("");
-  const regexNumber = /^(97[0-9]{8}|98[0-9]{8}|99[0-9]{8}|400[0-9]{8}|401[0-9]{8}|402[0-9]{8}403[0-9]{8}404[0-9]{8})$/;
+  const [inUuid, setInUuid] = useState("");
+  const [inConfirm, setInConfirm] = useState("");
+  const regexUuid = /^(97[0-9]{8}|98[0-9]{8}|99[0-9]{8}|400[0-9]{8}|401[0-9]{8}|402[0-9]{8}403[0-9]{8}404[0-9]{8})$/;
   const regexPhone = /^09\d{9}$/;
   const msgPhone = "شماره دانشجویی درست نیست";
+  const msgConfirm = "کد ارسالی به شماره خود را وارد کنید";
+  const regexConfirm = /^[0-9]{6}$/;
 
   //// start : up and down span
   const refPhoneSpan = useRef(null);
   const refPassSpan = useRef(null);
   const refInputPhone = useRef(null);
   const refInputPass = useRef(null);
+  const refInputConfirm = useRef(null);
+  const refConfirmSpan = useRef(null);
 
   const handleFocus = (element) => {
     const phone = refPhoneSpan.current;
     const pass = refPassSpan.current;
+    const confirm = refConfirmSpan.current;
     const inputPhone = refInputPhone.current;
     const inputPass = refInputPass.current;
+    const inputConfirm = refInputConfirm.current;
 
     const target = element.target.dataset.set;
     if (target == "phone") {
@@ -97,6 +108,12 @@ function ResetPassword() {
       refEyeIcon.current.style.display = "block";
       pass.style.backgroundColor = "rgb(255, 174, 0)";
       inputPass.style.borderColor = "white";
+    } else if (target == "confirm") {
+      confirm.style.marginTop = "-24px";
+      confirm.style.color = "black";
+      confirm.style.fontSize = "0.9rem";
+      confirm.style.backgroundColor = "rgb(255, 174, 0)";
+      inputConfirm.style.borderColor = "white";
     }
   };
   const handleClose = (element) => {
@@ -104,8 +121,11 @@ function ResetPassword() {
     const pass = refPassSpan.current;
     const inputPhone = refInputPhone.current;
     const inputPass = refInputPass.current;
+    const confirm = refConfirmSpan.current;
+    const inputConfirm = refInputConfirm.current;
     const target = element.target.dataset.set;
     const lenValue = element.target.value.length;
+
     if (target == "phone") {
       if (lenValue != 0) return;
       phone.style.marginTop = "0";
@@ -123,10 +143,56 @@ function ResetPassword() {
       pass.style.backgroundColor = "transparent";
       inputPass.style.borderColor = "transparent";
       inputPass.style.borderBottomColor = "white";
+    } else if (target == "confirm") {
+      if (lenValue != 0) return;
+      confirm.style.marginTop = "0";
+      confirm.style.color = "rgba(255, 255, 255, 0.523)";
+      confirm.style.fontSize = "0.8rem";
+      confirm.style.backgroundColor = "transparent";
+      inputConfirm.style.borderColor = "transparent";
+      inputConfirm.style.borderBottomColor = "white";
     }
   };
   // ..................
   //// end : up and down span
+
+  const handlePostReset = () => {
+    if (regexUuid.test(inUuid) && regexPhone.test(inPhone) && regexUid.test(uid)) {
+      setIsLoading(true);
+      setInputCaptcha(true);
+      if (captchaValue) return;
+    } else {
+      if (!regexPersian.test(inName) || inName == "")
+        Toast.fire({
+          icon: "warning",
+          title: "<p style='direction:rtl'>نام خود را کامل وارد کنید</p>",
+          width: "300px",
+          iconColor: "red",
+        });
+      else if (!regexUid.test(uid) || uid == "")
+        Toast.fire({
+          icon: "warning",
+          title: "<p style='direction:rtl'>شماره دانشجویی اشتباه است</p>",
+          width: "330px",
+          iconColor: "red",
+        });
+      else if (!regexUuid.test(inPhone) || inPhone == "")
+        Toast.fire({
+          icon: "warning",
+          title: "<p style='direction:rtl'>شماره تلفن درست نیست</p>",
+          width: "310px",
+          iconColor: "red",
+        });
+      else if (!regexPass.test(inUuid) || inUuid == "")
+        Toast.fire({
+          icon: "warning",
+          iconColor: "red",
+          title: "<p style='direction:rtl'>فرمت پسورد درست نیست</p>",
+          width: "310px",
+        });
+    }
+  };
+
   return (
     <>
       {isLoading ? (
@@ -156,7 +222,7 @@ function ResetPassword() {
                 setInPhone(element.target.value);
               }}
             />
-            {regexNumber.test(inPhone) || inPhone.length == 0 ? <></> : <p className={styles.errorInput}>{msgPhone}</p>}
+            {regexUuid.test(inPhone) || inPhone.length == 0 ? <></> : <p className={styles.errorInput}>{msgPhone}</p>}
             <img src={usericon} alt="نام کاربری" />
           </div>
           <div className={styles.password_login}>
@@ -169,10 +235,31 @@ function ResetPassword() {
               autoComplete="off"
               data-set="pass"
               onChange={(element) => {
-                setInPass(element.target.value);
+                setInUuid(element.target.value);
               }}
             />
             <img src={phoneicon} alt="" />
+          </div>
+          <div className={styles.confirm_signup}>
+            <span ref={refConfirmSpan}>کد دریافتی</span>
+            <input
+              onBlur={handleClose}
+              onFocus={handleFocus}
+              ref={refInputConfirm}
+              type="text"
+              autoComplete="off"
+              data-set="confirm"
+              onChange={(element) => {
+                setInConfirm(element.target.value);
+              }}
+            />
+            {regexConfirm.test(inConfirm) || inConfirm.length == 0 ? <></> : <p className={styles.errorInput}>{msgConfirm}</p>}
+            <button
+              style={{ backgroundColor: timeoutCode ? "rgb(255, 187, 174)" : "greenyellow" }}
+              onClick={timeoutCode ? handlePostReset : handlePostReset}
+            >
+              {timeoutCode ? timeLeft : timeLeft}
+            </button>
           </div>
           <div className={styles.submitbox}>
             <input onClick={handleButtonLogin} className={styles.submitLogin} type="submit" value="بازیابی" />
