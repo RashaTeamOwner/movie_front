@@ -74,15 +74,16 @@ function ResetPassword() {
   const [inConfirm, setInConfirm] = useState("");
   const regexUuid = /^(97[0-9]{8}|98[0-9]{8}|99[0-9]{8}|400[0-9]{8}|401[0-9]{8}|402[0-9]{8}403[0-9]{8}404[0-9]{8})$/;
   const regexPhone = /^09\d{9}$/;
-  const msgPhone = "شماره دانشجویی درست نیست";
+  const msgUuid = "شماره دانشجویی درست نیست";
+  const msgPhone = "شماره خود را درست وارد کنید";
   const msgConfirm = "کد ارسالی به شماره خود را وارد کنید";
   const regexConfirm = /^[0-9]{6}$/;
 
   //// start : up and down span
   const refPhoneSpan = useRef(null);
   const refPassSpan = useRef(null);
-  const refInputPhone = useRef(null);
-  const refInputPass = useRef(null);
+  const refInputUuid = useRef(null);
+  const refInputPhonenumber = useRef(null);
   const refInputConfirm = useRef(null);
   const refConfirmSpan = useRef(null);
 
@@ -90,8 +91,8 @@ function ResetPassword() {
     const phone = refPhoneSpan.current;
     const pass = refPassSpan.current;
     const confirm = refConfirmSpan.current;
-    const inputPhone = refInputPhone.current;
-    const inputPass = refInputPass.current;
+    const inputPhone = refInputUuid.current;
+    const inputPass = refInputPhonenumber.current;
     const inputConfirm = refInputConfirm.current;
 
     const target = element.target.dataset.set;
@@ -119,8 +120,8 @@ function ResetPassword() {
   const handleClose = (element) => {
     const phone = refPhoneSpan.current;
     const pass = refPassSpan.current;
-    const inputPhone = refInputPhone.current;
-    const inputPass = refInputPass.current;
+    const inputPhone = refInputUuid.current;
+    const inputPass = refInputPhonenumber.current;
     const confirm = refConfirmSpan.current;
     const inputConfirm = refInputConfirm.current;
     const target = element.target.dataset.set;
@@ -157,38 +158,24 @@ function ResetPassword() {
   //// end : up and down span
 
   const handlePostReset = () => {
-    if (regexUuid.test(inUuid) && regexPhone.test(inPhone) && regexUid.test(uid)) {
+    if (regexUuid.test(inUuid) && regexPhone.test(inPhone)) {
       setIsLoading(true);
       setInputCaptcha(true);
       if (captchaValue) return;
     } else {
-      if (!regexPersian.test(inName) || inName == "")
-        Toast.fire({
-          icon: "warning",
-          title: "<p style='direction:rtl'>نام خود را کامل وارد کنید</p>",
-          width: "300px",
-          iconColor: "red",
-        });
-      else if (!regexUid.test(uid) || uid == "")
+      if (!regexUuid.test(inUuid) || inUuid == "")
         Toast.fire({
           icon: "warning",
           title: "<p style='direction:rtl'>شماره دانشجویی اشتباه است</p>",
           width: "330px",
           iconColor: "red",
         });
-      else if (!regexUuid.test(inPhone) || inPhone == "")
+      else if (!regexPhone.test(inPhone) || inPhone == "")
         Toast.fire({
           icon: "warning",
           title: "<p style='direction:rtl'>شماره تلفن درست نیست</p>",
           width: "310px",
           iconColor: "red",
-        });
-      else if (!regexPass.test(inUuid) || inUuid == "")
-        Toast.fire({
-          icon: "warning",
-          iconColor: "red",
-          title: "<p style='direction:rtl'>فرمت پسورد درست نیست</p>",
-          width: "310px",
         });
     }
   };
@@ -211,7 +198,7 @@ function ResetPassword() {
             <input
               onBlur={handleClose}
               onFocus={handleFocus}
-              ref={refInputPhone}
+              ref={refInputUuid}
               required=""
               type="text"
               name="text"
@@ -219,10 +206,10 @@ function ResetPassword() {
               className={styles.input}
               autoComplete="off"
               onChange={(element) => {
-                setInPhone(element.target.value);
+                setInUuid(element.target.value);
               }}
             />
-            {regexUuid.test(inPhone) || inPhone.length == 0 ? <></> : <p className={styles.errorInput}>{msgPhone}</p>}
+            {regexUuid.test(inUuid) || inUuid.length == 0 ? <></> : <p className={styles.errorInput}>{msgUuid}</p>}
             <img src={usericon} alt="نام کاربری" />
           </div>
           <div className={styles.password_login}>
@@ -231,13 +218,14 @@ function ResetPassword() {
             <input
               onBlur={handleClose}
               onFocus={handleFocus}
-              ref={refInputPass}
+              ref={refInputPhonenumber}
               autoComplete="off"
               data-set="pass"
               onChange={(element) => {
-                setInUuid(element.target.value);
+                setInPhone(element.target.value);
               }}
             />
+            {regexPhone.test(inPhone) || inPhone.length == 0 ? <></> : <p className={styles.errorInput}>{msgPhone}</p>}
             <img src={phoneicon} alt="" />
           </div>
           <div className={styles.confirm_signup}>
