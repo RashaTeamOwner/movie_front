@@ -1,10 +1,12 @@
 /* eslint-disable no-undef */
+import ReCAPTCHA from "react-google-recaptcha";
+import UseCaptcha from "../../hooks/UseCaptcha";
 import Swal from "sweetalert2";
 import axios from "axios";
 import styles from "./ResetPassword.module.scss";
 import usericon from "../../assets/loginpage/user-outlined.svg";
 import phoneicon from "../../assets/loginpage/phone.svg";
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import { useHistory, Link } from "react-router-dom/cjs/react-router-dom.min";
 function ResetPassword() {
   const history = useHistory();
@@ -12,8 +14,8 @@ function ResetPassword() {
   const [eye, setEye] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [timeoutCode, setTimeoutCode] = useState(false);
+  const { captchaValue, handleRecaptchaChange } = UseCaptcha();
   const [inputCaptcha, setInputCaptcha] = useState(false);
-  const [captchaValue, setCaptchaValue] = useState(null);
   const [timeLeft, setTimeLeft] = useState("دریافت کد");
 
   const handleEye = () => {
@@ -180,12 +182,57 @@ function ResetPassword() {
     }
   };
 
+  useEffect(() => {
+    console.log(captchaValue);
+    setInputCaptcha(false);
+    if (captchaValue) {
+      setTimeoutCode(true);
+      // will comment
+      setIsLoading(false);
+    }
+  }, [captchaValue]);
+
+  useEffect(() => {
+    if (!timeoutCode) return;
+    // eslint-disable-next-line no-unused-vars
+    let timeleft = 60;
+    setInterval(() => {
+      timeleft--;
+      if (timeleft < 0) {
+        setTimeLeft("دریافت کد");
+        setTimeoutCode(false);
+      } else {
+        setTimeLeft(`${timeleft} ثانیه`);
+      }
+    }, 1000);
+  }, [timeoutCode]);
+
   return (
     <>
-      {isLoading ? (
+      {inputCaptcha || isLoading ? (
         <div className={styles.loadingSign}>
-          <p>صبر کنید</p>
-          <div className={styles.dots}></div>
+          {isLoading ? (
+            <h1>
+              {!inputCaptcha ? (
+                <>
+                  <span> صبر </span>
+                  <span> کنید </span>
+                </>
+              ) : (
+                <>
+                  <span> در </span>
+                  <span> انتظار </span>
+                  <span> شما </span>
+                </>
+              )}
+              <span> . </span>
+              <span> . </span>
+              <span> . </span>
+            </h1>
+          ) : (
+            <></>
+          )}
+          {inputCaptcha ? <ReCAPTCHA sitekey={process.env.KEY_CAPTCHA} onChange={handleRecaptchaChange} /> : <></>}
         </div>
       ) : (
         <></>

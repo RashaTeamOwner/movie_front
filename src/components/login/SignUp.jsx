@@ -9,6 +9,7 @@ import iconname from "../../assets/loginpage/user-outlined.svg";
 import iconphone from "../../assets/loginpage/phone.svg";
 import iconuid from "../../assets/loginpage/user-id-broken.svg";
 import iconpass from "../../assets/loginpage/lock-password.svg";
+import UseCaptcha from "../../hooks/UseCaptcha";
 function SignUp() {
   const [inName, setInName] = useState("");
   const [inPhone, setInPhone] = useState("");
@@ -18,17 +19,18 @@ function SignUp() {
   const [catchCode, setCatchCode] = useState("");
   const [msgErr, setMsgErr] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const [captchaValue, setCaptchaValue] = useState(null);
+  const { captchaValue, handleRecaptchaChange } = UseCaptcha();
   const [inputCaptcha, setInputCaptcha] = useState(false);
   const [timeoutCode, setTimeoutCode] = useState(false);
   const [timeLeft, setTimeLeft] = useState("دریافت کد");
   const history = useHistory();
+
+  // regex and msgErrors
   const regexPersian = /^[\u0600-\u06FF\s]+ [\u0600-\u06FF\s]+$/;
   const regexNumber = /^09\d{9}$/;
   const regexUid = /^(97[0-9]{8}|98[0-9]{8}|99[0-9]{8}|400[0-9]{8}|401[0-9]{8}|402[0-9]{8}403[0-9]{8}404[0-9]{8})$/;
   const regexPass = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
   const regexConfirm = /^[0-9]{6}$/;
-
   const msgUid = "شماره دانشجویی اشتباه است";
   const msgName = "نام خود را کامل وارد کنید";
   const msgPhone = "شماره خود را کامل کنید";
@@ -271,11 +273,8 @@ function SignUp() {
       });
   };
 
-  // captcha
-  const handleRecaptchaChange = (value) => {
-    setCaptchaValue(value);
-  };
   useEffect(() => {
+    console.log(captchaValue);
     setInputCaptcha(false);
     if (captchaValue) {
       setTimeoutCode(true);
@@ -316,7 +315,7 @@ function SignUp() {
   useEffect(() => {
     if (!timeoutCode) return;
     // eslint-disable-next-line no-unused-vars
-    let timeleft = 6;
+    let timeleft = 60;
     setInterval(() => {
       timeleft--;
       if (timeleft < 0) {
