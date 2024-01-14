@@ -7,6 +7,7 @@ import Swal from "sweetalert2";
 import axios from "axios";
 import { useEffect, useRef, useState } from "react";
 import iheicon from "../../assets/landing/ihe.png";
+import UseConfetti from "../../hooks/UseConfetti";
 
 function HeaderHomePage() {
   const [selectedChair, setSelectedChair] = useState([]);
@@ -18,6 +19,7 @@ function HeaderHomePage() {
   const [arrLeft, setArrLeft] = useState([[0]]);
   const [arrRight, setArrRight] = useState([[0]]);
   const [loading, setLoading] = useState(false);
+  const [conf, setConf] = useState(false);
   const isUserLoggedIn = UseLogedin();
   useEffect(() => {
     axios({
@@ -119,6 +121,7 @@ function HeaderHomePage() {
   });
 
   const handleCheckChair = () => {
+    setConf(false);
     if (!selectedChair.length == 0) {
       let data = {
         side: selectedChair[0] == "L" ? "left" : "right",
@@ -134,8 +137,8 @@ function HeaderHomePage() {
         data: data,
       })
         .then(() => {
-          // console.log(res.data);
           setBookedSeat(true);
+          setConf(true);
           Toast.fire({
             icon: "success",
             title: "<p style='direction:rtl'>با موفقیت صندلی شما ثبت شد</p>",
@@ -430,6 +433,7 @@ function HeaderHomePage() {
                     ورود و رزرو بلیت
                   </Link>
                 )}
+                <UseConfetti onFire={conf} />
               </div>
             </div>
           </div>
