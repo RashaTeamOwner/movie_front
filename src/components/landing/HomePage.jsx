@@ -14,7 +14,7 @@ function HomePage() {
       <HeaderHomePage />
       <SectionTwoHomePage />
       <HandleSearch />
-      {/* <DetailAndUpComing /> */}
+      <DetailAndUpComing />
     </div>
   );
 }

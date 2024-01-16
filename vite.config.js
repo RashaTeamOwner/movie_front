@@ -10,5 +10,11 @@ export default defineConfig(({ command, mode }) => {
     define: {
       'process.env': env
     },
+    server: {
+      port: 8000,
+    },
+    optimizeDeps: {
+      exclude: ['js-big-decimal']
+    }
   };
 });
