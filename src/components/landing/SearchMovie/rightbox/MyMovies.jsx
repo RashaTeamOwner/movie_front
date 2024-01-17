@@ -4,7 +4,9 @@ import arrow from "../../../../assets/loginpage/arrow.svg";
 import img1 from "../../../../assets/landing/upcoming/7s.webp";
 import img2 from "../../../../assets/landing/upcoming/11s.webp";
 import img3 from "../../../../assets/landing/upcoming/16s.webp";
+import UseWindowSize from "../../../../hooks/UseWindowSize";
 function MyMovies() {
+  const window = UseWindowSize();
   return (
     <div className={styles.mainContainer}>
       <div className={styles.header}>
@@ -15,7 +17,12 @@ function MyMovies() {
         <button>ثبت لیست و شرکت در مسابقه</button>
       </div>
       <div className={styles.body}>
-        <div className={styles.listMovie}>
+        <div
+          style={{
+            background: window.width < 425 ? `linear-gradient(45deg, rgba(0, 0, 0, 0.33), rgba(0, 0, 0, 0.67)), url(${img1})` : "none",
+          }}
+          className={styles.listMovie}
+        >
           <img src={img1} alt="movie" />
           <div className={styles.detailMovie}>
             <h2>From</h2>
@@ -37,7 +44,12 @@ function MyMovies() {
             <p>پخش آنلاین به زودی ...</p>
           </div>
         </div>
-        <div className={styles.listMovie}>
+        <div
+          style={{
+            background: window.width < 425 ? `linear-gradient(45deg, rgba(0, 0, 0, 0.33), rgba(0, 0, 0, 0.67)), url(${img2})` : "none",
+          }}
+          className={styles.listMovie}
+        >
           <img src={img2} alt="movie" />
           <div className={styles.detailMovie}>
             <h2>From</h2>
@@ -59,7 +71,12 @@ function MyMovies() {
             <p>پخش آنلاین به زودی ...</p>
           </div>
         </div>
-        <div className={styles.listMovie}>
+        <div
+          style={{
+            background: window.width < 425 ? `linear-gradient(45deg, rgba(0, 0, 0, 0.642), rgba(0, 0, 0, 0.807)), url(${img3})` : "none",
+          }}
+          className={styles.listMovie}
+        >
           <img src={img3} alt="movie" />
           <div className={styles.detailMovie}>
             <h2>From</h2>

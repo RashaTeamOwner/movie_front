@@ -10,6 +10,7 @@
     border-radius: 0.5rem;
     cursor: pointer;
     gap: 0.5rem;
+    inline-size: max-content;
     padding: 0.5rem 0.7rem;
     img {
       transform: rotate(-90deg);
@@ -28,6 +29,7 @@
       background-color: transparent;
     }
     > button:nth-child(2) {
+      inline-size: max-content;
       color: white;
       padding: 0.5rem 1rem;
       background-color: rgb(255, 72, 72);
@@ -126,7 +128,27 @@
 }
 
 @media (max-width: 425px) {
+  .mainContainer {
+    .header {
+      flex-direction: column;
+      gap: 0.4rem;
+      align-items: flex-end;
+    }
+  }
   .listMovie {
+    background-position: left !important;
+    background-size: 100% 100% !important;
+    background-repeat: no-repeat !important;
+    .detailMovie {
+      .votes {
+        > p {
+          font-size: 0.7rem;
+          > span {
+            font-size: 0.7rem;
+          }
+        }
+      }
+    }
     > img {
       height: 0;
     }
