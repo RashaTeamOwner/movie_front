@@ -33,3 +33,28 @@
     }
   }
 }
+
+.body {
+  padding: 1rem;
+}
+.listMovie {
+  display: flex;
+  direction: rtl;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  background-color: rgb(59, 59, 59);
+  > img {
+    height: 11rem;
+    border-radius: 0.5rem;
+  }
+  .detailMovie {
+    padding: 0 1rem;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    > h2 {
+      color: rgb(255, 255, 255);
+      font-family: sansx50;
+    }
+  }
+}

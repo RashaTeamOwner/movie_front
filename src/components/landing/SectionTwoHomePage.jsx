@@ -1,6 +1,6 @@
 /* eslint-disable no-undef */
 import { Swiper, SwiperSlide } from "swiper/react";
-import {  useRef, useState } from "react";
+import { useRef, useState } from "react";
 import useWindowSize from "../../hooks/useWindowSize";
 import axios from "axios";
 import UseLogedin from "../../hooks/UseLogedin";
@@ -283,7 +283,10 @@ function SectionTwoHomePage() {
         </div>
         <div ref={refPriceData} className={styles.priceContainer}>
           <h3>توضیحات : </h3>
-          <p>در هر رای گیری که شرکت کنید 10 امتیاز به حساب شما اضافه میشود . </p>
+          <p>
+            در هر رای گیری که شرکت کنید 10 امتیاز به حساب شما اضافه میشود . و در آخر جوایز نفیس به فردی که بیشترین امتیاز را بگیرد اهدا
+            میشود{" "}
+          </p>
           <div>
             <p>
               <span>10+ </span>امتیاز , شرکت در رای گیری

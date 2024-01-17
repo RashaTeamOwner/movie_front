@@ -63,7 +63,7 @@ export default function App() {
   return (
     <>
       <nav className={styles.navbar}>
-        <div className={styles.favIconBox}>
+        {/* <div className={styles.favIconBox}>
           <div className={styles.favIcon}>
             <p>بیشترین جستجو</p>
             <img src={searchicon} alt="fav" />
@@ -72,7 +72,7 @@ export default function App() {
             <p>فیلم های مورد علاقه</p>
             <img src={favicon} alt="fav" />
           </div>
-        </div>
+        </div> */}
         <input className={styles.search} type="text" placeholder="جستجو ..." value={query} onChange={(e) => setQuery(e.target.value)} />
         <p className={styles.numresults}>جستجوی فیلم</p>
       </nav>
