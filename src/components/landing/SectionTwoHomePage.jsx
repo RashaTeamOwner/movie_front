@@ -1,6 +1,6 @@
 /* eslint-disable no-undef */
 import { Swiper, SwiperSlide } from "swiper/react";
-import { useLayoutEffect, useRef, useState } from "react";
+import {  useRef, useState } from "react";
 import useWindowSize from "../../hooks/useWindowSize";
 import axios from "axios";
 import UseLogedin from "../../hooks/UseLogedin";
