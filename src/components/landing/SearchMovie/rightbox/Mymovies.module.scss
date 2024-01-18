@@ -19,7 +19,7 @@
   .header {
     display: flex;
     justify-content: space-between;
-    padding: 0.5rem;
+    padding: 1.5rem 2rem;
     button {
       font-family: sansx100;
       border-radius: 0.5rem;
@@ -41,17 +41,30 @@
   padding: 0.6rem;
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: 2rem;
+  height: 500px;
 }
-.listMovie {
-  display: flex;
-  direction: rtl;
-  padding: 0.5rem;
+.mySwiper {
+  width: 100%;
+  > div {
+    gap: 1rem;
+    border-radius: 1.2rem;
+  }
+}
+.swiperActors {
+  padding: 0.5rem 1.5rem;
   border-radius: 1.2rem;
-  box-shadow: 1px 1px 15px 3px rgb(0, 0, 0);
-  > img {
-    height: 11rem;
-    border-radius: 1rem;
+  height: min-content !important;
+  .listMovie {
+    display: flex;
+    direction: rtl;
+    padding: 0.5rem;
+    border-radius: 1.2rem;
+    box-shadow: 1px 1px 15px 3px rgb(0, 0, 0);
+    > img {
+      height: 11rem;
+      border-radius: 1rem;
+    }
   }
   .detailMovie {
     padding: 0 1rem;
@@ -106,28 +119,35 @@
 }
 
 @media (max-width: 575px) {
-  .listMovie {
-    position: relative;
-    .optionSetup {
-      position: absolute;
-      left: 9px;
-      align-items: flex-end;
-
-      height: 100%;
-      > button {
-        width: min-content;
-        inline-size: max-content;
-      }
-      > p {
-        width: 70px;
+  .swiperActors {
+    .listMovie {
+      position: relative;
+      .optionSetup {
         position: absolute;
-        bottom: 15px;
+        left: 9px;
+        align-items: flex-end;
+
+        height: 100%;
+        > button {
+          width: min-content;
+          inline-size: max-content;
+        }
+        > p {
+          width: 70px;
+          position: absolute;
+          bottom: 15px;
+        }
       }
     }
   }
 }
+@media (max-width: 500px) {
+  .body {
+    height: 580px;
+  }
+}
 
-@media (max-width: 425px) {
+@media (max-width: 435px) {
   .mainContainer {
     .header {
       flex-direction: column;
@@ -135,22 +155,24 @@
       align-items: flex-end;
     }
   }
-  .listMovie {
-    background-position: left !important;
-    background-size: 100% 100% !important;
-    background-repeat: no-repeat !important;
-    .detailMovie {
-      .votes {
-        > p {
-          font-size: 0.7rem;
-          > span {
+  .swiperActors {
+    .listMovie {
+      background-position: right !important;
+      background-size: cover !important;
+      background-repeat: no-repeat !important;
+      .detailMovie {
+        .votes {
+          > p {
             font-size: 0.7rem;
+            > span {
+              font-size: 0.7rem;
+            }
           }
         }
       }
-    }
-    > img {
-      height: 0;
+      > img {
+        height: 0;
+      }
     }
   }
 }

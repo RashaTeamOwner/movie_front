@@ -2,8 +2,6 @@ import { useRef, useState } from "react";
 import LeftBox from "./LeftBox";
 import RightBox from "./RightBox";
 import styles from "./HandleSearch.module.scss";
-import favicon from "../../../assets/landing/favourite.svg";
-import searchicon from "../../../assets/landing/search-line.svg";
 import UseWindowSize from "../../../hooks/UseWindowSize";
 import { useEffect } from "react";
 export default function App() {
@@ -61,20 +59,15 @@ export default function App() {
     }
   }, [sizeWidth, query]);
   return (
-    <>
+    <div className={styles.boxSearch}>
       <nav className={styles.navbar}>
-        {/* <div className={styles.favIconBox}>
-          <div className={styles.favIcon}>
-            <p>بیشترین جستجو</p>
-            <img src={searchicon} alt="fav" />
-          </div>
-          <div className={styles.favIcon}>
-            <p>فیلم های مورد علاقه</p>
-            <img src={favicon} alt="fav" />
-          </div>
-        </div> */}
-        <input className={styles.search} type="text" placeholder="جستجو ..." value={query} onChange={(e) => setQuery(e.target.value)} />
-        <p className={styles.numresults}>جستجوی فیلم</p>
+        <input
+          className={styles.search}
+          type="text"
+          placeholder="... جستجوی فیلم"
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+        />
       </nav>
 
       <main ref={refMainBox} className={styles.main}>
@@ -89,6 +82,6 @@ export default function App() {
           }}
         />
       </main>
-    </>
+    </div>
   );
 }
