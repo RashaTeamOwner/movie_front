@@ -31,7 +31,7 @@ function LeftBox(props) {
           dataMovies.results.push.apply(dataMovies.results, res.data.results);
           if (dataMovies.total_results) {
             let sorted = dataMovies.results.sort((a, b) => {
-              if (!b.poster_path) {
+              if (b.poster_path == "null") {
                 return;
               }
               return b.vote_count - a.vote_count;
@@ -60,6 +60,7 @@ function LeftBox(props) {
   };
 
   useEffect(() => {
+    const controller = new AbortController();
     setLoading(false);
     if (query.length < 3) {
       setMovies([]);
@@ -68,19 +69,28 @@ function LeftBox(props) {
     }
     const options = {
       method: "GET",
+      signal: controller.signal,
       headers: {
         accept: "application/json",
         Authorization: process.env.VITE_KEY_TMDB,
       },
     };
-    axios.get(`${process.env.VITE_URL_TMDB}/3/search/movie?query=${query}&include_adult=false`, options).then((res) => {
-      setError("");
-      if (res.status != 200) {
-        throw new Error("! مشکلی رخ داده است");
-      }
-      const data = res.data;
-      getSeries(query, data);
-    });
+    axios
+      .get(`${process.env.VITE_URL_TMDB}/3/search/movie?query=${query}&include_adult=false`, options)
+      .then((res) => {
+        setError("");
+        if (res.status != 200) {
+          throw new Error("! مشکلی رخ داده است");
+        }
+        const data = res.data;
+        getSeries(query, data);
+      })
+      .catch(() => {
+        return;
+      });
+    return () => {
+      controller.abort();
+    };
   }, [props.querydata]);
 
   useEffect(() => {
@@ -139,6 +149,8 @@ function LeftBox(props) {
                 <p>
                   <span>🗓</span>
                   <span>{movie.release_date || movie.first_air_date}</span>
+                  {/* <span>|</span> */}
+                  {/* <span>{movie.origin_country ? movie.origin_country.join(" - ") : "Not Found"}</span> */}
                 </p>
               </div>
             </li>
