@@ -8,7 +8,9 @@ import infGif from "../../../../assets/landing/infinity.gif";
 function ShowActorDetail({ actorId, backArrow, backImdbId }) {
   const [actor, setActor] = useState({});
   const [deepActor, setDeepActor] = useState({});
+  const [loading, setLoading] = useState(false);
   const sendReqIdAcotr = (person_id) => {
+    setLoading(false);
     const options = {
       method: "GET",
       url: `${process.env.VITE_URL_TMDB}/3/person/${person_id}`,
@@ -22,9 +24,19 @@ function ShowActorDetail({ actorId, backArrow, backImdbId }) {
     axios
       .request(options)
       .then(function (response) {
-        setDeepActor(response.data);
+        axios
+          .post(`${process.env.VITE_API_URL}/api/v1/translate/`, response.data)
+          .then((data) => {
+            setDeepActor(data.data);
+            setLoading(true);
+          })
+          .catch(() => {
+            setDeepActor(response.data);
+            setLoading(true);
+          });
       })
       .catch(function (error) {
+        setLoading(true);
         console.error(error);
       });
   };
@@ -74,7 +86,7 @@ function ShowActorDetail({ actorId, backArrow, backImdbId }) {
 
   return (
     <div className={styles.container}>
-      {Object.keys(actor).length == 0 ? (
+      {!loading ? (
         <div className={styles.loadingGif}>
           <img src={infGif} alt="loading" />
         </div>
@@ -108,32 +120,16 @@ function ShowActorDetail({ actorId, backArrow, backImdbId }) {
                 alt=""
               />
               <div className={styles.actorNameBorn}>
-                <p>میشل ویلیامز</p>
-                {/* <p>{`${new Date().getFullYear() - deepActor.birthday.split("-")[0]} Yo`}</p> */}
-                <p>29 ساله</p>
-                <p>کالیسپل مونتانا , آمریکا</p>
+                <p>{deepActor.name}</p>
+                {console.log(deepActor)}
+                {/* <p>{`${new Date().getFullYear() - deepActor.birthday.split("-")[0]} ساله`}</p> */}
+                <p>{deepActor.birthday}</p>
+                <p>{deepActor.place_of_birth}</p>
               </div>
             </div>
             <div className={styles.biography}>
               <h2>بیوگرافی :</h2>
-              <p>
-                میشل اینگرید ویلیامز (زاده 9 سپتامبر 1980) یک هنرپیشه اهل ایالات متحده آمریکا است. او که عمدتاً به خاطر بازی در فیلم‌های
-                مستقل در مقیاس کوچک با مضامین تاریک یا تراژیک شناخته می‌شود، جوایز مختلفی از جمله دو جایزه گلدن گلوب و یک جایزه امی پرایم
-                تایم، علاوه بر نامزدی پنج جایزه اسکار و یک جایزه تونی دریافت کرده است. ویلیامز، دختر سیاستمدار و تاجر لری آر. ویلیامز، کار
-                خود را با حضور مهمان در تلویزیون آغاز کرد و اولین فیلم خود را در فیلم خانوادگی Lassie در سال 1994 انجام داد. او در پانزده
-                سالگی از دست والدین خود رهایی یافت و به زودی به خاطر نقش آفرینی خود به شهرت رسید. نقش در مجموعه تلویزیونی درام نوجوان داوسون
-                کریک (1998-2003). پس از آن، فیلم‌های کم‌رنگی دنبال شد، قبل از اینکه او با فیلم درام «کوهستان شکسته» (2005) به موفقیت دست
-                پیدا کرد. ویلیامز به خاطر بازی در نقش زنانی که از نظر عاطفی با فقدان یا تنهایی کنار می‌آیند در درام‌های مستقل وندی و لوسی
-                (2008)، ولنتاین آبی (2010) و منچستر کنار دریا (2016) مورد تحسین منتقدان قرار گرفت. او برنده دو گلدن گلوب برای ایفای نقش
-                مرلین مونرو در درام هفته من با مرلین (2011) و گوئن وردون در مینی سریال Fosse/Verdon (2019) شد، علاوه بر این جایزه امی پرایم
-                تایم برای دومی دریافت کرد. پردرآمدترین اکران او با فیلم هیجان انگیز Shutter Island (2010)، فیلم فانتزی Oz the Great and
-                Powerful (2013)، موزیکال The Greatest Showman (2017) و فیلم های ابرقهرمانی Venom (2018) و Venom: Let There Be بود. قتل عام
-                (2021). ویلیامز همچنین کارگردانی فیلم‌های بزرگ استودیویی، مانند فیلم جنایی ریدلی اسکات، همه پول‌های جهان (2017) و درام
-                استیون اسپیلبرگ The Fabelmans (2022) را بر عهده داشته است. در برادوی، ویلیامز در احیای موزیکال کاباره در سال 2014 و درام بلک
-                برد در سال 2016 بازی کرد، که برای آن نامزدی جایزه تونی برای بهترین بازیگر زن در یک نمایشنامه را دریافت کرد. او مدافع حقوق
-                برابر در محل کار است. ویلیامز که دائماً در مورد زندگی شخصی خود خصوصی است، یک دختر از رابطه خود با بازیگر هیث لجر دارد و برای
-                مدت کوتاهی با فیل الوروم موسیقیدان ازدواج کرد. او از شوهر دومش، کارگردان تئاتر توماس کیل، دو فرزند دارد.
-              </p>
+              <p>{deepActor.biography ? deepActor.biography : "در دسترس نیست"}</p>
             </div>
             <div className={styles.knownby}>
               <h2>فیلم های معروف :</h2>

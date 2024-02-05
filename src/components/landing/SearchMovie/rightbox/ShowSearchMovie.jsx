@@ -34,9 +34,11 @@ function ShowSearchMovie(props) {
         Authorization: KEYtmdb,
       },
     };
-
     axios
-      .get(`${process.env.VITE_URL_TMDB}/3/find/${movieshow.imdbID}?external_source=imdb_id&append_to_response=credits`, options)
+      .get(
+        `${process.env.VITE_URL_TMDB}/3/find/${movieshow.imdbID.toLowerCase()}?external_source=imdb_id&append_to_response=credits`,
+        options
+      )
       .then((response) => {
         if (response.data.movie_results[0] != undefined) {
           setPosterBack(response.data.movie_results[0]);
@@ -73,7 +75,15 @@ function ShowSearchMovie(props) {
     axios
       .get(`${process.env.VITE_URL_OMDB}/?i=${sendId}&apikey=${KEY}`)
       .then((res) => {
-        setMovieshow(res.data);
+        axios
+          .post(`${process.env.VITE_API_URL}/api/v1/translate/`, res.data)
+          .then((data) => {
+            console.log(data.data);
+            setMovieshow(data.data);
+          })
+          .catch(() => {
+            setMovieshow(res.data);
+          });
       })
       .catch((error) => {
         console.log(error);
@@ -159,7 +169,7 @@ function ShowSearchMovie(props) {
   };
   return (
     <div className={styles.mainBox}>
-      {Object.keys(movieshow).length == 0 ? (
+      {Object.keys(movieshow).length == 0 || Object.keys(actors).length == 0 ? (
         <div className={styles.loadingGif}>
           <img src={infGif} alt="loading" />
         </div>
@@ -179,22 +189,19 @@ function ShowSearchMovie(props) {
           <div className={styles.shodowMainBox}></div>
           <img onClick={handleCloseDetailMovie} className={styles.arrowIcon} src={arrow} alt="arrow-icon" />
           <div className={styles.detailMovie}>
-            <h1>مرد عنکبوتی</h1>
+            <h1>{movieshow.Title}</h1>
             <div className={styles.timeandsec}>
-              <p>اکشن ، علمی تخیلی</p>
+              <p>{movieshow.Genre}</p>
               <p className={styles.breackTopIntext}>|</p>
-              <p>121 دقیقه</p>
+              <p>{movieshow.Runtime}</p>
               <p className={styles.breackTopIntext}>|</p>
               <p className={styles.imdbRate}>⭐️ {movieshow.imdbRating}</p>
               <p className={styles.breackTopIntext}>|</p>
-              <p>2012</p>
+              <p>{movieshow.Year}</p>
             </div>
             <div className={styles.boxDetMovie}>
               <p>خلاصه فیلم :</p>
-              <p className={styles.textDetailMovie}>
-                یک نوجوان خجالتی پس از گزیده شدن توسط یک عنکبوت اصلاح شده ژنتیکی، در برابر توانایی های عنکبوت مانندی که از آنها برای مبارزه
-                با بی عدالتی به عنوان یک ابرقهرمان نقابدار استفاده می کند و با دشمن انتقام جو روبرو می شود.
-              </p>
+              <p className={styles.textDetailMovie}>{movieshow.Plot}</p>
             </div>
             <div className={styles.rateRightPage}>
               <div className={styles.yourRate}>
