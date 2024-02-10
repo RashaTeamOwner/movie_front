@@ -28,39 +28,41 @@ function ShowSearchMovie(props) {
   // image actors
   useEffect(() => {
     if (movieshow.Actors == undefined) return;
-    const options = {
-      headers: {
-        accept: "application/json",
-        Authorization: KEYtmdb,
-      },
-    };
-    axios
-      .get(
-        `${process.env.VITE_URL_TMDB}/3/find/${movieshow.imdbID.toLowerCase()}?external_source=imdb_id&append_to_response=credits`,
-        options
-      )
-      .then((response) => {
-        if (response.data.movie_results[0] != undefined) {
-          setPosterBack(response.data.movie_results[0]);
-          return ["movie", response.data.movie_results[0].id];
-        } else if (response.data.tv_results[0] != undefined) {
-          setPosterBack(response.data.tv_results[0]);
-          return ["tv", response.data.tv_results[0].id];
-        }
-      })
-      .then((data) => {
-        axios
-          .get(`${process.env.VITE_URL_TMDB}/3/${data[0]}/${data[1]}?&append_to_response=credits`, options)
-          .then((response) => {
-            setActors(response.data.credits.cast);
-          })
-          .catch((error) => {
-            console.error(error);
-          });
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+    else {
+      const options = {
+        headers: {
+          accept: "application/json",
+          Authorization: KEYtmdb,
+        },
+      };
+      axios
+        .get(
+          `${process.env.VITE_URL_TMDB}/3/find/${movieshow.imdbID.toLowerCase()}?external_source=imdb_id&append_to_response=credits`,
+          options
+        )
+        .then((response) => {
+          if (response.data.movie_results[0] != undefined) {
+            setPosterBack(response.data.movie_results[0]);
+            return ["movie", response.data.movie_results[0].id];
+          } else if (response.data.tv_results[0] != undefined) {
+            setPosterBack(response.data.tv_results[0]);
+            return ["tv", response.data.tv_results[0].id];
+          }
+        })
+        .then((data) => {
+          axios
+            .get(`${process.env.VITE_URL_TMDB}/3/${data[0]}/${data[1]}?&append_to_response=credits`, options)
+            .then((response) => {
+              setActors(response.data.credits.cast);
+            })
+            .catch((error) => {
+              console.error(error);
+            });
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    }
   }, [movieshow]);
 
   useEffect(() => {
@@ -78,7 +80,6 @@ function ShowSearchMovie(props) {
         axios
           .post(`${process.env.VITE_API_URL}/api/v1/translate/`, res.data)
           .then((data) => {
-            console.log(data.data);
             setMovieshow(data.data);
           })
           .catch(() => {
@@ -169,7 +170,7 @@ function ShowSearchMovie(props) {
   };
   return (
     <div className={styles.mainBox}>
-      {Object.keys(movieshow).length == 0 || Object.keys(actors).length == 0 ? (
+      {Object.keys(movieshow).length == 0 ? (
         <div className={styles.loadingGif}>
           <img src={infGif} alt="loading" />
         </div>
