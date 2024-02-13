@@ -1,5 +1,5 @@
 /* eslint-disable no-undef */
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import axios from "axios";
 import Swal from "sweetalert2";
@@ -58,7 +58,8 @@ function SignUp() {
     }
   }, [catchCode]);
   // handle post signup
-  const handlePostSingup = () => {
+  const handlePostSignup = () => {
+    if (timeoutCode) return;
     if (regexPersian.test(inName) && regexNumber.test(inPhone) && regexPass.test(inPass) && regexUid.test(uid)) {
       setIsLoading(true);
       setInputCaptcha(true);
@@ -274,58 +275,75 @@ function SignUp() {
   };
 
   useEffect(() => {
-    console.log(captchaValue);
     setInputCaptcha(false);
     if (captchaValue) {
-      setTimeoutCode(true);
       // will comment
-      setIsLoading(false);
-      // let data = {
-      //   phone_number: inPhone,
-      //   recaptchaToken: captchaValue,
-      // };
+      // setIsLoading(false);
+      let data = {
+        phone_number: inPhone,
+        recaptchaToken: captchaValue,
+      };
       // send to backend for auth
-      // axios({
-      //   method: "post",
-      //   url: `${process.env.VITE_API_URL}/api/v1/send-code/`,
-      //   headers: {
-      //     "Content-Type": "application/json",
-      //   },
-      //   data: JSON.stringify(data),
-      // })
-      //   .then(() => {
-      //     setCatchCode(true);
-      //     setIsLoading(false);
-      //     setInputCaptcha(false);
-      //   })
-      //   .catch((err) => {
-      //     let howmsg = err.response.data.status || err.response.data.detail;
-      //     setMsgErr(howmsg);
-      //     setCatchCode(false);
-      //     setIsLoading(false);
-      //     setInputCaptcha(false);
-      //   });
+      axios({
+        method: "post",
+        url: `${process.env.VITE_API_URL}/api/v1/send-code/`,
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+        data: data,
+      })
+        .then(() => {
+          // save time sec
+          let timeReq = new Date().getTime();
+          localStorage.setItem("lastRequestTime", timeReq.toString());
+          setTimeoutCode(true);
+          setCatchCode(true);
+          setIsLoading(false);
+          setInputCaptcha(false);
+        })
+        .catch((err) => {
+          let howmsg = err.response.data.status || err.response.data.detail;
+          setMsgErr(howmsg);
+          setCatchCode(false);
+          setIsLoading(false);
+          setInputCaptcha(false);
+          setTimeoutCode(false);
+        });
     }
   }, [captchaValue]);
 
-  // useEffect(()=>{
-
-  // },[timeoutCode])
+  useMemo(() => {
+    if (!timeoutCode) {
+      return;
+    }
+    // eslint-disable-next-line no-unused-vars
+    else {
+      const lastReq = localStorage.getItem("lastRequestTime");
+      const currentTime = new Date().getTime();
+      let timeleft = ((75000 - (currentTime - lastReq)) / 1000).toFixed();
+      const intervalId = setInterval(() => {
+        timeleft--;
+        if (timeleft < 0) {
+          setTimeLeft("دریافت کد");
+          setTimeoutCode(false);
+          clearInterval(intervalId);
+        } else {
+          setTimeLeft(`${timeleft} ثانیه`);
+        }
+      }, 1000);
+    }
+  }, [timeoutCode]);
 
   useEffect(() => {
-    if (!timeoutCode) return;
-    // eslint-disable-next-line no-unused-vars
-    let timeleft = 60;
-    setInterval(() => {
-      timeleft--;
-      if (timeleft < 0) {
-        setTimeLeft("دریافت کد");
-        setTimeoutCode(false);
-      } else {
-        setTimeLeft(`${timeleft} ثانیه`);
-      }
-    }, 1000);
-  }, [timeoutCode]);
+    const lastReq = localStorage.getItem("lastRequestTime");
+    const currentTime = new Date().getTime();
+    let timeleft = ((75000 - (currentTime - lastReq)) / 1000).toFixed();
+    if (timeleft > 0) {
+      setTimeoutCode(true);
+    } else {
+      setTimeoutCode(false);
+    }
+  }, []);
 
   return (
     <>
@@ -448,11 +466,8 @@ function SignUp() {
               }}
             />
             {regexConfirm.test(inConfirm) || inConfirm.length == 0 ? <></> : <p className={styles.errorInput}>{msgConfirm}</p>}
-            <button
-              style={{ backgroundColor: timeoutCode ? "rgb(255, 187, 174)" : "greenyellow" }}
-              onClick={timeoutCode ? handlePostSingup : handlePostSingup}
-            >
-              {timeoutCode ? timeLeft : timeLeft}
+            <button style={{ backgroundColor: timeoutCode ? "rgb(255, 187, 174)" : "greenyellow" }} onClick={handlePostSignup}>
+              {timeLeft}
             </button>
           </div>
           <div className={styles.submitbox}>
