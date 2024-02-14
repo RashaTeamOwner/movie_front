@@ -1,16 +1,11 @@
-@use "../../../index.scss";
-
 .boxRight {
-  // width: 44rem;
-  // max-width: 44rem;
-  // background-color: rgb(255, 170, 0);
   border-radius: 0.9rem;
   overflow: auto;
   flex-grow: 1;
   width: 40%;
-  background: linear-gradient(135deg, rgb(36 36 36 / 78%), rgba(24, 24, 24, 0.835));
+  background: linear-gradient(135deg, rgb(36 36 36 / 78%), rgba($black-color, 0.835));
   flex-grow: 1;
-  border: 2px solid white;
+  border: 2px solid $white-color;
   width: 40%;
   position: relative;
 }
@@ -28,10 +23,10 @@
     font-family: Arial, Helvetica, sans-serif;
     font-size: 1.4rem;
     cursor: pointer;
-    background: linear-gradient(rgb(255, 221, 0), rgb(255, 140, 0));
+    background: linear-gradient($comp-gold, $gold-color);
     border: none;
     &:hover {
-      box-shadow: 3px -3px 12px rgb(0, 0, 0);
+      box-shadow: 3px -3px 12px $black-color;
       transition: 0.3s all;
     }
   }

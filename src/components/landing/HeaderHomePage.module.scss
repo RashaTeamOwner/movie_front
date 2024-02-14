@@ -1,4 +1,4 @@
-@use "../../index.scss";
+// @use "../../index.scss";
 .iheicon {
   width: 90px;
   position: absolute;
@@ -15,7 +15,7 @@
   justify-content: center;
   align-items: flex-start;
   position: relative;
-  background-color: rgb(18, 18, 18);
+  background-color: $black-color;
   h1 {
     height: 100px;
     direction: rtl;
@@ -29,7 +29,7 @@
     font-size: 30px;
     padding: 0 0.1rem;
     font-family: sansx100;
-    color: #fff;
+    color: $white-color;
     text-shadow: 0 1px 0 #ccc, 0 2px 0 #ccc, 0 3px 0 transparent, 0 4px 0 transparent, 0 10px 10px rgba(255, 255, 255, 0.4);
   }
 
@@ -97,7 +97,7 @@
   img {
     width: 20rem;
     height: 95%;
-    border: 2px solid white;
+    border: 2px solid $white-color;
     border-radius: 0.5rem;
   }
 }
@@ -112,13 +112,13 @@
 .landDetail {
   .landDetailinto {
     width: 100%;
-    color: white;
+    color: $white-color;
     font-family: sansx100;
     padding: 0.3rem 1rem;
     > p {
       direction: rtl;
       > span {
-        color: rgb(255, 179, 0);
+        color: $gold-color;
         font-family: sansx100;
         font-size: 1.2rem;
       }
@@ -147,12 +147,12 @@
       .animeRoute {
         width: 22rem;
         height: 1rem;
-        background-color: rgb(245, 245, 245);
+        background-color: $white-color;
         border-radius: 1rem;
         direction: ltr;
         > div {
           height: 1rem;
-          background-color: rgb(255, 72, 72);
+          background-color: $red-color;
           border-radius: 1rem;
           animation: animeProgress 3s forwards ease;
         }
@@ -163,10 +163,10 @@
   @keyframes animeProgress {
     0% {
       width: 2.5%;
-      background-color: rgb(255, 72, 72);
+      background-color: $red-color;
     }
     50% {
-      background-color: #ffa500;
+      background-color: $gold-color;
     }
     100% {
     }
@@ -182,10 +182,10 @@
         padding: 0;
         margin: 0.4rem;
         font-size: 0.9rem;
-        color: white;
+        color: $white-color;
         font-family: sansx100;
         span {
-          color: rgb(255, 179, 0);
+          color: $gold-color;
         }
       }
     }
@@ -194,7 +194,7 @@
       width: 6rem;
       height: 9rem;
       border-radius: 0.7rem;
-      border: white 2px solid;
+      border: $white-color 2px solid;
     }
   }
 }
@@ -207,7 +207,7 @@
   flex-direction: column;
   align-items: center;
   text-align: center;
-  color: white;
+  color: $white-color;
   width: 100%;
   font-family: sansx200;
   h3 {
@@ -236,7 +236,7 @@
       > img {
         cursor: pointer;
         filter: invert(99%) sepia(59%) saturate(1251%) hue-rotate(182deg) brightness(124%) contrast(91%);
-        color: rgb(47, 112, 0);
+        color: $passed-color;
       }
     }
   }
@@ -303,14 +303,14 @@
     font-family: sansx100;
   }
   > p:first-child {
-    background-color: rgb(255, 54, 54);
+    background-color: $red-color;
   }
   > p:nth-child(2) {
-    background-color: rgb(215, 215, 215);
-    color: black;
+    background-color: $white-color;
+    color: $black-color;
   }
   > p:nth-child(3) {
-    background-color: rgb(255, 183, 0);
+    background-color: $gold-color;
   }
 }
 
@@ -320,16 +320,17 @@
   a {
     padding: 0.5rem 1rem;
     text-decoration: none;
-    color: black;
+    color: $black-color;
     font-family: sansx100;
     border-radius: 0.4rem;
     border: none;
     cursor: pointer;
-    background-color: rgb(0, 230, 230);
-    box-shadow: 0 0 0 1px #ebebeb inset, 0 0 0 2px rgba(255, 255, 255, 0.1) inset, 0 8px 0 0 #bebebe, 0 8px 8px 1px rgba(0, 0, 0, 0.2);
+    background-color: $gray-color;
+    box-shadow: 0 0 0 1px $white-color inset, 0 0 0 2px rgba(255, 255, 255, 0.1) inset, 0 8px 0 0 $white-color,
+      0 8px 8px 1px rgba(0, 0, 0, 0.2);
   }
   .bookedSeats {
-    color: greenyellow;
+    color: $passed-color;
     font-family: sansx100;
   }
   .bookedSeatsDetail {
@@ -342,8 +343,9 @@
 .dots {
   width: 45px;
   height: 11.4px;
-  background: radial-gradient(circle closest-side, white 90%, #0000) 0% 50%, radial-gradient(circle closest-side, white 90%, #0000) 50% 50%,
-    radial-gradient(circle closest-side, white 90%, #0000) 100% 50%;
+  background: radial-gradient(circle closest-side, $white-color 90%, #0000) 0% 50%,
+    radial-gradient(circle closest-side, $white-color 90%, #0000) 50% 50%,
+    radial-gradient(circle closest-side, $white-color 90%, #0000) 100% 50%;
   background-size: calc(100% / 3) 100%;
   background-repeat: no-repeat;
   animation: dots-zcf63l 1s infinite linear;
@@ -372,31 +374,6 @@
       display: block !important;
     }
   }
-  // .landboxDetail {
-  //   .landDetail {
-  //     width: 100%;
-  //     margin: 0;
-  //     display: flex;
-  //     flex-direction: column;
-  //     align-items: center;
-  //     > p {
-  //       width: 100%;
-  //       margin: 0;
-  //     }
-  //     .routeUpper {
-  //       padding-top: 1rem;
-  //     }
-  //   }
-  // }
-  // .landImg {
-  //   align-items: start;
-  //   padding-top: 0.6rem;
-
-  //   img {
-  //     width: 12rem;
-  //     height: 18rem;
-  //   }
-  // }
 }
 
 @media (max-width: 970px) {

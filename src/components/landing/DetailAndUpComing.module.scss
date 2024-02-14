@@ -1,6 +1,6 @@
 .mainConatainer {
   position: relative;
-  color: white;
+  color: $white-color;
   font-family: sansx100;
   img {
     width: 12rem;
@@ -10,7 +10,7 @@
     font-size: 1.8rem;
     direction: rtl;
     padding: 2rem 3rem;
-    color: rgb(255, 183, 0);
+    color: $gold-color;
   }
   .up2,
   .up1 {
@@ -19,7 +19,7 @@
     padding: 0.5rem;
     > div {
       padding: 1rem;
-      box-shadow: inset 10px 0px 30px rgb(0, 0, 0);
+      box-shadow: inset 10px 0px 30px $black-color;
       > div {
         display: flex;
         align-items: center;

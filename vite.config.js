@@ -15,6 +15,13 @@ export default defineConfig(({ command, mode }) => {
     },
     optimizeDeps: {
       exclude: ['js-big-decimal']
+    },
+    css: {
+      preprocessorOptions: {
+        scss: {
+          additionalData: `@import "/src/assets/global.scss";`
+        }
+      }
     }
   };
 });

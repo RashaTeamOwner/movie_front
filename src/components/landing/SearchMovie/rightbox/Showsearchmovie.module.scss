@@ -1,4 +1,4 @@
-@use "../../../../index.scss";
+// @use "../../../../index.scss";
 /* انتخاب اسکرول بار */
 ::-webkit-scrollbar {
   width: 4px;
@@ -6,13 +6,13 @@
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: #888;
+  background-color: $gray-color;
   border-radius: 6px;
 }
 
 body {
   scrollbar-width: thin;
-  scrollbar-color: #ffffff transparent;
+  scrollbar-color: $white-color transparent;
 }
 .mainBox {
   width: 100%;
@@ -50,13 +50,13 @@ body {
   top: 5px;
   right: 0px;
   width: 400px;
-  color: white;
+  color: $white-color;
   padding: 0.2rem 1rem;
   direction: rtl;
   font-family: sansx100;
   > h1 {
     font-size: 2rem;
-    color: rgb(255, 174, 0);
+    color: $gold-color;
     font-family: iransans;
     padding: 0.5rem;
   }
@@ -75,7 +75,7 @@ body {
     flex-direction: column;
     padding: 2rem 0.5rem 1rem 1.5rem;
     > p:first-child {
-      color: rgb(255, 183, 0);
+      color: $gold-color;
     }
     .textDetailMovie {
       font-size: 0.9rem;
@@ -104,7 +104,7 @@ body {
       > p {
         margin-right: 0.5rem;
         width: 3rem;
-        color: rgb(255, 183, 0);
+        color: $gold-color;
       }
       > div {
         display: flex;
@@ -116,7 +116,7 @@ body {
   display: flex;
   gap: 0.5rem;
   > p {
-    color: rgb(255, 183, 0);
+    color: $gold-color;
   }
 }
 .whatchlist {
@@ -127,7 +127,7 @@ body {
   font-family: sansx200;
   text-decoration: none;
   color: #0a0d10;
-  background: linear-gradient(45deg, rgb(109, 255, 248), rgb(0, 158, 169));
+  background: linear-gradient(45deg, $stblue-in, $stblue-out);
   cursor: pointer;
   font-size: 0.6rem;
 }
@@ -140,7 +140,7 @@ body {
 
 .boxBazigaran {
   padding: 0.5rem;
-  color: rgb(255, 183, 0);
+  color: $gold-color;
 }
 
 .imageActors {
@@ -172,7 +172,7 @@ body {
   font-size: 1.5rem;
   font-weight: 600;
   margin: 4.8rem;
-  color: white;
+  color: $white-color;
   font-family: sansx200;
 }
 
@@ -183,7 +183,7 @@ body {
 }
 
 .breackTopIntext {
-  color: rgb(255, 183, 0);
+  color: $gold-color;
   font-size: 1.2rem;
   border-radius: 1rem;
 }
