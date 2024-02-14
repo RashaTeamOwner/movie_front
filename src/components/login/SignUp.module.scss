@@ -110,7 +110,7 @@
       border-radius: 0.3rem;
       cursor: pointer;
       border: none;
-      background-color: greenyellow;
+      background-color: $passed-color;
       font-family: sansx200;
       box-sizing: content-box;
       animation: animeScale2 0.5s 1.6s forwards ease;
@@ -157,9 +157,9 @@
     padding: 0.2rem 1.5rem;
     border: none;
     font-size: 1.1rem;
-    border-bottom: 2px solid white;
+    border-bottom: 2px solid $white-color;
     cursor: pointer;
-    color: white;
+    color: $white-color;
     box-sizing: content-box;
   }
 }
@@ -169,7 +169,7 @@
   position: absolute;
   top: -17px;
   left: 0;
-  color: rgba(255, 31, 31, 0.965);
+  color: $stred-in;
   border-radius: 0.5rem;
   padding: 0 0.2rem;
   font-family: sansx200;
@@ -179,7 +179,7 @@
     top: 0;
     left: 0;
     z-index: -2;
-    background-color: white;
+    background-color: $white-color;
     width: 0;
     height: 100%;
     border-radius: 0.2rem;
@@ -241,7 +241,7 @@
     display: inline-block;
     animation: bounce 0.3s ease infinite alternate;
     font-size: 30px;
-    color: #fff;
+    color: $white-color;
     padding: 0 0.1rem;
     text-shadow: 0 1px 0 #ccc, 0 2px 0 #ccc, 0 3px 0 transparent, 0 4px 0 transparent, 0 10px 10px rgba(255, 255, 255, 0.4);
   }
