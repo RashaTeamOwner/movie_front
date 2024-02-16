@@ -280,6 +280,7 @@ function SignUp() {
       // will comment
       // setIsLoading(false);
       let data = {
+        mode: "signup",
         phone_number: inPhone,
         recaptchaToken: captchaValue,
       };
