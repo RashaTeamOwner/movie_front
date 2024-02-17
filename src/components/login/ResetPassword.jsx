@@ -235,6 +235,7 @@ function ResetPassword() {
   //// end : up and down span
 
   const handlePostReset = () => {
+    if (timeoutCode) return;
     if (regexUuid.test(inUuid) && regexPhone.test(inPhone)) {
       setIsLoading(true);
       setInputCaptcha(true);
@@ -486,11 +487,8 @@ function ResetPassword() {
                 }}
               />
               {regexConfirm.test(inConfirm) || inConfirm.length == 0 ? <></> : <p className={styles.errorInput}>{msgConfirm}</p>}
-              <button
-                style={{ backgroundColor: timeoutCode ? "rgb(255, 187, 174)" : "greenyellow" }}
-                onClick={timeoutCode ? handlePostReset : handlePostReset}
-              >
-                {timeoutCode ? timeLeft : timeLeft}
+              <button style={{ backgroundColor: timeoutCode ? "rgb(255, 187, 174)" : "greenyellow" }} onClick={handlePostReset}>
+                {timeLeft}
               </button>
             </div>
             <div className={styles.submitbox}>
