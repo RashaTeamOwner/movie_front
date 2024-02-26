@@ -285,7 +285,22 @@ function HeaderHomePage() {
               </div>
             </div>
             <div className={styles.timeIncoming}>
-              <div>
+              {isUserLoggedIn ? (
+                <div className={styles.forcewelcome}>
+                  <p>خوش اومدی {resHead.username} عزیز</p>
+                  {bookedSeat ? (
+                    <p>تاریخ اکران فیلم فراموشت نشه , منتظرت هستیم</p>
+                  ) : (
+                    <p>اگه دوست داری این فیلمو با هم ببینیم یه صندلی رزرو کن</p>
+                  )}
+                </div>
+              ) : (
+                <div className={styles.forcewelcome}>
+                  <p>خوش اومدی مهمان عزیز</p>
+                  <p>برای رزرو این فیلم لازمه ثبت نام کنی یا وارد حسابت بشی :)</p>
+                </div>
+              )}
+              <div className={styles.showTimeCinema}>
                 <h3>سه شنبه سوم دی ماه</h3>
                 <p>ساعت 16</p>
               </div>

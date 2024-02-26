@@ -1,4 +1,53 @@
 // @use "../../index.scss";
+.btn3d {
+  position: relative;
+  top: -6px;
+  border: 0;
+  transition: all 40ms linear;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  margin-left: 2px;
+  margin-right: 2px;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.btn3d:active:focus,
+.btn3d:focus:hover,
+.btn3d:focus {
+  -moz-outline-style: none;
+  outline: medium none;
+}
+
+.btn3d:active,
+.btn3d.active {
+  top: 2px;
+}
+
+.btn3d.btn-white {
+  color: #666666;
+  box-shadow: 0 0 0 1px #ebebeb inset, 0 0 0 2px rgba(255, 255, 255, 0.1) inset, 0 8px 0 0 #f5f5f5, 0 8px 8px 1px rgba(0, 0, 0, 0.2);
+  background-color: #fff;
+}
+
+.btn3d.btn-white:active,
+.btn3d.btn-white.active {
+  color: #666666;
+  box-shadow: 0 0 0 1px #ebebeb inset, 0 0 0 1px rgba(255, 255, 255, 0.15) inset, 0 1px 3px 1px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+}
+
+.btn3d.btn_default {
+  color: #666666;
+  box-shadow: 0 0 0 1px #ebebeb inset, 0 0 0 2px rgba(255, 255, 255, 0.1) inset, 0 8px 0 0 #bebebe, 0 8px 8px 1px rgba(0, 0, 0, 0.2);
+  background-color: #f9f9f9;
+}
+
+.btn3d.btn_default:active,
+.btn3d.btn_default.active {
+  color: #666666;
+  box-shadow: 0 0 0 1px #ebebeb inset, 0 0 0 1px rgba(255, 255, 255, 0.15) inset, 0 1px 3px 1px rgba(0, 0, 0, 0.1);
+  background-color: #f9f9f9;
+}
 .iheicon {
   width: 90px;
   position: absolute;
@@ -210,6 +259,25 @@
   color: $white-color;
   width: 100%;
   font-family: sansx200;
+  position: relative;
+  .showTimeCinema {
+    p,
+    h3 {
+      font-size: 1.2rem;
+      font-family: sansx100;
+    }
+  }
+  .forcewelcome {
+    position: absolute;
+    top: 75px;
+    :last-child {
+      font-family: sansx50;
+    }
+    p {
+      font-size: 0.7rem;
+      font-family: sansx100;
+    }
+  }
   h3 {
     margin: 0;
     font-size: 1.4rem;
@@ -424,7 +492,7 @@
   }
   .boxChairs {
     gap: 2rem;
-    padding-top: 2rem;
+    padding-top: 3rem;
     &Left {
       grid-auto-rows: 16px;
       gap: 0.6rem;

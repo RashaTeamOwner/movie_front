@@ -17,7 +17,7 @@ function NotFoundPage() {
           <Link to="/signin" className={`${styles.btn} ${styles.btn_default} ${styles.btn_lg} ${styles.btn3d}`}>
             ورود به حساب
           </Link>
-          <a className={`${styles.btn} ${styles.btn_default} ${styles.btn_lg} ${styles.btn3d}`} href="http://92.63.169.226:8080/">
+          <a className={`${styles.btn} ${styles.btn_default} ${styles.btn_lg} ${styles.btn3d}`} href="https://rashx.ir">
             توسعه دهندگان
           </a>
         </div>

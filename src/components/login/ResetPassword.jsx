@@ -335,7 +335,7 @@ function ResetPassword() {
     else {
       const lastReq = localStorage.getItem("lastRequestTime");
       const currentTime = new Date().getTime();
-      let timeleft = ((75000 - (currentTime - lastReq)) / 1000).toFixed();
+      let timeleft = ((60000 - (currentTime - lastReq)) / 1000).toFixed();
       const intervalId = setInterval(() => {
         timeleft--;
         if (timeleft < 0) {

@@ -47,6 +47,7 @@
   &::placeholder {
     color: var(--color-text-dark);
     text-align: right;
+    font-size: 0.8rem;
   }
   &:focus {
     outline: none;
@@ -125,6 +126,7 @@
   .main {
     padding: 0.6rem;
     margin-top: 0;
+    height: 610px;
   }
   .favIconBox {
     flex-direction: row;

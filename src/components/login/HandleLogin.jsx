@@ -86,10 +86,8 @@ function HandleLogin(props) {
           </div>
         </div>
         <div className={styles.owner}>
-          <p className={styles.madewithlove}>made with love 💛</p>
-          <a href="http://92.63.169.226:8080/" className={styles.madeowner}>
-            RashaTeam
-          </a>
+          {/* <p className={styles.madewithlove}>made with love 🤍</p>
+          <a className={styles.madeowner}>rashx.ir</a> */}
         </div>
       </div>
     </>

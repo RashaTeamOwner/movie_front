@@ -11,18 +11,18 @@ function MyMovies() {
   const window = UseWindowSize();
   return (
     <div className={styles.mainContainer}>
-      <div className={styles.header}>
+      {/* <div className={styles.header}>
         <div className={styles.routeAllList}>
           <img src={arrow} alt="" />
           <button>لیست های محبوب</button>
         </div>
         <button>ثبت لیست و شرکت در مسابقه</button>
-      </div>
+      </div> */}
       <div className={styles.body}>
         <Swiper
           effect={"freemode"}
           grabCursor={true}
-          centeredSlides={true}
+          centeredSlides={false}
           slidesPerView={"auto"}
           freeMode
           modules={[FreeMode]}

@@ -56,11 +56,11 @@ function ShowSearchMovie(props) {
               setActors(response.data.credits.cast);
             })
             .catch((error) => {
-              console.error(error);
+              // console.error(error);
             });
         })
         .catch((error) => {
-          console.error(error);
+          // console.error(error);
         });
     }
   }, [movieshow]);
@@ -87,7 +87,7 @@ function ShowSearchMovie(props) {
           });
       })
       .catch((error) => {
-        console.log(error);
+        // console.log(error);
       });
   }, [props.id]);
 
@@ -309,7 +309,7 @@ function ShowSearchMovie(props) {
                     {renderStars == 0 ? <p></p> : <p>{renderStars}</p>}
                   </div>
                 ) : (
-                  <div>این فیلم در لیست مورد علاقه شماست</div>
+                  <div className={styles.numberStar}>این فیلم در لیست مورد علاقه شماست</div>
                 )}
               </div>
             </div>

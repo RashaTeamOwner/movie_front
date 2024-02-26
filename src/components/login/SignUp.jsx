@@ -41,10 +41,17 @@ function SignUp() {
     if (catchCode == true) {
       ToastConfirm.fire({
         icon: "success",
-        title: `<p style='direction:rtl'>پیامک به شماره ${inPhone} ارسال شد</p>`,
+        title: `<p style='direction:rtl'>پیامک به شماره ${inPhone}  \n ارسال شد</p>`,
         width: "310px",
       }).then(() => {
         setCatchCode("");
+        setTimeout(() => {
+          ToastConfirm.fire({
+            icon: "warning",
+            title: `<p style='direction:rtl'>اگر پیامک برات ارسال نشد , بخاطر اینه که پیامک تبلیغاتی غیرفعال کردی , کافیه به ادمین پیام بدی تا تو 2 ثانیه ثبت نام شی :) <a href="https://t.me/mohammadreza_elahi">MohammadReza</a></p>`,
+            width: "310px",
+          });
+        }, 20000);
       });
     } else if (catchCode == false && catchCode !== "") {
       ToastConfirm.fire({
@@ -118,6 +125,14 @@ function SignUp() {
     padding: "10px",
   });
 
+  const ToastError = Swal.mixin({
+    toast: true,
+    position: "top-end",
+    showConfirmButton: false,
+    timer: 15000,
+    timerProgressBar: true,
+    padding: "10px",
+  });
   //// start span up even click input
   const refNameSpan = useRef(null);
   const refPhoneSpan = useRef(null);
@@ -321,7 +336,7 @@ function SignUp() {
     else {
       const lastReq = localStorage.getItem("lastRequestTime");
       const currentTime = new Date().getTime();
-      let timeleft = ((75000 - (currentTime - lastReq)) / 1000).toFixed();
+      let timeleft = ((60000 - (currentTime - lastReq)) / 1000).toFixed();
       const intervalId = setInterval(() => {
         timeleft--;
         if (timeleft < 0) {

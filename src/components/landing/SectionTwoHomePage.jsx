@@ -1,7 +1,7 @@
 /* eslint-disable no-undef */
 import { Swiper, SwiperSlide } from "swiper/react";
 import { useRef, useState } from "react";
-import useWindowSize from "../../hooks/useWindowSize";
+import useWindowSize from "../../hooks/UseWindowSize";
 import axios from "axios";
 import UseLogedin from "../../hooks/UseLogedin";
 import { Link } from "react-router-dom";
@@ -42,7 +42,7 @@ function SectionTwoHomePage() {
         setAllVoteMovie(res.data.movies[isSelectedMovie].votes_count);
       })
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
       });
   }, [isVoted]);
 
@@ -68,15 +68,15 @@ function SectionTwoHomePage() {
     if (sizeWidth.width > 1200) {
       refFatherContainer.current.style.display = "none";
       refTableData.current.style.display = "flex";
-      refPriceData.current.style.display = "block";
+      // refPriceData.current.style.display = "block";
       refCloseIcon.current.style.display = "none";
-      refCloseIcon2.current.style.display = "none";
+      // refCloseIcon2.current.style.display = "none";
     } else if (sizeWidth.width < 1200) {
       refFatherContainer.current.style.display = "none";
       refTableData.current.style.display = "none";
-      refPriceData.current.style.display = "none";
+      // refPriceData.current.style.display = "none";
       refCloseIcon.current.style.display = "block";
-      refCloseIcon2.current.style.display = "block";
+      // refCloseIcon2.current.style.display = "block";
     }
   }, [sizeWidth]);
 
@@ -146,9 +146,9 @@ function SectionTwoHomePage() {
         <div className={styles.headerContainer}>
           <h2>فیلم هفته بعدی را شما انتخاب کنید</h2>
           <div className={styles.headPoints}>
-            <button onClick={handleOpenPoints} className={`${styles.btn} ${styles.btn_default} ${styles.btn_lg} ${styles.btn3d}`}>
+            {/* <button onClick={handleOpenPoints} className={`${styles.btn} ${styles.btn_default} ${styles.btn_lg} ${styles.btn3d}`}>
               امتیازات
-            </button>
+            </button> */}
             <button onClick={handleOpenResults} className={`${styles.btn} ${styles.btn_default} ${styles.btn_lg} ${styles.btn3d}`}>
               نتیجه رای گیری
             </button>
@@ -281,7 +281,7 @@ function SectionTwoHomePage() {
             <img onClick={closePopupShodow} src={closeicon} alt="close icon" />
           </div>
         </div>
-        <div ref={refPriceData} className={styles.priceContainer}>
+        {/* <div ref={refPriceData} className={styles.priceContainer}>
           <h3>توضیحات : </h3>
           <p>
             در هر رای گیری که شرکت کنید 10 امتیاز به حساب شما اضافه میشود . و در آخر جوایز نفیس به فردی که بیشترین امتیاز را بگیرد اهدا
@@ -299,7 +299,7 @@ function SectionTwoHomePage() {
           <div ref={refCloseIcon2} className={styles.closeIconBox}>
             <img onClick={closePopupShodow} src={closeicon} alt="close icon" />
           </div>
-        </div>
+        </div> */}
         <div ref={refFatherContainer} onClick={closePopupShodow} className={styles.shodowforHide}></div>
         <div ref={refFatherContainer2} onClick={closePopupShodow2} className={styles.shodowforHide}></div>
       </div>
