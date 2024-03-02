@@ -5,6 +5,7 @@ import { BrowserRouter as Routes, Route, Switch } from "react-router-dom";
 import Swal from "sweetalert2";
 import { useEffect, useState } from "react";
 import { Redirect } from "react-router-dom/cjs/react-router-dom.min";
+import HandleUsersNotProvide from "./components/login/HandleUsersNotProvide";
 
 function App() {
   // swal alert
@@ -54,9 +55,10 @@ function App() {
     <div style={{ position: "relative" }}>
       <Switch>
         <Route exact path="/" component={HomePage} />
-        <Route exact path="/signin" component={() => <HandleLogin targetEle={"in"} forgotpass={false} />} />
-        <Route exact path="/forgot" component={() => <HandleLogin targetEle={"in"} forgotpass={true} />} />
-        <Route exact path="/signup" component={() => <HandleLogin targetEle={"up"} forgotpass={true} />} />
+        <Route path="/signin" component={() => <HandleLogin targetEle={"in"} forgotpass={false} />} />
+        <Route path="/forgot" component={() => <HandleLogin targetEle={"in"} forgotpass={true} />} />
+        <Route path="/signup" component={() => <HandleLogin targetEle={"up"} forgotpass={true} />} />
+        <Route path="/injadastivaredmishe" component={() => <HandleUsersNotProvide />} />
         <Route path="/not-found" component={NotFoundPage} />
         <Redirect from="*" to="/not-found" />
       </Switch>
