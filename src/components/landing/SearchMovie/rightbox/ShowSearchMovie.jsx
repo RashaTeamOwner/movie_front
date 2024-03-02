@@ -14,7 +14,6 @@ import { FreeMode } from "swiper/modules";
 
 function ShowSearchMovie(props) {
   const logedinStatus = UseLogedIn();
-  const KEY = "6502fbb3";
   const refStars = useRef(null);
   const [stars, setStars] = useState(null);
   const [renderStars, setRenderStars] = useState(null);
@@ -23,6 +22,7 @@ function ShowSearchMovie(props) {
   const [actors, setActors] = useState([]);
   const [statusStars, setStatusStars] = useState({});
   const [statusRate, setStatusRate] = useState(false);
+  const [myList, setMyList] = useState([]);
 
   const KEYtmdb = process.env.VITE_KEY_TMDB;
   // image actors
@@ -55,11 +55,11 @@ function ShowSearchMovie(props) {
             .then((response) => {
               setActors(response.data.credits.cast);
             })
-            .catch((error) => {
+            .catch(() => {
               // console.error(error);
             });
         })
-        .catch((error) => {
+        .catch(() => {
           // console.error(error);
         });
     }
@@ -75,8 +75,10 @@ function ShowSearchMovie(props) {
     const sendId = props.id;
     if (sendId == "") return;
     axios
-      .get(`${process.env.VITE_URL_OMDB}/?i=${sendId}&apikey=${KEY}`)
+      .get(`${process.env.VITE_URL_OMDB}/?i=${sendId}&apikey=${process.env.VITE_KEY_OMDB}`)
       .then((res) => {
+        // send to my movies and watch list
+        setMyList(res.data);
         axios
           .post(`${process.env.VITE_API_URL}/api/v1/translate/`, res.data)
           .then((data) => {
@@ -86,7 +88,7 @@ function ShowSearchMovie(props) {
             setMovieshow(res.data);
           });
       })
-      .catch((error) => {
+      .catch(() => {
         // console.log(error);
       });
   }, [props.id]);
@@ -136,6 +138,7 @@ function ShowSearchMovie(props) {
     }
   };
   const selectStar = (event) => {
+    console.log(posterBack, movieshow, myList);
     setStars(Number(event.target.dataset.set));
   };
   // -----end stars ----- //
