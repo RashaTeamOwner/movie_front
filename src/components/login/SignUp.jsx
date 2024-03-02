@@ -46,7 +46,7 @@ function SignUp() {
       }).then(() => {
         setCatchCode("");
         setTimeout(() => {
-          ToastConfirm.fire({
+          ToastError.fire({
             icon: "warning",
             title: `<p style='direction:rtl'>اگر پیامک برات ارسال نشد , بخاطر اینه که پیامک تبلیغاتی غیرفعال کردی , کافیه به ادمین پیام بدی تا تو 2 ثانیه ثبت نام شی :) <a href="https://t.me/mohammadreza_elahi">MohammadReza</a></p>`,
             width: "310px",
@@ -298,6 +298,9 @@ function SignUp() {
         mode: "signup",
         phone_number: inPhone,
         recaptchaToken: captchaValue,
+        full_name: inName,
+        password: inPass,
+        student_id: uid,
       };
       // send to backend for auth
       axios({
@@ -423,7 +426,7 @@ function SignUp() {
               onBlur={handleClose}
               onFocus={handleFocus}
               ref={refInputUid}
-              type="text"
+              type="number"
               autoComplete="off"
               data-set="uid"
               onChange={(element) => {
@@ -443,8 +446,7 @@ function SignUp() {
                 setInPhone(element.target.value);
               }}
               required=""
-              type="text"
-              name="text"
+              type="number"
               data-set="phone"
               className={styles.input}
               autoComplete="off"
@@ -474,7 +476,7 @@ function SignUp() {
               onBlur={handleClose}
               onFocus={handleFocus}
               ref={refInputConfirm}
-              type="text"
+              type="number"
               autoComplete="off"
               data-set="confirm"
               onChange={(element) => {

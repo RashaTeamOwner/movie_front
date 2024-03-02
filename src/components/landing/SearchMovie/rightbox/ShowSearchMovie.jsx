@@ -209,12 +209,12 @@ function ShowSearchMovie(props) {
                 <div className={styles.subandpop}>
                   <p>امتیاز شما :</p>
                   {stars == -1 ? (
-                    <></>
+                    <p className={styles.yourNomreAlert}>برای تماشا یک نمره به فیلم بدهید</p>
                   ) : statusRate && logedinStatus ? (
-                    <></>
+                    <p className={styles.yourPointAlert}>9</p>
                   ) : logedinStatus ? (
                     <a onClick={handleSetStars} className={styles.whatchlist}>
-                      افزودن به لیست مورد علاقه
+                      افزودن به لیست تماشا
                     </a>
                   ) : (
                     <Link className={styles.whatchlist} to="/signin">

@@ -154,8 +154,7 @@ function Login() {
               onFocus={handleFocus}
               ref={refInputPhone}
               required=""
-              type="text"
-              name="text"
+              type="number"
               data-set="phone"
               className={styles.input}
               autoComplete="off"

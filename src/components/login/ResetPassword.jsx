@@ -276,7 +276,7 @@ function ResetPassword() {
         },
         data: data,
       })
-        .then((data) => {
+        .then(() => {
           // save time sec
           let timeReq = new Date().getTime();
           localStorage.setItem("lastRequestTime", timeReq.toString());
@@ -380,7 +380,7 @@ function ResetPassword() {
         },
         data: data,
       })
-        .then((res) => {
+        .then(() => {
           setIsLoading(false);
           Toast.fire({
             icon: "success",
@@ -443,7 +443,7 @@ function ResetPassword() {
                 onFocus={handleFocus}
                 ref={refInputUuid}
                 required=""
-                type="text"
+                type="number"
                 name="text"
                 data-set="phone"
                 className={styles.input}
@@ -464,6 +464,7 @@ function ResetPassword() {
                 onFocus={handleFocus}
                 ref={refInputPhonenumber}
                 autoComplete="off"
+                type="number"
                 data-set="pass"
                 value={inPhone}
                 onChange={(element) => {
@@ -479,7 +480,7 @@ function ResetPassword() {
                 onBlur={handleClose}
                 onFocus={handleFocus}
                 ref={refInputConfirm}
-                type="text"
+                type="number"
                 autoComplete="off"
                 data-set="confirm"
                 onChange={(element) => {
