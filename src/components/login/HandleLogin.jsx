@@ -86,8 +86,10 @@ function HandleLogin(props) {
           </div>
         </div>
         <div className={styles.owner}>
-          {/* <p className={styles.madewithlove}>made with love 🤍</p>
-          <a className={styles.madeowner}>rashx.ir</a> */}
+          <p className={styles.madewithlove}>made with love 🤍</p>
+          <a href="https://rashx.ir" className={styles.madeowner}>
+            RashaTeam
+          </a>
         </div>
       </div>
     </>

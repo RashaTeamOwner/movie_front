@@ -18,7 +18,7 @@ import img13 from "../../assets/landing/upcoming/13s.webp";
 import img14 from "../../assets/landing/upcoming/14s.webp";
 import img15 from "../../assets/landing/upcoming/15s.webp";
 import img16 from "../../assets/landing/upcoming/16s.webp";
-import UseWindowSize from "../../hooks/useWindowSize";
+import UseWindowSize from "../../hooks/UseWindowSize";
 // Import Swiper styles
 
 function DetailAndUpComing() {

@@ -41,14 +41,14 @@ function SectionTwoHomePage() {
         setIsLoading(true);
         setAllVoteMovie(res.data.movies[isSelectedMovie].votes_count);
       })
-      .catch((err) => {
+      .catch(() => {
         // console.log(err);
       });
   }, [isVoted]);
 
-  const handleSlideChange = (swiper) => {
-    const activeSlideIndex = swiper.activeIndex;
-    const targetSlide = swiper.slides[activeSlideIndex];
+  const handleSlideChange = () => {
+    // const activeSlideIndex = swiper.activeIndex;
+    // const targetSlide = swiper.slides[activeSlideIndex];
     // if (targetSlide.children[0].className == styles.contentSlide) {
     //   targetSlide.children[0].style.display = "flex";
     // }
@@ -60,7 +60,7 @@ function SectionTwoHomePage() {
   const refFatherContainer = useRef(null);
   const refFatherContainer2 = useRef(null);
   const refCloseIcon = useRef(null);
-  const refCloseIcon2 = useRef(null);
+  // const refCloseIcon2 = useRef(null);
 
   const sizeWidth = useWindowSize();
   useEffect(() => {
@@ -89,11 +89,11 @@ function SectionTwoHomePage() {
     refPriceData.current.style.display = "none";
     refFatherContainer.current.style.display = "block";
   };
-  const handleOpenPoints = () => {
-    refPriceData.current.style.display = "block";
-    refTableData.current.style.display = "none";
-    refFatherContainer.current.style.display = "block";
-  };
+  // const handleOpenPoints = () => {
+  //   refPriceData.current.style.display = "block";
+  //   refTableData.current.style.display = "none";
+  //   refFatherContainer.current.style.display = "block";
+  // };
 
   const closePopupShodow = () => {
     refFatherContainer.current.style.display = "none";
