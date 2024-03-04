@@ -55,6 +55,7 @@ body {
 }
 
 .detailMovie {
+  height: 100%;
   position: absolute;
   top: 5px;
   right: 0px;
@@ -68,6 +69,7 @@ body {
     color: $gold-color;
     font-family: iransans;
     padding: 0.5rem;
+    white-space: nowrap;
   }
   .timeandsec {
     display: flex;
@@ -102,7 +104,7 @@ body {
       height: 2rem;
       align-items: center;
       img {
-        width: 1.5rem;
+        width: 2.5rem;
         padding: 0.3rem;
       }
     }
@@ -124,9 +126,16 @@ body {
 .subandpop {
   display: flex;
   gap: 0.5rem;
+  // background-color: gainsboro;
+  cursor: pointer;
+  width: fit-content;
   // background-color: rgba(255, 217, 0, 0.443);
   > p {
     color: $gold-color;
+    font-size: 0.9rem;
+  }
+  > img {
+    width: 4rem;
   }
 }
 .whatchlist {
@@ -151,6 +160,8 @@ body {
 .boxBazigaran {
   padding: 0.5rem;
   color: $gold-color;
+  position: absolute;
+  bottom: 160px;
 }
 
 .imageActors {
@@ -160,6 +171,8 @@ body {
   padding: 1rem 0.5rem;
   overflow: auto;
   width: 340px;
+  position: absolute;
+  bottom: 0;
   img {
     border-radius: 1rem;
     cursor: pointer;
@@ -255,5 +268,123 @@ body {
   .detailMovie {
     padding: 0.4rem;
     width: 100%;
+  }
+}
+
+.three_body {
+  --uib-size: 35px;
+  --uib-speed: 0.8s;
+  --uib-color: #00ddd2;
+  position: relative;
+  display: inline-block;
+  height: var(--uib-size);
+  width: var(--uib-size);
+  animation: spin78236 calc(var(--uib-speed) * 2.5) infinite linear;
+}
+
+.three_body__dot {
+  position: absolute;
+  height: 100%;
+  width: 30%;
+}
+
+.three_body__dot:after {
+  content: "";
+  position: absolute;
+  height: 0%;
+  width: 100%;
+  padding-bottom: 100%;
+  background-color: var(--uib-color);
+  border-radius: 50%;
+}
+
+.three_body__dot:nth-child(1) {
+  bottom: 5%;
+  left: 0;
+  transform: rotate(60deg);
+  transform-origin: 50% 85%;
+}
+
+.three_body__dot:nth-child(1)::after {
+  bottom: 0;
+  left: 0;
+  animation: wobble1 var(--uib-speed) infinite ease-in-out;
+  animation-delay: calc(var(--uib-speed) * -0.3);
+}
+
+.three_body__dot:nth-child(2) {
+  bottom: 5%;
+  right: 0;
+  transform: rotate(-60deg);
+  transform-origin: 50% 85%;
+}
+
+.three_body__dot:nth-child(2)::after {
+  bottom: 0;
+  left: 0;
+  animation: wobble1 var(--uib-speed) infinite calc(var(--uib-speed) * -0.15) ease-in-out;
+}
+
+.three_body__dot:nth-child(3) {
+  bottom: -5%;
+  left: 0;
+  transform: translateX(116.666%);
+}
+
+.three_body__dot:nth-child(3)::after {
+  top: 0;
+  left: 0;
+  animation: wobble2 var(--uib-speed) infinite ease-in-out;
+}
+
+@keyframes spin78236 {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes wobble1 {
+  0%,
+  100% {
+    transform: translateY(0%) scale(1);
+    opacity: 1;
+  }
+
+  50% {
+    transform: translateY(-66%) scale(0.65);
+    opacity: 0.8;
+  }
+}
+
+@keyframes wobble2 {
+  0%,
+  100% {
+    transform: translateY(0%) scale(1);
+    opacity: 1;
+  }
+
+  50% {
+    transform: translateY(66%) scale(0.65);
+    opacity: 0.8;
+  }
+}
+
+.loadwave {
+  animation: wavetoshow 3.5s 1s forwards;
+  white-space: nowrap;
+  overflow: hidden;
+  visibility: hidden;
+}
+@keyframes wavetoshow {
+  0% {
+    width: 0px;
+  }
+  100% {
+    width: 100%;
+    visibility: visible;
   }
 }

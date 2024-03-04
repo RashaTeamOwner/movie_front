@@ -1,6 +1,6 @@
 /* eslint-disable no-undef */
 /* eslint-disable react/prop-types */
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useMemo } from "react";
 import UseLogedIn from "../../../../hooks/UseLogedin";
 import starimg from "../../../../assets/landing/star-solid.svg";
 import arrow from "../../../../assets/landing/arrow-up.svg";
@@ -11,6 +11,8 @@ import { Link } from "react-router-dom/cjs/react-router-dom.min";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import { FreeMode } from "swiper/modules";
+import listaddimg from "../../../../assets/landing/listadd.svg";
+import bookadd from "../../../../assets/landing/bookadded.svg";
 
 function ShowSearchMovie(props) {
   const logedinStatus = UseLogedIn();
@@ -23,8 +25,10 @@ function ShowSearchMovie(props) {
   const [statusStars, setStatusStars] = useState({});
   const [statusRate, setStatusRate] = useState(false);
   const [myList, setMyList] = useState([]);
-
+  const [loading, setLoading] = useState(false);
+  const [watchlist, setWatchlist] = useState([]);
   const KEYtmdb = process.env.VITE_KEY_TMDB;
+
   // image actors
   useEffect(() => {
     if (movieshow.Actors == undefined) return;
@@ -137,10 +141,68 @@ function ShowSearchMovie(props) {
       element.style.filter = "invert(64%) sepia(68%) saturate(1071%) hue-rotate(355deg) brightness(101%) contrast(103%)";
     }
   };
-  const selectStar = (event) => {
-    console.log(posterBack, movieshow, myList);
-    setStars(Number(event.target.dataset.set));
+  const postToWatchList = () => {
+    let data = {
+      name:
+        String(posterBack.original_name) == "undefined"
+          ? `${posterBack.original_title} - ${movieshow.Title}`
+          : `${posterBack.original_name} - ${movieshow.Title}`,
+      description: movieshow.Plot,
+      imdb_id: myList.imdbID,
+      imdb_rate: myList.imdbRating,
+      link: "empty",
+      genre: movieshow.Genre,
+      image_path: posterBack.poster_path,
+      banner_path: posterBack.backdrop_path,
+      duration: movieshow.Runtime,
+      country: movieshow.Country,
+      year: movieshow.Year,
+    };
+    axios({
+      method: "post",
+      url: `${process.env.VITE_API_URL}/api/v1/add-to-watchlist/`,
+      headers: {
+        Authorization: `Token ${localStorage.getItem("token")}`,
+      },
+      data: data,
+    })
+      .then(() => {
+        // end loading
+        axios({
+          method: "get",
+          url: `${process.env.VITE_API_URL}/api/v1/`,
+          headers: {
+            Authorization:
+              localStorage.getItem("token") != null ? `Token ${localStorage.getItem("token")}` : `Tokene ${localStorage.getItem("token")}`,
+          },
+        }).then((res) => {
+          res.data.watch_list.map((index) => {
+            setWatchlist((prev) => [...prev, index.imdb_id]);
+          });
+          localStorage.setItem("watchlist", "");
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    // setStars(Number(event.target.dataset.set));
   };
+  useMemo(() => {
+    axios({
+      method: "get",
+      url: `${process.env.VITE_API_URL}/api/v1/`,
+      headers: {
+        Authorization:
+          localStorage.getItem("token") != null ? `Token ${localStorage.getItem("token")}` : `Tokene ${localStorage.getItem("token")}`,
+      },
+    }).then((res) => {
+      res.data.watch_list.map((index) => {
+        setWatchlist((prev) => [...prev, index.imdb_id]);
+      });
+      localStorage.setItem("watchlist", "");
+    });
+    //
+  }, [myList]);
   // -----end stars ----- //
 
   // handle set stars and get start in localStorage
@@ -209,23 +271,45 @@ function ShowSearchMovie(props) {
             </div>
             <div className={styles.rateRightPage}>
               <div className={styles.yourRate}>
-                <div className={styles.subandpop}>
-                  <p>امتیاز شما :</p>
+                <div style={{ display: !loading ? "flex" : "none" }} className={`${styles.subandpop} ${styles.loadwave}`}>
+                  {/* <p>امتیاز شما :</p>
                   {stars == -1 ? (
                     <p className={styles.yourNomreAlert}>برای تماشا یک نمره به فیلم بدهید</p>
                   ) : statusRate && logedinStatus ? (
                     <p className={styles.yourPointAlert}>9</p>
                   ) : logedinStatus ? (
                     <a onClick={handleSetStars} className={styles.whatchlist}>
-                      افزودن به لیست تماشا
+                      ثبت نمره شما به این فیلم
                     </a>
                   ) : (
                     <Link className={styles.whatchlist} to="/signin">
                       برای ثبت رای وارد حساب خود شوید
                     </Link>
+                  )} */}
+                  {logedinStatus ? (
+                    watchlist.includes(myList.imdbID) ? (
+                      <>
+                        <img src={bookadd} alt="add" />
+                        <p>به لیست تماشای شما اضافه شده</p>
+                      </>
+                    ) : (
+                      <>
+                        <img src={listaddimg} alt="add" />
+                        <p onClick={postToWatchList}>افزودن به لیست تماشا</p>
+                      </>
+                    )
+                  ) : (
+                    <Link className={styles.whatchlist} to="/signin">
+                      برای افزودن فیلم به لیست تماشا وارد حساب خود شوید
+                    </Link>
                   )}
                 </div>
-                {Object.keys(statusStars).length == 0 || !logedinStatus ? (
+                <div style={{ display: loading ? "block" : "none" }} className={styles.three_body}>
+                  <div className={styles.three_body__dot}></div>
+                  <div className={styles.three_body__dot}></div>
+                  <div className={styles.three_body__dot}></div>
+                </div>
+                {/* {Object.keys(statusStars).length == 0 || !logedinStatus ? (
                   <div className={styles.numberStar}>
                     <div ref={refStars}>
                       <img
@@ -312,8 +396,8 @@ function ShowSearchMovie(props) {
                     {renderStars == 0 ? <p></p> : <p>{renderStars}</p>}
                   </div>
                 ) : (
-                  <div className={styles.numberStar}>این فیلم در لیست مورد علاقه شماست</div>
-                )}
+                  <div className={styles.numberStar}>امتیاز شما برای این فیلم ثبت شده</div>
+                )} */}
               </div>
             </div>
             {/* image actors */}
@@ -322,7 +406,7 @@ function ShowSearchMovie(props) {
               <Swiper
                 effect={"freemode"}
                 grabCursor={true}
-                centeredSlides={true}
+                centeredSlides={false}
                 slidesPerView={"auto"}
                 freeMode
                 // autoplay={{ delay: 4000, pauseOnMouseEnter: true }}
