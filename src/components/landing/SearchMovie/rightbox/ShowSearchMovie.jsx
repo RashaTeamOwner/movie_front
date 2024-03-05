@@ -1,8 +1,7 @@
 /* eslint-disable no-undef */
 /* eslint-disable react/prop-types */
-import { useState, useEffect, useRef, useMemo } from "react";
+import { useState, useEffect, useMemo } from "react";
 import UseLogedIn from "../../../../hooks/UseLogedin";
-import starimg from "../../../../assets/landing/star-solid.svg";
 import arrow from "../../../../assets/landing/arrow-up.svg";
 import infGif from "../../../../assets/landing/infinity.gif";
 import axios from "axios";
@@ -16,14 +15,11 @@ import bookadd from "../../../../assets/landing/bookadded.svg";
 
 function ShowSearchMovie(props) {
   const logedinStatus = UseLogedIn();
-  const refStars = useRef(null);
+  // const refStars = useRef(null);
   const [stars, setStars] = useState(null);
-  const [renderStars, setRenderStars] = useState(null);
   const [movieshow, setMovieshow] = useState([]);
   const [posterBack, setPosterBack] = useState([]);
   const [actors, setActors] = useState([]);
-  const [statusStars, setStatusStars] = useState({});
-  const [statusRate, setStatusRate] = useState(false);
   const [myList, setMyList] = useState([]);
   const [loading, setLoading] = useState(false);
   const [watchlist, setWatchlist] = useState([]);
@@ -71,7 +67,7 @@ function ShowSearchMovie(props) {
 
   useEffect(() => {
     setStars(-1);
-    setRenderStars(0);
+    // setRenderStars(0);
     setMovieshow([]);
     setPosterBack([]);
     setActors([]);
@@ -107,40 +103,40 @@ function ShowSearchMovie(props) {
     props.backArrow(0);
   };
   // -----start stars ----- //
-  useEffect(() => {
-    if (refStars.current == null) return;
-    const starelement = refStars.current.children;
-    for (let j = 9; j >= stars + 1; j--) {
-      starelement[j].style.filter = "none";
-    }
-    for (let i = 0; i <= stars; i++) {
-      let element = starelement[i];
-      element.style.filter = "invert(64%) sepia(68%) saturate(1071%) hue-rotate(355deg) brightness(101%) contrast(103%)";
-    }
-  }, [stars]);
-  const handleStars = (event) => {
-    const list = event.target.parentElement.children;
-    setRenderStars(Number(event.target.dataset.set) + 1);
-    for (let j = 9; j >= Number(event.target.dataset.set); j--) {
-      list[j].style.filter = "none";
-    }
-    for (let i = 0; i <= Number(event.target.dataset.set); i++) {
-      let element = list[i];
-      element.style.filter = "invert(64%) sepia(68%) saturate(1071%) hue-rotate(355deg) brightness(101%) contrast(103%)";
-    }
-  };
-  const handleResetStars = (event) => {
-    const list = event.target.parentElement.children;
-    setRenderStars(stars + 1);
-    // reset stars to select item
-    for (let j = 9; j >= stars + 1; j--) {
-      list[j].style.filter = "none";
-    }
-    for (let i = 0; i <= stars; i++) {
-      let element = list[i];
-      element.style.filter = "invert(64%) sepia(68%) saturate(1071%) hue-rotate(355deg) brightness(101%) contrast(103%)";
-    }
-  };
+  // useEffect(() => {
+  //   if (refStars.current == null) return;
+  //   const starelement = refStars.current.children;
+  //   for (let j = 9; j >= stars + 1; j--) {
+  //     starelement[j].style.filter = "none";
+  //   }
+  //   for (let i = 0; i <= stars; i++) {
+  //     let element = starelement[i];
+  //     element.style.filter = "invert(64%) sepia(68%) saturate(1071%) hue-rotate(355deg) brightness(101%) contrast(103%)";
+  //   }
+  // }, [stars]);
+  // const handleStars = (event) => {
+  //   const list = event.target.parentElement.children;
+  //   setRenderStars(Number(event.target.dataset.set) + 1);
+  //   for (let j = 9; j >= Number(event.target.dataset.set); j--) {
+  //     list[j].style.filter = "none";
+  //   }
+  //   for (let i = 0; i <= Number(event.target.dataset.set); i++) {
+  //     let element = list[i];
+  //     element.style.filter = "invert(64%) sepia(68%) saturate(1071%) hue-rotate(355deg) brightness(101%) contrast(103%)";
+  //   }
+  // };
+  // const handleResetStars = (event) => {
+  //   const list = event.target.parentElement.children;
+  //   setRenderStars(stars + 1);
+  //   // reset stars to select item
+  //   for (let j = 9; j >= stars + 1; j--) {
+  //     list[j].style.filter = "none";
+  //   }
+  //   for (let i = 0; i <= stars; i++) {
+  //     let element = list[i];
+  //     element.style.filter = "invert(64%) sepia(68%) saturate(1071%) hue-rotate(355deg) brightness(101%) contrast(103%)";
+  //   }
+  // };
   const postToWatchList = () => {
     let data = {
       name:

@@ -80,7 +80,11 @@
     }
     .votes {
       padding-bottom: 1.1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
       p {
+        white-space: nowrap;
         color: $gold-color;
         font-family: sansx100;
         font-size: 0.9rem;
@@ -116,6 +120,87 @@
     }
     > p {
       font-size: 0.8rem;
+    }
+  }
+}
+
+.addstarshow {
+  display: flex;
+  gap: 0.5rem;
+  position: relative;
+  align-items: center;
+  width: fit-content;
+  > img {
+    cursor: pointer;
+    width: 1.2rem;
+  }
+  .textPoint {
+    color: $stblue-in !important;
+    width: 0.8rem;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 70px;
+    transition: 0.5s;
+    font-size: 0.6rem !important;
+  }
+  .textPointverse {
+    position: absolute;
+    top: -2px;
+    right: 70px;
+  }
+  .textPointnone {
+    color: $stblue-in !important;
+    font-size: 0.6rem !important;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 90px;
+    transition: 0.5s;
+  }
+  .textPointnoneverse {
+    position: absolute;
+    top: -2px;
+    right: 70px;
+    transition: 0.5s;
+  }
+}
+
+@keyframes openStars {
+  0% {
+    width: 0%;
+  }
+  100% {
+    width: 76%;
+  }
+}
+.yourRate {
+  // left: 0;
+  animation: openStars 3s forwards ease;
+  overflow: hidden;
+  > p {
+    font-size: 1rem;
+  }
+  > div {
+    display: flex;
+    height: 2rem;
+    align-items: center;
+    img {
+      width: 1.4rem;
+      padding: 0.1rem;
+    }
+  }
+  .numberStar {
+    display: flex;
+    align-items: center;
+    height: 2.5rem;
+    > p {
+      margin-right: 0.5rem;
+      width: 3rem;
+      color: $gold-color;
+    }
+    > div {
+      display: flex;
     }
   }
 }
