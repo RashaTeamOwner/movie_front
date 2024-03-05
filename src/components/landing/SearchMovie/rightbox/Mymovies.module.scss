@@ -76,7 +76,8 @@
     justify-content: space-between;
     > h2 {
       color: $white-color;
-      font-family: sansx50;
+      font-family: sansx100;
+      font-size: 1.2rem;
     }
     .votes {
       padding-bottom: 1.1rem;
@@ -140,14 +141,14 @@
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    right: 70px;
+    right: 90px;
     transition: 0.5s;
-    font-size: 0.6rem !important;
+    font-size: 0.8rem !important;
   }
   .textPointverse {
     position: absolute;
     top: -2px;
-    right: 70px;
+    right: 60px;
   }
   .textPointnone {
     color: $stblue-in !important;
@@ -160,7 +161,7 @@
   }
   .textPointnoneverse {
     position: absolute;
-    top: -2px;
+    top: -5px;
     right: 70px;
     transition: 0.5s;
   }
@@ -178,8 +179,10 @@
   // left: 0;
   animation: openStars 3s forwards ease;
   overflow: hidden;
+  display: flex;
   > p {
     font-size: 1rem;
+    margin-right: 0.4rem;
   }
   > div {
     display: flex;
@@ -203,6 +206,11 @@
       display: flex;
     }
   }
+}
+
+.sabt {
+  color: white !important;
+  cursor: pointer;
 }
 
 @media (max-width: 575px) {
