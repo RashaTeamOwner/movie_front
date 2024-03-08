@@ -49,13 +49,19 @@ function MyMovies() {
   const [showStar, setShowStar] = useState(false);
   const [handleStar, dispatchStar] = useReducer(redStar, initialStars);
   const handleAllStars = (imdbid) => {
+    let changeOpen = open.map((item) => {
+      if (item.id == imdbid) {
+        item.status = false;
+      }
+      return item;
+    });
+    setOpen(changeOpen);
     let temprate = 0;
     getWatch.map((item) => {
       if (imdbid == item.imdb_id) {
         temprate = item.user_rating;
       }
     });
-    console.log(temprate);
     // axios
     let data = {
       rating: temprate,
@@ -177,6 +183,7 @@ function MyMovies() {
     // reset stars to select item
     // const starelement = refStars.current.children;
     for (let j = 9; j >= uesrRate; j--) {
+      if (fatherelement[j] == undefined) return;
       fatherelement[j].style.filter = "invert(64%) sepia(68%) saturate(1071%) hue-rotate(355deg) brightness(101%) contrast(103%)";
     }
     for (let i = 0; i < uesrRate; i++) {
@@ -209,7 +216,7 @@ function MyMovies() {
             const [orgName, persName] = index.name.split("-");
             return (
               <>
-                <SwiperSlide key={index.imdb_id} className={styles.swiperActors}>
+                <SwiperSlide key={i} className={styles.swiperActors}>
                   <div
                     style={{
                       background:
