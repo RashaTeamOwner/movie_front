@@ -31,6 +31,7 @@ function HeaderHomePage() {
       },
     })
       .then((res) => {
+        localStorage.setItem("watch_list", JSON.stringify(res.data.watch_list));
         const chairs = res.data.seats;
         setArrLeft(chairs.left_seats);
         setArrRight(chairs.right_seats);
