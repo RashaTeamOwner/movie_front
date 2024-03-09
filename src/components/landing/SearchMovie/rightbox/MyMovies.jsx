@@ -49,13 +49,6 @@ function MyMovies() {
   const [showStar, setShowStar] = useState(false);
   const [handleStar, dispatchStar] = useReducer(redStar, initialStars);
   const handleAllStars = (imdbid) => {
-    let changeOpen = open.map((item) => {
-      if (item.id == imdbid) {
-        item.status = false;
-      }
-      return item;
-    });
-    setOpen(changeOpen);
     let temprate = 0;
     getWatch.map((item) => {
       if (imdbid == item.imdb_id) {
@@ -75,6 +68,13 @@ function MyMovies() {
       },
       data: data,
     }).then(() => {
+      let changeOpen = open.map((item) => {
+        if (item.id == imdbid) {
+          item.status = false;
+        }
+        return item;
+      });
+      setOpen(changeOpen);
       axios({
         method: "get",
         url: `${process.env.VITE_API_URL}/api/v1/`,
@@ -135,9 +135,6 @@ function MyMovies() {
         tempstar = item.user_rating;
       }
     });
-    // setRenderStars(stars + 1);
-    // reset stars to select item
-    //  j--,9,>= and i=0,<
     for (let j = 9; j >= tempstar; j--) {
       let element = list[j];
       element.style.filter = "invert(64%) sepia(68%) saturate(1071%) hue-rotate(355deg) brightness(101%) contrast(103%)";
@@ -156,9 +153,6 @@ function MyMovies() {
       return item;
     });
     setGetWatch(change);
-    // after post to reducer for new rate
-    // dispatchStar({ rate: 8, id: imdbId });
-    // setStars(Number(event.target.dataset.set));
   };
 
   const showStarsToPage = (event) => {
@@ -192,6 +186,39 @@ function MyMovies() {
     setShowStar(true);
   };
 
+  const reomveFromWatchList = (imdbid) => {
+    // axios
+    let data = {
+      imdb_id: imdbid,
+    };
+    axios({
+      method: "post",
+      url: `${process.env.VITE_API_URL}/api/v1/remove-from-watchlist/`,
+      headers: {
+        Authorization: `Token ${localStorage.getItem("token")}`,
+      },
+      data: data,
+    }).then(() => {
+      let changeOpen = open.map((item) => {
+        if (item.id == imdbid) {
+          item.status = false;
+        }
+        return item;
+      });
+      setOpen(changeOpen);
+      axios({
+        method: "get",
+        url: `${process.env.VITE_API_URL}/api/v1/`,
+        headers: {
+          Authorization:
+            localStorage.getItem("token") != null ? `Token ${localStorage.getItem("token")}` : `Tokene ${localStorage.getItem("token")}`,
+        },
+      }).then((res) => {
+        localStorage.setItem("watch_list", JSON.stringify(res.data.watch_list));
+      });
+    });
+  };
+
   return (
     <div className={styles.mainContainer}>
       {/* <div className={styles.header}>
@@ -213,7 +240,7 @@ function MyMovies() {
           className={styles.mySwiper}
         >
           {getWatch.map((index, i) => {
-            const [orgName, persName] = index.name.split("-");
+            const [orgName, persName] = index.name.split(" - ");
             return (
               <>
                 <SwiperSlide key={i} className={styles.swiperActors}>
@@ -362,7 +389,7 @@ function MyMovies() {
                       <button>اطلاعات فیلم</button>
                     </div>
                     <div className={styles.optionSetup}>
-                      <button>حذف فیلم</button>
+                      <button onClick={() => reomveFromWatchList(index.imdb_id)}>حذف فیلم</button>
                       <p>پخش آنلاین به زودی ...</p>
                     </div>
                   </div>
