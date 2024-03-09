@@ -81,6 +81,7 @@
     }
     .votes {
       padding-bottom: 1.1rem;
+      padding-top: 0.9rem;
       display: flex;
       flex-direction: column;
       gap: 0.3rem;
@@ -113,6 +114,7 @@
     color: $white-color;
     > button {
       border: none;
+      white-space: nowrap;
       padding: 0.5rem 1rem;
       font-family: iransans;
       background: linear-gradient(45deg, $stred-in, $stred-out);
@@ -177,6 +179,7 @@
 }
 .yourRate {
   // left: 0;
+  z-index: 3;
   animation: openStars 3s forwards ease;
   overflow: hidden;
   display: flex;
@@ -213,7 +216,7 @@
   cursor: pointer;
 }
 
-@media (max-width: 575px) {
+@media (max-width: 620px) {
   .swiperActors {
     .listMovie {
       position: relative;
@@ -230,13 +233,35 @@
         > p {
           width: 70px;
           position: absolute;
-          bottom: 15px;
+          bottom: 10px;
+          font-size: 0.7rem;
         }
       }
     }
   }
 }
 @media (max-width: 500px) {
+  .optionSetup {
+    top: 4px;
+    left: 4px !important;
+    > button {
+      border: 2px solid $white-color !important;
+      padding: 0.2rem 0.5rem !important;
+      font-family: iransans;
+      background: linear-gradient(45deg, $stred-in, $stred-out);
+      color: $white-color;
+      border-radius: 1rem 0 1rem 0;
+    }
+  }
+  .detailMovie {
+    button {
+      position: relative;
+      bottom: -4px;
+      right: -4px;
+      border: 2px solid $white-color !important;
+      padding: 0.2rem 0.5rem !important;
+    }
+  }
   .body {
     height: 580px;
   }
@@ -251,6 +276,9 @@
     }
   }
   .swiperActors {
+    .detailMovie {
+      padding-right: 0 !important;
+    }
     .listMovie {
       background-position: right !important;
       background-size: cover !important;

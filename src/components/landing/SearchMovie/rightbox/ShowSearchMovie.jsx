@@ -138,6 +138,7 @@ function ShowSearchMovie(props) {
   //   }
   // };
   const postToWatchList = () => {
+    setLoading(true);
     let data = {
       name:
         String(posterBack.original_name) == "undefined"
@@ -164,6 +165,7 @@ function ShowSearchMovie(props) {
     })
       .then(() => {
         // end loading
+        setLoading(false);
         axios({
           method: "get",
           url: `${process.env.VITE_API_URL}/api/v1/`,
@@ -175,11 +177,12 @@ function ShowSearchMovie(props) {
           res.data.watch_list.map((index) => {
             setWatchlist((prev) => [...prev, index.imdb_id]);
           });
-          localStorage.setItem("watchlist", "");
+          localStorage.setItem("watch_list", JSON.stringify(res.data.watch_list));
         });
       })
       .catch((err) => {
         console.log(err);
+        setLoading(false);
       });
     // setStars(Number(event.target.dataset.set));
   };
@@ -233,7 +236,11 @@ function ShowSearchMovie(props) {
     <div className={styles.mainBox}>
       {Object.keys(movieshow).length == 0 ? (
         <div className={styles.loadingGif}>
-          <img src={infGif} alt="loading" />
+          <div className={styles.three_body}>
+            <div className={styles.three_body__dot}></div>
+            <div className={styles.three_body__dot}></div>
+            <div className={styles.three_body__dot}></div>
+          </div>
         </div>
       ) : (
         <>

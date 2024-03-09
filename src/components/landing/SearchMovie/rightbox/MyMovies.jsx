@@ -1,10 +1,8 @@
 /* eslint-disable no-undef */
 /* eslint-disable no-unused-vars */
 import styles from "./Mymovies.module.scss";
-import arrow from "../../../../assets/loginpage/arrow.svg";
-import img1 from "../../../../assets/landing/upcoming/7s.webp";
-import img2 from "../../../../assets/landing/upcoming/11s.webp";
-import img3 from "../../../../assets/landing/upcoming/16s.webp";
+// import arrow from "../../../../assets/loginpage/arrow.svg";
+import img1 from "../../../../assets/landing/upcoming/default.webp";
 import starimg from "../../../../assets/landing/starmain.svg";
 import addstar from "../../../../assets/landing/staradd.svg";
 import UseWindowSize from "../../../../hooks/UseWindowSize";
@@ -40,13 +38,14 @@ function MyMovies() {
   const window = UseWindowSize();
   const logedinStatus = UseLogedin();
   const refStars = useRef(null);
-  const [renderStars, setRenderStars] = useState(null);
-  const [statusStars, setStatusStars] = useState({});
-  const [statusRate, setStatusRate] = useState([]);
+  // const [renderStars, setRenderStars] = useState(null);
+  // const [statusStars, setStatusStars] = useState({});
+  // const [statusRate, setStatusRate] = useState([]);
   const [getWatch, setGetWatch] = useState([]);
   const [open, setOpen] = useState([]);
-  const [stars, setStars] = useState(null);
+  // const [stars, setStars] = useState(null);
   const [showStar, setShowStar] = useState(false);
+  const [reRender, setRerender] = useState("");
   const [handleStar, dispatchStar] = useReducer(redStar, initialStars);
   const handleAllStars = (imdbid) => {
     let temprate = 0;
@@ -114,7 +113,7 @@ function MyMovies() {
       });
       setOpen(tempArr);
     }
-  }, []);
+  }, [reRender]);
   const handleStars = (event) => {
     const list = event.target.parentElement.children;
     // setRenderStars(Number(event.target.dataset.set) + 1);
@@ -215,6 +214,7 @@ function MyMovies() {
         },
       }).then((res) => {
         localStorage.setItem("watch_list", JSON.stringify(res.data.watch_list));
+        setRerender(Math.random());
       });
     });
   };
