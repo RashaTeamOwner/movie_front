@@ -47,46 +47,10 @@ function MyMovies() {
   const [showStar, setShowStar] = useState(false);
   const [reRender, setRerender] = useState("");
   const [handleStar, dispatchStar] = useReducer(redStar, initialStars);
-  const handleAllStars = (imdbid) => {
-    let temprate = 0;
-    getWatch.map((item) => {
-      if (imdbid == item.imdb_id) {
-        temprate = item.user_rating;
-      }
-    });
-    // axios
-    let data = {
-      rating: temprate,
-      imdb_id: imdbid,
-    };
-    axios({
-      method: "post",
-      url: `${process.env.VITE_API_URL}/api/v1/rate/`,
-      headers: {
-        Authorization: `Token ${localStorage.getItem("token")}`,
-      },
-      data: data,
-    }).then(() => {
-      let changeOpen = open.map((item) => {
-        if (item.id == imdbid) {
-          item.status = false;
-        }
-        return item;
-      });
-      setOpen(changeOpen);
-      axios({
-        method: "get",
-        url: `${process.env.VITE_API_URL}/api/v1/`,
-        headers: {
-          Authorization:
-            localStorage.getItem("token") != null ? `Token ${localStorage.getItem("token")}` : `Tokene ${localStorage.getItem("token")}`,
-        },
-      }).then((res) => {
-        localStorage.setItem("watch_list", JSON.stringify(res.data.watch_list));
-        dispatchStar({ rate: temprate, id: imdbid });
-      });
-    });
-  };
+  const [loading,setLoading] = useState(false)
+  // const handleAllStars = (imdbid) => {
+
+  // };
   // handle stars
   // useEffect(() => {
   //   if (refStars.current == null) return;
@@ -151,6 +115,44 @@ function MyMovies() {
       }
       return item;
     });
+    let temprate = 0;
+    getWatch.map((item) => {
+      if (imdbId == item.imdb_id) {
+        temprate = item.user_rating;
+      }
+    });
+    // axios
+    let data = {
+      rating: temprate,
+      imdb_id: imdbId,
+    };
+    axios({
+      method: "post",
+      url: `${process.env.VITE_API_URL}/api/v1/rate/`,
+      headers: {
+        Authorization: `Token ${localStorage.getItem("token")}`,
+      },
+      data: data,
+    }).then(() => {
+      let changeOpen = open.map((item) => {
+        if (item.id == imdbId) {
+          item.status = false;
+        }
+        return item;
+      });
+      setOpen(changeOpen);
+      axios({
+        method: "get",
+        url: `${process.env.VITE_API_URL}/api/v1/`,
+        headers: {
+          Authorization:
+            localStorage.getItem("token") != null ? `Token ${localStorage.getItem("token")}` : `Tokene ${localStorage.getItem("token")}`,
+        },
+      }).then((res) => {
+        localStorage.setItem("watch_list", JSON.stringify(res.data.watch_list));
+        dispatchStar({ rate: temprate, id: imdbId });
+      });
+    });
     setGetWatch(change);
   };
 
@@ -186,6 +188,7 @@ function MyMovies() {
   };
 
   const reomveFromWatchList = (imdbid) => {
+    setLoading(true)
     // axios
     let data = {
       imdb_id: imdbid,
@@ -215,12 +218,14 @@ function MyMovies() {
       }).then((res) => {
         localStorage.setItem("watch_list", JSON.stringify(res.data.watch_list));
         setRerender(Math.random());
+        setLoading(false)
       });
     });
   };
 
-  return (
-    <div className={styles.mainContainer}>
+  if(getWatch.length != 0){
+      return (
+<div className={styles.mainContainer}>
       {/* <div className={styles.header}>
         <div className={styles.routeAllList}>
           <img src={arrow} alt="" />
@@ -228,7 +233,11 @@ function MyMovies() {
         </div>
         <button>ثبت لیست و شرکت در مسابقه</button>
       </div> */}
-      <div className={styles.body}>
+      {loading?<div className={styles.three_body}>
+            <div className={styles.three_body__dot}></div>
+            <div className={styles.three_body__dot}></div>
+            <div className={styles.three_body__dot}></div>
+          </div>:<div className={styles.body}>
         <Swiper
           effect={"freemode"}
           grabCursor={true}
@@ -366,13 +375,13 @@ function MyMovies() {
                                   src={starimg}
                                   alt="star"
                                 />
-                                {getWatch[i].user_rating != null ? (
+                                {/* {getWatch[i].user_rating != null ? (
                                   <p className={styles.sabt} onClick={() => handleAllStars(index.imdb_id)}>
                                     ثبت
                                   </p>
                                 ) : (
                                   <></>
-                                )}
+                                )} */}
                               </>
                             ) : (
                               <></>
@@ -399,8 +408,18 @@ function MyMovies() {
             );
           })}
         </Swiper>
-      </div>
+      </div>}
     </div>
-  );
+        );
+    }
+    else{
+      return(
+      <div className={styles.notexistmovie}>
+        <p>فیلمی برای تماشا به لیست فیلم های موردعلاقت اضافه نکردی</p>
+        <p>! کافیه جستجو کنی , تا آنلاین بتونی ببینی</p>
+        <p>بعد دیدن فیلم نمره یادت نره</p>
+      </div>
+      )
+    }
 }
 export default MyMovies;
