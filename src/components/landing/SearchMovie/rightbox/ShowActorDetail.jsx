@@ -99,8 +99,8 @@ function ShowActorDetail({ actorId, backArrow, backImdbId }) {
                 actor.profile_path == undefined
                   ? ""
                   : `${process.env.VITE_URL_IMAGES}/_next/image?url=https%3A%2F%2Fimage.tmdb.org%2Ft%2Fp%2Fw780%2F${actor.profile_path
-                      .split("/")
-                      .join("")}&w=2048&q=75`
+                    .split("/")
+                    .join("")}&w=2048&q=75`
               }
               alt=""
             />
@@ -114,14 +114,13 @@ function ShowActorDetail({ actorId, backArrow, backImdbId }) {
                   actor.profile_path == undefined
                     ? ""
                     : `${process.env.VITE_URL_IMAGES}/_next/image?url=https%3A%2F%2Fimage.tmdb.org%2Ft%2Fp%2Fw780%2F${actor.profile_path
-                        .split("/")
-                        .join("")}&w=2048&q=75`
+                      .split("/")
+                      .join("")}&w=2048&q=75`
                 }
                 alt=""
               />
               <div className={styles.actorNameBorn}>
                 <p>{deepActor.name}</p>
-                {console.log(deepActor)}
                 {/* <p>{`${new Date().getFullYear() - deepActor.birthday.split("-")[0]} ساله`}</p> */}
                 <p>{deepActor.birthday}</p>
                 <p>{deepActor.place_of_birth}</p>

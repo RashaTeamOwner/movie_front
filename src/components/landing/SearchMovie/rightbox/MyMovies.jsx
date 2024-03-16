@@ -11,6 +11,7 @@ import { FreeMode } from "swiper/modules";
 import UseLogedin from "../../../../hooks/UseLogedin";
 import { useRef, useState, useEffect, useReducer } from "react";
 import axios from "axios";
+import MoreDetailMyMovies from "./MoreDetailMyMovies";
 
 const redStar = (state, action) => {
   let change = state.map((item) => {
@@ -47,22 +48,11 @@ function MyMovies() {
   const [showStar, setShowStar] = useState(false);
   const [reRender, setRerender] = useState("");
   const [handleStar, dispatchStar] = useReducer(redStar, initialStars);
-  const [loading,setLoading] = useState(false)
-  // const handleAllStars = (imdbid) => {
+  const [loading, setLoading] = useState(false);
+  const [showPopup, setShowPopup] = useState(false);
+  const [movietoShow, setMovietoShow] = useState({});
+  const [deepBackground, setDeepBackground] = useState(false)
 
-  // };
-  // handle stars
-  // useEffect(() => {
-  //   if (refStars.current == null) return;
-  //   const starelement = refStars.current.children;
-  //   for (let j = 9; j >= 5 + 1; j--) {
-  //     let element = starelement[j];
-  //     element.style.filter = "invert(64%) sepia(68%) saturate(1071%) hue-rotate(355deg) brightness(101%) contrast(103%)";
-  //   }
-  //   for (let i = 0; i <= 5; i++) {
-  //     starelement[i].style.filter = "none";
-  //   }
-  // }, [stars]);
   useEffect(() => {
     let temp = JSON.parse(localStorage.getItem("watch_list"));
     let tempArr = [];
@@ -223,203 +213,210 @@ function MyMovies() {
     });
   };
 
-  if(getWatch.length != 0){
-      return (
-<div className={styles.mainContainer}>
-      {/* <div className={styles.header}>
-        <div className={styles.routeAllList}>
-          <img src={arrow} alt="" />
-          <button>لیست های محبوب</button>
-        </div>
-        <button>ثبت لیست و شرکت در مسابقه</button>
-      </div> */}
-      {loading?<div className={styles.three_body}>
-            <div className={styles.three_body__dot}></div>
-            <div className={styles.three_body__dot}></div>
-            <div className={styles.three_body__dot}></div>
-          </div>:<div className={styles.body}>
-        <Swiper
-          effect={"freemode"}
-          grabCursor={true}
-          centeredSlides={false}
-          slidesPerView={"auto"}
-          freeMode
-          modules={[FreeMode]}
-          direction={"vertical"}
-          className={styles.mySwiper}
-        >
-          {getWatch.map((index, i) => {
-            const [orgName, persName] = index.name.split(" - ");
-            return (
-              <>
-                <SwiperSlide key={i} className={styles.swiperActors}>
-                  <div
-                    style={{
-                      background:
-                        window.width < 435
-                          ? index.banner_path != null
-                            ? `linear-gradient(45deg,rgba(0,0,0,0.63),rgba(0,0,0,0.87)),url("https://suggestream.com/_next/image?url=https%3A%2F%2Fimage.tmdb.org%2Ft%2Fp%2Fw780%2F${index.banner_path
+  const moreDetailShow = (event) => {
+    setMovietoShow(event.target.dataset.movie);
+    setShowPopup(true);
+    setDeepBackground(true);
+  }
+  const closePop = () => {
+    setShowPopup(false);
+    setDeepBackground(false);
+    setMovietoShow(null);
+  }
+
+  if (getWatch.length != 0) {
+    return (
+      <div className={styles.mainContainer}>
+        <div onClick={closePop} style={{ display: deepBackground ? "block" : "none" }} className={styles.deepbackground}></div>
+        {loading ? <div className={styles.three_body}>
+          <div className={styles.three_body__dot}></div>
+          <div className={styles.three_body__dot}></div>
+          <div className={styles.three_body__dot}></div>
+        </div> :
+          <div className={styles.body}>
+            {showPopup ? <MoreDetailMyMovies movie={movietoShow} close={closePop} /> : <></>}
+            <Swiper
+              effect={"freemode"}
+              grabCursor={false}
+              centeredSlides={false}
+              slidesPerView={"2.5"}
+              freeMode
+              direction={"vertical"}
+              className={styles.mySwiper}
+
+            >
+              {getWatch.map((index, i) => {
+                const [orgName, persName] = index.name.split(" - ");
+                return (
+                  <>
+                    <SwiperSlide key={i} className={styles.swiperActors}>
+                      <div
+                        style={{
+                          background:
+                            window.width < 435
+                              ? index.banner_path != null
+                                ? `linear-gradient(45deg,rgba(0,0,0,0.63),rgba(0,0,0,0.87)),url("https://suggestream.com/_next/image?url=https%3A%2F%2Fimage.tmdb.org%2Ft%2Fp%2Fw780%2F${index.banner_path
+                                  .split("/")
+                                  .join("")}&w=2048&q=75`
+                                : `linear-gradient(45deg, rgba(0, 0, 0, 0.33), rgba(0, 0, 0, 0.87)), url(${img1})`
+                              : "none",
+                        }}
+                        className={styles.listMovie}
+                      >
+                        <img
+                          src={
+                            index.image_path == null
+                              ? img1
+                              : `https://suggestream.com/_next/image?url=https%3A%2F%2Fimage.tmdb.org%2Ft%2Fp%2Fw780%2F${index.image_path
                                 .split("/")
                                 .join("")}&w=2048&q=75`
-                            : `linear-gradient(45deg, rgba(0, 0, 0, 0.33), rgba(0, 0, 0, 0.87)), url(${img1})`
-                          : "none",
-                    }}
-                    className={styles.listMovie}
-                  >
-                    <img
-                      src={
-                        index.image_path == null
-                          ? img1
-                          : `https://suggestream.com/_next/image?url=https%3A%2F%2Fimage.tmdb.org%2Ft%2Fp%2Fw780%2F${index.image_path
-                              .split("/")
-                              .join("")}&w=2048&q=75`
-                      }
-                      alt="movie"
-                    />
-                    <div className={styles.detailMovie}>
-                      <h2>{persName}</h2>
-                      <div className={styles.votes}>
-                        <div className={styles.addstarshow}>
-                          <p>نمره شما :</p>
-                          {getWatch[i].user_rating == null ? (
-                            <p className={`${styles.textPointnone} ${open[i].status != false ? styles.textPointnoneverse : ""}`}>
-                              چیزی ثبت نکردی
-                            </p>
-                          ) : (
-                            <p className={`${styles.textPoint} ${open[i].status != false ? styles.textPointverse : ""}`}>
-                              {getWatch[i].user_rating}
-                            </p>
-                          )}
-                          {/* {console.log(open[i])} */}
-                          {!open[i].status ? <img onClick={showStarsToPage} src={addstar} alt="" /> : <></>}
-                          <div className={`${styles.yourRate} ${styles.numberStar}`} data-imdb={index.imdb_id} ref={refStars}>
-                            {open[i].status ? (
-                              <>
-                                <img
-                                  onMouseEnter={handleStars}
-                                  onMouseLeave={handleResetStars}
-                                  onClick={selectStar}
-                                  data-set={0}
-                                  src={starimg}
-                                  alt="star"
-                                />
-                                <img
-                                  onMouseEnter={handleStars}
-                                  onMouseLeave={handleResetStars}
-                                  onClick={selectStar}
-                                  data-set={1}
-                                  src={starimg}
-                                  alt="star"
-                                />
-                                <img
-                                  onMouseEnter={handleStars}
-                                  onMouseLeave={handleResetStars}
-                                  onClick={selectStar}
-                                  data-set={2}
-                                  src={starimg}
-                                  alt="star"
-                                />
-                                <img
-                                  onMouseEnter={handleStars}
-                                  onMouseLeave={handleResetStars}
-                                  onClick={selectStar}
-                                  data-set={3}
-                                  src={starimg}
-                                  alt="star"
-                                />
-                                <img
-                                  onMouseEnter={handleStars}
-                                  onMouseLeave={handleResetStars}
-                                  onClick={selectStar}
-                                  data-set={4}
-                                  src={starimg}
-                                  alt="star"
-                                />
-                                <img
-                                  onMouseEnter={handleStars}
-                                  onMouseLeave={handleResetStars}
-                                  onClick={selectStar}
-                                  data-set={5}
-                                  src={starimg}
-                                  alt="star"
-                                />
-                                <img
-                                  onMouseEnter={handleStars}
-                                  onMouseLeave={handleResetStars}
-                                  onClick={selectStar}
-                                  data-set={6}
-                                  src={starimg}
-                                  alt="star"
-                                />
-                                <img
-                                  onMouseEnter={handleStars}
-                                  onMouseLeave={handleResetStars}
-                                  onClick={selectStar}
-                                  data-set={7}
-                                  src={starimg}
-                                  alt="star"
-                                />
-                                <img
-                                  onMouseEnter={handleStars}
-                                  onMouseLeave={handleResetStars}
-                                  onClick={selectStar}
-                                  data-set={8}
-                                  src={starimg}
-                                  alt="star"
-                                />
-                                <img
-                                  onMouseEnter={handleStars}
-                                  onMouseLeave={handleResetStars}
-                                  onClick={selectStar}
-                                  data-set={9}
-                                  src={starimg}
-                                  alt="star"
-                                />
-                                {/* {getWatch[i].user_rating != null ? (
+                          }
+                          alt="movie"
+                        />
+                        <div className={styles.detailMovie}>
+                          <h2>{persName}</h2>
+                          <div className={styles.votes}>
+                            <div className={styles.addstarshow}>
+                              <p>نمره شما :</p>
+                              {getWatch[i].user_rating == null ? (
+                                <p className={`${styles.textPointnone} ${open[i].status != false ? styles.textPointnoneverse : ""}`}>
+                                  چیزی ثبت نکردی
+                                </p>
+                              ) : (
+                                <p className={`${styles.textPoint} ${open[i].status != false ? styles.textPointverse : ""}`}>
+                                  {getWatch[i].user_rating}
+                                </p>
+                              )}
+                              {/* {console.log(open[i])} */}
+                              {!open[i].status ? <img onClick={showStarsToPage} src={addstar} alt="" /> : <></>}
+                              <div className={`${styles.yourRate} ${styles.numberStar}`} data-imdb={index.imdb_id} ref={refStars}>
+                                {open[i].status ? (
+                                  <>
+                                    <img
+                                      onMouseEnter={handleStars}
+                                      onMouseLeave={handleResetStars}
+                                      onClick={selectStar}
+                                      data-set={0}
+                                      src={starimg}
+                                      alt="star"
+                                    />
+                                    <img
+                                      onMouseEnter={handleStars}
+                                      onMouseLeave={handleResetStars}
+                                      onClick={selectStar}
+                                      data-set={1}
+                                      src={starimg}
+                                      alt="star"
+                                    />
+                                    <img
+                                      onMouseEnter={handleStars}
+                                      onMouseLeave={handleResetStars}
+                                      onClick={selectStar}
+                                      data-set={2}
+                                      src={starimg}
+                                      alt="star"
+                                    />
+                                    <img
+                                      onMouseEnter={handleStars}
+                                      onMouseLeave={handleResetStars}
+                                      onClick={selectStar}
+                                      data-set={3}
+                                      src={starimg}
+                                      alt="star"
+                                    />
+                                    <img
+                                      onMouseEnter={handleStars}
+                                      onMouseLeave={handleResetStars}
+                                      onClick={selectStar}
+                                      data-set={4}
+                                      src={starimg}
+                                      alt="star"
+                                    />
+                                    <img
+                                      onMouseEnter={handleStars}
+                                      onMouseLeave={handleResetStars}
+                                      onClick={selectStar}
+                                      data-set={5}
+                                      src={starimg}
+                                      alt="star"
+                                    />
+                                    <img
+                                      onMouseEnter={handleStars}
+                                      onMouseLeave={handleResetStars}
+                                      onClick={selectStar}
+                                      data-set={6}
+                                      src={starimg}
+                                      alt="star"
+                                    />
+                                    <img
+                                      onMouseEnter={handleStars}
+                                      onMouseLeave={handleResetStars}
+                                      onClick={selectStar}
+                                      data-set={7}
+                                      src={starimg}
+                                      alt="star"
+                                    />
+                                    <img
+                                      onMouseEnter={handleStars}
+                                      onMouseLeave={handleResetStars}
+                                      onClick={selectStar}
+                                      data-set={8}
+                                      src={starimg}
+                                      alt="star"
+                                    />
+                                    <img
+                                      onMouseEnter={handleStars}
+                                      onMouseLeave={handleResetStars}
+                                      onClick={selectStar}
+                                      data-set={9}
+                                      src={starimg}
+                                      alt="star"
+                                    />
+                                    {/* {getWatch[i].user_rating != null ? (
                                   <p className={styles.sabt} onClick={() => handleAllStars(index.imdb_id)}>
                                     ثبت
                                   </p>
                                 ) : (
                                   <></>
                                 )} */}
-                              </>
-                            ) : (
-                              <></>
-                            )}
+                                  </>
+                                ) : (
+                                  <></>
+                                )}
+                              </div>
+                            </div>
+                            <p>
+                              نمره فیلم : <span>{index.imdb_rate}</span>
+                            </p>
+                            <p>
+                              ژانر فیلم : <span>{index.genre}</span>
+                            </p>
                           </div>
+                          <button data-movie={JSON.stringify(index)} onClick={(event) => moreDetailShow(event)}>اطلاعات فیلم</button>
                         </div>
-                        <p>
-                          نمره فیلم : <span>{index.imdb_rate}</span>
-                        </p>
-                        <p>
-                          ژانر فیلم : <span>{index.genre}</span>
-                        </p>
+                        <div className={styles.optionSetup}>
+                          <button onClick={() => reomveFromWatchList(index.imdb_id)}>حذف فیلم</button>
+                          <p>پخش آنلاین به زودی ...</p>
+                        </div>
                       </div>
-                      <button>اطلاعات فیلم</button>
-                    </div>
-                    <div className={styles.optionSetup}>
-                      <button onClick={() => reomveFromWatchList(index.imdb_id)}>حذف فیلم</button>
-                      <p>پخش آنلاین به زودی ...</p>
-                    </div>
-                  </div>
-                </SwiperSlide>
-              </>
-              // test
-            );
-          })}
-        </Swiper>
-      </div>}
-    </div>
-        );
-    }
-    else{
-      return(
+                    </SwiperSlide>
+                  </>
+                  // test
+                );
+              })}
+            </Swiper>
+          </div>}
+      </div>
+    );
+  }
+  else {
+    return (
       <div className={styles.notexistmovie}>
         <p>فیلمی برای تماشا به لیست فیلم های موردعلاقت اضافه نکردی</p>
         <p>! کافیه جستجو کنی , تا آنلاین بتونی ببینی</p>
         <p>بعد دیدن فیلم نمره یادت نره</p>
       </div>
-      )
-    }
+    )
+  }
 }
 export default MyMovies;
