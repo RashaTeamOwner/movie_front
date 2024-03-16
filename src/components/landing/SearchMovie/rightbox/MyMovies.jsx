@@ -14,26 +14,21 @@ import axios from "axios";
 import MoreDetailMyMovies from "./MoreDetailMyMovies";
 
 const redStar = (state, action) => {
-  let change = state.map((item) => {
-    if (item.id == action.id) {
-      item.rate = action.rate;
-    }
-    return item;
-  });
-  return change;
+  console.log(action, state)
+  if (action.type == 'initial-state') {
+    return action.payload;
+  }
+  else {
+    let change = state.map((item) => {
+      if (item.id == action.id) {
+        item.rate = action.rate;
+      }
+      return item;
+    });
+    console.log(change)
+    return change;
+  }
 };
-let temp = JSON.parse(localStorage.getItem("watch_list"));
-let tempArr = [];
-if (temp) {
-  temp.map((item) => {
-    if (item.user_rating == null) {
-      tempArr.push({ id: item.imdb_id, rate: -1 });
-    } else {
-      tempArr.push({ id: item.imdb_id, rate: item.user_rating });
-    }
-  });
-}
-const initialStars = tempArr;
 
 function MyMovies() {
   const window = UseWindowSize();
@@ -47,12 +42,39 @@ function MyMovies() {
   // const [stars, setStars] = useState(null);
   const [showStar, setShowStar] = useState(false);
   const [reRender, setRerender] = useState("");
-  const [handleStar, dispatchStar] = useReducer(redStar, initialStars);
+  const [handleStar, dispatchStar] = useReducer(redStar, []);
   const [loading, setLoading] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
   const [movietoShow, setMovietoShow] = useState({});
   const [deepBackground, setDeepBackground] = useState(false)
 
+  // set initial reducer with request
+  useEffect(() => {
+    axios({
+      method: "get",
+      url: `${process.env.VITE_API_URL}/api/v1/`,
+      headers: {
+        Authorization:
+          localStorage.getItem("token") != null ? `Token ${localStorage.getItem("token")}` : `Tokene ${localStorage.getItem("token")}`,
+      },
+    })
+      .then((res) => {
+        localStorage.setItem("watch_list", JSON.stringify(res.data.watch_list));
+      }).then(() => {
+        let temp = JSON.parse(localStorage.getItem("watch_list"));
+        let tempArr = [];
+        if (temp) {
+          temp.map((item) => {
+            if (item.user_rating == null) {
+              tempArr.push({ id: item.imdb_id, rate: -1 });
+            } else {
+              tempArr.push({ id: item.imdb_id, rate: item.user_rating });
+            }
+          });
+        }
+        dispatchStar({ type: 'initial-state', payload: tempArr });
+      })
+  }, [])
   useEffect(() => {
     let temp = JSON.parse(localStorage.getItem("watch_list"));
     let tempArr = [];
@@ -67,10 +89,9 @@ function MyMovies() {
       });
       setOpen(tempArr);
     }
-  }, [reRender]);
+  }, [reRender, handleStar]);
   const handleStars = (event) => {
     const list = event.target.parentElement.children;
-    // setRenderStars(Number(event.target.dataset.set) + 1);
     for (let j = 9; j >= Number(event.target.dataset.set); j--) {
       let element = list[j];
       element.style.filter = "invert(64%) sepia(68%) saturate(1071%) hue-rotate(355deg) brightness(101%) contrast(103%)";

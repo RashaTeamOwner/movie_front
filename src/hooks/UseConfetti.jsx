@@ -7,7 +7,7 @@ function UseConfetti({ onFire }) {
     startVelocity: "70",
     elementCount: "200",
     dragFriction: 0.12,
-    duration: "5560",
+    duration: "7000",
     stagger: "1",
     width: "8px",
     height: "8px",
