@@ -1,9 +1,8 @@
 /* eslint-disable no-undef */
 /* eslint-disable react/prop-types */
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect } from "react";
 import UseLogedIn from "../../../../hooks/UseLogedin";
 import arrow from "../../../../assets/landing/arrow-up.svg";
-import infGif from "../../../../assets/landing/infinity.gif";
 import axios from "axios";
 import styles from "./Showsearchmovie.module.scss";
 import { Link } from "react-router-dom/cjs/react-router-dom.min";
@@ -79,6 +78,8 @@ function ShowSearchMovie(props) {
       .then((res) => {
         // send to my movies and watch list
         setMyList(res.data);
+        // no translate if text is persian
+        let regexlang = /^[\u0600-\u06FF\s]+$/;
         axios
           .post(`${process.env.VITE_API_URL}/api/v1/translate/`, res.data)
           .then((data) => {
@@ -220,18 +221,18 @@ function ShowSearchMovie(props) {
       }
     }
   }, [movieshow.imdbID]);
-  const handleSetStars = () => {
-    let data = JSON.parse(localStorage.getItem("starsMovie")) || [];
-    let isExist = data.some((el) => el.id === movieshow.imdbID);
-    if (!isExist) {
-      data.push({ id: movieshow.imdbID, rate: stars + 1 });
-      localStorage.setItem("starsMovie", JSON.stringify(data));
-      setStatusStars(data);
-      setStatusRate(true);
-    } else {
-      setStatusRate(false);
-    }
-  };
+  // const handleSetStars = () => {
+  //   let data = JSON.parse(localStorage.getItem("starsMovie")) || [];
+  //   let isExist = data.some((el) => el.id === movieshow.imdbID);
+  //   if (!isExist) {
+  //     data.push({ id: movieshow.imdbID, rate: stars + 1 });
+  //     localStorage.setItem("starsMovie", JSON.stringify(data));
+  //     setStatusStars(data);
+  //     setStatusRate(true);
+  //   } else {
+  //     setStatusRate(false);
+  //   }
+  // };
   return (
     <div className={styles.mainBox}>
       {Object.keys(movieshow).length == 0 ? (

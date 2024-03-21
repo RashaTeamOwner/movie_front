@@ -1,6 +1,7 @@
 /* eslint-disable no-undef */
 /* eslint-disable no-unused-vars */
 import styles from "./Mymovies.module.scss";
+import Swal from "sweetalert2";
 // import arrow from "../../../../assets/loginpage/arrow.svg";
 import img1 from "../../../../assets/landing/upcoming/default.webp";
 import starimg from "../../../../assets/landing/starmain.svg";
@@ -42,6 +43,21 @@ function MyMovies() {
   const [showPopup, setShowPopup] = useState(false);
   const [movietoShow, setMovietoShow] = useState({});
   const [deepBackground, setDeepBackground] = useState(false)
+
+  // swal alert
+  const Toast = Swal.mixin({
+    toast: true,
+    position: "top-end",
+    showConfirmButton: false,
+    timer: 5000,
+    timerProgressBar: true,
+    padding: "10px",
+    didOpen: (toast) => {
+      toast.addEventListener("mouseenter", Swal.stopTimer);
+      toast.addEventListener("mouseleave", Swal.resumeTimer);
+    },
+  });
+
 
   // set initial reducer with request
   useEffect(() => {
@@ -142,12 +158,22 @@ function MyMovies() {
     }).then(() => {
       let changeOpen = open.map((item) => {
         if (item.id == imdbId) {
-          console.log(item)
           item.status = false;
         }
         return item;
       });
       setOpen(changeOpen);
+      // show alert for set new rate
+      getWatch.map((item) => {
+        if (item.imdb_id === imdbId) {
+          Toast.fire({
+            icon: "success",
+            title: `<p style='direction:rtl'>شما نمره <span style="color:red">${temprate}</span> را برای فیلم ${item.name} ثبت کردید</p>`,
+            width: "330px",
+            padding: "1rem",
+          });
+        }
+      })
       axios({
         method: "get",
         url: `${process.env.VITE_API_URL}/api/v1/watchlist/`,
