@@ -7,14 +7,11 @@ import starimg from "../../../../assets/landing/starmain.svg";
 import addstar from "../../../../assets/landing/staradd.svg";
 import UseWindowSize from "../../../../hooks/UseWindowSize";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { FreeMode } from "swiper/modules";
-import UseLogedin from "../../../../hooks/UseLogedin";
 import { useRef, useState, useEffect, useReducer } from "react";
 import axios from "axios";
 import MoreDetailMyMovies from "./MoreDetailMyMovies";
 
 const redStar = (state, action) => {
-  console.log(action, state)
   if (action.type == 'initial-state') {
     return action.payload;
   }
@@ -25,14 +22,12 @@ const redStar = (state, action) => {
       }
       return item;
     });
-    console.log(change)
     return change;
   }
 };
 
 function MyMovies() {
   const window = UseWindowSize();
-  const logedinStatus = UseLogedin();
   const refStars = useRef(null);
   // const [renderStars, setRenderStars] = useState(null);
   // const [statusStars, setStatusStars] = useState({});
@@ -52,7 +47,7 @@ function MyMovies() {
   useEffect(() => {
     axios({
       method: "get",
-      url: `${process.env.VITE_API_URL}/api/v1/`,
+      url: `${process.env.VITE_API_URL}/api/v1/watchlist/`,
       headers: {
         Authorization:
           localStorage.getItem("token") != null ? `Token ${localStorage.getItem("token")}` : `Tokene ${localStorage.getItem("token")}`,
@@ -147,6 +142,7 @@ function MyMovies() {
     }).then(() => {
       let changeOpen = open.map((item) => {
         if (item.id == imdbId) {
+          console.log(item)
           item.status = false;
         }
         return item;
@@ -154,7 +150,7 @@ function MyMovies() {
       setOpen(changeOpen);
       axios({
         method: "get",
-        url: `${process.env.VITE_API_URL}/api/v1/`,
+        url: `${process.env.VITE_API_URL}/api/v1/watchlist/`,
         headers: {
           Authorization:
             localStorage.getItem("token") != null ? `Token ${localStorage.getItem("token")}` : `Tokene ${localStorage.getItem("token")}`,
@@ -221,7 +217,7 @@ function MyMovies() {
       setOpen(changeOpen);
       axios({
         method: "get",
-        url: `${process.env.VITE_API_URL}/api/v1/`,
+        url: `${process.env.VITE_API_URL}/api/v1/watchlist/`,
         headers: {
           Authorization:
             localStorage.getItem("token") != null ? `Token ${localStorage.getItem("token")}` : `Tokene ${localStorage.getItem("token")}`,
@@ -308,7 +304,6 @@ function MyMovies() {
                                   {getWatch[i].user_rating}
                                 </p>
                               )}
-                              {/* {console.log(open[i])} */}
                               {!open[i].status ? <img onClick={showStarsToPage} src={addstar} alt="" /> : <></>}
                               <div className={`${styles.yourRate} ${styles.numberStar}`} data-imdb={index.imdb_id} ref={refStars}>
                                 {open[i].status ? (
