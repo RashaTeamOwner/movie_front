@@ -168,7 +168,7 @@ function ShowSearchMovie(props) {
         setLoading(false);
         axios({
           method: "get",
-          url: `${process.env.VITE_API_URL}/api/v1/`,
+          url: `${process.env.VITE_API_URL}/api/v1/watchlist`,
           headers: {
             Authorization:
               localStorage.getItem("token") != null ? `Token ${localStorage.getItem("token")}` : `Tokene ${localStorage.getItem("token")}`,
@@ -186,22 +186,22 @@ function ShowSearchMovie(props) {
       });
     // setStars(Number(event.target.dataset.set));
   };
-  useMemo(() => {
-    axios({
-      method: "get",
-      url: `${process.env.VITE_API_URL}/api/v1/`,
-      headers: {
-        Authorization:
-          localStorage.getItem("token") != null ? `Token ${localStorage.getItem("token")}` : `Tokene ${localStorage.getItem("token")}`,
-      },
-    }).then((res) => {
-      res.data.watch_list.map((index) => {
-        setWatchlist((prev) => [...prev, index.imdb_id]);
-      });
-      localStorage.setItem("watchlist", "");
-    });
-    //
-  }, [myList]);
+  // useMemo(() => {
+  //   axios({
+  //     method: "get",
+  //     url: `${process.env.VITE_API_URL}/api/v1/`,
+  //     headers: {
+  //       Authorization:
+  //         localStorage.getItem("token") != null ? `Token ${localStorage.getItem("token")}` : `Tokene ${localStorage.getItem("token")}`,
+  //     },
+  //   }).then((res) => {
+  //     res.data.watch_list.map((index) => {
+  //       setWatchlist((prev) => [...prev, index.imdb_id]);
+  //     });
+  //     localStorage.setItem("watchlist", "");
+  //   });
+  //   //
+  // }, [myList]);
   // -----end stars ----- //
 
   // handle set stars and get start in localStorage
@@ -250,8 +250,8 @@ function ShowSearchMovie(props) {
               posterBack.poster_path == undefined
                 ? ""
                 : `https://suggestream.com/_next/image?url=https%3A%2F%2Fimage.tmdb.org%2Ft%2Fp%2Fw780%2F${posterBack.poster_path
-                    .split("/")
-                    .join("")}&w=2048&q=75`
+                  .split("/")
+                  .join("")}&w=2048&q=75`
             }
             alt=""
           />
@@ -397,7 +397,7 @@ function ShowSearchMovie(props) {
                       />
                     </div>
                     {renderStars == 0 ? <p></p> : <p>{renderStars}</p>}
-                  </div>
+                  </div
                 ) : (
                   <div className={styles.numberStar}>امتیاز شما برای این فیلم ثبت شده</div>
                 )} */}
@@ -423,11 +423,10 @@ function ShowSearchMovie(props) {
                       <img
                         onClick={handleClickActor}
                         data-idactor={ele.name}
-                        src={`${
-                          process.env.VITE_URL_IMAGES
-                        }/_next/image?url=https%3A%2F%2Fimage.tmdb.org%2Ft%2Fp%2Fw780%2F${ele.profile_path
-                          .split("/")
-                          .join("")}&w=2048&q=75`}
+                        src={`${process.env.VITE_URL_IMAGES
+                          }/_next/image?url=https%3A%2F%2Fimage.tmdb.org%2Ft%2Fp%2Fw780%2F${ele.profile_path
+                            .split("/")
+                            .join("")}&w=2048&q=75`}
                         alt=""
                       />
                     </SwiperSlide>

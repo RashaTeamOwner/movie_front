@@ -322,9 +322,10 @@
     }
 
     .listMovie {
-      background-position: right !important;
+      background-position: left !important;
       background-size: cover !important;
       background-repeat: no-repeat !important;
+      border: solid white 1px;
 
       .detailMovie {
         .votes {
@@ -471,3 +472,5 @@
   z-index: 100;
   background-color: #161616df;
 }
+
+// comment in the end
