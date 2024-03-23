@@ -9,6 +9,7 @@ input::-webkit-inner-spin-button {
 input[type="number"] {
   -moz-appearance: textfield;
 }
+
 .container {
   direction: rtl;
   position: absolute;
@@ -18,51 +19,60 @@ input[type="number"] {
   padding: 0.2rem 2rem;
   box-sizing: content-box;
 }
+
 .title_signup {
   font-size: 1.7rem;
   font-family: iransans;
-  padding-top: 1rem;
   padding-bottom: 1rem;
   animation: animeUpcome 0.7s ease forwards 0.4s;
   opacity: 0;
 }
+
 @keyframes animeUpcome {
   0% {
     transform: translateY(-20px);
     opacity: 0;
   }
+
   100% {
     transform: translateY(0);
     opacity: 1;
   }
 }
+
 .signupBox {
   padding: 1rem;
   display: flex;
   flex-direction: column;
   gap: 2.5rem;
   box-sizing: content-box;
+
   // margin-top: 4rem;
   .name_signup {
     animation: animeUpcome 0.7s ease forwards 0.7s;
     opacity: 0;
   }
+
   .uid_signup {
     animation: animeUpcome 0.7s ease forwards 0.9s;
     opacity: 0;
   }
+
   .phone_signup {
     animation: animeUpcome 0.7s ease forwards 1.1s;
     opacity: 0;
   }
+
   .password_signup {
     animation: animeUpcome 0.7s ease forwards 1.3s;
     opacity: 0;
   }
+
   .confirm_signup {
     animation: animeUpcome 0.7s ease forwards 1.5s;
     opacity: 0;
   }
+
   .name_signup,
   .phone_signup,
   .password_signup,
@@ -70,6 +80,7 @@ input[type="number"] {
   .confirm_signup {
     position: relative;
     box-sizing: content-box;
+
     span {
       position: absolute;
       top: 50%;
@@ -82,6 +93,7 @@ input[type="number"] {
       border-radius: 2rem 2rem 0 2rem;
       box-sizing: content-box;
     }
+
     img {
       position: absolute;
       top: 50%;
@@ -92,6 +104,7 @@ input[type="number"] {
       filter: invert(62%) sepia(28%) saturate(5202%) hue-rotate(1deg) brightness(101%) contrast(105%);
       box-sizing: content-box;
     }
+
     input {
       width: 15rem;
       padding: 0.5rem 0.5rem 0.5rem 2.2rem;
@@ -106,11 +119,13 @@ input[type="number"] {
       direction: ltr;
       box-sizing: content-box;
       color: white;
+
       &:focus {
         outline: none;
       }
     }
   }
+
   .phone_signup,
   .uid_signup,
   .password_signup {
@@ -118,11 +133,13 @@ input[type="number"] {
       text-align: left;
     }
   }
+
   .confirm_signup {
     input {
       text-align: center;
     }
   }
+
   .confirm_signup {
     button {
       position: absolute;
@@ -142,36 +159,43 @@ input[type="number"] {
       transform: translateY(-50%);
     }
   }
+
   .submitbox {
     display: flex;
     justify-content: space-between;
     align-items: center;
     box-sizing: content-box;
-    > input {
+
+    >input {
       animation: animeScale 0.5s 1.7s forwards ease;
       opacity: 0;
     }
   }
+
   @keyframes animeScale {
     0% {
       transform: scale(0, 0);
       opacity: 0;
     }
+
     100% {
       transform: scale(1, 1);
       opacity: 1;
     }
   }
+
   @keyframes animeScale2 {
     0% {
       transform: scale(0, 0);
       opacity: 0;
     }
+
     100% {
       transform: scale(1, 1) translateY(-50%);
       opacity: 1;
     }
   }
+
   .submitLogin {
     font-family: sansx100;
     background-color: transparent;
@@ -196,6 +220,7 @@ input[type="number"] {
   border-radius: 0.5rem;
   padding: 0 0.2rem;
   font-family: sansx200;
+
   &::before {
     content: "";
     position: absolute;
@@ -253,6 +278,7 @@ input[type="number"] {
   align-items: center;
   gap: 0.7rem;
   direction: rtl;
+
   h1 {
     height: 100px;
     direction: rtl;
@@ -272,21 +298,27 @@ input[type="number"] {
   h1 span:nth-child(2) {
     animation-delay: 0.15s;
   }
+
   h1 span:nth-child(3) {
     animation-delay: 0.3s;
   }
+
   h1 span:nth-child(4) {
     animation-delay: 0.45s;
   }
+
   h1 span:nth-child(5) {
     animation-delay: 0.6s;
   }
+
   h1 span:nth-child(6) {
     animation-delay: 0.75s;
   }
+
   h1 span:nth-child(7) {
     animation-delay: 0.9s;
   }
+
   h1 span:nth-child(8) {
     animation-delay: 0.7s;
   }
@@ -308,8 +340,10 @@ input[type="number"] {
 @media (max-width: 382px) {
   .container {
     padding: 0;
+
     .signupBox {
       padding: 1.5rem 0 0 0;
+
       .name_signup,
       .phone_signup,
       .password_signup,
@@ -327,6 +361,7 @@ input[type="number"] {
   0% {
     width: 0;
   }
+
   100% {
     width: 100%;
   }
