@@ -21,6 +21,7 @@ function HeaderHomePage() {
   const [loading, setLoading] = useState(false);
   const [conf, setConf] = useState(false);
   const isUserLoggedIn = UseLogedin();
+  let firstRender = useRef(0);
   useEffect(() => {
     axios({
       method: "get",
@@ -65,25 +66,28 @@ function HeaderHomePage() {
   };
 
   useEffect(() => {
-    setSelectedChair([]);
-    axios({
-      method: "get",
-      url: `${process.env.VITE_API_URL}/api/v1/`,
-      headers: {
-        Authorization:
-          localStorage.getItem("token") != null ? `Token ${localStorage.getItem("token")}` : `Tokene ${localStorage.getItem("token")}`,
-      },
-    })
-      .then((res) => {
-        const chairs = res.data.seats;
-        setArrLeft(chairs.left_seats);
-        setArrRight(chairs.right_seats);
-        setResHead(res.data);
-        howRowCol(chairs.left_seats, chairs.right_seats);
+    return () => {
+      setSelectedChair([]);
+      axios({
+        method: "get",
+        url: `${process.env.VITE_API_URL}/api/v1/`,
+        headers: {
+          Authorization:
+            localStorage.getItem("token") != null ? `Token ${localStorage.getItem("token")}` : `Tokene ${localStorage.getItem("token")}`,
+        },
       })
-      .catch(() => {
-        // console.log(err);
-      });
+        .then((res) => {
+          const chairs = res.data.seats;
+          setArrLeft(chairs.left_seats);
+          setArrRight(chairs.right_seats);
+          setResHead(res.data);
+          howRowCol(chairs.left_seats, chairs.right_seats);
+        })
+        .catch(() => {
+          // console.log(err);
+        });
+    }
+
   }, [bookedSeat]);
 
   const refDivProgress = useRef(null);

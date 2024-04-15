@@ -25,25 +25,27 @@ function SectionTwoHomePage() {
   const [isVoted, setIsVoted] = useState(false);
   const [allVoteMovie, setAllVoteMovie] = useState(0);
   useEffect(() => {
-    axios({
-      method: "get",
-      url: `${process.env.VITE_API_URL}/api/v1/`,
-      headers: {
-        Authorization:
-          localStorage.getItem("token") != null ? `Token ${localStorage.getItem("token")}` : `Tokene ${localStorage.getItem("token")}`,
-      },
-    })
-      .then((res) => {
-        let sorted = res.data.movies.sort((a, b) => {
-          return b.votes_count - a.votes_count;
-        });
-        setMovies(sorted);
-        setIsLoading(true);
-        setAllVoteMovie(res.data.movies[isSelectedMovie].votes_count);
+    return () => {
+      axios({
+        method: "get",
+        url: `${process.env.VITE_API_URL}/api/v1/`,
+        headers: {
+          Authorization:
+            localStorage.getItem("token") != null ? `Token ${localStorage.getItem("token")}` : `Tokene ${localStorage.getItem("token")}`,
+        },
       })
-      .catch(() => {
-        // console.log(err);
-      });
+        .then((res) => {
+          let sorted = res.data.movies.sort((a, b) => {
+            return b.votes_count - a.votes_count;
+          });
+          setMovies(sorted);
+          setIsLoading(true);
+          setAllVoteMovie(res.data.movies[isSelectedMovie].votes_count);
+        })
+        .catch(() => {
+          // console.log(err);
+        });
+    }
   }, [isVoted]);
 
   const handleSlideChange = () => {
