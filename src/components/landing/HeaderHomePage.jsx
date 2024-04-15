@@ -21,7 +21,6 @@ function HeaderHomePage() {
   const [loading, setLoading] = useState(false);
   const [conf, setConf] = useState(false);
   const isUserLoggedIn = UseLogedin();
-  let firstRender = useRef(0);
   useEffect(() => {
     axios({
       method: "get",
