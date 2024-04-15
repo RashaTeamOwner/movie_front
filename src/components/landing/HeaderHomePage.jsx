@@ -65,25 +65,28 @@ function HeaderHomePage() {
   };
 
   useEffect(() => {
-    setSelectedChair([]);
-    axios({
-      method: "get",
-      url: `${process.env.VITE_API_URL}/api/v1/`,
-      headers: {
-        Authorization:
-          localStorage.getItem("token") != null ? `Token ${localStorage.getItem("token")}` : `Tokene ${localStorage.getItem("token")}`,
-      },
-    })
-      .then((res) => {
-        const chairs = res.data.seats;
-        setArrLeft(chairs.left_seats);
-        setArrRight(chairs.right_seats);
-        setResHead(res.data);
-        howRowCol(chairs.left_seats, chairs.right_seats);
+    return () => {
+      setSelectedChair([]);
+      axios({
+        method: "get",
+        url: `${process.env.VITE_API_URL}/api/v1/`,
+        headers: {
+          Authorization:
+            localStorage.getItem("token") != null ? `Token ${localStorage.getItem("token")}` : `Tokene ${localStorage.getItem("token")}`,
+        },
       })
-      .catch(() => {
-        // console.log(err);
-      });
+        .then((res) => {
+          const chairs = res.data.seats;
+          setArrLeft(chairs.left_seats);
+          setArrRight(chairs.right_seats);
+          setResHead(res.data);
+          howRowCol(chairs.left_seats, chairs.right_seats);
+        })
+        .catch(() => {
+          // console.log(err);
+        });
+    }
+
   }, [bookedSeat]);
 
   const refDivProgress = useRef(null);
@@ -95,9 +98,9 @@ function HeaderHomePage() {
     const filledChair = resHead.filled;
     let widthProgress = (filledChair / emptyChair) * 100;
     if (!boxProgress) return;
-    boxProgress.style.width = `${widthProgress}%`;
+    boxProgress.style.width = widthProgress > 100 ? `${100}%` : `${widthProgress}%`;
     boxProgress.style.transition = "1s";
-    if (widthProgress == 100) {
+    if (widthProgress == 100 || widthProgress > 100) {
       boxProgress.style.backgroundColor = "rgb(0, 174, 122)";
     } else if (widthProgress <= 50 && widthProgress >= 5) {
       boxProgress.style.backgroundColor = "rgb(255, 72, 72)";
@@ -253,7 +256,7 @@ function HeaderHomePage() {
                 </p>
                 <p>مدت : {resHead.movie.duration} دقیقه</p>
                 <div className={styles.routeUpper}>
-                  {resHead.filled + resHead.empty - 91 - resHead.filled == 0 ? (
+                  {resHead.filled + resHead.empty - 91 - resHead.filled == 0 || resHead.filled == 8 ? (
                     <p>ظرفیت حداقلی تکمیل شده و فیلم برگزار میشود</p>
                   ) : (
                     <p>{resHead.empty - 91} نفر تا تکمیل ظرفیت حداقلی</p>
