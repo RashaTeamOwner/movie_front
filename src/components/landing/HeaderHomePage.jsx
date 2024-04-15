@@ -241,6 +241,16 @@ function HeaderHomePage() {
     }
   };
   if (loading) {
+    const dayOfWeek = ['یک‌شنبه', 'دوشنبه', 'سه‌شنبه', 'چهارشنبه', 'پنج‌شنبه', 'جمعه', 'شنبه'];
+    let gregorianDate = new Date(resHead.movie.date);
+    let persianDate = gregorianDate.toLocaleDateString('fa-IR', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric'
+    });
+    const dayIndex = gregorianDate.getDay();
+    const persianDay = dayOfWeek[dayIndex];
+    const arrPD = persianDate.split(' ');
     return (
       <div className={styles.container} style={{ background: `url(${process.env.VITE_API_URL}${resHead.movie.banner})` }}>
         <img className={styles.iheicon} src={iheicon} alt="" />
@@ -276,7 +286,7 @@ function HeaderHomePage() {
                     <span>ژانر</span> : درام , تاریخی
                   </h4>
                   <h4>
-                    <span>محصول</span> : آمریکا
+                    <span>محصول</span> : {resHead.movie.country}
                   </h4>
                   <h4>
                     <span>خلاصه داستان : </span>
@@ -304,8 +314,8 @@ function HeaderHomePage() {
                 </div>
               )}
               <div className={styles.showTimeCinema}>
-                <h3>سه شنبه سوم دی ماه</h3>
-                <p>ساعت 16</p>
+                <h3>{persianDay + " " + arrPD[0] + " " + arrPD[1]} ماه</h3>
+                <p>ساعت 17</p>
               </div>
               <div className={styles.boxChairs}>
                 <>
