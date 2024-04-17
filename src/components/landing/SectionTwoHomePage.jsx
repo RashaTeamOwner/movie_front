@@ -24,6 +24,7 @@ function SectionTwoHomePage() {
   const [isSelectedMovie, setIsSelectedMovie] = useState(-1);
   const [isVoted, setIsVoted] = useState(false);
   const [allVoteMovie, setAllVoteMovie] = useState(0);
+  const [showCloseIcon, setShowCloseIcon] = useState(false)
   useEffect(() => {
     axios({
       method: "get",
@@ -57,15 +58,15 @@ function SectionTwoHomePage() {
 
   // handle popup open in mobile sec
   const refTableData = useRef(null);
-  const refPriceData = useRef(null);
   const refFatherContainer = useRef(null);
   const refFatherContainer2 = useRef(null);
   const refCloseIcon = useRef(null);
-  // const refCloseIcon2 = useRef(null);
 
   const sizeWidth = useWindowSize();
   useEffect(() => {
+    console.log(sizeWidth, refCloseIcon)
     if (!isLoading) return;
+    refCloseIcon.current.style.display = "block";
     if (sizeWidth.width > 1200) {
       refFatherContainer.current.style.display = "none";
       refTableData.current.style.display = "flex";
@@ -86,8 +87,9 @@ function SectionTwoHomePage() {
   // }, [isSelectedMovie]);
 
   const handleOpenResults = () => {
+    setShowCloseIcon(true);
     refTableData.current.style.display = "flex";
-    refPriceData.current.style.display = "none";
+    // refPriceData.current.style.display = "none";
     refFatherContainer.current.style.display = "block";
   };
   // const handleOpenPoints = () => {
@@ -99,7 +101,7 @@ function SectionTwoHomePage() {
   const closePopupShodow = () => {
     refFatherContainer.current.style.display = "none";
     refTableData.current.style.display = "none";
-    refPriceData.current.style.display = "none";
+    // refPriceData.current.style.display = "none";
   };
   const closePopupShodow2 = () => {
     refFatherContainer2.current.style.display = "none";
@@ -276,29 +278,10 @@ function SectionTwoHomePage() {
               );
             })}
           </div>
-          <div ref={refCloseIcon} className={styles.closeIconBox}>
+          <div style={{ display: showCloseIcon == true ? "block" : "none" }} ref={refCloseIcon} className={styles.closeIconBox}>
             <img onClick={closePopupShodow} src={closeicon} alt="close icon" />
           </div>
         </div>
-        {/* <div ref={refPriceData} className={styles.priceContainer}>
-          <h3>توضیحات : </h3>
-          <p>
-            در هر رای گیری که شرکت کنید 10 امتیاز به حساب شما اضافه میشود . و در آخر جوایز نفیس به فردی که بیشترین امتیاز را بگیرد اهدا
-            میشود{" "}
-          </p>
-          <div>
-            <p>
-              <span>10+ </span>امتیاز , شرکت در رای گیری
-            </p>
-            <p>
-              <span>15+ </span>امتیاز , شرکت در سالن اکران و تماشای فیلم
-            </p>
-          </div>
-          <button className={`${styles.btn} ${styles.btn_default} ${styles.btn_lg} ${styles.btn3d}`}>جدول امتیازات دانشجویان</button>
-          <div ref={refCloseIcon2} className={styles.closeIconBox}>
-            <img onClick={closePopupShodow} src={closeicon} alt="close icon" />
-          </div>
-        </div> */}
         <div ref={refFatherContainer} onClick={closePopupShodow} className={styles.shodowforHide}></div>
         <div ref={refFatherContainer2} onClick={closePopupShodow2} className={styles.shodowforHide}></div>
       </div>
