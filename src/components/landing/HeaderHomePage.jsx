@@ -94,7 +94,7 @@ function HeaderHomePage() {
   useEffect(() => {
     // animation progressbar
     const boxProgress = refDivProgress.current;
-    const emptyChair = resHead.filled + resHead.empty - 91;
+    const emptyChair = resHead.filled + resHead.empty - 90;
     const filledChair = resHead.filled;
     let widthProgress = (filledChair / emptyChair) * 100;
     if (!boxProgress) return;
@@ -266,15 +266,15 @@ function HeaderHomePage() {
                 </p>
                 <p>مدت : {resHead.movie.duration} دقیقه</p>
                 <div className={styles.routeUpper}>
-                  {resHead.filled + resHead.empty - 91 - resHead.filled == 0 || resHead.filled == 8 ? (
+                  {resHead.filled >= 8 ? (
                     <p>ظرفیت حداقلی تکمیل شده و فیلم برگزار میشود</p>
                   ) : (
-                    <p>{resHead.empty - 91} نفر تا تکمیل ظرفیت حداقلی</p>
+                    <p>{resHead.empty - 90} نفر تا تکمیل ظرفیت حداقلی</p>
                   )}
                   <div className={styles.animeRoute}>
                     <div ref={refDivProgress}></div>
                   </div>
-                  <p data-prog={resHead.empty - 91}>تعداد رزروها : {resHead.filled} نفر</p>
+                  <p data-prog={resHead.empty - 90}>تعداد رزروها : {resHead.filled} نفر</p>
                 </div>
               </div>
               <div className={styles.landDetailGenre}>
