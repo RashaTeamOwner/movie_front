@@ -64,6 +64,7 @@
   padding: 0.5rem;
   border-radius: 1.2rem;
   height: min-content !important;
+  position: static;
 
   .listMovie {
     display: flex;
@@ -471,6 +472,12 @@
   left: 0;
   z-index: 100;
   background-color: #161616df;
+}
+
+.iframeStream {
+  width: 650px;
+  height: auto;
+  z-index: 1000;
 }
 
 // comment in the end

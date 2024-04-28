@@ -25,27 +25,26 @@ function SectionTwoHomePage() {
   const [isVoted, setIsVoted] = useState(false);
   const [allVoteMovie, setAllVoteMovie] = useState(0);
   useEffect(() => {
-    return () => {
-      axios({
-        method: "get",
-        url: `${process.env.VITE_API_URL}/api/v1/`,
-        headers: {
-          Authorization:
-            localStorage.getItem("token") != null ? `Token ${localStorage.getItem("token")}` : `Tokene ${localStorage.getItem("token")}`,
-        },
-      })
-        .then((res) => {
-          let sorted = res.data.movies.sort((a, b) => {
-            return b.votes_count - a.votes_count;
-          });
-          setMovies(sorted);
-          setIsLoading(true);
-          setAllVoteMovie(res.data.movies[isSelectedMovie].votes_count);
-        })
-        .catch(() => {
-          // console.log(err);
+    axios({
+      method: "get",
+      url: `${process.env.VITE_API_URL}/api/v1/`,
+      headers: {
+        Authorization:
+          localStorage.getItem("token") != null ? `Token ${localStorage.getItem("token")}` : `Tokene ${localStorage.getItem("token")}`,
+      },
+    })
+      .then((res) => {
+        let sorted = res.data.movies.sort((a, b) => {
+          return b.votes_count - a.votes_count;
         });
-    }
+        setMovies(sorted);
+        setIsLoading(true);
+        setAllVoteMovie(res.data.movies[isSelectedMovie].votes_count);
+      })
+      .catch(() => {
+
+      });
+
   }, [isVoted]);
 
   const handleSlideChange = () => {
@@ -177,7 +176,6 @@ function SectionTwoHomePage() {
             className="mySwiper"
           >
             {movies.map((movie, index) => {
-              // console.log(movie);
               return (
                 <SwiperSlide key={movie.id} className={styles.imageSlide}>
                   {index == 0 ? (
@@ -231,18 +229,17 @@ function SectionTwoHomePage() {
                       <p>{movies[isSelectedMovie].genre}</p>
                     </div>
                     <p>
-                      <span>خلاصه فیلم : </span>
+                      <span>خلاصه فیلم :</span>
                       {movies[isSelectedMovie].description}
                     </p>
                   </div>
                   <p className={styles.howManyVote}>
-                    تعداد رای تا الان : <span>{allVoteMovie} رای</span>
+                    تعداد رای تا الان :<span>{allVoteMovie} رای</span>
                   </p>
                 </div>
                 {isLoggedin ? (
                   isVoted ? (
                     <div className={styles.cancelVote}>
-                      {/* <p>رای شما ثبت شده</p> */}
                       <button
                         onClick={handlePostVote}
                         className={`${styles.btn} ${styles.btn_default} ${styles.btn_lg} ${styles.btn3d} ${styles.btnPassVote}`}

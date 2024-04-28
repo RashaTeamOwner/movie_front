@@ -42,7 +42,9 @@ function MyMovies() {
   const [loading, setLoading] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
   const [movietoShow, setMovietoShow] = useState({});
-  const [deepBackground, setDeepBackground] = useState(false)
+  const [deepBackground, setDeepBackground] = useState(false);
+  const [linkEmbed, setLinkEmbed] = useState("");
+  const [statusEmbed, setStatusEmbed] = useState(false);
 
   // swal alert
   const Toast = Swal.mixin({
@@ -168,7 +170,7 @@ function MyMovies() {
         if (item.imdb_id === imdbId) {
           Toast.fire({
             icon: "success",
-            title: `<p style='direction:rtl'>شما نمره <span style="color:red">${temprate}</span> را برای فیلم ${item.name} ثبت کردید</p>`,
+            title: `<p style='direction:rtl'>شما نمره <span style="color:red">${temprate}</span> را برای فیلم ${item.name.split(" - ")[0]} ثبت کردید</p>`,
             width: "330px",
             padding: "1rem",
           });
@@ -267,6 +269,17 @@ function MyMovies() {
     setMovietoShow(null);
   }
 
+  const runEmbed = (statusMovie, tmdbid) => {
+    console.log(statusEmbed, tmdbid)
+    if (statusMovie == "movie") {
+      setLinkEmbed(`https://vidsrc.xyz/embed/movie/${tmdbid}`);
+      setStatusEmbed(true);
+    } else {
+      setLinkEmbed(`https://vidsrc.xyz/embed/tv/${tmdbid}`);
+      setStatusEmbed(true);
+    }
+  }
+
   if (getWatch.length != 0) {
     return (
       <div className={styles.mainContainer}>
@@ -277,6 +290,7 @@ function MyMovies() {
           <div className={styles.three_body__dot}></div>
         </div> :
           <div className={styles.body}>
+            {statusEmbed ? <iframe className={styles.iframeStream} src={linkEmbed} frameBorder="320"></iframe> : <></>}
             {showPopup ? <MoreDetailMyMovies movie={movietoShow} close={closePop} /> : <></>}
             <Swiper
               effect={"freemode"}
@@ -286,7 +300,6 @@ function MyMovies() {
               freeMode
               direction={"vertical"}
               className={styles.mySwiper}
-
             >
               {getWatch.map((index, i) => {
                 const [orgName, persName] = index.name.split(" - ");
@@ -317,7 +330,7 @@ function MyMovies() {
                           alt="movie"
                         />
                         <div className={styles.detailMovie}>
-                          <h2>{persName}</h2>
+                          <h2>{orgName}</h2>
                           <div className={styles.votes}>
                             <div className={styles.addstarshow}>
                               <p>نمره شما :</p>
@@ -438,17 +451,19 @@ function MyMovies() {
                         </div>
                         <div className={styles.optionSetup}>
                           <button onClick={() => reomveFromWatchList(index.imdb_id)}>حذف فیلم</button>
-                          <p>پخش آنلاین به زودی ...</p>
+                          {console.log(index.link)}
+                          {/* {index.link == "movie" ? */}
+                          <button onClick={() => runEmbed(index.link, index.imdb_id)}>پخش آنلاین</button>
                         </div>
                       </div>
-                    </SwiperSlide>
+                    </SwiperSlide >
                   </>
                   // test
                 );
               })}
             </Swiper>
           </div>}
-      </div>
+      </div >
     );
   }
   else {

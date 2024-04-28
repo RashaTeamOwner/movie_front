@@ -140,6 +140,7 @@ function ShowSearchMovie(props) {
   // };
   const postToWatchList = () => {
     setLoading(true);
+    console.log(movieshow, myList)
     let data = {
       name:
         String(posterBack.original_name) == "undefined"
@@ -148,7 +149,7 @@ function ShowSearchMovie(props) {
       description: movieshow.Plot,
       imdb_id: myList.imdbID,
       imdb_rate: myList.imdbRating,
-      link: "empty",
+      link: myList.Type,
       genre: movieshow.Genre,
       image_path: posterBack.poster_path,
       banner_path: posterBack.backdrop_path,
@@ -259,7 +260,7 @@ function ShowSearchMovie(props) {
           <div className={styles.shodowMainBox}></div>
           <img onClick={handleCloseDetailMovie} className={styles.arrowIcon} src={arrow} alt="arrow-icon" />
           <div className={styles.detailMovie}>
-            <h1>{movieshow.Title}</h1>
+            <h1>{myList.Title}</h1>
             <div className={styles.timeandsec}>
               <p>{movieshow.Genre}</p>
               <p className={styles.breackTopIntext}>|</p>
@@ -276,20 +277,6 @@ function ShowSearchMovie(props) {
             <div className={styles.rateRightPage}>
               <div className={styles.yourRate}>
                 <div style={{ display: !loading ? "flex" : "none" }} className={`${styles.subandpop} ${styles.loadwave}`}>
-                  {/* <p>امتیاز شما :</p>
-                  {stars == -1 ? (
-                    <p className={styles.yourNomreAlert}>برای تماشا یک نمره به فیلم بدهید</p>
-                  ) : statusRate && logedinStatus ? (
-                    <p className={styles.yourPointAlert}>9</p>
-                  ) : logedinStatus ? (
-                    <a onClick={handleSetStars} className={styles.whatchlist}>
-                      ثبت نمره شما به این فیلم
-                    </a>
-                  ) : (
-                    <Link className={styles.whatchlist} to="/signin">
-                      برای ثبت رای وارد حساب خود شوید
-                    </Link>
-                  )} */}
                   {logedinStatus ? (
                     watchlist.includes(myList.imdbID) ? (
                       <>

@@ -14,14 +14,17 @@ body {
   scrollbar-width: thin;
   scrollbar-color: $white-color transparent;
 }
+
 .mainBox {
   width: 100%;
   height: 100%;
   overflow: hidden;
   position: absolute;
+
   .posterBox {
     height: 100%;
   }
+
   .shodowMainBox {
     width: 100%;
     height: 100%;
@@ -30,6 +33,7 @@ body {
     position: absolute;
     bottom: 0;
   }
+
   .arrowIcon {
     position: absolute;
     top: 0;
@@ -64,30 +68,36 @@ body {
   padding: 0.2rem 1rem;
   direction: rtl;
   font-family: sansx100;
-  > h1 {
+
+  >h1 {
     font-size: 2rem;
     color: $gold-color;
     font-family: iransans;
     padding: 0.5rem;
     white-space: nowrap;
   }
+
   .timeandsec {
     display: flex;
     gap: 1.2rem;
     align-items: center;
     font-size: 0.7rem;
     padding: 0.5rem 0.5rem 1rem 0.5rem;
+
     p {
       white-space: nowrap;
     }
   }
+
   .boxDetMovie {
     display: flex;
     flex-direction: column;
     padding: 2rem 0.5rem 1rem 1.5rem;
-    > p:first-child {
+
+    >p:first-child {
       color: $gold-color;
     }
+
     .textDetailMovie {
       font-size: 0.9rem;
       font-family: sansx50;
@@ -95,49 +105,59 @@ body {
       margin-top: 0.5rem;
     }
   }
+
   .yourRate {
-    > p {
+    >p {
       font-size: 1rem;
     }
-    > div {
+
+    >div {
       display: flex;
       height: 2rem;
       align-items: center;
+
       img {
         width: 2.5rem;
         padding: 0.3rem;
       }
     }
+
     .numberStar {
       display: flex;
       align-items: center;
       height: 2.5rem;
-      > p {
+
+      >p {
         margin-right: 0.5rem;
         width: 3rem;
         color: $gold-color;
       }
-      > div {
+
+      >div {
         display: flex;
       }
     }
   }
 }
+
 .subandpop {
   display: flex;
   gap: 0.5rem;
   // background-color: gainsboro;
   cursor: pointer;
   width: fit-content;
+
   // background-color: rgba(255, 217, 0, 0.443);
-  > p {
+  >p {
     color: $gold-color;
     font-size: 0.9rem;
   }
-  > img {
+
+  >img {
     width: 4rem;
   }
 }
+
 .whatchlist {
   border: none;
   padding: 0.5rem 0.7rem;
@@ -173,6 +193,7 @@ body {
   width: 340px;
   position: absolute;
   bottom: 0;
+
   img {
     border-radius: 1rem;
     cursor: pointer;
@@ -185,7 +206,8 @@ body {
   justify-content: center;
   align-items: center;
   margin-top: 10rem;
-  > img {
+
+  >img {
     width: 12rem;
   }
 }
@@ -218,10 +240,12 @@ body {
       background: linear-gradient(270deg, #0a0d10e8 30%, #0a0d10de 50%, rgb(0 0 0 / 56%));
     }
   }
+
   .detailMovie {
     .boxDetMovie {
       padding: 1rem 0.5rem 1rem 0.5rem;
-      > p:last-child {
+
+      >p:last-child {
         height: 100px;
         width: 95%;
         overflow: auto;
@@ -229,6 +253,7 @@ body {
       }
     }
   }
+
   .detailMovie {
     padding: 0.4rem;
     width: 100%;
@@ -241,24 +266,29 @@ body {
       background: linear-gradient(270deg, #0a0d10e8 30%, #0a0d10de 50%, rgb(0 0 0 / 56%));
     }
   }
+
   .detailMovie {
-    > h1 {
-      font-size: 1.4rem;
+    >h1 {
+      font-size: 1.1rem;
       font-family: iransans;
     }
+
     .timeandsec {
       .breackTopIntext {
         display: none;
       }
+
       display: grid;
       grid-template-columns: 1fr 1fr;
       grid-template-rows: 1fr 1fr;
       text-align: center;
       // align-items: center;
     }
+
     .boxDetMovie {
       padding: 1rem 0.5rem 1rem 0.5rem;
-      > p:last-child {
+
+      >p:last-child {
         height: 100px;
         width: 95%;
         overflow: auto;
@@ -266,6 +296,7 @@ body {
       }
     }
   }
+
   .detailMovie {
     padding: 0.4rem;
     width: 100%;
@@ -349,6 +380,7 @@ body {
 }
 
 @keyframes wobble1 {
+
   0%,
   100% {
     transform: translateY(0%) scale(1);
@@ -362,6 +394,7 @@ body {
 }
 
 @keyframes wobble2 {
+
   0%,
   100% {
     transform: translateY(0%) scale(1);
@@ -380,10 +413,12 @@ body {
   overflow: hidden;
   visibility: hidden;
 }
+
 @keyframes wavetoshow {
   0% {
     width: 0px;
   }
+
   100% {
     width: 100%;
     visibility: visible;
