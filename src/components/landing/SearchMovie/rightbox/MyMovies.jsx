@@ -7,6 +7,7 @@ import img1 from "../../../../assets/landing/upcoming/default.webp";
 import starimg from "../../../../assets/landing/starmain.svg";
 import addstar from "../../../../assets/landing/staradd.svg";
 import UseWindowSize from "../../../../hooks/UseWindowSize";
+import evaclose from "../../../../assets/landing/evaclose.svg"
 import { Swiper, SwiperSlide } from "swiper/react";
 import { useRef, useState, useEffect, useReducer } from "react";
 import axios from "axios";
@@ -272,12 +273,17 @@ function MyMovies() {
   const runEmbed = (statusMovie, tmdbid) => {
     console.log(statusEmbed, tmdbid)
     if (statusMovie == "movie") {
-      setLinkEmbed(`https://vidsrc.xyz/embed/movie/${tmdbid}`);
+      setLinkEmbed(`https://vidsrc.xyz/embed/movie?imdb=${tmdbid}&ds_lang=fa`);
       setStatusEmbed(true);
     } else {
-      setLinkEmbed(`https://vidsrc.xyz/embed/tv/${tmdbid}`);
+      setLinkEmbed(`https://vidsrc.xyz/embed/tv?imdb=${tmdbid}&ds_lang=fa`);
       setStatusEmbed(true);
     }
+  }
+
+  const closeEmbed = () => {
+    setStatusEmbed(false);
+    setLinkEmbed("")
   }
 
   if (getWatch.length != 0) {
@@ -290,7 +296,10 @@ function MyMovies() {
           <div className={styles.three_body__dot}></div>
         </div> :
           <div className={styles.body}>
-            {statusEmbed ? <iframe className={styles.iframeStream} src={linkEmbed} frameBorder="320"></iframe> : <></>}
+            {statusEmbed ? <>
+              <img onClick={closeEmbed} src={evaclose} alt="close" className={styles.closeEmbed} />
+              <iframe className={styles.iframeStream} src={linkEmbed} frameBorder="320"></iframe>
+            </> : <></>}
             {showPopup ? <MoreDetailMyMovies movie={movietoShow} close={closePop} /> : <></>}
             <Swiper
               effect={"freemode"}
@@ -447,13 +456,15 @@ function MyMovies() {
                               ژانر فیلم : <span>{index.genre}</span>
                             </p>
                           </div>
-                          <button data-movie={JSON.stringify(index)} onClick={(event) => moreDetailShow(event)}>اطلاعات فیلم</button>
+                          <div className={styles.divMoreOption}>
+                            <button data-movie={JSON.stringify(index)} onClick={(event) => moreDetailShow(event)}>اطلاعات فیلم</button>
+                            <button className={styles.streamVideo} onClick={() => runEmbed(index.link, index.imdb_id)}>پخش آنلاین</button>
+                          </div>
                         </div>
                         <div className={styles.optionSetup}>
                           <button onClick={() => reomveFromWatchList(index.imdb_id)}>حذف فیلم</button>
-                          {console.log(index.link)}
                           {/* {index.link == "movie" ? */}
-                          <button onClick={() => runEmbed(index.link, index.imdb_id)}>پخش آنلاین</button>
+                          {/* <button className={styles.streamVideo} onClick={() => runEmbed(index.link, index.imdb_id)}>پخش آنلاین</button> */}
                         </div>
                       </div>
                     </SwiperSlide >

@@ -113,15 +113,25 @@
       }
     }
 
-    >button {
-      width: fit-content;
-      padding: 0.5rem 1rem;
-      border: none;
-      font-family: iransans;
-      background: linear-gradient(45deg, $stblue-in, $stblue-out);
-      cursor: pointer;
-      color: $white-color;
-      border-radius: 1rem 0 1rem 0;
+    .divMoreOption {
+      display: flex;
+      gap: 0.3rem;
+
+      button {
+        width: fit-content;
+        padding: 0.5rem 1rem;
+        border: none;
+        font-family: iransans;
+        background: linear-gradient(45deg, $stblue-in, $stblue-out);
+        cursor: pointer;
+        color: $white-color;
+        border-radius: 1rem 0 1rem 0;
+      }
+
+      .streamVideo {
+        border-radius: 0 1rem 0 1rem;
+        background: linear-gradient(45deg, rgb(175, 111, 0), rgb(255, 183, 0));
+      }
     }
   }
 
@@ -140,6 +150,11 @@
       background: linear-gradient(45deg, $stred-in, $stred-out);
       color: $white-color;
       border-radius: 1rem 0 1rem 0;
+    }
+
+    .streamVideo {
+      background: orange;
+      border-radius: 0 1rem 0 1rem;
     }
 
     >p {
@@ -260,7 +275,7 @@
         left: 9px;
         align-items: flex-end;
 
-        height: 100%;
+        height: 95%;
 
         >button {
           width: min-content;
@@ -475,9 +490,25 @@
 }
 
 .iframeStream {
-  width: 650px;
-  height: auto;
+  width: 100%;
+  height: 100%;
+  left: 50%;
+  transform: translateX(-50%);
   z-index: 1000;
+  border-radius: 0.8rem;
+  top: 0;
+  position: absolute;
 }
+
+.closeEmbed {
+  z-index: 1100;
+  color: white;
+  position: absolute;
+  right: 20px;
+  top: 20px;
+  width: 1.5rem;
+  cursor: pointer;
+}
+
 
 // comment in the end
