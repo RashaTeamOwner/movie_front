@@ -8,7 +8,7 @@ function UseLogedin() {
   useMemo(() => {
     axios({
       method: "get",
-      url: `${process.env.VITE_API_URL}/api/v1/`,
+      url: `${process.env.VITE_API_URL}/api/v1/is-login/`,
       headers: { Authorization: `Token ${dataToken}` },
     })
       .then((res) => {

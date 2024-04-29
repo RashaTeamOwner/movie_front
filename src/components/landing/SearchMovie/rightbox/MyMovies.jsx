@@ -1,20 +1,19 @@
 /* eslint-disable no-undef */
 /* eslint-disable no-unused-vars */
 import styles from "./Mymovies.module.scss";
+import Swal from "sweetalert2";
 // import arrow from "../../../../assets/loginpage/arrow.svg";
 import img1 from "../../../../assets/landing/upcoming/default.webp";
 import starimg from "../../../../assets/landing/starmain.svg";
 import addstar from "../../../../assets/landing/staradd.svg";
 import UseWindowSize from "../../../../hooks/UseWindowSize";
+import evaclose from "../../../../assets/landing/evaclose.svg"
 import { Swiper, SwiperSlide } from "swiper/react";
-import { FreeMode } from "swiper/modules";
-import UseLogedin from "../../../../hooks/UseLogedin";
 import { useRef, useState, useEffect, useReducer } from "react";
 import axios from "axios";
 import MoreDetailMyMovies from "./MoreDetailMyMovies";
 
 const redStar = (state, action) => {
-  console.log(action, state)
   if (action.type == 'initial-state') {
     return action.payload;
   }
@@ -25,14 +24,12 @@ const redStar = (state, action) => {
       }
       return item;
     });
-    console.log(change)
     return change;
   }
 };
 
 function MyMovies() {
   const window = UseWindowSize();
-  const logedinStatus = UseLogedin();
   const refStars = useRef(null);
   // const [renderStars, setRenderStars] = useState(null);
   // const [statusStars, setStatusStars] = useState({});
@@ -46,13 +43,30 @@ function MyMovies() {
   const [loading, setLoading] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
   const [movietoShow, setMovietoShow] = useState({});
-  const [deepBackground, setDeepBackground] = useState(false)
+  const [deepBackground, setDeepBackground] = useState(false);
+  const [linkEmbed, setLinkEmbed] = useState("");
+  const [statusEmbed, setStatusEmbed] = useState(false);
+
+  // swal alert
+  const Toast = Swal.mixin({
+    toast: true,
+    position: "top-end",
+    showConfirmButton: false,
+    timer: 5000,
+    timerProgressBar: true,
+    padding: "10px",
+    didOpen: (toast) => {
+      toast.addEventListener("mouseenter", Swal.stopTimer);
+      toast.addEventListener("mouseleave", Swal.resumeTimer);
+    },
+  });
+
 
   // set initial reducer with request
   useEffect(() => {
     axios({
       method: "get",
-      url: `${process.env.VITE_API_URL}/api/v1/`,
+      url: `${process.env.VITE_API_URL}/api/v1/watchlist/`,
       headers: {
         Authorization:
           localStorage.getItem("token") != null ? `Token ${localStorage.getItem("token")}` : `Tokene ${localStorage.getItem("token")}`,
@@ -152,9 +166,20 @@ function MyMovies() {
         return item;
       });
       setOpen(changeOpen);
+      // show alert for set new rate
+      getWatch.map((item) => {
+        if (item.imdb_id === imdbId) {
+          Toast.fire({
+            icon: "success",
+            title: `<p style='direction:rtl'>شما نمره <span style="color:red">${temprate}</span> را برای فیلم ${item.name.split(" - ")[0]} ثبت کردید</p>`,
+            width: "330px",
+            padding: "1rem",
+          });
+        }
+      })
       axios({
         method: "get",
-        url: `${process.env.VITE_API_URL}/api/v1/`,
+        url: `${process.env.VITE_API_URL}/api/v1/watchlist/`,
         headers: {
           Authorization:
             localStorage.getItem("token") != null ? `Token ${localStorage.getItem("token")}` : `Tokene ${localStorage.getItem("token")}`,
@@ -221,7 +246,7 @@ function MyMovies() {
       setOpen(changeOpen);
       axios({
         method: "get",
-        url: `${process.env.VITE_API_URL}/api/v1/`,
+        url: `${process.env.VITE_API_URL}/api/v1/watchlist/`,
         headers: {
           Authorization:
             localStorage.getItem("token") != null ? `Token ${localStorage.getItem("token")}` : `Tokene ${localStorage.getItem("token")}`,
@@ -245,6 +270,22 @@ function MyMovies() {
     setMovietoShow(null);
   }
 
+  const runEmbed = (statusMovie, tmdbid) => {
+    console.log(statusEmbed, tmdbid)
+    if (statusMovie == "movie") {
+      setLinkEmbed(`https://vidsrc.xyz/embed/movie?imdb=${tmdbid}&ds_lang=fa`);
+      setStatusEmbed(true);
+    } else {
+      setLinkEmbed(`https://vidsrc.xyz/embed/tv?imdb=${tmdbid}&ds_lang=fa`);
+      setStatusEmbed(true);
+    }
+  }
+
+  const closeEmbed = () => {
+    setStatusEmbed(false);
+    setLinkEmbed("")
+  }
+
   if (getWatch.length != 0) {
     return (
       <div className={styles.mainContainer}>
@@ -255,6 +296,10 @@ function MyMovies() {
           <div className={styles.three_body__dot}></div>
         </div> :
           <div className={styles.body}>
+            {statusEmbed ? <>
+              <img onClick={closeEmbed} src={evaclose} alt="close" className={styles.closeEmbed} />
+              <iframe className={styles.iframeStream} src={linkEmbed} frameBorder="320"></iframe>
+            </> : <></>}
             {showPopup ? <MoreDetailMyMovies movie={movietoShow} close={closePop} /> : <></>}
             <Swiper
               effect={"freemode"}
@@ -264,7 +309,6 @@ function MyMovies() {
               freeMode
               direction={"vertical"}
               className={styles.mySwiper}
-
             >
               {getWatch.map((index, i) => {
                 const [orgName, persName] = index.name.split(" - ");
@@ -295,7 +339,7 @@ function MyMovies() {
                           alt="movie"
                         />
                         <div className={styles.detailMovie}>
-                          <h2>{persName}</h2>
+                          <h2>{orgName}</h2>
                           <div className={styles.votes}>
                             <div className={styles.addstarshow}>
                               <p>نمره شما :</p>
@@ -308,7 +352,6 @@ function MyMovies() {
                                   {getWatch[i].user_rating}
                                 </p>
                               )}
-                              {/* {console.log(open[i])} */}
                               {!open[i].status ? <img onClick={showStarsToPage} src={addstar} alt="" /> : <></>}
                               <div className={`${styles.yourRate} ${styles.numberStar}`} data-imdb={index.imdb_id} ref={refStars}>
                                 {open[i].status ? (
@@ -413,21 +456,25 @@ function MyMovies() {
                               ژانر فیلم : <span>{index.genre}</span>
                             </p>
                           </div>
-                          <button data-movie={JSON.stringify(index)} onClick={(event) => moreDetailShow(event)}>اطلاعات فیلم</button>
+                          <div className={styles.divMoreOption}>
+                            <button data-movie={JSON.stringify(index)} onClick={(event) => moreDetailShow(event)}>اطلاعات فیلم</button>
+                            <button className={styles.streamVideo} onClick={() => runEmbed(index.link, index.imdb_id)}>پخش آنلاین</button>
+                          </div>
                         </div>
                         <div className={styles.optionSetup}>
                           <button onClick={() => reomveFromWatchList(index.imdb_id)}>حذف فیلم</button>
-                          <p>پخش آنلاین به زودی ...</p>
+                          {/* {index.link == "movie" ? */}
+                          {/* <button className={styles.streamVideo} onClick={() => runEmbed(index.link, index.imdb_id)}>پخش آنلاین</button> */}
                         </div>
                       </div>
-                    </SwiperSlide>
+                    </SwiperSlide >
                   </>
                   // test
                 );
               })}
             </Swiper>
           </div>}
-      </div>
+      </div >
     );
   }
   else {

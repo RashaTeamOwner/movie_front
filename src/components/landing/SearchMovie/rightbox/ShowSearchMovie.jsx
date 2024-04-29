@@ -1,9 +1,8 @@
 /* eslint-disable no-undef */
 /* eslint-disable react/prop-types */
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect } from "react";
 import UseLogedIn from "../../../../hooks/UseLogedin";
 import arrow from "../../../../assets/landing/arrow-up.svg";
-import infGif from "../../../../assets/landing/infinity.gif";
 import axios from "axios";
 import styles from "./Showsearchmovie.module.scss";
 import { Link } from "react-router-dom/cjs/react-router-dom.min";
@@ -79,6 +78,8 @@ function ShowSearchMovie(props) {
       .then((res) => {
         // send to my movies and watch list
         setMyList(res.data);
+        // no translate if text is persian
+        let regexlang = /^[\u0600-\u06FF\s]+$/;
         axios
           .post(`${process.env.VITE_API_URL}/api/v1/translate/`, res.data)
           .then((data) => {
@@ -139,6 +140,7 @@ function ShowSearchMovie(props) {
   // };
   const postToWatchList = () => {
     setLoading(true);
+    console.log(movieshow, myList)
     let data = {
       name:
         String(posterBack.original_name) == "undefined"
@@ -147,7 +149,7 @@ function ShowSearchMovie(props) {
       description: movieshow.Plot,
       imdb_id: myList.imdbID,
       imdb_rate: myList.imdbRating,
-      link: "empty",
+      link: myList.Type,
       genre: movieshow.Genre,
       image_path: posterBack.poster_path,
       banner_path: posterBack.backdrop_path,
@@ -168,7 +170,7 @@ function ShowSearchMovie(props) {
         setLoading(false);
         axios({
           method: "get",
-          url: `${process.env.VITE_API_URL}/api/v1/`,
+          url: `${process.env.VITE_API_URL}/api/v1/watchlist`,
           headers: {
             Authorization:
               localStorage.getItem("token") != null ? `Token ${localStorage.getItem("token")}` : `Tokene ${localStorage.getItem("token")}`,
@@ -186,22 +188,22 @@ function ShowSearchMovie(props) {
       });
     // setStars(Number(event.target.dataset.set));
   };
-  useMemo(() => {
-    axios({
-      method: "get",
-      url: `${process.env.VITE_API_URL}/api/v1/`,
-      headers: {
-        Authorization:
-          localStorage.getItem("token") != null ? `Token ${localStorage.getItem("token")}` : `Tokene ${localStorage.getItem("token")}`,
-      },
-    }).then((res) => {
-      res.data.watch_list.map((index) => {
-        setWatchlist((prev) => [...prev, index.imdb_id]);
-      });
-      localStorage.setItem("watchlist", "");
-    });
-    //
-  }, [myList]);
+  // useMemo(() => {
+  //   axios({
+  //     method: "get",
+  //     url: `${process.env.VITE_API_URL}/api/v1/`,
+  //     headers: {
+  //       Authorization:
+  //         localStorage.getItem("token") != null ? `Token ${localStorage.getItem("token")}` : `Tokene ${localStorage.getItem("token")}`,
+  //     },
+  //   }).then((res) => {
+  //     res.data.watch_list.map((index) => {
+  //       setWatchlist((prev) => [...prev, index.imdb_id]);
+  //     });
+  //     localStorage.setItem("watchlist", "");
+  //   });
+  //   //
+  // }, [myList]);
   // -----end stars ----- //
 
   // handle set stars and get start in localStorage
@@ -220,18 +222,18 @@ function ShowSearchMovie(props) {
       }
     }
   }, [movieshow.imdbID]);
-  const handleSetStars = () => {
-    let data = JSON.parse(localStorage.getItem("starsMovie")) || [];
-    let isExist = data.some((el) => el.id === movieshow.imdbID);
-    if (!isExist) {
-      data.push({ id: movieshow.imdbID, rate: stars + 1 });
-      localStorage.setItem("starsMovie", JSON.stringify(data));
-      setStatusStars(data);
-      setStatusRate(true);
-    } else {
-      setStatusRate(false);
-    }
-  };
+  // const handleSetStars = () => {
+  //   let data = JSON.parse(localStorage.getItem("starsMovie")) || [];
+  //   let isExist = data.some((el) => el.id === movieshow.imdbID);
+  //   if (!isExist) {
+  //     data.push({ id: movieshow.imdbID, rate: stars + 1 });
+  //     localStorage.setItem("starsMovie", JSON.stringify(data));
+  //     setStatusStars(data);
+  //     setStatusRate(true);
+  //   } else {
+  //     setStatusRate(false);
+  //   }
+  // };
   return (
     <div className={styles.mainBox}>
       {Object.keys(movieshow).length == 0 ? (
@@ -250,15 +252,15 @@ function ShowSearchMovie(props) {
               posterBack.poster_path == undefined
                 ? ""
                 : `https://suggestream.com/_next/image?url=https%3A%2F%2Fimage.tmdb.org%2Ft%2Fp%2Fw780%2F${posterBack.poster_path
-                    .split("/")
-                    .join("")}&w=2048&q=75`
+                  .split("/")
+                  .join("")}&w=2048&q=75`
             }
             alt=""
           />
           <div className={styles.shodowMainBox}></div>
           <img onClick={handleCloseDetailMovie} className={styles.arrowIcon} src={arrow} alt="arrow-icon" />
           <div className={styles.detailMovie}>
-            <h1>{movieshow.Title}</h1>
+            <h1>{myList.Title}</h1>
             <div className={styles.timeandsec}>
               <p>{movieshow.Genre}</p>
               <p className={styles.breackTopIntext}>|</p>
@@ -275,20 +277,6 @@ function ShowSearchMovie(props) {
             <div className={styles.rateRightPage}>
               <div className={styles.yourRate}>
                 <div style={{ display: !loading ? "flex" : "none" }} className={`${styles.subandpop} ${styles.loadwave}`}>
-                  {/* <p>امتیاز شما :</p>
-                  {stars == -1 ? (
-                    <p className={styles.yourNomreAlert}>برای تماشا یک نمره به فیلم بدهید</p>
-                  ) : statusRate && logedinStatus ? (
-                    <p className={styles.yourPointAlert}>9</p>
-                  ) : logedinStatus ? (
-                    <a onClick={handleSetStars} className={styles.whatchlist}>
-                      ثبت نمره شما به این فیلم
-                    </a>
-                  ) : (
-                    <Link className={styles.whatchlist} to="/signin">
-                      برای ثبت رای وارد حساب خود شوید
-                    </Link>
-                  )} */}
                   {logedinStatus ? (
                     watchlist.includes(myList.imdbID) ? (
                       <>
@@ -397,7 +385,7 @@ function ShowSearchMovie(props) {
                       />
                     </div>
                     {renderStars == 0 ? <p></p> : <p>{renderStars}</p>}
-                  </div>
+                  </div
                 ) : (
                   <div className={styles.numberStar}>امتیاز شما برای این فیلم ثبت شده</div>
                 )} */}
@@ -423,11 +411,10 @@ function ShowSearchMovie(props) {
                       <img
                         onClick={handleClickActor}
                         data-idactor={ele.name}
-                        src={`${
-                          process.env.VITE_URL_IMAGES
-                        }/_next/image?url=https%3A%2F%2Fimage.tmdb.org%2Ft%2Fp%2Fw780%2F${ele.profile_path
-                          .split("/")
-                          .join("")}&w=2048&q=75`}
+                        src={`${process.env.VITE_URL_IMAGES
+                          }/_next/image?url=https%3A%2F%2Fimage.tmdb.org%2Ft%2Fp%2Fw780%2F${ele.profile_path
+                            .split("/")
+                            .join("")}&w=2048&q=75`}
                         alt=""
                       />
                     </SwiperSlide>

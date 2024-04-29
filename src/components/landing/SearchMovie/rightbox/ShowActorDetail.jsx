@@ -35,9 +35,8 @@ function ShowActorDetail({ actorId, backArrow, backImdbId }) {
             setLoading(true);
           });
       })
-      .catch(function (error) {
+      .catch(function () {
         setLoading(true);
-        console.error(error);
       });
   };
   useEffect(() => {

@@ -42,8 +42,9 @@ function SectionTwoHomePage() {
         setAllVoteMovie(res.data.movies[isSelectedMovie].votes_count);
       })
       .catch(() => {
-        // console.log(err);
+
       });
+
   }, [isVoted]);
 
   const handleSlideChange = () => {
@@ -175,7 +176,6 @@ function SectionTwoHomePage() {
             className="mySwiper"
           >
             {movies.map((movie, index) => {
-              // console.log(movie);
               return (
                 <SwiperSlide key={movie.id} className={styles.imageSlide}>
                   {index == 0 ? (
@@ -229,18 +229,17 @@ function SectionTwoHomePage() {
                       <p>{movies[isSelectedMovie].genre}</p>
                     </div>
                     <p>
-                      <span>خلاصه فیلم : </span>
+                      <span>خلاصه فیلم :</span>
                       {movies[isSelectedMovie].description}
                     </p>
                   </div>
                   <p className={styles.howManyVote}>
-                    تعداد رای تا الان : <span>{allVoteMovie} رای</span>
+                    تعداد رای تا الان :<span>{allVoteMovie} رای</span>
                   </p>
                 </div>
                 {isLoggedin ? (
                   isVoted ? (
                     <div className={styles.cancelVote}>
-                      {/* <p>رای شما ثبت شده</p> */}
                       <button
                         onClick={handlePostVote}
                         className={`${styles.btn} ${styles.btn_default} ${styles.btn_lg} ${styles.btn3d} ${styles.btnPassVote}`}

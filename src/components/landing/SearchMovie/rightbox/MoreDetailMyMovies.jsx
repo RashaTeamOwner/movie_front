@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 /* eslint-disable no-undef */
 import { useState } from "react"
@@ -26,7 +27,7 @@ function MoreDetailMyMovies({ movie, close }) {
             .join("")}&w=2048&q=75`} alt="image" />
           <div>
             <p>
-              <span>نام فیلم :</span> {dmovie.name}
+              <span>نام فیلم :</span> {dmovie.name.split(" - ")[0]}
             </p>
             <div>
               <p>{dmovie.country}</p>
