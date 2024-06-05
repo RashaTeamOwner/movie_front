@@ -64,7 +64,6 @@ function SectionTwoHomePage() {
 
   const sizeWidth = useWindowSize();
   useEffect(() => {
-    console.log(sizeWidth, refCloseIcon)
     if (!isLoading) return;
     refCloseIcon.current.style.display = "block";
     if (sizeWidth.width > 1200) {

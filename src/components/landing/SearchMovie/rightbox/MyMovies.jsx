@@ -271,7 +271,6 @@ function MyMovies() {
   }
 
   const runEmbed = (statusMovie, tmdbid) => {
-    console.log(statusEmbed, tmdbid)
     if (statusMovie == "movie") {
       setLinkEmbed(`https://vidsrc.xyz/embed/movie?imdb=${tmdbid}&ds_lang=fa`);
       setStatusEmbed(true);
@@ -298,7 +297,7 @@ function MyMovies() {
           <div className={styles.body}>
             {statusEmbed ? <>
               <img onClick={closeEmbed} src={evaclose} alt="close" className={styles.closeEmbed} />
-              <iframe className={styles.iframeStream} src={linkEmbed} frameBorder="320"></iframe>
+              <iframe className={styles.iframeStream} src={linkEmbed} allowFullScreen frameBorder="320"></iframe>
             </> : <></>}
             {showPopup ? <MoreDetailMyMovies movie={movietoShow} close={closePop} /> : <></>}
             <Swiper
