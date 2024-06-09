@@ -6,6 +6,7 @@
   border: 2px solid $white-color;
   width: 40%;
   color: $white-color;
+  font-family: sansx100;
   background: linear-gradient(135deg, rgb(36 36 36 / 78%), rgba($black-color, 0.835));
 }
 
@@ -30,6 +31,7 @@
   cursor: pointer;
   z-index: 999;
 }
+
 // .loader {
 //   text-align: center;
 //   text-transform: uppercase;
@@ -51,7 +53,8 @@
   display: flex;
   flex-direction: column;
   gap: 1rem;
-  > li {
+
+  >li {
     position: relative;
     display: flex;
     font-size: 1.6rem;
@@ -88,7 +91,8 @@
   justify-content: flex-start;
   gap: 0.4rem;
   padding-left: 1rem;
-  > p {
+
+  >p {
     span {
       color: $gray-color;
     }
@@ -104,6 +108,7 @@
 
 .SearchMoviesli {
   position: relative;
+
   &::after {
     content: "";
     position: absolute;
@@ -119,6 +124,7 @@
   align-items: center;
   gap: 1rem;
   padding: 1rem;
+
   .loader {
     font-size: 1.4rem;
     font-family: sansx100;
@@ -154,29 +160,76 @@
   .box {
     width: 100px;
   }
+
   .list {
     overflow: hidden;
-    > li {
+
+    >li {
       img {
         width: 3.5rem;
       }
+
       h3 {
         font-size: 1.2rem;
         text-wrap: nowrap;
       }
+
       p {
         font-size: 0.9rem;
       }
     }
   }
 }
+
 @media (max-width: 855px) {
   .box {
     display: none;
   }
+
   .error {
     font-size: 1rem;
     font-family: sansx100;
     padding: 3.3rem;
+  }
+}
+
+.box {
+  h4 {
+    padding: 1rem 1rem 0 1rem;
+    direction: rtl;
+  }
+}
+
+.boxPopularList {
+  display: flex;
+  gap: 0.5rem;
+  overflow-x: scroll;
+  padding: 1rem;
+  direction: rtl;
+}
+
+.popularList {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 150px;
+
+  div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  p {
+    text-align: center;
+    font-size: 0.8rem;
+    font-family: sans-serif;
+    padding: 0.5rem;
+  }
+
+  img {
+    border-radius: 1rem;
+    width: 120px;
   }
 }
