@@ -11,6 +11,8 @@ import "swiper/css";
 import { FreeMode } from "swiper/modules";
 import listaddimg from "../../../../assets/landing/listadd.svg";
 import bookadd from "../../../../assets/landing/bookadded.svg";
+import LazyLoad from "react-lazy-load";
+
 
 function ShowSearchMovie(props) {
   const logedinStatus = UseLogedIn();
@@ -103,41 +105,6 @@ function ShowSearchMovie(props) {
   const handleCloseDetailMovie = () => {
     props.backArrow(0);
   };
-  // -----start stars ----- //
-  // useEffect(() => {
-  //   if (refStars.current == null) return;
-  //   const starelement = refStars.current.children;
-  //   for (let j = 9; j >= stars + 1; j--) {
-  //     starelement[j].style.filter = "none";
-  //   }
-  //   for (let i = 0; i <= stars; i++) {
-  //     let element = starelement[i];
-  //     element.style.filter = "invert(64%) sepia(68%) saturate(1071%) hue-rotate(355deg) brightness(101%) contrast(103%)";
-  //   }
-  // }, [stars]);
-  // const handleStars = (event) => {
-  //   const list = event.target.parentElement.children;
-  //   setRenderStars(Number(event.target.dataset.set) + 1);
-  //   for (let j = 9; j >= Number(event.target.dataset.set); j--) {
-  //     list[j].style.filter = "none";
-  //   }
-  //   for (let i = 0; i <= Number(event.target.dataset.set); i++) {
-  //     let element = list[i];
-  //     element.style.filter = "invert(64%) sepia(68%) saturate(1071%) hue-rotate(355deg) brightness(101%) contrast(103%)";
-  //   }
-  // };
-  // const handleResetStars = (event) => {
-  //   const list = event.target.parentElement.children;
-  //   setRenderStars(stars + 1);
-  //   // reset stars to select item
-  //   for (let j = 9; j >= stars + 1; j--) {
-  //     list[j].style.filter = "none";
-  //   }
-  //   for (let i = 0; i <= stars; i++) {
-  //     let element = list[i];
-  //     element.style.filter = "invert(64%) sepia(68%) saturate(1071%) hue-rotate(355deg) brightness(101%) contrast(103%)";
-  //   }
-  // };
   const postToWatchList = () => {
     setLoading(true);
     console.log(movieshow, myList)
@@ -186,26 +153,7 @@ function ShowSearchMovie(props) {
         console.log(err);
         setLoading(false);
       });
-    // setStars(Number(event.target.dataset.set));
   };
-  // useMemo(() => {
-  //   axios({
-  //     method: "get",
-  //     url: `${process.env.VITE_API_URL}/api/v1/`,
-  //     headers: {
-  //       Authorization:
-  //         localStorage.getItem("token") != null ? `Token ${localStorage.getItem("token")}` : `Tokene ${localStorage.getItem("token")}`,
-  //     },
-  //   }).then((res) => {
-  //     res.data.watch_list.map((index) => {
-  //       setWatchlist((prev) => [...prev, index.imdb_id]);
-  //     });
-  //     localStorage.setItem("watchlist", "");
-  //   });
-  //   //
-  // }, [myList]);
-  // -----end stars ----- //
-
   // handle set stars and get start in localStorage
   useEffect(() => {
     if (movieshow.imdbID != undefined) {
@@ -222,18 +170,6 @@ function ShowSearchMovie(props) {
       }
     }
   }, [movieshow.imdbID]);
-  // const handleSetStars = () => {
-  //   let data = JSON.parse(localStorage.getItem("starsMovie")) || [];
-  //   let isExist = data.some((el) => el.id === movieshow.imdbID);
-  //   if (!isExist) {
-  //     data.push({ id: movieshow.imdbID, rate: stars + 1 });
-  //     localStorage.setItem("starsMovie", JSON.stringify(data));
-  //     setStatusStars(data);
-  //     setStatusRate(true);
-  //   } else {
-  //     setStatusRate(false);
-  //   }
-  // };
   return (
     <div className={styles.mainBox}>
       {Object.keys(movieshow).length == 0 ? (
@@ -300,95 +236,6 @@ function ShowSearchMovie(props) {
                   <div className={styles.three_body__dot}></div>
                   <div className={styles.three_body__dot}></div>
                 </div>
-                {/* {Object.keys(statusStars).length == 0 || !logedinStatus ? (
-                  <div className={styles.numberStar}>
-                    <div ref={refStars}>
-                      <img
-                        onMouseEnter={handleStars}
-                        onMouseLeave={handleResetStars}
-                        onClick={selectStar}
-                        data-set={0}
-                        src={starimg}
-                        alt="star"
-                      />
-                      <img
-                        onMouseEnter={handleStars}
-                        onMouseLeave={handleResetStars}
-                        onClick={selectStar}
-                        data-set={1}
-                        src={starimg}
-                        alt="star"
-                      />
-                      <img
-                        onMouseEnter={handleStars}
-                        onMouseLeave={handleResetStars}
-                        onClick={selectStar}
-                        data-set={2}
-                        src={starimg}
-                        alt="star"
-                      />
-                      <img
-                        onMouseEnter={handleStars}
-                        onMouseLeave={handleResetStars}
-                        onClick={selectStar}
-                        data-set={3}
-                        src={starimg}
-                        alt="star"
-                      />
-                      <img
-                        onMouseEnter={handleStars}
-                        onMouseLeave={handleResetStars}
-                        onClick={selectStar}
-                        data-set={4}
-                        src={starimg}
-                        alt="star"
-                      />
-                      <img
-                        onMouseEnter={handleStars}
-                        onMouseLeave={handleResetStars}
-                        onClick={selectStar}
-                        data-set={5}
-                        src={starimg}
-                        alt="star"
-                      />
-                      <img
-                        onMouseEnter={handleStars}
-                        onMouseLeave={handleResetStars}
-                        onClick={selectStar}
-                        data-set={6}
-                        src={starimg}
-                        alt="star"
-                      />
-                      <img
-                        onMouseEnter={handleStars}
-                        onMouseLeave={handleResetStars}
-                        onClick={selectStar}
-                        data-set={7}
-                        src={starimg}
-                        alt="star"
-                      />
-                      <img
-                        onMouseEnter={handleStars}
-                        onMouseLeave={handleResetStars}
-                        onClick={selectStar}
-                        data-set={8}
-                        src={starimg}
-                        alt="star"
-                      />
-                      <img
-                        onMouseEnter={handleStars}
-                        onMouseLeave={handleResetStars}
-                        onClick={selectStar}
-                        data-set={9}
-                        src={starimg}
-                        alt="star"
-                      />
-                    </div>
-                    {renderStars == 0 ? <p></p> : <p>{renderStars}</p>}
-                  </div
-                ) : (
-                  <div className={styles.numberStar}>امتیاز شما برای این فیلم ثبت شده</div>
-                )} */}
               </div>
             </div>
             {/* image actors */}
@@ -408,15 +255,17 @@ function ShowSearchMovie(props) {
                   if (ele.profile_path == null) return;
                   return (
                     <SwiperSlide className={styles.swiperActors} key={i}>
-                      <img
-                        onClick={handleClickActor}
-                        data-idactor={ele.name}
-                        src={`${process.env.VITE_URL_IMAGES
-                          }/_next/image?url=https%3A%2F%2Fimage.tmdb.org%2Ft%2Fp%2Fw780%2F${ele.profile_path
-                            .split("/")
-                            .join("")}&w=2048&q=75`}
-                        alt=""
-                      />
+                      <LazyLoad width={20} threshold={0.5} onContentVisible={() => { console.log('loaded!') }}>
+                        <img
+                          onClick={handleClickActor}
+                          data-idactor={ele.name}
+                          src={`${process.env.VITE_URL_IMAGES
+                            }/_next/image?url=https%3A%2F%2Fimage.tmdb.org%2Ft%2Fp%2Fw780%2F${ele.profile_path
+                              .split("/")
+                              .join("")}&w=2048&q=75`}
+                          alt=""
+                        />
+                      </LazyLoad>
                     </SwiperSlide>
                   );
                 })}

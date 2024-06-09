@@ -8,6 +8,7 @@ function RightBox(props) {
   const [clickDetail, setClickDetail] = useState(1);
   const [actorId, setActorId] = useState("");
   const [imdbId, setImdbId] = useState("");
+
   useEffect(() => {
     setActorId("");
     props.id == "" ? setClickDetail(0) : setClickDetail(1);
